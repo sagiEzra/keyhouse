@@ -1,0 +1,158 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
+import { FaBars as Menu, FaTimes as X, FaPhoneAlt as Phone } from "react-icons/fa"
+
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [activeLink, setActiveLink] = useState("/")
+  const pathname = usePathname() // Get the current path
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+
+    // Set active link based on current path
+    setActiveLink(window.location.pathname)
+
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+  
+   // Update activeLink whenever pathname changes
+  useEffect(() => {
+    setActiveLink(window.location.pathname)
+  }, [pathname])
+
+  const navLinks = [
+    { name: "דף הבית", href: "/" },
+    { name: "אודות", href: "/about" },
+    { name: "מוכרים", href: "/selling" },
+    { name: "קונים", href: "/buying" },
+    { name: "ניהול נכסים", href: "/property-management" },
+    { name: "קטלוג הנכסים", href: "/blog" },
+    { name: "צור קשר", href: "/contact" },
+  ]
+
+  return (
+    <header
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${isScrolled
+          ? "bg-white py-3 shadow-[0_2px_20px_rgba(0,0,0,0.08)]"
+          : "bg-gradient-to-b from-black/50 to-transparent py-5 backdrop-blur-sm"
+        }`}
+    >
+      <div className="container mx-auto flex items-center justify-between px-4">
+        <Link href="/" className="z-50 relative">
+          <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.3 }}>
+            <img
+              src="/images/keyLogo.png"
+              alt="KeyHouse Logo"
+              className={`transition-all duration-300 ${isScrolled ? "h-12" : "h-14"}`}
+            />
+          </motion.div>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link) => (
+            <Link key={link.name} href={link.href} className="group relative">
+              <motion.span
+              className={`relative text-lg font-semibold transition-colors duration-300 ${isScrolled ? "text-gray-800" : "text-white"
+              } ${activeLink === link.href ? "text-brand-gold" : "hover:text-brand-gold"}`}
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2 }}
+              >
+              {link.name}
+              </motion.span>
+              <span
+              className={`absolute -bottom-1 right-0 h-0.5 bg-brand-gold transition-all duration-300 ${activeLink === link.href ? "w-full" : "w-0 group-hover:w-full"
+              }`}
+              />
+            </Link>
+            ))}
+        </nav>
+
+        <div className="hidden md:block">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link
+              href="tel:+972501234567"
+              className={`flex items-center gap-2 rounded-full ${isScrolled
+                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
+                  : "bg-white/20 text-white backdrop-blur-md"
+                } px-5 py-2.5 transition-all duration-300 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-500 shadow-md hover:shadow-lg`}
+            >
+              <Phone className="h-4 w-4" />
+              <span className="font-medium">050-123-4567</span>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <motion.button
+          className="z-50 md:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "סגור תפריט" : "פתח תפריט"}
+          whileTap={{ scale: 0.9 }}
+        >
+          {isOpen ? (
+            <X className={`h-6 w-6 ${isScrolled ? "text-gray-900" : "text-white"}`} />
+          ) : (
+            <Menu className={`h-6 w-6 ${isScrolled ? "text-gray-900" : "text-white"}`} />
+          )}
+        </motion.button>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="absolute left-0 right-0 top-0 min-h-screen bg-white"
+            >
+              <div className="container mx-auto px-4 pt-24">
+                <nav className="flex flex-col gap-4">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`border-b border-gray-100 py-4 text-lg font-medium transition-colors duration-300 ${activeLink === link.href ? "text-brand-gold" : "text-gray-900"
+                        }`}
+                    >
+                      <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
+                        {link.name}
+                      </motion.div>
+                    </Link>
+                  ))}
+                  <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-6">
+                    <Link
+                      href="tel:+972501234567"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3.5 font-medium text-white shadow-md"
+                    >
+                      <Phone className="h-5 w-5" />
+                      <span>050-123-4567</span>
+                    </Link>
+                  </motion.div>
+                </nav>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </header>
+  )
+}

@@ -1,3 +1,11 @@
+# Ignore from specific subfolders
+/web/node_modules/
+/web/.next/
+/web/dist/
+
+/sanity/node_modules/
+/sanity/dist/
+
 # Logs
 logs
 *.log

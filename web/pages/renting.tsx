@@ -1,0 +1,1 @@
+export default function Renting() { return <h1>Renting Page</h1> }
