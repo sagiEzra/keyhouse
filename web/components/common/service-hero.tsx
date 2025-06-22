@@ -30,16 +30,6 @@ export default function ServiceHero({ title, subtitle, image, imageAlt }: Servic
             {title}
           </h1>
           <p className="mx-auto mb-10 max-w-3xl text-xl text-blue-100 md:text-2xl">{subtitle}</p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <button className="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 text-lg font-medium text-white shadow-lg transition-all duration-300 hover:shadow-xl">
-              <span className="relative z-10">דבר איתנו עוד היום</span>
-              <span className="absolute inset-0 -z-10 translate-y-full bg-gradient-to-r from-yellow-400 to-yellow-500 transition-transform duration-300 group-hover:translate-y-0"></span>
-            </button>
-          </motion.div>
         </motion.div>
       </div>
 
