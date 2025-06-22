@@ -67,7 +67,7 @@ export default function TestimonialsCarousel() {
   }
 
   return (
-    <section className="bg-gray-50 py-20">
+    <section className="py-20" style={{ background: 'linear-gradient(135deg, #23214a0d 0%, #fff 60%, #f1c23b0d 100%)' }}>
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -76,14 +76,16 @@ export default function TestimonialsCarousel() {
           transition={{ duration: 0.8 }}
           className="mb-12 text-center"
         >
-          <h2 className="mb-4 font-serif text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight">מה הלקוחות שלנו אומרים</h2>
-          <p className="mx-auto max-w-3xl text-lg md:text-xl text-gray-600">
+          <h2 className="mb-4 font-serif text-3xl md:text-5xl font-extrabold tracking-tight" style={{ color: '#23214a', textShadow: '0 2px 12px #23214a22' }}>
+            מה הלקוחות שלנו אומרים
+          </h2>
+          <p className="mx-auto max-w-3xl text-lg md:text-xl font-semibold" style={{ color: '#23214a' }}>
             אנו גאים בשירות שאנו מעניקים ובחוויה שאנו יוצרים עבור לקוחותינו. הנה כמה מהחוויות שלקוחותינו שיתפו איתנו.
           </p>
         </motion.div>
 
         <div className="relative mx-auto max-w-5xl" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
+          <div className="overflow-hidden rounded-2xl bg-white shadow-2xl border border-[#23214a22]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -104,14 +106,16 @@ export default function TestimonialsCarousel() {
                   <div>
                     <div className="mb-4 flex">
                       {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                        <FaStar key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                        <FaStar key={i} className="h-5 w-5" style={{ color: '#f1c23b' }} />
                       ))}
                     </div>
-                    <p className="mb-6 text-lg text-gray-700 md:text-xl">"{testimonials[currentIndex].content}"</p>
+                    <p className="mb-6 text-lg md:text-xl font-medium" style={{ color: '#23214a' }}>
+                      "{testimonials[currentIndex].content}"
+                    </p>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">{testimonials[currentIndex].name}</h3>
-                    <p className="text-gray-600">{testimonials[currentIndex].role}</p>
+                    <h3 className="text-xl font-bold" style={{ color: '#23214a' }}>{testimonials[currentIndex].name}</h3>
+                    <p style={{ color: '#f1c23b', fontWeight: 500 }}>{testimonials[currentIndex].role}</p>
                   </div>
                 </div>
               </motion.div>
@@ -121,17 +125,17 @@ export default function TestimonialsCarousel() {
           {/* Navigation buttons */}
           <button
             onClick={prevSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-md transition-all hover:bg-blue-50 md:right-0 md:-translate-x-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-md border border-[#23214a22] transition-all hover:bg-[#f1c23b22] md:right-0 md:-translate-x-1/2 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]"
             aria-label="הקודם"
           >
-            <FaChevronRight className="h-6 w-6 text-blue-600" />
+            <FaChevronRight className="h-6 w-6" style={{ color: '#23214a' }} />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-md transition-all hover:bg-blue-50 md:left-0 md:translate-x-1/2"
+            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-md border border-[#23214a22] transition-all hover:bg-[#f1c23b22] md:left-0 md:translate-x-1/2 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]"
             aria-label="הבא"
           >
-            <FaChevronLeft className="h-6 w-6 text-blue-600" />
+            <FaChevronLeft className="h-6 w-6" style={{ color: '#23214a' }} />
           </button>
 
           {/* Indicators */}
@@ -140,8 +144,8 @@ export default function TestimonialsCarousel() {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`h-2.5 w-2.5 rounded-full transition-all ${
-                  index === currentIndex ? "bg-blue-600 w-6" : "bg-gray-300"
+                className={`h-2.5 rounded-full transition-all ${
+                  index === currentIndex ? 'bg-[#f1c23b] w-6' : 'bg-[#23214a33] w-2.5'
                 }`}
                 aria-label={`עבור לעדות ${index + 1}`}
               />

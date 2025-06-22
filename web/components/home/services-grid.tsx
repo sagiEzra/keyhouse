@@ -12,7 +12,7 @@ export default function ServicesGrid() {
             description: "ליווי מקצועי ואישי למציאת הנכס שחלמתם עליו",
             image: "/images/buying-card.jpg",
             href: "/buying",
-            color: "from-blue-600/80 to-blue-800/80",
+            color: "from-[#23214a]/90 to-[#23214a]/80",
         },
         {
             title: "מוכרים",
@@ -20,7 +20,7 @@ export default function ServicesGrid() {
             description: "שיווק מקצועי שמביא תוצאות ומקסם את הרווח שלכם",
             image: "/images/selling-card.jpg",
             href: "/selling",
-            color: "from-blue-700/80 to-blue-900/80",
+            color: "from-[#23214a]/80 to-[#23214a]/90",
         },
         {
             title: "ניהול נכסים",
@@ -28,7 +28,7 @@ export default function ServicesGrid() {
             description: "ניהול מקצועי שמבטיח תשואה מקסימלית ושקט נפשי",
             image: "/images/management-card.jpg",
             href: "/property-management",
-            color: "from-blue-800/80 to-blue-600/80",
+            color: "from-[#23214a]/90 to-[#23214a]/70",
         },
         {
             title: "הנכסים שלנו",
@@ -36,7 +36,7 @@ export default function ServicesGrid() {
             description: "מבחר עשיר של נכסים איכותיים למכירה ולהשכרה באילת",
             image: "/images/properties-card.jpg",
             href: "/properties",
-            color: "from-blue-600/80 to-blue-700/80",
+            color: "from-[#23214a]/80 to-[#23214a]/70",
         },
     ]
 
@@ -60,7 +60,7 @@ export default function ServicesGrid() {
     }
 
     return (
-        <section id="services-grid" className="relative bg-gradient-to-br from-blue-50 via-white to-yellow-50 py-24">
+        <section id="services-grid" className="relative bg-gradient-to-br from-[#23214a0d] via-white to-[#f1c23b0d] py-24">
             <div className="container mx-auto px-4">
                 {/* Section Title */}
                 <motion.div
@@ -70,13 +70,13 @@ export default function ServicesGrid() {
                     transition={{ duration: 0.8 }}
                     className="mb-20 text-center"
                 >
-                    <h2 className="mb-4 font-serif text-3xl font-extrabold text-gray-900 md:text-5xl tracking-tight">
+                    <h2 className="mb-4 font-serif text-3xl font-extrabold md:text-5xl tracking-tight" style={{ color: '#23214a', textShadow: '0 2px 12px #23214a22' }}>
                         פותחים את כל הדלתות לכל צרכי הנדל"ן שלך
                     </h2>
-                    <p className="mx-auto max-w-2xl text-lg text-gray-600 md:text-xl">
+                    <p className="mx-auto max-w-2xl text-lg md:text-xl font-semibold" style={{ color: '#23214a' }}>
                         הכול תחת קורת גג אחת - יש על מי לסמוך
                     </p>
-                    <div className="mx-auto mt-6 h-1 w-28 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 animate-pulse"></div>
+                    <div className="mx-auto mt-6 h-1 w-28 rounded-full" style={{ background: 'linear-gradient(90deg, #f1c23b 0%, #fff 100%)', boxShadow: '0 2px 12px #f1c23b55' }}></div>
                 </motion.div>
 
                 {/* Services Grid */}
