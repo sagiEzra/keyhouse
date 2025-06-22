@@ -21,7 +21,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
             <Header />
             <Component {...pageProps} />
-            <ContactComponent />
             <Footer />
           </ThemeProvider>
         </div>
