@@ -1,30 +1,41 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { FaBuilding, FaUsers, FaAward, FaHandshake } from "react-icons/fa"
+import { FaBuilding, FaUsers, FaAward, FaHandshake, FaShieldAlt, FaBullseye, FaClock, FaMagic } from "react-icons/fa"
 import Link from "next/link"
 
+// Currently not used, why? remove it?
 export default function AboutSection() {
   const values = [
     {
-      icon: <FaAward className="h-9 w-9 text-blue-700" />,
-      title: "ניסיון מוכח",
-      description: "מעל עשור של פעילות בשוק האילתי עם עשרות עסקאות מוצלחות ותוצאות בשטח.",
-    },
-    {
-      icon: <FaUsers className="h-9 w-9 text-blue-700" />,
+      icon: <FaUsers className="h-9 w-9" style={{ color: "#23214a" }} />,
       title: "ליווי אישי",
-      description: "יחס חם, הקשבה אמיתית ופתרונות מותאמים אישית – כל לקוח הוא סיפור חשוב.",
+      description: "יחס חם, הקשבה אמיתית ופתרונות מותאמים אישית – הלקוח הוא הסיפור.",
     },
     {
-      icon: <FaHandshake className="h-9 w-9 text-blue-700" />,
+      icon: <FaAward className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "ניסיון מוכח",
+      description: "מעל עשור של פעילות בשוק האילתי עם עסקאות מוצלחות רבות, תוצאות בשטח, והכי חשוב - לקוחות מרוצים.",
+    },
+    {
+      icon: <FaShieldAlt className="h-9 w-9" style={{ color: "#23214a" }} />,
       title: "שקיפות ואמינות",
-      description: "בלי אותיות קטנות. רק דרך פתוחה, ישירה ומחויבות מלאה להצלחת הלקוח.",
+      description: "מחויבים לשקיפות ואמינות מוחלטת בכל שלבי העסקה, ללא הפתעות או מידע חסר.",
     },
     {
-      icon: <FaBuilding className="h-9 w-9 text-blue-700" />,
-      title: "זמינות ומהירות תגובה",
-      description: "אנחנו כאן כשאתם צריכים אותנו – זמינים, מקצועיים ותמיד עם תשוקה אמיתית למקצוע.",
+      icon: <FaMagic className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "מצוינות בשירות",
+      description: "חותרים למצוינות בכל היבט של השירות שלנו, מהפגישה הראשונה ועד לאחר סגירת העסקה.",
+    },
+    {
+      icon: <FaBullseye className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "התאמה מדויקת",
+      description: "מתמחים במציאת ההתאמה המושלמת בין הלקוח לנכס, תוך הבנה מעמיקה של הצרכים והרצונות.",
+    },
+    {
+      icon: <FaClock className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "זמינות ומהירות",
+      description: 'מחויבים לזמינות גבוהה ולמענה מהיר, כי אנחנו מבינים את חשיבות הזמן בעסקאות נדל"ן.',
     },
   ]
 

@@ -3,7 +3,6 @@ import ServiceHero from "../components/common/service-hero"
 import Header from "../components/header"
 import ServiceSection from "../components/common/service-section"
 import StatsSection from "../components/common/stats-section"
-import TestimonialBox from "../components/common/testimonial-box"
 import CTASection from "../components/common/cta-section"
 
 export default function SellingPage() {
@@ -25,21 +24,29 @@ export default function SellingPage() {
         image="/images/marketing-property.jpg"
         imageAlt="שיווק נכסים מקצועי"
       >
-        <ul className="mt-6 space-y-3 text-gray-600">
+        <ul className="mt-6 space-y-3" style={{ color: "#23214a" }}>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>צילום מקצועי שמדגיש את היתרונות של הנכס</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>טקסטים שיווקיים שמושכים את תשומת הלב</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>פרסום ממוקד בפלטפורמות הנכונות</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>חיסכון בזמן והתעסקות - אנחנו עושים הכל בשבילך</span>
           </li>
         </ul>
@@ -53,23 +60,39 @@ export default function SellingPage() {
         imageAlt="תמחור נכסים מקצועי"
         reverse={true}
       >
-        <div className="mt-6 rounded-xl bg-blue-50 p-6">
-          <h3 className="mb-3 text-xl font-bold text-gray-900">איך אנחנו קובעים את המחיר הנכון?</h3>
-          <ul className="space-y-3 text-gray-600">
+        <div
+          className="mt-6 rounded-xl p-6 shadow-lg border backdrop-blur-xl"
+          style={{
+            background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #23214a1a 100%)",
+            borderColor: "#23214a33",
+          }}
+        >
+          <h3 className="mb-3 text-xl font-bold" style={{ color: "#23214a" }}>
+            איך אנחנו קובעים את המחיר הנכון?
+          </h3>
+          <ul className="space-y-3" style={{ color: "#23214a" }}>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">1.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                1.
+              </span>
               <span>ניתוח מעמיק של שוק הנדל״ן המקומי</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">2.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                2.
+              </span>
               <span>השוואה לעסקאות דומות שבוצעו לאחרונה</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">3.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                3.
+              </span>
               <span>הערכת היתרונות והחסרונות הייחודיים של הנכס</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">4.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                4.
+              </span>
               <span>התחשבות במגמות השוק ובתחזיות עתידיות</span>
             </li>
           </ul>
@@ -84,21 +107,53 @@ export default function SellingPage() {
         imageAlt="ליווי מלא במכירת נכס"
       >
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">ניהול משא ומתן מקצועי</h4>
-            <p className="text-gray-600">אנחנו יודעים איך לנהל משא ומתן שישיג עבורך את התנאים הטובים ביותר.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              ניהול משא ומתן מקצועי
+            </h4>
+            <p style={{ color: "#23214a" }}>אנחנו יודעים איך לנהל משא ומתן שישיג עבורך את התנאים הטובים ביותר.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">טיפול בבירוקרטיה</h4>
-            <p className="text-gray-600">אנחנו מטפלים בכל הניירת והבירוקרטיה כדי לחסוך לך זמן וכאבי ראש.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              טיפול בבירוקרטיה
+            </h4>
+            <p style={{ color: "#23214a" }}>אנחנו מטפלים בכל הניירת והבירוקרטיה כדי לחסוך לך זמן וכאבי ראש.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">הגנה משפטית</h4>
-            <p className="text-gray-600">אנחנו עובדים עם עורכי דין מנוסים שמבטיחים שהאינטרסים שלך מוגנים.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              הגנה משפטית
+            </h4>
+            <p style={{ color: "#23214a" }}>אנחנו עובדים עם עורכי דין מנוסים שמבטיחים שהאינטרסים שלך מוגנים.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">שקיפות מלאה</h4>
-            <p className="text-gray-600">אתה תמיד תהיה מעודכן בכל התפתחות ותקבל דיווחים שוטפים על התקדמות התהליך.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              שקיפות מלאה
+            </h4>
+            <p style={{ color: "#23214a" }}>אתה תמיד תהיה מעודכן בכל התפתחות ותקבל דיווחים שוטפים על התקדמות התהליך.</p>
           </div>
         </div>
       </ServiceSection>
@@ -113,32 +168,6 @@ export default function SellingPage() {
           { value: "350+", label: "עסקאות מוצלחות" },
         ]}
       />
-
-      <section className="bg-white py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">לקוחות מספרים</h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <TestimonialBox
-              quote="רותם וצוות KeyHouse היו מדהימים לאורך כל תהליך המכירה. הם הצליחו למכור את הדירה שלי במחיר גבוה ממה שציפיתי ובזמן קצר. מקצועיות ברמה הגבוהה ביותר!"
-              author="דניאל לוי"
-              role="מכר דירת 4 חדרים בשכונת אלמוג"
-              image="/images/testimonial-1.jpg"
-            />
-            <TestimonialBox
-              quote="אחרי שהדירה שלי הייתה בשוק כמעט שנה עם סוכן אחר, KeyHouse הצליחו למכור אותה תוך חודשיים ובמחיר טוב. ההבדל היה בשיווק המקצועי והנגישות שלהם לקונים פוטנציאליים."
-              author="מיכל כהן"
-              role="מכרה דירת 3 חדרים במרכז העיר"
-              image="/images/testimonial-2.jpg"
-            />
-            <TestimonialBox
-              quote="הליווי המקצועי של KeyHouse היה מעל ומעבר למצופה. הם טיפלו בכל הפרטים הקטנים, ניהלו משא ומתן מצוין, והפכו את תהליך המכירה לפשוט ונטול דאגות."
-              author="אורי גולדשטיין"
-              role="מכר וילה בשכונת שחמון"
-              image="/images/testimonial-3.jpg"
-            />
-          </div>
-        </div>
-      </section>
 
       <CTASection
         title="רוצה למכור את הנכס שלך בראש שקט וברווח גבוה?"

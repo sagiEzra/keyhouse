@@ -1,12 +1,14 @@
-
-import { FaThLarge as LayoutGrid, FaWrench as Wrench, FaChartBar as BarChart, FaDollarSign as DollarSign } from "react-icons/fa"
+import {
+  FaThLarge as LayoutGrid,
+  FaWrench as Wrench,
+  FaChartBar as BarChart,
+  FaDollarSign as DollarSign,
+} from "react-icons/fa"
 import ServiceHero from "../components/common/service-hero"
 import Header from "../components/header"
 import ServiceSection from "../components/common/service-section"
 import StatsSection from "../components/common/stats-section"
-import TestimonialBox from "../components/common/testimonial-box"
 import CTASection from "../components/common/cta-section"
-
 
 export default function PropertyManagementPage() {
   return (
@@ -27,25 +29,35 @@ export default function PropertyManagementPage() {
         image="/images/full-management.jpg"
         imageAlt="ניהול נכסים מקצה לקצה"
       >
-        <ul className="mt-6 space-y-3 text-gray-600">
+        <ul className="mt-6 space-y-3" style={{ color: "#23214a" }}>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>פרסום הנכס בפלטפורמות הרלוונטיות</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>סינון ובחירת שוכרים איכותיים</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>חוזי שכירות מקצועיים ומקיפים</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>גבייה שוטפת ודיווח מסודר</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>טיפול בפניות שוכרים ובעיות שוטפות</span>
           </li>
         </ul>
@@ -59,23 +71,39 @@ export default function PropertyManagementPage() {
         imageAlt="שמירה על נכסים"
         reverse={true}
       >
-        <div className="mt-6 rounded-xl bg-blue-50 p-6">
-          <h3 className="mb-3 text-xl font-bold text-gray-900">איך אנחנו שומרים על הנכס שלך?</h3>
-          <ul className="space-y-3 text-gray-600">
+        <div
+          className="mt-6 rounded-xl p-6 shadow-lg border backdrop-blur-xl"
+          style={{
+            background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #23214a1a 100%)",
+            borderColor: "#23214a33",
+          }}
+        >
+          <h3 className="mb-3 text-xl font-bold" style={{ color: "#23214a" }}>
+            איך אנחנו שומרים על הנכס שלך?
+          </h3>
+          <ul className="space-y-3" style={{ color: "#23214a" }}>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">1.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                1.
+              </span>
               <span>בדיקות תקופתיות של מצב הנכס</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">2.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                2.
+              </span>
               <span>תחזוקה מונעת למניעת נזקים עתידיים</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">3.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                3.
+              </span>
               <span>טיפול מהיר בתקלות ובעיות</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">4.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                4.
+              </span>
               <span>עבודה עם בעלי מקצוע מהימנים ואיכותיים</span>
             </li>
           </ul>
@@ -90,21 +118,53 @@ export default function PropertyManagementPage() {
         imageAlt="שקט נפשי בניהול נכסים"
       >
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">דו״חות חודשיים</h4>
-            <p className="text-gray-600">דו״חות מפורטים על הכנסות, הוצאות ופעילות בנכס.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              דו״חות חודשיים
+            </h4>
+            <p style={{ color: "#23214a" }}>דו״חות מפורטים על הכנסות, הוצאות ופעילות בנכס.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">עדכונים שוטפים</h4>
-            <p className="text-gray-600">עדכונים על כל אירוע משמעותי הקשור לנכס.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              עדכונים שוטפים
+            </h4>
+            <p style={{ color: "#23214a" }}>עדכונים על כל אירוע משמעותי הקשור לנכס.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">מענה זמין</h4>
-            <p className="text-gray-600">צוות זמין לכל שאלה או בקשה שלך כבעלים.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              מענה זמין
+            </h4>
+            <p style={{ color: "#23214a" }}>צוות זמין לכל שאלה או בקשה שלך כבעלים.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">ניהול מרחוק</h4>
-            <p className="text-gray-600">ניהול מלא של הנכס גם אם אתה לא נמצא באזור.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              ניהול מרחוק
+            </h4>
+            <p style={{ color: "#23214a" }}>ניהול מלא של הנכס גם אם אתה לא נמצא באזור.</p>
           </div>
         </div>
       </ServiceSection>
@@ -118,15 +178,29 @@ export default function PropertyManagementPage() {
         reverse={true}
       >
         <div className="mt-6">
-          <div className="mb-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 p-4 text-white">
-            <h3 className="text-xl font-bold">חיסכון בזמן ובכסף</h3>
-            <p className="mt-2">
+          <div
+            className="mb-4 rounded-xl p-4 shadow-lg border backdrop-blur-xl"
+            style={{
+              background: "linear-gradient(90deg, #23214ad9 0%, #23214aeb 100%)",
+              borderColor: "#23214a33",
+            }}
+          >
+            <h3 className="text-xl font-bold text-white">חיסכון בזמן ובכסף</h3>
+            <p className="mt-2 text-blue-100">
               אנחנו חוסכים לך את הזמן והמאמץ הכרוכים בניהול נכס, ומבטיחים שהנכס שלך יתופעל ביעילות מקסימלית.
             </p>
           </div>
-          <div className="rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 p-4 text-blue-900">
-            <h3 className="text-xl font-bold">אין שוכרים בעייתיים, אין נזקים מיותרים, אין כאב ראש</h3>
-            <p className="mt-2">
+          <div
+            className="rounded-xl p-4 shadow-lg border backdrop-blur-xl"
+            style={{
+              background: "linear-gradient(90deg, #f1c23b 0%, #f1c23b 100%)",
+              borderColor: "#f1c23b33",
+            }}
+          >
+            <h3 className="text-xl font-bold" style={{ color: "#23214a" }}>
+              אין שוכרים בעייתיים, אין נזקים מיותרים, אין כאב ראש
+            </h3>
+            <p className="mt-2" style={{ color: "#23214a" }}>
               הניסיון שלנו מאפשר לנו לבחור שוכרים איכותיים, למנוע נזקים ולטפל בבעיות במהירות וביעילות, כך שאתה יכול
               להיות רגוע.
             </p>
@@ -144,32 +218,6 @@ export default function PropertyManagementPage() {
           { value: "0", label: "ימי עיכוב בתשלומים לבעלי הנכסים" },
         ]}
       />
-
-      <section className="bg-white py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">לקוחות מספרים</h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <TestimonialBox
-              quote="מאז שהעברתי את הנכס לניהול של KeyHouse, אני ישן טוב בלילה. הם מטפלים בכל, מוצאים שוכרים איכותיים, ודואגים שהכל יתנהל על הצד הטוב ביותר. התשואה שלי עלתה והדאגות ירדו."
-              author="יוסי לוי"
-              role="בעל דירת 3 חדרים להשקעה"
-              image="/images/testimonial-investor-1.jpg"
-            />
-            <TestimonialBox
-              quote="כמשקיעה שגרה בתל אביב, חיפשתי מישהו אמין שינהל את הנכס שלי באילת. KeyHouse הם הרבה יותר ממנהלי נכסים - הם שותפים אמיתיים להצלחה של ההשקעה שלי."
-              author="רונית כהן"
-              role="בעלת 2 דירות להשקעה"
-              image="/images/testimonial-investor-2.jpg"
-            />
-            <TestimonialBox
-              quote="המקצועיות והיסודיות של צוות KeyHouse מרשימה. הם מטפלים בכל פרט, מתקשרים באופן ברור ושקוף, ותמיד זמינים לכל שאלה. ההשקעה שלי בידיים הטובות ביותר."
-              author="דוד גולדשטיין"
-              role="בעל מספר נכסים להשקעה באילת"
-              image="/images/testimonial-investor-3.jpg"
-            />
-          </div>
-        </div>
-      </section>
 
       <CTASection
         title="תן לנכס שלך לעבוד - אנחנו נדאג לכל השאר"

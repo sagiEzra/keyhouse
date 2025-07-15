@@ -10,7 +10,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeLink, setActiveLink] = useState("/")
-  const pathname = usePathname() // Get the current path
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,16 +21,13 @@ export default function Header() {
       }
     }
 
-    // Set active link based on current path
     setActiveLink(window.location.pathname)
-
     window.addEventListener("scroll", handleScroll)
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
   }, [])
-  
-   // Update activeLink whenever pathname changes
+
   useEffect(() => {
     setActiveLink(window.location.pathname)
   }, [pathname])
@@ -47,10 +44,15 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${isScrolled
-          ? "bg-white py-3 shadow-[0_2px_20px_rgba(0,0,0,0.08)]"
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-white/95 py-3 backdrop-blur-xl border-b"
           : "bg-gradient-to-b from-black/50 to-transparent py-5 backdrop-blur-sm"
-        }`}
+      }`}
+      style={{
+        boxShadow: isScrolled ? "0 4px 32px 0 #23214a14" : "none",
+        borderColor: isScrolled ? "#23214a22" : "transparent",
+      }}
     >
       <div className="container mx-auto flex items-center justify-between px-4">
         <Link href="/" className="z-50 relative">
@@ -65,35 +67,56 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
+          {navLinks.map((link) => (
             <Link key={link.name} href={link.href} className="group relative">
               <motion.span
-              className={`relative text-lg font-semibold transition-colors duration-300 ${isScrolled ? "text-gray-800" : "text-white"
-              } ${activeLink === link.href ? "text-brand-gold" : "hover:text-brand-gold"}`}
-              whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
+                className={`relative text-lg font-semibold transition-colors duration-300 ${
+                  isScrolled ? (activeLink === link.href ? "#f1c23b" : "#23214a") : "text-white"
+                } ${activeLink === link.href ? "" : "hover:opacity-80"}`}
+                style={{
+                  color: isScrolled ? (activeLink === link.href ? "#f1c23b" : "#23214a") : "#ffffff",
+                }}
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.2 }}
               >
-              {link.name}
+                {link.name}
               </motion.span>
               <span
-              className={`absolute -bottom-1 right-0 h-0.5 bg-brand-gold transition-all duration-300 ${activeLink === link.href ? "w-full" : "w-0 group-hover:w-full"
-              }`}
+                className={`absolute -bottom-1 right-0 h-0.5 transition-all duration-300 ${
+                  activeLink === link.href ? "w-full" : "w-0 group-hover:w-full"
+                }`}
+                style={{ backgroundColor: "#f1c23b" }}
               />
             </Link>
-            ))}
+          ))}
         </nav>
 
         <div className="hidden md:block">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               href="tel:+972501234567"
-              className={`flex items-center gap-2 rounded-full ${isScrolled
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
-                  : "bg-white/20 text-white backdrop-blur-md"
-                } px-5 py-2.5 transition-all duration-300 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-500 shadow-md hover:shadow-lg`}
+              className={`flex items-center gap-2 rounded-full px-5 py-2.5 transition-all duration-300 shadow-lg hover:shadow-xl font-medium ${
+                isScrolled ? "text-white" : "bg-white/20 text-white backdrop-blur-md"
+              }`}
+              style={{
+                background: isScrolled
+                  ? "linear-gradient(90deg, #23214a 0%, #23214a 100%)"
+                  : "rgba(255, 255, 255, 0.2)",
+              }}
+              onMouseEnter={(e) => {
+                ;(e.currentTarget as HTMLAnchorElement).style.background =
+                  "linear-gradient(90deg, #f1c23b 0%, #f1c23b 100%)"
+                ;(e.currentTarget as HTMLAnchorElement).style.color = "#23214a"
+              }}
+              onMouseLeave={(e) => {
+                ;(e.currentTarget as HTMLAnchorElement).style.background = isScrolled
+                  ? "linear-gradient(90deg, #23214a 0%, #23214a 100%)"
+                  : "rgba(255, 255, 255, 0.2)"
+                ;(e.currentTarget as HTMLAnchorElement).style.color = "#ffffff"
+              }}
             >
               <Phone className="h-4 w-4" />
-              <span className="font-medium">050-123-4567</span>
+              <span>050-123-4567</span>
             </Link>
           </motion.div>
         </div>
@@ -106,9 +129,9 @@ export default function Header() {
           whileTap={{ scale: 0.9 }}
         >
           {isOpen ? (
-            <X className={`h-6 w-6 ${isScrolled ? "text-gray-900" : "text-white"}`} />
+            <X className="h-6 w-6" style={{ color: "#23214a" }} />
           ) : (
-            <Menu className={`h-6 w-6 ${isScrolled ? "text-gray-900" : "text-white"}`} />
+            <Menu className="h-6 w-6" style={{ color: isScrolled ? "#23214a" : "#ffffff" }} />
           )}
         </motion.button>
 
@@ -129,8 +152,13 @@ export default function Header() {
                       key={link.name}
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className={`border-b border-gray-100 py-4 text-lg font-medium transition-colors duration-300 ${activeLink === link.href ? "text-brand-gold" : "text-gray-900"
-                        }`}
+                      className={`border-b py-4 text-lg font-medium transition-colors duration-300 ${
+                        activeLink === link.href ? "" : ""
+                      }`}
+                      style={{
+                        borderColor: "#23214a22",
+                        color: activeLink === link.href ? "#f1c23b" : "#23214a",
+                      }}
                     >
                       <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
                         {link.name}
@@ -141,7 +169,10 @@ export default function Header() {
                     <Link
                       href="tel:+972501234567"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3.5 font-medium text-white shadow-md"
+                      className="flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-medium text-white shadow-xl"
+                      style={{
+                        background: "linear-gradient(90deg, #23214a 0%, #23214a 100%)",
+                      }}
                     >
                       <Phone className="h-5 w-5" />
                       <span>050-123-4567</span>

@@ -2,7 +2,6 @@ import ServiceHero from "../components/common/service-hero"
 import Header from "../components/header"
 import ServiceSection from "../components/common/service-section"
 import StatsSection from "../components/common/stats-section"
-import TestimonialBox from "../components/common/testimonial-box"
 import CTASection from "../components/common/cta-section"
 
 import { FaShieldAlt as ShieldCheck, FaSearch as Search, FaClock as Clock, FaAward as Award } from "react-icons/fa"
@@ -26,21 +25,29 @@ export default function BuyingPage() {
         image="/images/safe-buying.jpg"
         imageAlt="קנייה בטוחה של נכס"
       >
-        <ul className="mt-6 space-y-3 text-gray-600">
+        <ul className="mt-6 space-y-3" style={{ color: "#23214a" }}>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>בדיקת היסטוריית הנכס ומצבו המשפטי</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>ניתוח מקצועי של מצב הנכס ועלויות תחזוקה צפויות</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>בדיקת התאמת הנכס לצרכים ולתקציב שלך</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2 text-blue-600">✓</span>
+            <span className="mr-2" style={{ color: "#f1c23b" }}>
+              ✓
+            </span>
             <span>ליווי משפטי מקצועי לאורך כל התהליך</span>
           </li>
         </ul>
@@ -54,23 +61,39 @@ export default function BuyingPage() {
         imageAlt="התאמה מדויקת של נכס"
         reverse={true}
       >
-        <div className="mt-6 rounded-xl bg-blue-50 p-6">
-          <h3 className="mb-3 text-xl font-bold text-gray-900">איך אנחנו מוצאים את הנכס המושלם עבורך?</h3>
-          <ul className="space-y-3 text-gray-600">
+        <div
+          className="mt-6 rounded-xl p-6 shadow-lg border backdrop-blur-xl"
+          style={{
+            background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #23214a1a 100%)",
+            borderColor: "#23214a33",
+          }}
+        >
+          <h3 className="mb-3 text-xl font-bold" style={{ color: "#23214a" }}>
+            איך אנחנו מוצאים את הנכס המושלם עבורך?
+          </h3>
+          <ul className="space-y-3" style={{ color: "#23214a" }}>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">1.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                1.
+              </span>
               <span>פגישת ייעוץ מעמיקה להבנת הצרכים והרצונות שלך</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">2.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                2.
+              </span>
               <span>ניתוח השוק ואיתור הזדמנויות שמתאימות לקריטריונים שלך</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">3.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                3.
+              </span>
               <span>סינון ראשוני של נכסים כדי לחסוך לך זמן וכאבי ראש</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2 text-blue-600">4.</span>
+              <span className="mr-2 font-bold" style={{ color: "#f1c23b" }}>
+                4.
+              </span>
               <span>ליווי בסיורים בנכסים והסבר מקצועי על היתרונות והחסרונות</span>
             </li>
           </ul>
@@ -85,21 +108,53 @@ export default function BuyingPage() {
         imageAlt="תהליך יעיל לקניית נכס"
       >
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">חיסכון בזמן</h4>
-            <p className="text-gray-600">אנחנו מסננים עבורך את הנכסים ומציגים רק את אלה שבאמת מתאימים לך.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              חיסכון בזמן
+            </h4>
+            <p style={{ color: "#23214a" }}>אנחנו מסננים עבורך את הנכסים ומציגים רק את אלה שבאמת מתאימים לך.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">חיסכון בכסף</h4>
-            <p className="text-gray-600">הניסיון שלנו במשא ומתן מבטיח שתקבל את המחיר הטוב ביותר עבור הנכס.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              חיסכון בכסף
+            </h4>
+            <p style={{ color: "#23214a" }}>הניסיון שלנו במשא ומתן מבטיח שתקבל את המחיר הטוב ביותר עבור הנכס.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">הימנעות מטעויות</h4>
-            <p className="text-gray-600">אנחנו מזהים בעיות פוטנציאליות מראש ומונעים טעויות יקרות.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              הימנעות מטעויות
+            </h4>
+            <p style={{ color: "#23214a" }}>אנחנו מזהים בעיות פוטנציאליות מראש ומונעים טעויות יקרות.</p>
           </div>
-          <div className="rounded-xl bg-white p-5 shadow-md">
-            <h4 className="mb-2 font-bold text-gray-900">ליווי מקצה לקצה</h4>
-            <p className="text-gray-600">מהחיפוש הראשוני ועד לקבלת המפתחות - אנחנו איתך בכל שלב.</p>
+          <div
+            className="rounded-xl bg-white/90 p-5 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+            style={{
+              borderColor: "#23214a33",
+              boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+            }}
+          >
+            <h4 className="mb-2 font-bold" style={{ color: "#23214a" }}>
+              ליווי מקצה לקצה
+            </h4>
+            <p style={{ color: "#23214a" }}>מהחיפוש הראשוני ועד לקבלת המפתחות - אנחנו איתך בכל שלב.</p>
           </div>
         </div>
       </ServiceSection>
@@ -113,16 +168,30 @@ export default function BuyingPage() {
         reverse={true}
       >
         <div className="mt-6">
-          <div className="mb-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 p-4 text-white">
-            <h3 className="text-xl font-bold">אנשים של אנשים - דואגים קודם כל לך</h3>
-            <p className="mt-2">
+          <div
+            className="mb-4 rounded-xl p-4 shadow-lg border backdrop-blur-xl"
+            style={{
+              background: "linear-gradient(90deg, #23214ad9 0%, #23214aeb 100%)",
+              borderColor: "#23214a33",
+            }}
+          >
+            <h3 className="text-xl font-bold text-white">אנשים של אנשים - דואגים קודם כל לך</h3>
+            <p className="mt-2 text-blue-100">
               אנחנו מאמינים שמאחורי כל עסקת נדל״ן עומדים אנשים עם חלומות, צרכים ורצונות. המחויבות שלנו היא קודם כל אליך
               ולאינטרסים שלך.
             </p>
           </div>
-          <div className="rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 p-4 text-blue-900">
-            <h3 className="text-xl font-bold">ניסיון, קשרים ומוניטין</h3>
-            <p className="mt-2">
+          <div
+            className="rounded-xl p-4 shadow-lg border backdrop-blur-xl"
+            style={{
+              background: "linear-gradient(90deg, #f1c23b 0%, #f1c23b 100%)",
+              borderColor: "#f1c23b33",
+            }}
+          >
+            <h3 className="text-xl font-bold" style={{ color: "#23214a" }}>
+              ניסיון, קשרים ומוניטין
+            </h3>
+            <p className="mt-2" style={{ color: "#23214a" }}>
               עם ניסיון של מעל 12 שנים בשוק הנדל״ן באילת, רשת קשרים ענפה ומוניטין מוכח, אנחנו יכולים להציע לך הזדמנויות
               ושירותים שלא תמצא במקום אחר.
             </p>
@@ -140,32 +209,6 @@ export default function BuyingPage() {
           { value: "0", label: "עסקאות שהסתיימו בהליכים משפטיים" },
         ]}
       />
-
-      <section className="bg-white py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">לקוחות מספרים</h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <TestimonialBox
-              quote="הליווי של KeyHouse בתהליך הרכישה היה מעל ומעבר. הם הבינו בדיוק מה אנחנו מחפשים והציגו בפנינו אפשרויות שהתאימו לצרכים ולתקציב שלנו. מקצועיות ברמה הגבוהה ביותר!"
-              author="משפחת לוי"
-              role="רכשו דירת 4 חדרים בשכונת אלמוג"
-              image="/images/testimonial-family.jpg"
-            />
-            <TestimonialBox
-              quote="כמשקיע נדל״ן, אני מעריך מאוד את המקצועיות והידע של צוות KeyHouse. הם עזרו לי לאתר הזדמנויות השקעה מצוינות באילת והתהליך היה יעיל ומהיר. ממליץ בחום!"
-              author="אורי גולדשטיין"
-              role="משקיע נדל״ן"
-              image="/images/testimonial-3.jpg"
-            />
-            <TestimonialBox
-              quote="אחרי חיפוש ארוך מצאנו את KeyHouse והם עזרו לנו למצוא את בית החלומות שלנו. השירות היה אישי, מקצועי וסבלני. רותם ליוותה אותנו בכל שלב והפכה את התהליך המורכב לפשוט ונעים."
-              author="מיכל ושלומי כהן"
-              role="רכשו וילה בשכונת שחמון"
-              image="/images/testimonial-couple.jpg"
-            />
-          </div>
-        </div>
-      </section>
 
       <CTASection
         title="הדרך לקנייה נכונה מתחילה בליווי הנכון"

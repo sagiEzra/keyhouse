@@ -11,6 +11,7 @@ interface TestimonialBoxProps {
   rating?: number
 }
 
+// Currently not used
 export default function TestimonialBox({ quote, author, role, image, rating = 5 }: TestimonialBoxProps) {
   return (
     <motion.div

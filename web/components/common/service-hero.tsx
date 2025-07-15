@@ -15,7 +15,12 @@ export default function ServiceHero({ title, subtitle, image, imageAlt }: Servic
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={image || "/placeholder.svg"} alt={imageAlt} className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/80 via-blue-900/70 to-blue-900/80" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to bottom, #23214a80 0%, #23214a70 50%, #23214a80 100%)",
+          }}
+        />
       </div>
 
       {/* Content */}
@@ -26,10 +31,19 @@ export default function ServiceHero({ title, subtitle, image, imageAlt }: Servic
           transition={{ duration: 0.8 }}
           className="max-w-4xl"
         >
-          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
+          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-xl">
             {title}
           </h1>
-          <p className="mx-auto mb-10 max-w-3xl text-xl text-blue-100 md:text-2xl">{subtitle}</p>
+          <p className="mx-auto mb-10 max-w-3xl text-xl text-blue-100 md:text-2xl font-medium drop-shadow-lg">
+            {subtitle}
+          </p>
+          <div
+            className="mx-auto h-2 w-32 rounded-full"
+            style={{
+              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
+              boxShadow: "0 2px 12px #f1c23b55",
+            }}
+          />
         </motion.div>
       </div>
 

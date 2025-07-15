@@ -1,38 +1,48 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { FaEye , FaUsers, FaAward, FaHandshake } from "react-icons/fa"
+import { FaUsers, FaShieldAlt, FaHeart, FaMagic, FaBullseye, FaClock, FaAward } from "react-icons/fa"
 import Link from "next/link"
 
 export default function AboutSection() {
   const values = [
-    {
-      icon: <FaAward className="h-9 w-9" style={{ color: "#23214a" }} />,
-      title: "ניסיון מוכח",
-      description: "מעל עשור של פעילות בשוק האילתי עם עשרות עסקאות מוצלחות ותוצאות בשטח.",
-    },
     {
       icon: <FaUsers className="h-9 w-9" style={{ color: "#23214a" }} />,
       title: "ליווי אישי",
       description: "יחס חם, הקשבה אמיתית ופתרונות מותאמים אישית – הלקוח הוא הסיפור.",
     },
     {
-      icon: <FaHandshake className="h-9 w-9" style={{ color: "#23214a" }} />,
-      title: "שירות מקצועי מקיף",
-      description: "היכרות שוק עמוקה, מכירים כל הזדמנות, תמחור ושיווק מדויקים – ליווי מלא עד להצלחה.",
+      icon: <FaAward className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "ניסיון מוכח",
+      description: "מעל עשור של פעילות בשוק האילתי עם עסקאות מוצלחות רבות, תוצאות בשטח, והכי חשוב - לקוחות מרוצים.",
     },
     {
-      icon: <FaEye className="h-9 w-9" style={{ color: "#23214a" }} />,
-      title: "אמינות ושקיפות",
-      description: "מחויבות לשירות איכותי, אמינות מלאה ושקיפות מוחלטת – תמיד.",
+      icon: <FaShieldAlt className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "שקיפות ואמינות",
+      description: "מחויבים לשקיפות ואמינות מוחלטת בכל שלבי העסקה, ללא הפתעות או מידע חסר.",
+    },
+    {
+      icon: <FaMagic className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "מצוינות בשירות",
+      description: "חותרים למצוינות בכל היבט של השירות שלנו, מהפגישה הראשונה ועד לאחר סגירת העסקה.",
+    },
+    {
+      icon: <FaBullseye className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "התאמה מדויקת",
+      description: "מתמחים במציאת ההתאמה המושלמת בין הלקוח לנכס, תוך הבנה מעמיקה של הצרכים והרצונות.",
+    },
+    {
+      icon: <FaClock className="h-9 w-9" style={{ color: "#23214a" }} />,
+      title: "זמינות ומהירות",
+      description: 'מחויבים לזמינות גבוהה ולמענה מהיר, כי אנחנו מבינים את חשיבות הזמן בעסקאות נדל"ן.',
     },
   ]
 
   return (
     <section
-      className="relative py-24 overflow-hidden"
+      className="relative py-28 overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #23214a1a 100%)",
+        background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #f1c23b0d 100%)",
       }}
     >
       {/* Decorative gradients */}
@@ -43,9 +53,9 @@ export default function AboutSection() {
         }}
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-0 w-1/3 h-1/3 blur-2xl"
+        className="pointer-events-none absolute bottom-0 right-0 w-1/3 h-1/3 blur-2xl opacity-40"
         style={{
-          background: "linear-gradient(45deg, #23214a4d 0%, transparent 100%)",
+          background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)",
         }}
       />
 
@@ -56,35 +66,31 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
+          className="mb-20 text-center"
         >
           <h2
-            className="mb-6 text-4xl md:text-5xl  tracking-tight drop-shadow-xl"
+            className="mb-6 font-serif text-4xl md:text-5xl font-extrabold tracking-tight drop-shadow-xl"
             style={{ color: "#23214a" }}
           >
             קי האוס אילת – סוכנות נדל"ן בצד שלכם
           </h2>
-          <span
-          className="inline-block h-2 w-32 mb-6 rounded-full"
-          style={{
-            background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
-            boxShadow: "0 2px 12px #f1c23b55",
-          }}
-        />
-          <p
-            className="mx-auto max-w-2xl text-xl md:text-2xl font-semibold mb-6 leading-relaxed"
-            style={{ color: "#23214a" }}
-          >
-            הדרך לעסקת נדל״ן משתלמת, עם ליווי מקצועי ויחס אישי – משלב ההתעניינות ועד להשלמת העסקה.
+          <p className="mx-auto max-w-2xl text-xl md:text-2xl font-semibold mb-6" style={{ color: "#23214a" }}>
+            אנחנו לא רק מוצאים לך נכס – אנחנו מלווים אותך בדרך לבית הנכון.
           </p>
-          <p
-            className="mx-auto max-w-3xl text-lg md:text-xl font-medium leading-relaxed"
-            style={{ color: "#23214a" }}
-          >
-            מומחים בליווי עסקאות נדל״ן – מכירה, קנייה, השכרה, ניהול נכסים וייעוץ השקעות.<br className="hidden md:block" />
-            מעניקים ייעוץ אישי, חיבורים לאנשי מקצוע מובילים ודגש על רווחיות, ביטחון ושקט נפשי ללקוח.
+          <p className="mx-auto max-w-4xl text-lg md:text-xl font-medium leading-relaxed" style={{ color: "#23214a" }}>
+            KeyHouse היא סוכנות נדל"ן מובילה באילת, שנולדה מתוך תשוקה אמיתית לעזור לאנשים להגשים חלומות. עם ניסיון של
+            מעל 12 שנה ועשרות עסקאות מוצלחות, אנו מתמחים בהתאמה מדויקת בין אנשים לנכסים. מה שמייחד אותנו הוא הגישה
+            האנושית, השקיפות והמחויבות המלאה להצלחת הלקוח – מהמפגש הראשון ועד המסירה.
           </p>
+          <div
+            className="mx-auto mt-8 h-2 w-32 rounded-full"
+            style={{
+              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
+              boxShadow: "0 2px 12px #f1c23b55",
+            }}
+          />
         </motion.div>
+
         {/* Values Cards */}
         <motion.div
           initial="hidden"
@@ -94,10 +100,10 @@ export default function AboutSection() {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.18 },
+              transition: { staggerChildren: 0.15 },
             },
           }}
-          className="mb-20 grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          className="mb-24 grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           {values.map((value, idx) => (
             <motion.div
@@ -106,19 +112,18 @@ export default function AboutSection() {
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
               }}
-              className="group rounded-2xl bg-white/90 p-7 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-2"
+              className="group rounded-2xl bg-white/90 p-6 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl"
               style={{
                 borderColor: "#23214a33",
-                boxShadow:
-                  "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
               }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLDivElement).style.boxShadow =
-                  "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40";
+              onMouseEnter={(e) => {
+                ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px 0 #f1c23b80, 0 2px 12px 0 #f1c23b40"
+                ;(e.currentTarget as HTMLDivElement).style.borderColor = "#f1c23b80"
               }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLDivElement).style.boxShadow =
-                  "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08";
+              onMouseLeave={(e) => {
+                ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
+                ;(e.currentTarget as HTMLDivElement).style.borderColor = "#23214a33"
               }}
             >
               <div
@@ -127,82 +132,126 @@ export default function AboutSection() {
               >
                 {value.icon}
               </div>
-              <h3
-                className="mb-2 text-xl font-bold text-center"
-                style={{ color: "#23214a" }}
-              >
+              <h3 className="mb-4 text-xl md:text-2xl font-bold text-center" style={{ color: "#23214a" }}>
                 {value.title}
               </h3>
-              <p
-                className="text-center text-base md:text-lg"
-                style={{ color: "#23214a" }}
-              >
+              <p className="text-center text-base md:text-lg leading-relaxed font-medium" style={{ color: "#23214a" }}>
                 {value.description}
               </p>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Rotem Card */}
+        {/* Rotem Card - Enhanced */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="flex flex-col md:flex-row items-center justify-between gap-10 rounded-3xl p-10 md:p-14 shadow-2xl border backdrop-blur-xl"
+          className="flex flex-col lg:flex-row items-center justify-between gap-10 rounded-2xl p-8 md:p-12 shadow-2xl border backdrop-blur-xl max-w-6xl mx-auto my-16 bg-white/70"
           style={{
-            background: "linear-gradient(90deg, #23214ad9 0%, #23214aeb 100%)",
-            borderColor: "#23214a33",
+            background: "linear-gradient(120deg, #fff 60%, #f1c23b0d 100%)",
+            borderWidth: "1px",
+            borderColor: "#23214a22",
+            boxShadow: "0 10px 40px 0 #23214a22, 0 2px 12px 0 #23214a22",
           }}
         >
-          <div className="flex-1 text-center md:text-right">
-            <h3
-              className="mb-3 text-2xl md:text-3xl font-bold"
-              style={{ color: "#fff" }}
-            >
-              רותם קהלון – מייסדת ומנהלת KeyHouse
+          <div className="flex-1 text-center lg:text-right px-4">
+            <h3 className="mb-3 text-2xl md:text-3xl font-bold text-[#23214a] drop-shadow tracking-tight">
+              רותם קהלון - מייסדת KeyHouse ויועצת נדל"ן
             </h3>
-            <p
-              className="mb-4 text-lg md:text-xl font-medium"
-              style={{ color: "#e0e0f0" }}
-            >
-              מעל 12 שנה של ליווי עשרות לקוחות במקצועיות ובאנושיות, עם חזון ברור:
+            <p className="mb-4 text-base md:text-lg text-[#23214a] font-medium leading-relaxed">
+              במשך יותר מעשור, רותם ליוותה מאות לקוחות במקצועיות ובאנושיות, כשהחזון שלה ברור:
             </p>
             <blockquote
-              className="border-r-4 bg-blue-50/20 font-semibold italic p-6 rounded-2xl shadow-lg text-lg md:text-xl mb-4"
+              className="border-r-4 bg-[#f1c23b0d] text-[#23214a] font-semibold italic p-5 rounded-xl shadow text-lg md:text-xl mb-4 backdrop-blur-sm relative"
               style={{
-                borderColor: "#23214a99",
-                background: "#23214a0d",
-                color: "#fff",
+                borderColor: "#f1c23b",
               }}
             >
-              "ליצור חוויית נדל&quot;ן אישית, פשוטה ומדויקת – בלי פשרות."
+              <span className="text-3xl absolute -top-2 right-4 select-none" style={{ color: "#f1c23b" }}>
+                "
+              </span>
+              "ליצור חוויית נדל\"ן אישית, פשוטה ומדויקת – בלי פשרות."
             </blockquote>
-            <p
-              className="text-base md:text-lg"
-              style={{ color: "#e0e0f0" }}
-            >
-              צוות הסוכנות הוקם כדי לשקף את הערכים שלנו: הקשבה, התאמה מושלמת, ושירות שלא מתפשר.
+            <p className="text-[#23214a] text-base md:text-lg font-medium mb-6 leading-relaxed">
+              צוות הסוכנות הוקם כדי לשקף את הערכים שלה: הקשבה, התאמה מושלמת, ושירות שלא מתפשר.
             </p>
-            <div className="mt-8">
-              <Link
-                href="/about"
-                className="inline-block rounded-full bg-white/90 px-8 py-3 font-bold text-lg shadow-md transition-all duration-200 hover:bg-yellow-100 hover:text-[#23214a] hover:scale-105"
-                style={{ color: "#23214a" }}
-              >
-                המשך לקרוא עלינו
-              </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mt-4">
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  href="/about"
+                  className="inline-block rounded-full bg-white px-7 py-2 font-bold text-base md:text-lg shadow transition-all duration-300 hover:shadow-lg border border-[#23214a22]"
+                  style={{ color: "#23214a" }}
+                >
+                  המשך לקרוא עלינו
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.07 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  href="/contact"
+                  className="inline-block rounded-full border-2 border-[#23214a] bg-[#23214a] px-7 py-2 font-bold text-base md:text-lg text-white shadow transition-all duration-300 hover:bg-[#f1c23b] hover:text-[#23214a] hover:shadow-xl hover:border-[#f1c23b]"
+                  style={{}}
+                >
+                  בואו נכיר
+                </Link>
+              </motion.div>
             </div>
           </div>
-          <div className="h-60 w-40 overflow-hidden rounded-3xl border-4 shadow-2xl md:h-80 md:w-52 flex-shrink-0 transition-transform duration-500 hover:scale-105 flex items-center justify-center bg-white"
-            style={{ borderColor: "#fff" }}
+          <div
+            className="h-64 w-44 lg:h-80 lg:w-72 overflow-hidden rounded-2xl shadow-2xl flex-shrink-0 flex items-center justify-center bg-white"
+            style={{
+              boxShadow: "0 12px 40px 0 #23214a33, 0 2px 12px 0 #23214a18",
+            }}
           >
             <img
               src="/images/rotem2.jpg"
               alt="רותם קהלון - מייסדת KeyHouse"
-              className="h-full w-full object-cover object-top"
+              className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
+              style={{ borderRadius: '1rem' }}
             />
           </div>
+        </motion.div>
+
+        {/* Bottom Stats Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mt-20 grid gap-8 md:grid-cols-3"
+        >
+          {[
+            { number: "12+", label: "שנות ניסיון בשוק האילתי" },
+            { number: "350+", label: "עסקאות מוצלחות" },
+            { number: "98%", label: "שביעות רצון לקוחות" },
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="text-center rounded-2xl bg-white/90 p-8 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+              style={{
+                borderColor: "#23214a33",
+                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+              }}
+              onMouseEnter={(e) => {
+                ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40"
+              }}
+              onMouseLeave={(e) => {
+                ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
+              }}
+            >
+              <div className="mb-4 text-4xl md:text-5xl font-bold" style={{ color: "#f1c23b" }}>
+                {stat.number}
+              </div>
+              <div className="text-lg md:text-xl font-medium" style={{ color: "#23214a" }}>
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
