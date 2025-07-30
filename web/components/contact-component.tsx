@@ -9,6 +9,7 @@ import {
   FaInstagram as Instagram,
 } from "react-icons/fa"
 import { HiOutlineLocationMarker as MapPin } from "react-icons/hi"
+import { businessStaticData } from "../config"
 
 export default function ContactComponent() {
   return (
@@ -64,7 +65,7 @@ export default function ContactComponent() {
               </h3>
               <form className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-xs font-semibold mb-2" style={{ color: "#23214a" }}>
+                  <label htmlFor="name" className="block text-s font-semibold mb-2" style={{ color: "#23214a" }}>
                     שם מלא *
                   </label>
                   <input
@@ -80,7 +81,7 @@ export default function ContactComponent() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="phone" className="block text-xs font-semibold mb-2" style={{ color: "#23214a" }}>
+                  <label htmlFor="phone" className="block text-s font-semibold mb-2" style={{ color: "#23214a" }}>
                     מספר טלפון *
                   </label>
                   <input
@@ -97,7 +98,7 @@ export default function ContactComponent() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-xs font-semibold mb-2" style={{ color: "#23214a" }}>
+                  <label htmlFor="email" className="block text-s font-semibold mb-2" style={{ color: "#23214a" }}>
                     כתובת אימייל
                   </label>
                   <input
@@ -112,7 +113,7 @@ export default function ContactComponent() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-xs font-semibold mb-2" style={{ color: "#23214a" }}>
+                  <label htmlFor="message" className="block text-s font-semibold mb-2" style={{ color: "#23214a" }}>
                     הודעה
                   </label>
                   <textarea
@@ -166,10 +167,10 @@ export default function ContactComponent() {
                       <MapPin className="h-7 w-7" style={{ color: "#23214a" }} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-base mb-1" style={{ color: "#23214a" }}>
+                      <h4 className="font-bold text-xl mb-1" style={{ color: "#23214a" }}>
                         כתובת
                       </h4>
-                      <p className="text-base" style={{ color: "#23214a" }}>שדרות התמרים 12, אילת</p>
+                      <p className="text-xl" style={{ color: "#23214a" }}>{businessStaticData.location}</p>
                     </div>
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.02 }} className="flex items-start gap-4">
@@ -180,17 +181,17 @@ export default function ContactComponent() {
                       <Mail className="h-7 w-7" style={{ color: "#23214a" }} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-base mb-1" style={{ color: "#23214a" }}>
+                      <h4 className="font-bold text-xl mb-1" style={{ color: "#23214a" }}>
                         דוא״ל
                       </h4>
-                      <p className="text-base" style={{ color: "#23214a" }}>info@keyhouse.co.il</p>
+                      <p className="text-xl" style={{ color: "#23214a" }}>{businessStaticData.social.email}</p>
                     </div>
                   </motion.div>
                 </div>
 
                 <div className="flex flex-col gap-3 mb-8">
                   <motion.a
-                    href="tel:+972501234567"
+                    href={businessStaticData.phone.callLink}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="flex items-center justify-center gap-2 rounded-2xl px-6 py-3 font-semibold text-base shadow-lg transition-all duration-300"
@@ -210,7 +211,7 @@ export default function ContactComponent() {
                     }}
                   >
                     <Phone className="h-5 w-5" />
-                    <span>050-123-4567</span>
+                    <span>{businessStaticData.phone.numberToDisplay}</span>
                   </motion.a>
                 </div>
 
@@ -238,7 +239,7 @@ export default function ContactComponent() {
                     <Instagram className="h-6 w-6" />
                   </motion.a>
                   <motion.a
-                    href="https://wa.me/972501234567"
+                    href={businessStaticData.phone.whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1 }}

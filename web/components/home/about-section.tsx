@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { FaUsers, FaShieldAlt, FaHeart, FaMagic, FaBullseye, FaClock, FaAward } from "react-icons/fa"
 import Link from "next/link"
+import StatsSection from "../common/stats-section"
 
 export default function AboutSection() {
   const values = [
@@ -79,7 +80,7 @@ export default function AboutSection() {
           </p>
           <p className="mx-auto max-w-4xl text-lg md:text-xl font-medium leading-relaxed" style={{ color: "#23214a" }}>
             KeyHouse היא סוכנות נדל"ן מובילה באילת, שנולדה מתוך תשוקה אמיתית לעזור לאנשים להגשים חלומות. עם ניסיון של
-            מעל 12 שנה ועשרות עסקאות מוצלחות, אנו מתמחים בהתאמה מדויקת בין אנשים לנכסים. מה שמייחד אותנו הוא הגישה
+            מעל לעשור ועשרות עסקאות מוצלחות, אנו מתמחים בהתאמה מדויקת בין אנשים לנכסים. מה שמייחד אותנו הוא הגישה
             האנושית, השקיפות והמחויבות המלאה להצלחת הלקוח – מהמפגש הראשון ועד המסירה.
           </p>
           <div
@@ -211,47 +212,6 @@ export default function AboutSection() {
               style={{ borderRadius: '1rem' }}
             />
           </div>
-        </motion.div>
-
-        {/* Bottom Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-20 grid gap-8 md:grid-cols-3"
-        >
-          {[
-            { number: "12+", label: "שנות ניסיון בשוק האילתי" },
-            { number: "350+", label: "עסקאות מוצלחות" },
-            { number: "98%", label: "שביעות רצון לקוחות" },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="text-center rounded-2xl bg-white/90 p-8 shadow-xl border backdrop-blur-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-              style={{
-                borderColor: "#23214a33",
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}
-              onMouseEnter={(e) => {
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40"
-              }}
-              onMouseLeave={(e) => {
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
-              }}
-            >
-              <div className="mb-4 text-4xl md:text-5xl font-bold" style={{ color: "#f1c23b" }}>
-                {stat.number}
-              </div>
-              <div className="text-lg md:text-xl font-medium" style={{ color: "#23214a" }}>
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
         </motion.div>
       </div>
     </section>

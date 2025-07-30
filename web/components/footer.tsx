@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { FaFacebook, FaInstagram, FaWhatsapp, FaPhoneAlt, FaEnvelope } from "react-icons/fa"
+import { businessStaticData } from "../config"
 
 const navLinks = [
   { name: "ראשי", href: "/" },
@@ -7,7 +8,7 @@ const navLinks = [
   { name: "מכירה", href: "/selling" },
   { name: "קנייה", href: "/buying" },
   { name: "ניהול", href: "/property-management" },
-  { name: "נכסים", href: "/blog" },
+  { name: "נכסים", href: "/catalog" },
   { name: "צור קשר", href: "/contact" },
 ]
 
@@ -90,8 +91,8 @@ export default function Footer() {
                 >
                   <FaPhoneAlt className="h-4 w-4" />
                 </div>
-                <a href="tel:+972501234567" className="hover:text-white transition font-medium hover:underline">
-                  050-123-4567
+                <a href={`tel:+${businessStaticData.phone.israelNumber}`} className="hover:text-white transition font-medium hover:underline">
+                  {businessStaticData.phone.numberToDisplay}
                 </a>
               </div>
               <div className="flex items-center gap-3 text-white/90">
@@ -102,10 +103,10 @@ export default function Footer() {
                   <FaEnvelope className="h-4 w-4" />
                 </div>
                 <a
-                  href="mailto:info@keyhouse.co.il"
+                  href={businessStaticData.social.emailLink}
                   className="hover:text-white transition font-medium hover:underline"
                 >
-                  info@keyhouse.co.il
+                  {businessStaticData.social.email}
                 </a>
               </div>
             </div>
@@ -130,7 +131,7 @@ export default function Footer() {
                 <FaInstagram className="h-5 w-5 text-white" />
               </a>
               <a
-                href="https://wa.me/972501234567"
+                href={businessStaticData.phone.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-white/10 p-3 hover:bg-[#25D366] transition-all duration-300 hover:scale-110 shadow-lg"

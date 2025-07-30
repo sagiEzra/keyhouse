@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { FaPhone as Phone } from "react-icons/fa"
+import { businessStaticData } from "../../config"
 
 interface CTASectionProps {
   title: string
@@ -31,7 +32,7 @@ export default function CTASection({ title, description, buttonText }: CTASectio
             </div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <a
-                href="tel:+972501234567"
+                href={businessStaticData.phone.callLink}
                 className="flex items-center gap-2 rounded-full bg-white px-8 py-4 font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
                 style={{
                   color: "#23214a",

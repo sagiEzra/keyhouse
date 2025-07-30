@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { FaBars as Menu, FaTimes as X, FaPhoneAlt as Phone } from "react-icons/fa"
+import { businessStaticData } from "../config"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,7 +39,7 @@ export default function Header() {
     { name: "מוכרים", href: "/selling" },
     { name: "קונים", href: "/buying" },
     { name: "ניהול נכסים", href: "/property-management" },
-    { name: "קטלוג הנכסים", href: "/blog" },
+    { name: "קטלוג הנכסים", href: "/catalog" },
     { name: "צור קשר", href: "/contact" },
   ]
 
@@ -94,7 +95,7 @@ export default function Header() {
         <div className="hidden md:block">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
-              href="tel:+972501234567"
+              href={businessStaticData.phone.callLink}
               className={`flex items-center gap-2 rounded-full px-5 py-2.5 transition-all duration-300 shadow-lg hover:shadow-xl font-medium ${
                 isScrolled ? "text-white" : "bg-white/20 text-white backdrop-blur-md"
               }`}
@@ -116,7 +117,7 @@ export default function Header() {
               }}
             >
               <Phone className="h-4 w-4" />
-              <span>050-123-4567</span>
+              <span>{businessStaticData.phone.numberToDisplay}</span>
             </Link>
           </motion.div>
         </div>
@@ -167,7 +168,7 @@ export default function Header() {
                   ))}
                   <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-6">
                     <Link
-                      href="tel:+972501234567"
+                      href={businessStaticData.phone.callLink}
                       onClick={() => setIsOpen(false)}
                       className="flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-medium text-white shadow-xl"
                       style={{
@@ -175,7 +176,7 @@ export default function Header() {
                       }}
                     >
                       <Phone className="h-5 w-5" />
-                      <span>050-123-4567</span>
+                      <span>{businessStaticData.phone.numberToDisplay}</span>
                     </Link>
                   </motion.div>
                 </nav>

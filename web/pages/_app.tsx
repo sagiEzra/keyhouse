@@ -6,6 +6,7 @@ import ContactComponent from '../components/contact-component';
 import Footer from '../components/footer';
 import { Rubik } from "next/font/google"
 import { ThemeProvider } from "../components/theme-provider"
+import { FloatingWhatsAppButton } from '../components/common/floatingWhatsAppButton ';
 
 // Hebrew font
 const rubik = Rubik({
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <Header />
             <Component {...pageProps} />
             <Footer />
+            <FloatingWhatsAppButton />
           </ThemeProvider>
         </div>
       </main>

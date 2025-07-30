@@ -61,7 +61,7 @@ export default function AboutSection() {
             אנחנו לא רק מוצאים לך נכס – אנחנו מלווים אותך בדרך לבית הנכון.
           </p>
           <p className="mx-auto max-w-3xl text-lg md:text-xl text-blue-900 font-medium">
-            KeyHouse היא סוכנות נדל"ן מובילה באילת, שנולדה מתוך תשוקה אמיתית לעזור לאנשים להגשים חלומות. עם ניסיון של מעל 12 שנה ועשרות עסקאות מוצלחות, אנו מתמחים בהתאמה מדויקת בין אנשים לנכסים. מה שמייחד אותנו הוא הגישה האנושית, השקיפות והמחויבות המלאה להצלחת הלקוח – מהמפגש הראשון ועד המסירה.
+            KeyHouse היא סוכנות נדל"ן מובילה באילת, שנולדה מתוך תשוקה אמיתית לעזור לאנשים להגשים חלומות. עם ניסיון של מעל לעשור ועשרות עסקאות מוצלחות, אנו מתמחים בהתאמה מדויקת בין אנשים לנכסים. מה שמייחד אותנו הוא הגישה האנושית, השקיפות והמחויבות המלאה להצלחת הלקוח – מהמפגש הראשון ועד המסירה.
           </p>
         </motion.div>
 
@@ -108,7 +108,7 @@ export default function AboutSection() {
           <div className="flex-1 text-center md:text-right">
             <h3 className="mb-3 text-2xl md:text-3xl font-bold text-white">👩‍💼 רותם קהלון – מייסדת ומנהלת KeyHouse</h3>
             <p className="mb-4 text-lg md:text-xl text-blue-100 font-medium">
-              במשך יותר מ-12 שנה, רותם ליוותה עשרות לקוחות במקצועיות ובאנושיות, כשהחזון שלה ברור:
+              במשך מעל לעשור, רותם ליוותה עשרות לקוחות במקצועיות ובאנושיות, כשהחזון שלה ברור:
             </p>
             <blockquote className="border-r-4 border-blue-300 bg-blue-50/20 text-white font-semibold italic p-6 rounded-2xl shadow-lg text-lg md:text-xl mb-4">
               "ליצור חוויית נדל&quot;ן אישית, פשוטה ומדויקת – בלי פשרות."

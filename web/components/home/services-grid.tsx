@@ -2,30 +2,33 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { FaArrowLeft } from "react-icons/fa"
+import { FaBullseye, FaSearch, FaKey, FaHome, FaArrowRight } from "react-icons/fa"
 
 export default function ServicesGrid() {
   const services = [
     {
-      title: "קונים",
-      subtitle: "מוצאים את הבית המושלם",
-      description: "ליווי מקצועי ואישי למציאת הנכס שחלמתם עליו",
-      image: "/images/buying-card.jpg",
-      href: "/buying",
-    },
-    {
       title: "מוכרים",
       subtitle: "מוכרים במחיר הטוב ביותר",
       description: "שיווק מקצועי שמביא תוצאות ומקסם את הרווח שלכם",
-      image: "/images/selling-card.jpg",
+      image: "/images/buying-card.jpg",
       href: "/selling",
+      icon: <FaBullseye className="h-8 w-8 text-[#f1c23b] drop-shadow-lg" />,
+    },
+    {
+      title: "קונים",
+      subtitle: "מוצאים את הבית המושלם",
+      description: "ליווי מקצועי ואישי למציאת הנכס שחלמתם עליו - למגורים או השקעה חכמה",
+      image: "/images/buying-card.jpg",
+      href: "/buying",
+      icon: <FaSearch className="h-8 w-8 text-[#f1c23b] drop-shadow-lg" />,
     },
     {
       title: "ניהול נכסים",
       subtitle: "השקעה בלי כאבי ראש",
       description: "ניהול מקצועי שמבטיח תשואה מקסימלית ושקט נפשי",
-      image: "/images/management-card.jpg",
+      image: "/images/properties-card.jpg",
       href: "/property-management",
+      icon: <FaKey className="h-8 w-8 text-[#f1c23b] drop-shadow-lg" />,
     },
     {
       title: "הנכסים שלנו",
@@ -33,6 +36,7 @@ export default function ServicesGrid() {
       description: "מבחר עשיר של נכסים איכותיים למכירה ולהשכרה באילת",
       image: "/images/properties-card.jpg",
       href: "/properties",
+      icon: <FaHome className="h-8 w-8 text-[#f1c23b] drop-shadow-lg" />,
     },
   ]
 
@@ -110,76 +114,101 @@ export default function ServicesGrid() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
         >
           {services.map((service, index) => (
-            <motion.div key={index} variants={cardVariants} className="group">
+            <motion.div
+              key={index}
+              variants={cardVariants}
+              className="group relative"
+              whileHover={{ y: -8, boxShadow: "0 8px 32px #f1c23b55" }}
+            >
               <Link href={service.href} className="block focus:outline-none">
                 <div
-                  className="relative aspect-square overflow-hidden rounded-3xl shadow-xl bg-white/60 backdrop-blur-xl border transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-3 focus:ring-4 focus:ring-[#f1c23b55]"
+                  className="relative aspect-[3/5] overflow-hidden rounded-2xl shadow-xl border bg-white/90 backdrop-blur-xl transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-2 focus:ring-4 focus:ring-[#f1c23b55]"
                   style={{
-                    borderColor: "#23214a33",
-                    // focusRingColor: "#f1c23b55",
+                    borderColor: "#ffff",
+                    boxShadow: "0 12px 48px 0 #23214a33, 0 4px 24px 0 #23214a18, 0 1.5px 16px 0 #23214a08",
                   }}
                   onMouseEnter={(e) => {
-                    ;(e.currentTarget as HTMLDivElement).style.borderColor = "#f1c23b80"
-                    ;(e.currentTarget as HTMLDivElement).style.boxShadow =
-                      "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40"
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40"
                   }}
                   onMouseLeave={(e) => {
-                    ;(e.currentTarget as HTMLDivElement).style.borderColor = "#23214a33"
-                    ;(e.currentTarget as HTMLDivElement).style.boxShadow =
-                      "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
                   }}
                 >
+                  {/* Decorative Icon */}
+                  {/* <div className="absolute top-5 left-5 z-30 bg-white/80 rounded-full p-2 shadow-md">
+                    {service.icon}
+                  </div> */}
                   {/* Background Image */}
                   <img
-                    src={service.image || "/placeholder.svg?height=400&width=400"}
+                    src={service.image || "/placeholder.svg?height=700&width=400"}
                     alt={service.title}
                     className="absolute inset-0 h-full w-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700"
                   />
-
-                  {/* Overlay */}
+                  {/* Main Overlay - stronger for contrast */}
                   <div
-                    className="absolute inset-0 opacity-80 group-hover:opacity-90 transition-opacity duration-500"
+                    className="absolute inset-0 opacity-40 group-hover:opacity-50 transition-opacity duration-500"
                     style={{
-                      background: "linear-gradient(135deg, #23214a90 0%, #23214a80 100%)",
+                      background: "linear-gradient(135deg, #23214a70 0%, #23214a40 100%)",
                     }}
                   />
-
-                  {/* Content */}
-                  <div className="relative z-10 flex flex-col items-center justify-center h-full p-8 text-center text-white">
-                    <h3 className="mb-2 font-serif text-2xl md:text-3xl lg:text-4xl font-bold drop-shadow-xl">
-                      {service.title}
-                    </h3>
-                    <p className="mb-2 text-lg md:text-xl font-medium drop-shadow-lg" style={{ color: "#f1c23b" }}>
-                      {service.subtitle}
-                    </p>
-                    <p className="mb-8 text-base md:text-lg text-blue-50/90 opacity-95 drop-shadow">
-                      {service.description}
-                    </p>
+                  {/* Bottom Gradient for Text Contrast */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-32 opacity-90 group-hover:opacity-95 transition-opacity duration-500"
+                    style={{
+                      background: "linear-gradient(to top, #23214aee 0%, #23214a99 50%, transparent 100%)",
+                    }}
+                  />
+                  {/* Left-Pointing Arrow with Service Title */}
+                  <div className="absolute top-6 right-0 z-20">
                     <div
-                      className="inline-flex items-center gap-2 rounded-full bg-white/40 px-7 py-3 shadow-xl backdrop-blur-xl transition-all duration-300 group-hover:scale-105 text-white font-semibold text-base"
-                      style={{
-                        background: "rgba(255, 255, 255, 0.4)",
-                      }}
-                      onMouseEnter={(e) => {
-                        ;(e.currentTarget as HTMLDivElement).style.background = "#f1c23b"
-                        ;(e.currentTarget as HTMLDivElement).style.color = "#23214a"
-                      }}
-                      onMouseLeave={(e) => {
-                        ;(e.currentTarget as HTMLDivElement).style.background = "rgba(255, 255, 255, 0.4)"
-                        ;(e.currentTarget as HTMLDivElement).style.color = "#ffffff"
-                      }}
+                      className="relative overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:-translate-x-1 drop-shadow-[0_4px_12px_rgba(35,33,74,0.18)] group-hover:drop-shadow-[0_12px_32px_rgba(241,194,59,0.35)]"
                     >
-                      <span>לפרטים נוספים</span>
-                      <FaArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+                      <div
+                        className="px-8 py-4 pl-12 font-bold text-base md:text-lg tracking-wide shadow-xl"
+                        style={{
+                          background: "linear-gradient(90deg, #23214a 0%, #23214a 100%)",
+                          color: "#ffff",
+                          clipPath: "polygon(20px 0, 100% 0, 100% 100%, 20px 100%, 0 50%)",
+                        }}
+                      >
+                        {service.title}
+                      </div>
                     </div>
                   </div>
+                  {/* Subtitle at Bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 z-10 p-6">
+                    <div className="text-center">
+                      <h3
+                        className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight drop-shadow-xl"
+                        style={{ color: "#fff", textShadow: "0 2px 8px #23214a99" }}
+                      >
+                        {service.subtitle}
+                      </h3>
+                      <p className="mt-2 text-base md:text-lg font-medium text-white/90 drop-shadow" style={{ textShadow: "0 1px 6px #23214a88" }}>
+                        {service.description}
+                      </p>
+                    </div>
+                  </div>
+                  {/* Hover Border Effect */}
                   <div
-                    className="pointer-events-none absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-opacity-80 transition-all duration-500"
-                    style={{ borderColor: "#f1c23b" }}
+                    className="pointer-events-none absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-opacity-80 transition-all duration-500"
+                    // style={{ borderColor: "#23214aee" }}
                   />
+                  {/* Additional Hover Glow Effect */}
+                  <div
+                    className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                    style={{
+                      background: "linear-gradient(135deg, #f1c23b40 0%, transparent 50%, #f1c23b20 100%)",
+                    }}
+                  />
+                  {/* Bottom Info Bar */}
+                  {/* <div className="absolute bottom-0 left-0 right-0 z-20 flex items-center justify-center gap-2 py-3 bg-[#23214aee] bg-opacity-90 rounded-b-2xl">
+                    <span className="text-white font-semibold text-base md:text-lg">לפרטים נוספים</span>
+                    <FaArrowRight className="text-[#f1c23b] h-5 w-5" />
+                  </div> */}
                 </div>
               </Link>
             </motion.div>
@@ -216,7 +245,6 @@ export default function ServicesGrid() {
               }}
             >
               <span>בואו נדבר</span>
-              <FaArrowLeft className="h-5 w-5" />
             </Link>
           </motion.div>
         </motion.div>

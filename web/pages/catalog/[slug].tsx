@@ -1,4 +1,4 @@
-// pages/blog/[slug].tsx
+// pages/catalog/[slug].tsx
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { sanity, urlFor } from '../../lib/sanity';
 import { SanityDocument } from 'next-sanity';

@@ -1,16 +1,44 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useRef, useEffect, useState } from "react"
+import { useInView } from "framer-motion"
 
 interface Stat {
-  value: string
+  value: number
   label: string
+  type?: 'number' | 'precentage' | '+'
 }
 
 interface StatsSectionProps {
   title: string
   description: string
   stats: Stat[]
+}
+
+// Counting animation hook
+function useCountUp(target: number, inView: boolean, duration = 1600) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    if (!inView) return
+    let start = 0
+    const startTime = performance.now()
+    function animate(now: number) {
+      const elapsed = now - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const value = Math.floor(progress * (target - start) + start)
+      setCount(value)
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      } else {
+        setCount(target)
+      }
+    }
+    requestAnimationFrame(animate)
+    // Only run once per inView
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, target])
+  return count
 }
 
 export default function StatsSection({ title, description, stats }: StatsSectionProps) {
@@ -81,30 +109,40 @@ export default function StatsSection({ title, description, stats }: StatsSection
           viewport={{ once: true }}
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
         >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="rounded-xl bg-white/90 p-8 text-center shadow-xl border backdrop-blur-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-              style={{
-                borderColor: "#23214a33",
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}
-              onMouseEnter={(e) => {
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40"
-              }}
-              onMouseLeave={(e) => {
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
-              }}
-            >
-              <div className="mb-4 text-4xl font-bold" style={{ color: "#f1c23b" }}>
-                {stat.value}
-              </div>
-              <div className="font-medium" style={{ color: "#23214a" }}>
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
+          {stats.map((stat, index) => {
+            const ref = useRef<HTMLDivElement>(null)
+            const inView = useInView(ref, { once: true })
+            const animatedValue = useCountUp(stat.value, inView)
+            return (
+              <motion.div
+                key={index}
+                ref={ref}
+                variants={itemVariants}
+                className="rounded-xl bg-white/90 p-8 text-center shadow-xl border backdrop-blur-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                style={{
+                  borderColor: "#23214a33",
+                  boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
+                }}
+                onMouseEnter={(e) => {
+                  ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40"
+                }}
+                onMouseLeave={(e) => {
+                  ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
+                }}
+              >
+                <div className="mb-4 text-4xl font-bold" style={{ color: "#f1c23b" }}>
+                  {stat.type === 'precentage'
+                    ? `${animatedValue}%`
+                    : stat.type === '+'
+                    ? `+${animatedValue}`
+                    : animatedValue}
+                </div>
+                <div className="font-medium" style={{ color: "#23214a" }}>
+                  {stat.label}
+                </div>
+              </motion.div>
+            )
+          })}
         </motion.div>
       </div>
     </section>
