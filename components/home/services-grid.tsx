@@ -35,7 +35,7 @@ export default function ServicesGrid() {
       subtitle: "קטלוג נכסים מובחר",
       description: "מבחר עשיר של נכסים איכותיים למכירה ולהשכרה באילת",
       image: "/images/properties-card.jpg",
-      href: "/properties",
+      href: "/catalog",
       icon: <FaHome className="h-8 w-8 text-[#f1c23b] drop-shadow-lg" />,
     },
   ]

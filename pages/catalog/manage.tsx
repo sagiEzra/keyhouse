@@ -65,6 +65,7 @@ export default function ManagePage() {
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (error: any) {
+      console.error(error)
       alert('התחברות נכשלה, נסה שוב');
     }
   };
@@ -363,19 +364,19 @@ export default function ManagePage() {
                     onMouseLeave={(e) =>
                       (e.currentTarget.style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08")
                     }>
-                    <CardContent className="p-8">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start space-x-6 space-x-reverse">
+                    <CardContent className="p-4 sm:p-6 md:p-8">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
+                        <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
                           <img
                             src={property.images[0] || '/images/image2.jpg'}
                             alt={property.title}
-                            className="w-32 h-32 object-cover rounded-2xl shadow-lg"
+                            className="w-full h-48 sm:w-32 sm:h-32 object-cover rounded-2xl shadow-lg"
                           />
                           <div className="flex-1">
                             <h3 className="text-xl font-bold text-gray-900 mb-3">
                               {property.title}
                             </h3>
-                            <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 mb-3">
                               <span className="flex items-center gap-1">
                                 <FaHome className="h-4 w-4" />
                                 {property.address}, {property.city}
@@ -390,7 +391,7 @@ export default function ManagePage() {
                                 {property.type === 'sale' ? 'למכירה' : 'להשכרה'}
                               </Badge>
                             </div>
-                            <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-x-6 text-sm text-gray-600 mb-4">
                               <span className="flex items-center gap-1">
                                 <FaHome className="h-4 w-4" />
                                 {property.rooms} חדרים
@@ -409,7 +410,7 @@ export default function ManagePage() {
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-2 sm:mt-0">
                           <Link href={`/catalog/${property.id}`}>
                             <Button variant="outline" size="sm" className="bg-white/80 hover:bg-white">
                               <FaEye className="h-4 w-4" />
