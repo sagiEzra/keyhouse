@@ -170,12 +170,12 @@ export default function VideosCarousel() {
                       className="w-full h-full absolute inset-0 rounded-xl border-none"
                     />
                   </div>
-                  {/* <div className="flex items-center gap-3 mb-2">
-                    <img
+                  <div className="flex items-center gap-3 mb-2">
+                    {/* <img
                       src={t.avatar}
                       alt={t.name}
                       className="w-12 h-12 rounded-full border-2 border-[#f1c23b] object-cover shadow"
-                    />
+                    /> */}
                     <div className="text-right">
                       <div className="font-bold text-lg text-[#23214a]">{t.name}</div>
                       {t.title && <div className="text-[#f1c23b] text-sm font-medium">{t.title}</div>}
@@ -183,7 +183,7 @@ export default function VideosCarousel() {
                   </div>
                   <blockquote className="italic text-[#23214a] text-base md:text-lg font-medium text-center mt-2">
                     "{t.quote}"
-                  </blockquote> */}
+                  </blockquote>
                 </motion.div>
               )
             })}

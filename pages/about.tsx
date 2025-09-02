@@ -1,3 +1,4 @@
+import VideosCarousel from "@/components/home/videos-carousel";
 import AboutHero from "../components/about/about-hero";
 import AboutStory from "../components/about/about-story";
 import TeamSection from "../components/about/team-section";
@@ -11,6 +12,7 @@ export default function AboutPage() {
       <AboutStory />
       <TeamSection />
       <ValuesSection />
+      <VideosCarousel />
     </main>
   )
 }

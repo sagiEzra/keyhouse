@@ -26,7 +26,6 @@ export default function HomePage() {
           ]}
         />
       <TestimonialsCarousel />
-      <VideosCarousel />
     </main>
   )
 }
