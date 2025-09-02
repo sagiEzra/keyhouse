@@ -68,7 +68,7 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.8 }}
           className="mb-16 text-3xl md:text-5xl lg:text-6xl font-medium leading-tight tracking-tight text-white drop-shadow-2xl"
         >
-          המומחים שלך בנדל״ן באילת
+          ברוכים הבאים לסוכנות הנדל"ן - קי האוס אילת
           </motion.h1>
 
         {/* <motion.p
