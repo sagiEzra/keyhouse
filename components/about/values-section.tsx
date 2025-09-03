@@ -188,14 +188,14 @@ export default function ValuesSection() {
               className="relative text-center p-12 md:p-16 rounded-3xl shadow-2xl border overflow-hidden"
               style={{
                 background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
-                borderColor: "rgba(255,193,7,0.35)",
-                boxShadow: "0 30px 60px rgba(25,39,74,0.35), 0 10px 25px rgba(255,193,7,0.15), inset 0 1px 0 rgba(255,255,255,0.1)",
+                borderColor: "rgba(218,165,32,0.3)",
+                boxShadow: "0 30px 60px rgba(25,39,74,0.35), 0 10px 25px rgba(218,165,32,0.12), inset 0 1px 0 rgba(255,255,255,0.1)",
               }}
             >
               {/* Decorative background pattern */}
               <div className="absolute inset-0 opacity-5 pointer-events-none"
                    style={{
-                     backgroundImage: "radial-gradient(circle at 2px 2px, rgba(255,193,7,0.8) 1px, transparent 0)",
+                     backgroundImage: "radial-gradient(circle at 2px 2px, rgba(218,165,32,0.7) 1px, transparent 0)",
                      backgroundSize: "40px 40px"
                    }} />
 
@@ -207,7 +207,7 @@ export default function ValuesSection() {
               <div className="relative z-10">
                 <h3 className="mb-8 text-3xl md:text-4xl font-bold text-white leading-tight">
                   <span className="block mb-2">"אנחנו לא מוכרים נכסים</span>
-                  <span className="block" style={{ color: "#ffc107" }}>– אנחנו בונים אמון, מלווים חלום"</span>
+                  <span className="block" style={{ color: "#daa520" }}>– אנחנו בונים אמון, מלווים חלום"</span>
                 </h3>
                 
                 <div className="max-w-3xl mx-auto mb-8">
@@ -218,16 +218,16 @@ export default function ValuesSection() {
 
                 {/* Decorative elements */}
                 <div className="flex items-center justify-center gap-4 mb-6">
-                  <div className="h-px w-20 opacity-40" style={{ backgroundColor: "#ffc107" }} />
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#ffc107" }} />
-                  <div className="h-px w-20 opacity-40" style={{ backgroundColor: "#ffc107" }} />
+                  <div className="h-px w-20 opacity-40" style={{ backgroundColor: "#daa520" }} />
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#daa520" }} />
+                  <div className="h-px w-20 opacity-40" style={{ backgroundColor: "#daa520" }} />
                 </div>
 
                 <div
                   className="mx-auto h-2 w-32 rounded-full"
                   style={{
-                    background: "linear-gradient(90deg, #ffc107 0%, rgba(255,193,7,0.4) 50%, #ffc107 100%)",
-                    boxShadow: "0 4px 20px rgba(255,193,7,0.4)",
+                    background: "linear-gradient(90deg, #daa520 0%, rgba(218,165,32,0.4) 50%, #daa520 100%)",
+                    boxShadow: "0 4px 20px rgba(218,165,32,0.35)",
                   }}
                 />
               </div>
