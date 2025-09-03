@@ -51,38 +51,55 @@ const videoTestimonials = [
 export default function VideosCarousel() {
   const [current, setCurrent] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
-  const [playing, setPlaying] = useState<number | null>(null)
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const visibleCount = typeof window !== "undefined" && window.innerWidth < 768 ? 1 : 3
 
-  // Responsive visible count
+  // Responsive slides count with luxury breakpoints
   const [slidesToShow, setSlidesToShow] = useState(3)
   useEffect(() => {
     function handleResize() {
-      setSlidesToShow(window.innerWidth < 768 ? 1 : 3)
+      const width = window.innerWidth
+      if (width < 768) {
+        setSlidesToShow(1) // Mobile: 1 video
+      } else if (width < 1024) {
+        setSlidesToShow(2) // Tablet: 2 videos
+      } else {
+        setSlidesToShow(3) // Desktop: 3 videos
+      }
     }
     handleResize()
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  // Auto-scroll
+  // Auto-scroll with luxury timing
   useEffect(() => {
-    if (!isPaused) {
+    if (!isPaused && !isTransitioning) {
       intervalRef.current = setInterval(() => {
-        setCurrent((prev) => (prev + 1) % videoTestimonials.length)
-      }, 6000)
+        next()
+      }, 5000) // 5-second intervals like testimonials
     }
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [isPaused])
+  }, [isPaused, isTransitioning])
 
-  // Navigation
-  const next = () => setCurrent((prev) => (prev + 1) % videoTestimonials.length)
-  const prev = () => setCurrent((prev) => (prev - 1 + videoTestimonials.length) % videoTestimonials.length)
+  // Luxury navigation with transition state
+  const next = () => {
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setCurrent((prev) => (prev + 1) % videoTestimonials.length)
+    setTimeout(() => setIsTransitioning(false), 600)
+  }
+  
+  const prev = () => {
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setCurrent((prev) => (prev - 1 + videoTestimonials.length) % videoTestimonials.length)
+    setTimeout(() => setIsTransitioning(false), 600)
+  }
 
-  // Swiping (touch events)
+  // Enhanced touch handling
   const touchStartX = useRef<number | null>(null)
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX
@@ -90,24 +107,25 @@ export default function VideosCarousel() {
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current !== null) {
       const dx = e.changedTouches[0].clientX - touchStartX.current
-      if (dx > 50) prev()
-      else if (dx < -50) next()
+      if (Math.abs(dx) > 50) {
+        if (dx > 0) prev()
+        else next()
+      }
     }
     touchStartX.current = null
   }
 
-  // Play video on click
-  const handlePlay = (idx: number) => setPlaying(idx)
-  const handlePause = () => setPlaying(null)
-
-  // Calculate visible slides
-  const getVisibleSlides = () => {
-    const slides = []
+  // Calculate visible slides for luxury display
+  const getVisibleVideos = () => {
+    const videos = []
     for (let i = 0; i < slidesToShow; i++) {
-      slides.push((current + i) % videoTestimonials.length)
+      const index = (current + i) % videoTestimonials.length
+      videos.push({ ...videoTestimonials[index], displayIndex: i })
     }
-    return slides
+    return videos
   }
+
+  const maxIndex = Math.max(0, videoTestimonials.length - slidesToShow)
 
   return (
     <section
@@ -148,77 +166,166 @@ export default function VideosCarousel() {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="flex gap-8 justify-center items-stretch">
-            {getVisibleSlides().map((idx) => {
-              const t = videoTestimonials[idx]
-              return (
+          <AnimatePresence mode="wait">
+            <div className="flex gap-8 justify-center items-stretch">
+              {getVisibleVideos().map((video, idx) => (
                 <motion.div
-                  key={t.id}
+                  key={video.id}
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 40 }}
-                  transition={{ duration: 0 }}
-                  className="flex-1 min-w-0 max-w-sm bg-white/90 border rounded-2xl shadow-xl backdrop-blur-xl flex flex-col items-center p-6 relative transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-                  style={{ borderColor: "#23214a22" }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="group cursor-default relative flex-1 min-w-0 max-w-sm"
                 >
-                  <div className="relative w-full aspect-[9/16] max-h-[350px] md:max-h-[500px] rounded-xl overflow-hidden mb-4 group">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${t.youtubeId}?rel=0&modestbranding=1&autoplay=0&playsinline=1`}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      title={`וידאו המלצה ${t.id}`}
-                      className="w-full h-full absolute inset-0 rounded-xl border-none"
+                  {/* Outer glow effect */}
+                  <div 
+                    className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(241,194,59,0.15) 0%, rgba(35,33,74,0.08) 100%)",
+                      filter: "blur(20px)",
+                      zIndex: -1
+                    }} 
+                  />
+
+                  {/* Main card */}
+                  <div 
+                    className="relative h-full bg-gradient-to-br from-white via-white to-gray-50/30 rounded-3xl p-6 shadow-xl border backdrop-blur-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 flex flex-col items-center"
+                    style={{
+                      borderColor: "rgba(35,33,74,0.1)",
+                      boxShadow: "0 20px 40px rgba(35,33,74,0.08), 0 8px 20px rgba(35,33,74,0.05), inset 0 1px 0 rgba(255,255,255,0.6)",
+                    }}
+                  >
+                    {/* Video container with luxury styling */}
+                    <div className="relative w-full aspect-[9/16] max-h-[350px] md:max-h-[500px] rounded-2xl overflow-hidden mb-6 group/video shadow-lg">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent z-10 pointer-events-none opacity-0 group-hover/video:opacity-100 transition-opacity duration-300" />
+                      <iframe
+                        src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0&modestbranding=1&autoplay=0&playsinline=1`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        title={`וידאו המלצה ${video.id}`}
+                        className="w-full h-full absolute inset-0 rounded-2xl border-none transition-all duration-500 group-hover/video:scale-[1.02]"
+                        style={{
+                          boxShadow: "0 10px 30px rgba(35,33,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)"
+                        }}
+                      />
+                    </div>
+
+                    {/* Content section */}
+                    <div className="flex flex-col items-center text-center space-y-3 flex-1">
+                      <div className="flex items-center gap-3">
+                        <div className="text-center">
+                          <div className="font-serif font-bold text-xl text-[#23214a] mb-1">{video.name}</div>
+                          {video.title && (
+                            <div className="text-[#f1c23b] text-sm font-medium">{video.title}</div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Quote with luxury styling */}
+                      <div className="relative">
+                        <div className="absolute -top-2 -right-2 text-4xl opacity-10 font-serif select-none pointer-events-none text-[#f1c23b]">
+                          "
+                        </div>
+                        <blockquote className="italic text-[#23214a] text-base md:text-lg font-medium leading-relaxed">
+                          "{video.quote}"
+                        </blockquote>
+                      </div>
+                    </div>
+
+                    {/* Bottom accent line */}
+                    <div 
+                      className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 rounded-full opacity-30 group-hover:opacity-80 group-hover:w-20 transition-all duration-500"
+                      style={{ backgroundColor: "#f1c23b" }} 
                     />
                   </div>
-                  <div className="flex items-center gap-3 mb-2">
-                    {/* <img
-                      src={t.avatar}
-                      alt={t.name}
-                      className="w-12 h-12 rounded-full border-2 border-[#f1c23b] object-cover shadow"
-                    /> */}
-                    <div className="text-right">
-                      <div className="font-bold text-lg text-[#23214a]">{t.name}</div>
-                      {t.title && <div className="text-[#f1c23b] text-sm font-medium">{t.title}</div>}
-                    </div>
-                  </div>
-                  <blockquote className="italic text-[#23214a] text-base md:text-lg font-medium text-center mt-2">
-                    "{t.quote}"
-                  </blockquote>
                 </motion.div>
-              )
-            })}
+              ))}
+            </div>
+          </AnimatePresence>
           </div>
-          {/* Navigation arrows (desktop only) */}
+          {/* Luxury Navigation arrows (desktop only) */}
           <button
             onClick={prev}
-            className="hidden md:flex absolute right-[-30px] top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 shadow-xl border transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]"
-            style={{ borderColor: "#23214a22", color: "#23214a" }}
+            disabled={isTransitioning}
+            className="group hidden md:flex absolute right-[-50px] top-1/2 -translate-y-1/2 w-14 h-14 items-center justify-center rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]/50 focus:ring-offset-4 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.98) 100%)",
+              border: "1px solid rgba(35,33,74,0.1)",
+              boxShadow: "0 20px 40px rgba(35,33,74,0.15), 0 8px 20px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+              color: "#23214a"
+            }}
             aria-label="הקודם"
           >
-            <FaChevronRight className="h-6 w-6" />
+            {/* Button glow effect */}
+            <div className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                 style={{
+                   background: "linear-gradient(135deg, rgba(241,194,59,0.1) 0%, rgba(35,33,74,0.05) 100%)",
+                   filter: "blur(15px)"
+                 }} />
+            <FaChevronRight className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />
           </button>
           <button
             onClick={next}
-            className="hidden md:flex absolute left-[-30px] top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 shadow-xl border transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]"
-            style={{ borderColor: "#23214a22", color: "#23214a" }}
+            disabled={isTransitioning}
+            className="group hidden md:flex absolute left-[-50px] top-1/2 -translate-y-1/2 w-14 h-14 items-center justify-center rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]/50 focus:ring-offset-4 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.98) 100%)",
+              border: "1px solid rgba(35,33,74,0.1)",
+              boxShadow: "0 20px 40px rgba(35,33,74,0.15), 0 8px 20px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+              color: "#23214a"
+            }}
             aria-label="הבא"
           >
-            <FaChevronLeft className="h-6 w-6" />
+            {/* Button glow effect */}
+            <div className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                 style={{
+                   background: "linear-gradient(135deg, rgba(241,194,59,0.1) 0%, rgba(35,33,74,0.05) 100%)",
+                   filter: "blur(15px)"
+                 }} />
+            <FaChevronLeft className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />
           </button>
-          {/* Pagination indicators */}
-          <div className="mt-8 flex justify-center gap-3">
-            {videoTestimonials.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrent(idx)}
-                className={`h-3 rounded-full transition-all duration-300 ${getVisibleSlides().includes(idx) ? "w-8" : "w-3"}`}
-                style={{ backgroundColor: getVisibleSlides().includes(idx) ? "#f1c23b" : "#23214a33" }}
-                aria-label={`עבור לוידאו ${idx + 1}`}
-              />
-            ))}
+          {/* Luxury pagination indicators */}
+          <div className="mt-12 flex justify-center gap-4">
+            {videoTestimonials.map((_, idx) => {
+              const isActive = getVisibleVideos().some(video => video.id === videoTestimonials[idx].id)
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setCurrent(idx)}
+                  className={`relative transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]/50 focus:ring-offset-2 rounded-full ${
+                    isActive ? "w-12 h-4" : "w-4 h-4"
+                  }`}
+                  aria-label={`עבור לוידאו ${idx + 1}`}
+                >
+                  {/* Background with luxury styling */}
+                  <div
+                    className={`absolute inset-0 rounded-full transition-all duration-500 ${
+                      isActive ? "opacity-100" : "opacity-40 hover:opacity-70"
+                    }`}
+                    style={{
+                      background: isActive
+                        ? "linear-gradient(90deg, #f1c23b 0%, #e6b84f 100%)"
+                        : "#23214a",
+                      boxShadow: isActive
+                        ? "0 4px 12px rgba(241,194,59,0.4), 0 2px 6px rgba(241,194,59,0.2)"
+                        : "0 2px 8px rgba(35,33,74,0.2)",
+                    }}
+                  />
+                  
+                  {/* Inner highlight */}
+                  {isActive && (
+                    <div
+                      className="absolute inset-0 rounded-full opacity-20"
+                      style={{
+                        background: "linear-gradient(135deg, rgba(255,255,255,0.6) 0%, transparent 100%)",
+                      }}
+                    />
+                  )}
+                </button>
+              )
+            })}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
   )
 }
