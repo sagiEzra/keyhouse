@@ -14,11 +14,11 @@ export default function AboutStory() {
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-20 left-10 w-96 h-96 rounded-full blur-3xl opacity-5"
-          style={{ background: "radial-gradient(circle, #23214a 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, rgba(25,39,74,0.97) 0%, transparent 70%)" }}
         />
         <div
           className="absolute bottom-20 right-10 w-80 h-80 rounded-full blur-3xl opacity-4"
-          style={{ background: "radial-gradient(circle, #f1c23b 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, #c79d2a 0%, transparent 70%)" }}
         />
       </div>
 
@@ -38,7 +38,7 @@ export default function AboutStory() {
                 {/* Background glow effect */}
                 <div className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                      style={{
-                       background: "linear-gradient(135deg, rgba(241,194,59,0.2) 0%, rgba(35,33,74,0.1) 100%)",
+                       background: "linear-gradient(135deg, rgba(199,157,42,0.2) 0%, rgba(25,39,74,0.1) 100%)",
                        filter: "blur(20px)",
                        zIndex: -1
                      }} />
@@ -50,7 +50,7 @@ export default function AboutStory() {
                     alt="רותם קהלון - בעלת המשרד"
                     className="w-full h-[600px] lg:h-[700px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
                     style={{
-                      boxShadow: "0 20px 50px rgba(35,33,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
+                      boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
                     }}
                   />
                   
@@ -60,9 +60,9 @@ export default function AboutStory() {
 
                 {/* Decorative elements */}
                 <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500"
-                     style={{ background: "linear-gradient(135deg, #f1c23b 0%, #e6b84f 100%)" }} />
+                     style={{ background: "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)" }} />
                 <div className="absolute -top-4 -left-4 w-16 h-16 rounded-full opacity-15 group-hover:opacity-30 transition-opacity duration-500"
-                     style={{ background: "linear-gradient(135deg, #23214a 0%, #2d2b5a 100%)" }} />
+                     style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)" }} />
               </div>
             </div>
 
@@ -71,24 +71,24 @@ export default function AboutStory() {
               {/* Title */}
               <div className="space-y-4">
                 <h2 className="text-5xl lg:text-6xl font-serif font-bold leading-tight"
-                    style={{ color: "#23214a" }}>
+                    style={{ color: "rgba(25,39,74,0.97)" }}>
                   רותם קהלון
                 </h2>
                 <div className="flex items-center gap-4">
                   <div className="h-1 w-16 rounded-full"
-                       style={{ background: "linear-gradient(90deg, #f1c23b 0%, rgba(241,194,59,0.3) 100%)" }} />
-                  <p className="text-2xl font-medium" style={{ color: "#f1c23b" }}>
+                       style={{ background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 100%)" }} />
+                  <p className="text-2xl font-medium" style={{ color: "#c79d2a" }}>
                     בעלת המשרד
                   </p>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="space-y-8 text-lg leading-relaxed" style={{ color: "#23214a" }}>
+              <div className="space-y-8 text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.97)" }}>
                 <div className="relative">
                   {/* Quote decoration */}
                   <div className="absolute -top-4 -right-6 text-6xl opacity-10 font-serif select-none"
-                       style={{ color: "#f1c23b" }}>
+                       style={{ color: "#c79d2a" }}>
                     "
                   </div>
                   
@@ -108,7 +108,7 @@ export default function AboutStory() {
                 {/* Quote section */}
                 <div className="relative">
                   <div className="bg-gradient-to-l from-white via-gray-50 to-white p-8 rounded-2xl border-r-4 shadow-lg"
-                       style={{ borderColor: "#f1c23b", boxShadow: "0 10px 30px rgba(35,33,74,0.08)" }}>
+                       style={{ borderColor: "#c79d2a", boxShadow: "0 10px 30px rgba(25,39,74,0.08)" }}>
                     <p className="text-xl italic font-medium leading-relaxed mb-4">
                       "אני מאמינה שעסקת נדלן היא אחת ההחלטות הכלכליות והחשובות בחיים. המשימה שלי היא להפוך את התהליך לפשוט, נעים ומוצלח עבור כל לקוח"
                     </p>
@@ -133,20 +133,20 @@ export default function AboutStory() {
               {/* Title */}
               <div className="space-y-4">
                 <h2 className="text-5xl lg:text-6xl font-serif font-bold leading-tight"
-                    style={{ color: "#23214a" }}>
+                    style={{ color: "rgba(25,39,74,0.97)" }}>
                   שירז קהלון
                 </h2>
                 <div className="flex items-center gap-4">
                   <div className="h-1 w-16 rounded-full"
-                       style={{ background: "linear-gradient(90deg, #f1c23b 0%, rgba(241,194,59,0.3) 100%)" }} />
-                  <p className="text-2xl font-medium" style={{ color: "#f1c23b" }}>
+                       style={{ background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 100%)" }} />
+                  <p className="text-2xl font-medium" style={{ color: "#c79d2a" }}>
                     יועצת נדלן
                   </p>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="space-y-8 text-lg leading-relaxed" style={{ color: "#23214a" }}>
+              <div className="space-y-8 text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.97)" }}>
                 <p className="leading-relaxed">
                   מביאה איתה אנרגיה צעירה וחיובית עם רקע בשיווק ותקשורת, מצטיינת בקשר אישי עם לקוחות, בהקשבה לצרכים שלהם וביכולת להבין בדיוק מה חשוב להם.
                 </p>
@@ -158,7 +158,7 @@ export default function AboutStory() {
                 {/* Quote section */}
                 <div className="relative">
                   <div className="bg-gradient-to-r from-white via-gray-50 to-white p-8 rounded-2xl border-l-4 shadow-lg"
-                       style={{ borderColor: "#f1c23b", boxShadow: "0 10px 30px rgba(35,33,74,0.08)" }}>
+                       style={{ borderColor: "#c79d2a", boxShadow: "0 10px 30px rgba(25,39,74,0.08)" }}>
                     <p className="text-xl italic font-medium leading-relaxed mb-4">
                       "בשבילי כל עסקה היא לא רק מכירה – אלא הזדמנות להגשים חלום עבור הלקוח"
                     </p>
@@ -173,7 +173,7 @@ export default function AboutStory() {
                 {/* Background glow effect */}
                 <div className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                      style={{
-                       background: "linear-gradient(225deg, rgba(241,194,59,0.2) 0%, rgba(35,33,74,0.1) 100%)",
+                       background: "linear-gradient(225deg, rgba(199,157,42,0.2) 0%, rgba(25,39,74,0.1) 100%)",
                        filter: "blur(20px)",
                        zIndex: -1
                      }} />
@@ -185,7 +185,7 @@ export default function AboutStory() {
                     alt="שירז קהלון - יועצת נדלן"
                     className="w-full h-[600px] lg:h-[700px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
                     style={{
-                      boxShadow: "0 20px 50px rgba(35,33,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
+                      boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
                     }}
                   />
                   
@@ -195,9 +195,9 @@ export default function AboutStory() {
 
                 {/* Decorative elements - mirrored */}
                 <div className="absolute -bottom-4 -left-4 w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500"
-                     style={{ background: "linear-gradient(225deg, #f1c23b 0%, #e6b84f 100%)" }} />
+                     style={{ background: "linear-gradient(225deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)" }} />
                 <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full opacity-15 group-hover:opacity-30 transition-opacity duration-500"
-                     style={{ background: "linear-gradient(225deg, #23214a 0%, #2d2b5a 100%)" }} />
+                     style={{ background: "linear-gradient(225deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)" }} />
               </div>
             </div>
           </div>
@@ -212,16 +212,16 @@ export default function AboutStory() {
           className="text-center max-w-4xl mx-auto"
         >
           <div className="bg-gradient-to-br from-white via-gray-50 to-white p-12 rounded-3xl shadow-xl border"
-               style={{ borderColor: "rgba(35,33,74,0.1)", boxShadow: "0 25px 50px rgba(35,33,74,0.08)" }}>
-            <p className="text-xl leading-relaxed mb-8" style={{ color: "#23214a" }}>
+               style={{ borderColor: "rgba(25,39,74,0.1)", boxShadow: "0 25px 50px rgba(25,39,74,0.08)" }}>
+            <p className="text-xl leading-relaxed mb-8" style={{ color: "rgba(25,39,74,0.97)" }}>
               כיום קי האוס היא אחת מסוכנויות הנדל"ן המובילות באילת, עם צוות מקצועי ומסור שחולק את אותה תשוקה ומחויבות לשירות מעולה. אנו גאים להיות חלק מהרגעים המשמעותיים בחיי לקוחותינו, ולהפוך את חלום למציאות.
             </p>
             
             {/* Decorative divider */}
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="h-px w-20 opacity-30" style={{ backgroundColor: "#23214a" }} />
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#f1c23b" }} />
-              <div className="h-px w-20 opacity-30" style={{ backgroundColor: "#23214a" }} />
+              <div className="h-px w-20 opacity-30" style={{ backgroundColor: "rgba(25,39,74,0.97)" }} />
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#c79d2a" }} />
+              <div className="h-px w-20 opacity-30" style={{ backgroundColor: "rgba(25,39,74,0.97)" }} />
             </div>
           </div>
         </motion.div>

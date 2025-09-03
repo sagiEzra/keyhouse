@@ -130,12 +130,12 @@ export default function VideosCarousel() {
   return (
     <section
       className="py-20 relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #23214a0d 0%, #fff 60%, #f1c23b0d 100%)" }}
+      style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97)0d 0%, #fff 60%, #c79d2a0d 100%)" }}
     >
       {/* Decorative gradients */}
       <div
         className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-[40vw] rounded-full blur-3xl opacity-60"
-        style={{ background: "linear-gradient(135deg, #23214a4d 0%, #23214a1a 100%)" }}
+        style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97)4d 0%, rgba(25,39,74,0.97)1a 100%)" }}
       />
       <div className="container mx-auto px-4">
         <motion.div
@@ -147,16 +147,16 @@ export default function VideosCarousel() {
         >
           <h2
             className="mb-4 font-serif text-3xl md:text-5xl font-extrabold tracking-tight drop-shadow-xl"
-            style={{ color: "#23214a" }}
+            style={{ color: "rgba(25,39,74,0.97)" }}
           >
             לקוחות מספרים בוידאו
           </h2>
-          <p className="mx-auto max-w-3xl text-lg md:text-xl font-semibold" style={{ color: "#23214a" }}>
+          <p className="mx-auto max-w-3xl text-lg md:text-xl font-semibold" style={{ color: "rgba(25,39,74,0.97)" }}>
             צפו בלקוחות מרוצים משתפים את החוויה שלהם איתנו
           </p>
           <div
             className="mx-auto mt-6 h-1 w-28 rounded-full"
-            style={{ background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)", boxShadow: "0 2px 12px #f1c23b55" }}
+            style={{ background: "linear-gradient(90deg, #c79d2a 0%, #fff 100%)", boxShadow: "0 2px 12px #c79d2a55" }}
           />
         </motion.div>
         <div
@@ -181,7 +181,7 @@ export default function VideosCarousel() {
                   <div 
                     className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                     style={{
-                      background: "linear-gradient(135deg, rgba(241,194,59,0.15) 0%, rgba(35,33,74,0.08) 100%)",
+                      background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(25,39,74,0.08) 100%)",
                       filter: "blur(20px)",
                       zIndex: -1
                     }} 
@@ -191,8 +191,8 @@ export default function VideosCarousel() {
                   <div 
                     className="relative h-full bg-gradient-to-br from-white via-white to-gray-50/30 rounded-3xl p-6 shadow-xl border backdrop-blur-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 flex flex-col items-center"
                     style={{
-                      borderColor: "rgba(35,33,74,0.1)",
-                      boxShadow: "0 20px 40px rgba(35,33,74,0.08), 0 8px 20px rgba(35,33,74,0.05), inset 0 1px 0 rgba(255,255,255,0.6)",
+                      borderColor: "rgba(25,39,74,0.1)",
+                      boxShadow: "0 20px 40px rgba(25,39,74,0.08), 0 8px 20px rgba(25,39,74,0.05), inset 0 1px 0 rgba(255,255,255,0.6)",
                     }}
                   >
                     {/* Video container with luxury styling */}
@@ -205,7 +205,7 @@ export default function VideosCarousel() {
                         title={`וידאו המלצה ${video.id}`}
                         className="w-full h-full absolute inset-0 rounded-2xl border-none transition-all duration-500 group-hover/video:scale-[1.02]"
                         style={{
-                          boxShadow: "0 10px 30px rgba(35,33,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)"
+                          boxShadow: "0 10px 30px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)"
                         }}
                       />
                     </div>
@@ -214,19 +214,19 @@ export default function VideosCarousel() {
                     <div className="flex flex-col items-center text-center space-y-3 flex-1">
                       <div className="flex items-center gap-3">
                         <div className="text-center">
-                          <div className="font-serif font-bold text-xl text-[#23214a] mb-1">{video.name}</div>
+                          <div className="font-serif font-bold text-xl text-[rgba(25,39,74,0.97)] mb-1">{video.name}</div>
                           {video.title && (
-                            <div className="text-[#f1c23b] text-sm font-medium">{video.title}</div>
+                            <div className="text-[#c79d2a] text-sm font-medium">{video.title}</div>
                           )}
                         </div>
                       </div>
                       
                       {/* Quote with luxury styling */}
                       <div className="relative">
-                        <div className="absolute -top-2 -right-2 text-4xl opacity-10 font-serif select-none pointer-events-none text-[#f1c23b]">
+                        <div className="absolute -top-2 -right-2 text-4xl opacity-10 font-serif select-none pointer-events-none text-[#c79d2a]">
                           "
                         </div>
-                        <blockquote className="italic text-[#23214a] text-base md:text-lg font-medium leading-relaxed">
+                        <blockquote className="italic text-[rgba(25,39,74,0.97)] text-base md:text-lg font-medium leading-relaxed">
                           "{video.quote}"
                         </blockquote>
                       </div>
@@ -235,7 +235,7 @@ export default function VideosCarousel() {
                     {/* Bottom accent line */}
                     <div 
                       className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 rounded-full opacity-30 group-hover:opacity-80 group-hover:w-20 transition-all duration-500"
-                      style={{ backgroundColor: "#f1c23b" }} 
+                      style={{ backgroundColor: "#c79d2a" }} 
                     />
                   </div>
                 </motion.div>
@@ -247,19 +247,19 @@ export default function VideosCarousel() {
           <button
             onClick={prev}
             disabled={isTransitioning}
-            className="group hidden md:flex absolute right-[-50px] top-1/2 -translate-y-1/2 w-14 h-14 items-center justify-center rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]/50 focus:ring-offset-4 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group hidden md:flex absolute right-[-50px] top-1/2 -translate-y-1/2 w-14 h-14 items-center justify-center rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50 focus:ring-offset-4 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.98) 100%)",
-              border: "1px solid rgba(35,33,74,0.1)",
-              boxShadow: "0 20px 40px rgba(35,33,74,0.15), 0 8px 20px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
-              color: "#23214a"
+              border: "1px solid rgba(25,39,74,0.1)",
+              boxShadow: "0 20px 40px rgba(25,39,74,0.15), 0 8px 20px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+              color: "rgba(25,39,74,0.97)"
             }}
             aria-label="הקודם"
           >
             {/* Button glow effect */}
             <div className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                  style={{
-                   background: "linear-gradient(135deg, rgba(241,194,59,0.1) 0%, rgba(35,33,74,0.05) 100%)",
+                   background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(25,39,74,0.05) 100%)",
                    filter: "blur(15px)"
                  }} />
             <FaChevronRight className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />
@@ -267,19 +267,19 @@ export default function VideosCarousel() {
           <button
             onClick={next}
             disabled={isTransitioning}
-            className="group hidden md:flex absolute left-[-50px] top-1/2 -translate-y-1/2 w-14 h-14 items-center justify-center rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]/50 focus:ring-offset-4 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group hidden md:flex absolute left-[-50px] top-1/2 -translate-y-1/2 w-14 h-14 items-center justify-center rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50 focus:ring-offset-4 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.98) 100%)",
-              border: "1px solid rgba(35,33,74,0.1)",
-              boxShadow: "0 20px 40px rgba(35,33,74,0.15), 0 8px 20px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
-              color: "#23214a"
+              border: "1px solid rgba(25,39,74,0.1)",
+              boxShadow: "0 20px 40px rgba(25,39,74,0.15), 0 8px 20px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+              color: "rgba(25,39,74,0.97)"
             }}
             aria-label="הבא"
           >
             {/* Button glow effect */}
             <div className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                  style={{
-                   background: "linear-gradient(135deg, rgba(241,194,59,0.1) 0%, rgba(35,33,74,0.05) 100%)",
+                   background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(25,39,74,0.05) 100%)",
                    filter: "blur(15px)"
                  }} />
             <FaChevronLeft className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />
@@ -292,7 +292,7 @@ export default function VideosCarousel() {
                 <button
                   key={idx}
                   onClick={() => setCurrent(idx)}
-                  className={`relative transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#f1c23b]/50 focus:ring-offset-2 rounded-full ${
+                  className={`relative transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50 focus:ring-offset-2 rounded-full ${
                     isActive ? "w-12 h-4" : "w-4 h-4"
                   }`}
                   aria-label={`עבור לוידאו ${idx + 1}`}
@@ -304,11 +304,11 @@ export default function VideosCarousel() {
                     }`}
                     style={{
                       background: isActive
-                        ? "linear-gradient(90deg, #f1c23b 0%, #e6b84f 100%)"
-                        : "#23214a",
+                        ? "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)"
+                        : "rgba(25,39,74,0.97)",
                       boxShadow: isActive
-                        ? "0 4px 12px rgba(241,194,59,0.4), 0 2px 6px rgba(241,194,59,0.2)"
-                        : "0 2px 8px rgba(35,33,74,0.2)",
+                        ? "0 4px 12px rgba(199,157,42,0.4), 0 2px 6px rgba(199,157,42,0.2)"
+                        : "0 2px 8px rgba(25,39,74,0.2)",
                     }}
                   />
                   

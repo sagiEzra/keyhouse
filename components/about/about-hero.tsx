@@ -7,7 +7,7 @@ export default function AboutHero() {
     <section
       className="relative flex min-h-[50vh] items-center justify-center overflow-hidden pt-20"
       style={{
-        background: "linear-gradient(135deg, #23214a 0%, #2d2b5a 50%, #23214a 100%)",
+        background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
       }}
     >
       {/* Enhanced decorative elements */}
@@ -16,21 +16,21 @@ export default function AboutHero() {
         <div
           className="absolute left-1/2 top-1/3 w-[80vw] h-[60vw] max-w-5xl -translate-x-1/2 rounded-full blur-3xl opacity-20"
           style={{
-            background: "radial-gradient(circle, #f1c23b40 0%, #f1c23b20 30%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(199,157,42,0.25) 0%, rgba(199,157,42,0.125) 30%, transparent 70%)",
           }}
         />
         {/* Secondary accent */}
         <div
           className="absolute right-0 top-0 w-1/2 h-1/2 blur-2xl opacity-15"
           style={{
-            background: "linear-gradient(225deg, #f1c23b60 0%, transparent 70%)",
+            background: "linear-gradient(225deg, rgba(199,157,42,0.375) 0%, transparent 70%)"
           }}
         />
         {/* Left accent */}
         <div
           className="absolute left-0 bottom-0 w-1/3 h-1/3 blur-2xl opacity-10"
           style={{
-            background: "linear-gradient(45deg, #f1c23b40 0%, transparent 100%)",
+            background: "linear-gradient(45deg, rgba(199,157,42,0.25) 0%, transparent 100%)"
           }}
         />
       </div>
@@ -43,7 +43,7 @@ export default function AboutHero() {
         >
           <h1 className="mb-8 font-serif text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
             <span className="block mb-4" style={{ 
-              textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(241,194,59,0.2)" 
+              textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)" 
             }}>
               הכירו את
             </span>
@@ -70,8 +70,8 @@ export default function AboutHero() {
           <motion.div
             className="mx-auto h-1.5 w-32 rounded-full"
             style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, rgba(241,194,59,0.3) 50%, #f1c23b 100%)",
-              boxShadow: "0 4px 20px rgba(241,194,59,0.4), 0 2px 10px rgba(241,194,59,0.2)",
+              background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 50%, #c79d2a 100%)",
+              boxShadow: "0 4px 20px rgba(199,157,42,0.4), 0 2px 10px rgba(199,157,42,0.2)",
             }}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}

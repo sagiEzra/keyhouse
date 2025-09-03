@@ -188,8 +188,8 @@ export default function ValuesSection() {
               className="relative text-center p-12 md:p-16 rounded-3xl shadow-2xl border overflow-hidden"
               style={{
                 background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
-                borderColor: "rgba(218,165,32,0.3)",
-                boxShadow: "0 30px 60px rgba(25,39,74,0.35), 0 10px 25px rgba(218,165,32,0.12), inset 0 1px 0 rgba(255,255,255,0.1)",
+                borderColor: "rgba(199,157,42,0.3)",
+                boxShadow: "0 30px 60px rgba(25,39,74,0.35), 0 10px 25px rgba(199,157,42,0.15), inset 0 1px 0 rgba(255,255,255,0.1)",
               }}
             >
               {/* Decorative background pattern */}
