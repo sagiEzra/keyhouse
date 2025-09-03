@@ -48,12 +48,12 @@ export default function AboutHero() {
               הכירו את...
             </span>
             <span 
-              className="block bg-gradient-to-l from-white via-gray-100 to-white bg-clip-text text-transparent"
+              className="block bg-gradient-to-l from-white via-gray-0 to-white bg-clip-text text-transparent"
               style={{ 
                 textShadow: "0 4px 20px rgba(0,0,0,0.4)" 
               }}
             >
-              קי - האוס
+              סוכנות נדל"ן - קי האוס
             </span>
           </h1>
           
