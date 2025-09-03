@@ -20,7 +20,7 @@ export default function Footer() {
       className="relative z-10 mt-0 overflow-hidden"
       style={{
         background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
-        boxShadow: "0 -20px 40px rgba(25,39,74,0.3), 0 -8px 20px rgba(218,165,32,0.12)",
+        boxShadow: "0 -20px 40px rgba(25,39,74,0.35), 0 -8px 20px rgba(199,157,42,0.15)",
       }}
     >
       {/* Enhanced background decoration */}
@@ -28,19 +28,19 @@ export default function Footer() {
         <div
           className="absolute left-1/2 top-0 w-[70vw] h-[50vw] max-w-4xl -translate-x-1/2 -translate-y-1/3 rounded-full blur-3xl opacity-10"
           style={{
-            background: "radial-gradient(ellipse, rgba(218,165,32,0.2) 0%, rgba(218,165,32,0.08) 40%, transparent 70%)",
+            background: "radial-gradient(ellipse, rgba(199,157,42,0.2) 0%, rgba(199,157,42,0.08) 40%, transparent 70%)",
           }}
         />
         <div
           className="absolute right-10 bottom-10 w-96 h-96 blur-3xl opacity-6"
           style={{
-            background: "radial-gradient(circle, rgba(218,165,32,0.15) 0%, rgba(218,165,32,0.04) 50%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.04) 50%, transparent 70%)",
           }}
         />
       </div>
 
       <div className="container mx-auto px-6 py-16 relative z-10">
-        <div className="grid gap-12 md:grid-cols-3 lg:grid-cols-4 items-start">
+        <div className="grid gap-20 md:grid-cols-3 lg:grid-cols-4 items-start">
           
           {/* Brand Section */}
           <motion.div 
@@ -48,52 +48,44 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col items-center md:items-start group"
+            className="flex flex-col items-center md:items-center justify-center ml-8 h-full"
           >
-            {/* Enhanced Logo with luxury styling */}
+            {/* Clean Logo with luxury styling */}
             <div className="relative mb-6">
-              {/* Enhanced glow effect */}
-              <div className="absolute -inset-6 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                   style={{
-                     background: "linear-gradient(135deg, rgba(218,165,32,0.25) 0%, rgba(218,165,32,0.1) 100%)",
-                     filter: "blur(25px)"
-                   }} />
-              
-              <div className="relative bg-white p-3 rounded-3xl">
+              <div className="relative bg-white p-4 rounded-3xl">
                 <img
                   src="/images/keyhouse.jpg"
                   alt="KeyHouse"
-                  className="w-48 h-28 object-cover rounded-2xl transition-all duration-700 group-hover:scale-105 group-hover:-translate-y-2"
+                  className="w-56 h-36 object-cover rounded-2xl"
                   style={{
-                    boxShadow: "0 20px 50px rgba(0,0,0,0.4), 0 10px 30px rgba(218,165,32,0.2), inset 0 2px 0 rgba(255,255,255,0.6)",
-                    filter: "drop-shadow(0 10px 25px rgba(0,0,0,0.3))"
+                    boxShadow: "0 25px 60px rgba(0,0,0,0.3), 0 12px 35px rgba(199,157,42,0.18), inset 0 2px 0 rgba(255,255,255,0.7)",
                   }}
                 />
-                {/* Inner highlight */}
-                <div className="absolute inset-3 rounded-2xl opacity-20 pointer-events-none"
+                {/* Subtle inner highlight */}
+                <div className="absolute inset-4 rounded-2xl opacity-15 pointer-events-none"
                      style={{
-                       background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%)"
+                       background: "linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 100%)"
                      }} />
               </div>
               
-              {/* Border accent */}
-              <div className="absolute inset-0 rounded-3xl border-2 transition-all duration-700"
+              {/* Clean border accent */}
+              <div className="absolute inset-0 rounded-3xl border-2"
                    style={{
-                     borderColor: "rgba(218,165,32,0.3)",
-                     boxShadow: "0 0 30px rgba(218,165,32,0.15)"
+                     borderColor: "rgba(199,157,42,0.3)",
+                     boxShadow: "0 0 25px rgba(199,157,42,0.12)"
                    }} />
             </div>
             
-            <p className="text-base text-blue-100 font-light text-center md:text-right leading-relaxed max-w-sm mb-4"
-               style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
-              הבית שלך בנדל״ן באילת - מעל עשור של מצוינות ואמינות
+            <p className="text-lg text-blue-100 font-light text-center md:text-right leading-relaxed max-w-sm mb-4"
+               style={{ textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>
+              הבית שלך בנדל״ן באילת
             </p>
 
-            {/* Enhanced decorative accent line */}
+            {/* Clean decorative accent line */}
             <div className="flex items-center gap-4">
-              <div className="h-px w-16 opacity-50" style={{ backgroundColor: "#daa520" }} />
-              <div className="w-2.5 h-2.5 rounded-full opacity-70" style={{ backgroundColor: "#daa520" }} />
-              <div className="h-px w-16 opacity-50" style={{ backgroundColor: "#daa520" }} />
+              <div className="h-px w-20 opacity-60" style={{ backgroundColor: "#c79d2a" }} />
+              <div className="w-3 h-3 rounded-full opacity-80" style={{ backgroundColor: "#c79d2a" }} />
+              <div className="h-px w-20 opacity-60" style={{ backgroundColor: "#c79d2a" }} />
             </div>
           </motion.div>
 
@@ -107,13 +99,13 @@ export default function Footer() {
           >
             <h3 className="font-serif text-xl font-bold mb-6 relative"
                 style={{ 
-                  color: "#daa520",
-                  textShadow: "0 3px 12px rgba(218,165,32,0.35)"
+                  color: "#c79d2a",
+                  textShadow: "0 3px 12px rgba(199,157,42,0.35)"
                 }}>
               ניווט באתר
               {/* Underline accent */}
               <div className="absolute bottom-0 left-0 w-8 h-0.5 rounded-full mt-2 opacity-60 group-hover:w-16 group-hover:opacity-100 transition-all duration-500"
-                   style={{ backgroundColor: "#daa520" }} />
+                   style={{ backgroundColor: "#c79d2a" }} />
             </h3>
             
             <ul className="space-y-3">
@@ -133,7 +125,7 @@ export default function Footer() {
                     {/* Link hover effect */}
                     <div className="absolute -inset-x-2 -inset-y-1 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 pointer-events-none"
                          style={{
-                           background: "linear-gradient(135deg, rgba(218,165,32,0.08) 0%, rgba(218,165,32,0.03) 100%)",
+                           background: "linear-gradient(135deg, rgba(199,157,42,0.12) 0%, rgba(199,157,42,0.05) 100%)",
                            filter: "blur(10px)"
                          }} />
                     <span className="relative z-10">{link.name}</span>
@@ -152,13 +144,13 @@ export default function Footer() {
           >
             <h3 className="font-serif text-xl font-bold mb-6 relative"
                 style={{ 
-                  color: "#daa520",
-                  textShadow: "0 3px 12px rgba(218,165,32,0.35)"
+                  color: "#c79d2a",
+                  textShadow: "0 3px 12px rgba(199,157,42,0.35)"
                 }}>
               שירותים נוספים
               {/* Underline accent */}
               <div className="absolute bottom-0 left-0 w-8 h-0.5 rounded-full mt-2 opacity-60 group-hover:w-16 group-hover:opacity-100 transition-all duration-500"
-                   style={{ backgroundColor: "#daa520" }} />
+                   style={{ backgroundColor: "#c79d2a" }} />
             </h3>
             
             <ul className="space-y-3">
@@ -178,7 +170,7 @@ export default function Footer() {
                     {/* Link hover effect */}
                     <div className="absolute -inset-x-2 -inset-y-1 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 pointer-events-none"
                          style={{
-                           background: "linear-gradient(135deg, rgba(218,165,32,0.08) 0%, rgba(218,165,32,0.03) 100%)",
+                           background: "linear-gradient(135deg, rgba(199,157,42,0.12) 0%, rgba(199,157,42,0.05) 100%)",
                            filter: "blur(10px)"
                          }} />
                     <span className="relative z-10">{link.name}</span>
@@ -198,13 +190,13 @@ export default function Footer() {
           >
             <h3 className="font-serif text-xl font-bold mb-6 relative"
                 style={{ 
-                  color: "#daa520",
-                  textShadow: "0 3px 12px rgba(218,165,32,0.35)"
+                  color: "#c79d2a",
+                  textShadow: "0 3px 12px rgba(199,157,42,0.35)"
                 }}>
               בואו נתחבר
               {/* Underline accent */}
               <div className="absolute bottom-0 left-0 w-8 h-0.5 rounded-full mt-2 opacity-60 group-hover:w-16 group-hover:opacity-100 transition-all duration-500"
-                   style={{ backgroundColor: "#daa520" }} />
+                   style={{ backgroundColor: "#c79d2a" }} />
             </h3>
 
             <div className="space-y-4">
@@ -218,16 +210,16 @@ export default function Footer() {
                   {/* Icon glow effect */}
                   <div className="absolute -inset-2 rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-500 pointer-events-none"
                        style={{
-                         background: "linear-gradient(135deg, rgba(218,165,32,0.3) 0%, rgba(218,165,32,0.15) 100%)",
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.3) 0%, rgba(199,157,42,0.15) 100%)",
                          filter: "blur(15px)"
                        }} />
                   
                   <div 
                     className="relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 group-hover/item:scale-110"
                     style={{ 
-                      background: "linear-gradient(135deg, #daa520 0%, #c8941f 100%)",
+                      background: "linear-gradient(135deg, #c79d2a 0%, #b88924 100%)",
                       color: "#1a2756",
-                      boxShadow: "0 8px 20px rgba(218,165,32,0.25), inset 0 1px 0 rgba(255,255,255,0.3)"
+                      boxShadow: "0 8px 20px rgba(199,157,42,0.25), inset 0 1px 0 rgba(255,255,255,0.3)"
                     }}
                   >
                     <FaPhoneAlt className="h-5 w-5" />
@@ -256,16 +248,16 @@ export default function Footer() {
                   {/* Icon glow effect */}
                   <div className="absolute -inset-2 rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-500 pointer-events-none"
                        style={{
-                         background: "linear-gradient(135deg, rgba(218,165,32,0.3) 0%, rgba(218,165,32,0.15) 100%)",
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.3) 0%, rgba(199,157,42,0.15) 100%)",
                          filter: "blur(15px)"
                        }} />
                   
                   <div 
                     className="relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 group-hover/item:scale-110"
                     style={{ 
-                      background: "linear-gradient(135deg, #daa520 0%, #c8941f 100%)",
+                      background: "linear-gradient(135deg, #c79d2a 0%, #b88924 100%)",
                       color: "#1a2756",
-                      boxShadow: "0 8px 20px rgba(218,165,32,0.25), inset 0 1px 0 rgba(255,255,255,0.3)"
+                      boxShadow: "0 8px 20px rgba(199,157,42,0.25), inset 0 1px 0 rgba(255,255,255,0.3)"
                     }}
                   >
                     <FaEnvelope className="h-5 w-5" />
@@ -443,33 +435,33 @@ export default function Footer() {
         transition={{ duration: 0.8, delay: 0.4 }}
         className="py-6 text-center border-t relative z-10"
         style={{
-          borderColor: "rgba(218,165,32,0.2)",
-          background: "linear-gradient(135deg, rgba(25,39,74,0.98) 0%, rgba(26,39,86,0.95) 50%, rgba(29,74,142,0.98) 100%)",
+          borderColor: "rgba(199,157,42,0.2)",
+          background: "linear-gradient(135deg, rgba(25,39,74,0.98) 0%, rgba(26,39,86,0.95) 50%, rgba(45,74,142,0.98) 100%)",
           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)"
         }}
       >
         {/* Decorative top border accent */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-0.5 rounded-full"
              style={{
-               background: "linear-gradient(90deg, transparent 0%, #daa520 50%, transparent 100%)",
-               boxShadow: "0 0 15px rgba(218,165,32,0.5)"
+               background: "linear-gradient(90deg, transparent 0%, #c79d2a 50%, transparent 100%)",
+               boxShadow: "0 0 15px rgba(199,157,42,0.45)"
              }} />
 
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col items-center gap-4">
             <p className="text-blue-100/90 font-light tracking-wide text-base"
                style={{ textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>
               © {new Date().getFullYear()} KeyHouse נדל״ן. כל הזכויות שמורות.
             </p>
             
-            {/* Decorative separator */}
+            {/* Decorative separator - now centered */}
             <div className="flex items-center gap-3">
-              <div className="h-px w-12 opacity-40" style={{ backgroundColor: "#daa520" }} />
-              <div className="w-1.5 h-1.5 rounded-full opacity-50" style={{ backgroundColor: "#daa520" }} />
-              <div className="h-px w-12 opacity-40" style={{ backgroundColor: "#daa520" }} />
+              <div className="h-px w-12 opacity-40" style={{ backgroundColor: "#c79d2a" }} />
+              <div className="w-1.5 h-1.5 rounded-full opacity-50" style={{ backgroundColor: "#c79d2a" }} />
+              <div className="h-px w-12 opacity-40" style={{ backgroundColor: "#c79d2a" }} />
             </div>
 
-            <p className="text-blue-100/70 text-sm font-light">
+            <p className="text-blue-200/70 text-sm font-light">
               נבנה באהבה עבור לקוחותינו
             </p>
           </div>
