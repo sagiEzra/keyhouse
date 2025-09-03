@@ -130,33 +130,36 @@ export default function VideosCarousel() {
   return (
     <section
       className="py-20 relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97)0d 0%, #fff 60%, #c79d2a0d 100%)" }}
+      style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.05) 0%, #fff 60%, rgba(199,157,42,0.05) 100%)" }}
     >
       {/* Decorative gradients */}
       <div
         className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-[40vw] rounded-full blur-3xl opacity-60"
-        style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97)4d 0%, rgba(25,39,74,0.97)1a 100%)" }}
+        style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.3) 0%, rgba(25,39,74,0.1) 100%)" }}
       />
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-12 text-center"
+          className="mb-20 text-center"
         >
           <h2
-            className="mb-4 font-serif text-3xl md:text-5xl font-extrabold tracking-tight drop-shadow-xl"
+            className="mb-6 font-serif text-5xl font-bold md:text-6xl tracking-tight"
             style={{ color: "rgba(25,39,74,0.97)" }}
           >
             לקוחות מספרים בוידאו
           </h2>
-          <p className="mx-auto max-w-3xl text-lg md:text-xl font-semibold" style={{ color: "rgba(25,39,74,0.97)" }}>
+          <p className="mx-auto max-w-4xl text-xl leading-relaxed font-light" style={{ color: "rgba(25,39,74,0.97)" }}>
             צפו בלקוחות מרוצים משתפים את החוויה שלהם איתנו
           </p>
           <div
-            className="mx-auto mt-6 h-1 w-28 rounded-full"
-            style={{ background: "linear-gradient(90deg, #c79d2a 0%, #fff 100%)", boxShadow: "0 2px 12px #c79d2a55" }}
+            className="mx-auto mt-8 h-1.5 w-32 rounded-full"
+            style={{
+              background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 50%, #c79d2a 100%)",
+              boxShadow: "0 4px 20px rgba(199,157,42,0.3)",
+            }}
           />
         </motion.div>
         <div

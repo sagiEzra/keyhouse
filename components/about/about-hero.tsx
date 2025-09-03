@@ -45,7 +45,7 @@ export default function AboutHero() {
             <span className="block mb-4" style={{ 
               textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)" 
             }}>
-              הכירו את
+              הכירו את...
             </span>
             <span 
               className="block bg-gradient-to-l from-white via-gray-100 to-white bg-clip-text text-transparent"
@@ -53,7 +53,7 @@ export default function AboutHero() {
                 textShadow: "0 4px 20px rgba(0,0,0,0.4)" 
               }}
             >
-              קי האוס
+              קי - האוס
             </span>
           </h1>
           

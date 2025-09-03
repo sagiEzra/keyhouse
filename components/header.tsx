@@ -78,9 +78,9 @@ export default function Header() {
           ? "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,249,255,0.95) 50%, rgba(255,255,255,0.98) 100%)"
           : "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%)",
         boxShadow: isScrolled 
-          ? "0 25px 50px rgba(35,33,74,0.12), 0 10px 25px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+          ? "0 25px 50px rgba(25,39,74,0.12), 0 10px 25px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
           : "0 8px 32px rgba(0,0,0,0.3)",
-        borderColor: isScrolled ? "rgba(35,33,74,0.08)" : "transparent",
+        borderColor: isScrolled ? "rgba(25,39,74,0.08)" : "transparent",
       }}
     >
       <div className="container mx-auto flex items-center justify-between px-4">
@@ -93,14 +93,14 @@ export default function Header() {
             {/* Logo glow effect */}
             <div className="absolute -inset-3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                  style={{
-                   background: "linear-gradient(135deg, rgba(241,194,59,0.15) 0%, rgba(35,33,74,0.08) 100%)",
+                   background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(25,39,74,0.08) 100%)",
                    filter: "blur(20px)"
                  }} />
             
             {/* Logo container with luxury styling */}
             <div className={`relative p-2 rounded-2xl transition-all duration-500 ${isScrolled ? 'bg-gradient-to-br from-white/60 to-white/40' : ''}`}
                  style={isScrolled ? {
-                   boxShadow: "0 8px 25px rgba(35,33,74,0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                   boxShadow: "0 8px 25px rgba(25,39,74,0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
                  } : {}}>
               <img
                 src="/images/keyLogo.png"
@@ -108,7 +108,7 @@ export default function Header() {
                 className={`transition-all duration-500 drop-shadow-lg group-hover:drop-shadow-xl ${isScrolled ? "h-12" : "h-14"}`}
                 style={{
                   filter: isScrolled 
-                    ? "drop-shadow(0 4px 8px rgba(35,33,74,0.1))" 
+                    ? "drop-shadow(0 4px 8px rgba(25,39,74,0.1))" 
                     : "drop-shadow(0 4px 12px rgba(0,0,0,0.3))"
                 }}
               />
@@ -128,7 +128,7 @@ export default function Header() {
                 {/* Navigation item glow effect */}
                 <div className="absolute -inset-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                      style={{
-                       background: "linear-gradient(135deg, rgba(241,194,59,0.1) 0%, rgba(35,33,74,0.05) 100%)",
+                       background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(25,39,74,0.05) 100%)",
                        filter: "blur(15px)"
                      }} />
                 
@@ -140,11 +140,11 @@ export default function Header() {
                 }`}
                 style={{
                   background: activeLink === link.href 
-                    ? "linear-gradient(135deg, rgba(241,194,59,0.15) 0%, rgba(241,194,59,0.08) 100%)"
+                    ? "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.08) 100%)"
                     : "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
                   boxShadow: activeLink === link.href 
-                    ? "0 4px 15px rgba(241,194,59,0.2)"
-                    : "0 2px 10px rgba(35,33,74,0.1)"
+                    ? "0 4px 15px rgba(199,157,42,0.2)"
+                    : "0 2px 10px rgba(25,39,74,0.1)"
                 }} />
 
                 <span
@@ -155,10 +155,10 @@ export default function Header() {
                   }`}
                   style={{
                     color: isScrolled 
-                      ? (activeLink === link.href ? "#f1c23b" : "#23214a") 
+                      ? (activeLink === link.href ? "#c79d2a" : "rgba(25,39,74,0.97)") 
                       : "#ffffff",
                     textShadow: isScrolled 
-                      ? "0 2px 4px rgba(35,33,74,0.1)" 
+                      ? "0 2px 4px rgba(25,39,74,0.1)" 
                       : "0 2px 8px rgba(0,0,0,0.3)"
                   }}
                 >
@@ -171,8 +171,8 @@ export default function Header() {
                     activeLink === link.href ? "w-8 opacity-100" : "w-0 opacity-0 group-hover:w-6 group-hover:opacity-100"
                   }`}
                   style={{
-                    background: "linear-gradient(90deg, #f1c23b 0%, #e6b84f 100%)",
-                    boxShadow: "0 2px 8px rgba(241,194,59,0.4)"
+                    background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)",
+                    boxShadow: "0 2px 8px rgba(199,157,42,0.4)"
                   }}
                 />
               </motion.div>
@@ -190,7 +190,7 @@ export default function Header() {
             {/* Button glow effect */}
             <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                  style={{
-                   background: "linear-gradient(135deg, rgba(241,194,59,0.3) 0%, rgba(35,33,74,0.15) 100%)",
+                   background: "linear-gradient(135deg, rgba(199,157,42,0.3) 0%, rgba(25,39,74,0.15) 100%)",
                    filter: "blur(20px)"
                  }} />
 
@@ -199,31 +199,31 @@ export default function Header() {
               className="relative flex items-center gap-3 rounded-full px-6 py-3 font-serif font-semibold text-lg transition-all duration-500 overflow-hidden"
               style={{
                 background: isScrolled
-                  ? "linear-gradient(135deg, #23214a 0%, #2d2b5a 100%)"
+                  ? "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)"
                   : "linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%)",
                 boxShadow: isScrolled
-                  ? "0 15px 35px rgba(35,33,74,0.3), 0 5px 15px rgba(35,33,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)"
+                  ? "0 15px 35px rgba(25,39,74,0.3), 0 5px 15px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)"
                   : "0 15px 35px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3)",
-                border: isScrolled ? "1px solid rgba(241,194,59,0.3)" : "1px solid rgba(255,255,255,0.2)",
+                border: isScrolled ? "1px solid rgba(199,157,42,0.3)" : "1px solid rgba(255,255,255,0.2)",
                 color: "#ffffff",
                 backdropFilter: "blur(20px)"
               }}
               onMouseEnter={(e) => {
                 const target = e.currentTarget as HTMLAnchorElement;
-                target.style.background = "linear-gradient(135deg, #f1c23b 0%, #e6b84f 100%)";
-                target.style.color = "#23214a";
+                target.style.background = "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)";
+                target.style.color = "rgba(25,39,74,0.97)";
                 target.style.transform = "translateY(-1px)";
-                target.style.boxShadow = "0 20px 40px rgba(241,194,59,0.4), 0 8px 20px rgba(241,194,59,0.3), inset 0 1px 0 rgba(255,255,255,0.4)";
+                target.style.boxShadow = "0 20px 40px rgba(199,157,42,0.4), 0 8px 20px rgba(199,157,42,0.3), inset 0 1px 0 rgba(255,255,255,0.4)";
               }}
               onMouseLeave={(e) => {
                 const target = e.currentTarget as HTMLAnchorElement;
                 target.style.background = isScrolled
-                  ? "linear-gradient(135deg, #23214a 0%, #2d2b5a 100%)"
+                  ? "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)"
                   : "linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%)";
                 target.style.color = "#ffffff";
                 target.style.transform = "translateY(0px)";
                 target.style.boxShadow = isScrolled
-                  ? "0 15px 35px rgba(35,33,74,0.3), 0 5px 15px rgba(35,33,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)"
+                  ? "0 15px 35px rgba(25,39,74,0.3), 0 5px 15px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)"
                   : "0 15px 35px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3)";
               }}
             >
@@ -300,7 +300,7 @@ export default function Header() {
           {/* Menu button glow effect */}
           <div className="absolute -inset-3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                style={{
-                 background: "linear-gradient(135deg, rgba(241,194,59,0.15) 0%, rgba(35,33,74,0.08) 100%)",
+                 background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(25,39,74,0.08) 100%)",
                  filter: "blur(15px)"
                }} />
           
@@ -313,16 +313,16 @@ export default function Header() {
                 ? "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,249,255,0.8) 100%)"
                 : "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)",
               boxShadow: isScrolled
-                ? "0 10px 25px rgba(35,33,74,0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                ? "0 10px 25px rgba(25,39,74,0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
                 : "0 8px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3)",
-              border: isScrolled ? "1px solid rgba(35,33,74,0.1)" : "1px solid rgba(255,255,255,0.2)",
+              border: isScrolled ? "1px solid rgba(25,39,74,0.1)" : "1px solid rgba(255,255,255,0.2)",
               backdropFilter: "blur(20px)"
             }}
           >
             {isOpen ? (
-              <X className="h-6 w-6 transition-all duration-300" style={{ color: "#23214a" }} />
+              <X className="h-6 w-6 transition-all duration-300" style={{ color: "rgba(25,39,74,0.97)" }} />
             ) : (
-              <Menu className="h-6 w-6 transition-all duration-300" style={{ color: isScrolled ? "#23214a" : "#ffffff" }} />
+              <Menu className="h-6 w-6 transition-all duration-300" style={{ color: isScrolled ? "rgba(25,39,74,0.97)" : "#ffffff" }} />
             )}
           </button>
         </motion.div>
@@ -345,11 +345,11 @@ export default function Header() {
               <div className="absolute inset-0 pointer-events-none">
                 <div
                   className="absolute top-32 right-10 w-64 h-64 rounded-full blur-3xl opacity-5"
-                  style={{ background: "radial-gradient(circle, #f1c23b 0%, transparent 70%)" }}
+                  style={{ background: "radial-gradient(circle, #c79d2a 0%, transparent 70%)" }}
                 />
                 <div
                   className="absolute bottom-32 left-10 w-48 h-48 rounded-full blur-3xl opacity-4"
-                  style={{ background: "radial-gradient(circle, #23214a 0%, transparent 70%)" }}
+                  style={{ background: "radial-gradient(circle, rgba(25,39,74,0.97) 0%, transparent 70%)" }}
                 />
               </div>
 
@@ -369,15 +369,15 @@ export default function Header() {
                         className="relative block p-4 rounded-2xl transition-all duration-300 overflow-hidden"
                         style={{
                           background: activeLink === link.href 
-                            ? "linear-gradient(135deg, rgba(241,194,59,0.1) 0%, rgba(241,194,59,0.05) 100%)"
+                            ? "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(199,157,42,0.05) 100%)"
                             : "transparent",
-                          borderBottom: "1px solid rgba(35,33,74,0.08)"
+                          borderBottom: "1px solid rgba(25,39,74,0.08)"
                         }}
                       >
                         {/* Link glow effect */}
                         <div className="absolute -inset-2 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                              style={{
-                               background: "linear-gradient(135deg, rgba(241,194,59,0.1) 0%, rgba(35,33,74,0.05) 100%)",
+                               background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(25,39,74,0.05) 100%)",
                                filter: "blur(15px)"
                              }} />
 
@@ -389,8 +389,8 @@ export default function Header() {
                           <span 
                             className="font-serif text-xl font-semibold transition-all duration-300"
                             style={{
-                              color: activeLink === link.href ? "#f1c23b" : "#23214a",
-                              textShadow: activeLink === link.href ? "0 2px 8px rgba(241,194,59,0.3)" : "none"
+                              color: activeLink === link.href ? "#c79d2a" : "rgba(25,39,74,0.97)",
+                              textShadow: activeLink === link.href ? "0 2px 8px rgba(199,157,42,0.3)" : "none"
                             }}
                           >
                             {link.name}
@@ -402,8 +402,8 @@ export default function Header() {
                           <div
                             className="absolute right-4 top-1/2 -translate-y-1/2 w-1 h-8 rounded-full"
                             style={{
-                              background: "linear-gradient(180deg, #f1c23b 0%, #e6b84f 100%)",
-                              boxShadow: "0 2px 8px rgba(241,194,59,0.4)"
+                              background: "linear-gradient(180deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)",
+                              boxShadow: "0 2px 8px rgba(199,157,42,0.4)"
                             }}
                           />
                         )}
@@ -423,7 +423,7 @@ export default function Header() {
                     {/* Button glow effect */}
                     <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                          style={{
-                           background: "linear-gradient(135deg, rgba(241,194,59,0.3) 0%, rgba(35,33,74,0.15) 100%)",
+                           background: "linear-gradient(135deg, rgba(199,157,42,0.3) 0%, rgba(25,39,74,0.15) 100%)",
                            filter: "blur(20px)"
                          }} />
 
@@ -432,9 +432,9 @@ export default function Header() {
                       onClick={() => setIsOpen(false)}
                       className="relative flex items-center justify-center gap-3 rounded-full px-8 py-4 font-serif font-semibold text-lg text-white shadow-xl transition-all duration-500 overflow-hidden"
                       style={{
-                        background: "linear-gradient(135deg, #23214a 0%, #2d2b5a 100%)",
-                        boxShadow: "0 15px 35px rgba(35,33,74,0.3), 0 5px 15px rgba(35,33,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
-                        border: "1px solid rgba(241,194,59,0.3)"
+                        background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)",
+                        boxShadow: "0 15px 35px rgba(25,39,74,0.3), 0 5px 15px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
+                        border: "1px solid rgba(199,157,42,0.3)"
                       }}
                     >
                       {/* Background shimmer effect */}

@@ -6,32 +6,32 @@ import { FaUsers, FaShieldAlt, FaHeart, FaMagic, FaBullseye, FaClock, FaAward } 
 export default function ValuesSection() {
   const values = [
     {
-      icon: <FaUsers className="h-10 w-10" style={{ color: "#23214a" }} />,
+      icon: <FaUsers className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
       title: "ליווי אישי",
       description: "יחס חם, הקשבה אמיתית ופתרונות מותאמים אישית – הלקוח הוא הסיפור.",
     },
     {
-      icon: <FaAward className="h-10 w-10" style={{ color: "#23214a" }} />,
+      icon: <FaAward className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
       title: "ניסיון מוכח",
       description: "מעל עשור של פעילות בשוק האילתי עם עסקאות מוצלחות רבות, תוצאות בשטח, והכי חשוב - לקוחות מרוצים.",
     },
     {
-      icon: <FaShieldAlt className="h-10 w-10" style={{ color: "#23214a" }} />,
+      icon: <FaShieldAlt className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
       title: "שקיפות ואמינות",
       description: "מחויבים לשקיפות ואמינות מוחלטת בכל שלבי העסקה, ללא הפתעות או מידע חסר.",
     },
     {
-      icon: <FaMagic className="h-10 w-10" style={{ color: "#23214a" }} />,
+      icon: <FaMagic className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
       title: "מצוינות בשירות",
       description: "חותרים למצוינות בכל היבט של השירות שלנו, מהפגישה הראשונה ועד לאחר סגירת העסקה.",
     },
     {
-      icon: <FaBullseye className="h-10 w-10" style={{ color: "#23214a" }} />,
+      icon: <FaBullseye className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
       title: "התאמה מדויקת",
       description: "מתמחים במציאת ההתאמה המושלמת בין הלקוח לנכס, תוך הבנה מעמיקה של הצרכים והרצונות.",
     },
     {
-      icon: <FaClock className="h-10 w-10" style={{ color: "#23214a" }} />,
+      icon: <FaClock className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
       title: "זמינות ומהירות",
       description: 'מחויבים לזמינות גבוהה ולמענה מהיר, כי אנחנו מבינים את חשיבות הזמן בעסקאות נדל"ן.',
     },
@@ -67,11 +67,11 @@ export default function ValuesSection() {
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl opacity-4"
-          style={{ background: "radial-gradient(circle, #23214a 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, rgba(25,39,74,0.97) 0%, transparent 70%)" }}
         />
         <div
           className="absolute bottom-40 left-20 w-80 h-80 rounded-full blur-3xl opacity-3"
-          style={{ background: "radial-gradient(circle, #f1c23b 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, #c79d2a 0%, transparent 70%)" }}
         />
       </div>
 
@@ -85,18 +85,18 @@ export default function ValuesSection() {
         >
           <h2
             className="mb-6 font-serif text-5xl font-bold md:text-6xl tracking-tight"
-            style={{ color: "#23214a" }}
+            style={{ color: "rgba(25,39,74,0.97)" }}
           >
             הערכים שלנו
           </h2>
-          <p className="mx-auto max-w-4xl text-xl leading-relaxed font-light" style={{ color: "#23214a" }}>
+          <p className="mx-auto max-w-4xl text-xl leading-relaxed font-light" style={{ color: "rgba(25,39,74,0.97)" }}>
             אנחנו לא רק מוכרים נכסים - אנחנו בונים אמון ומלווים חלומות. הערכים שלנו מנחים אותנו בכל צעד בדרך.
           </p>
           <div
             className="mx-auto mt-8 h-1.5 w-32 rounded-full"
             style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, rgba(241,194,59,0.3) 50%, #f1c23b 100%)",
-              boxShadow: "0 4px 20px rgba(241,194,59,0.3)",
+              background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 50%, #c79d2a 100%)",
+              boxShadow: "0 4px 20px rgba(199,157,42,0.3)",
             }}
           />
         </motion.div>
@@ -117,7 +117,7 @@ export default function ValuesSection() {
               {/* Outer glow effect */}
               <div className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                    style={{
-                     background: "linear-gradient(135deg, rgba(241,194,59,0.15) 0%, rgba(35,33,74,0.08) 100%)",
+                     background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(25,39,74,0.08) 100%)",
                      filter: "blur(20px)",
                      zIndex: -1
                    }} />
@@ -126,8 +126,8 @@ export default function ValuesSection() {
               <div
                 className="relative h-full bg-gradient-to-br from-white via-white to-gray-50/30 rounded-3xl p-10 shadow-xl border backdrop-blur-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2"
                 style={{
-                  borderColor: "rgba(35,33,74,0.1)",
-                  boxShadow: "0 20px 40px rgba(35,33,74,0.08), 0 8px 20px rgba(35,33,74,0.05), inset 0 1px 0 rgba(255,255,255,0.6)",
+                  borderColor: "rgba(25,39,74,0.1)",
+                  boxShadow: "0 20px 40px rgba(25,39,74,0.08), 0 8px 20px rgba(25,39,74,0.05), inset 0 1px 0 rgba(255,255,255,0.6)",
                 }}
               >
                 {/* Icon container with enhanced styling */}
@@ -135,9 +135,9 @@ export default function ValuesSection() {
                   <div
                     className="flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
                     style={{ 
-                      background: "linear-gradient(135deg, rgba(241,194,59,0.1) 0%, rgba(255,255,255,0.9) 100%)",
-                      border: "2px solid rgba(241,194,59,0.3)",
-                      boxShadow: "0 8px 25px rgba(241,194,59,0.2)"
+                      background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                      border: "2px solid rgba(199,157,42,0.3)",
+                      boxShadow: "0 8px 25px rgba(199,157,42,0.2)"
                     }}
                   >
                     {value.icon}
@@ -145,22 +145,22 @@ export default function ValuesSection() {
                   
                   {/* Decorative accent */}
                   <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500"
-                       style={{ backgroundColor: "#f1c23b" }} />
+                       style={{ backgroundColor: "#c79d2a" }} />
                 </div>
 
                 {/* Content */}
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-bold leading-tight transition-colors duration-300" style={{ color: "#23214a" }}>
+                  <h3 className="text-2xl font-bold leading-tight transition-colors duration-300" style={{ color: "rgba(25,39,74,0.97)" }}>
                     {value.title}
                   </h3>
-                  <p className="text-lg leading-relaxed" style={{ color: "#23214a", opacity: 0.8 }}>
+                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.97)", opacity: 0.8 }}>
                     {value.description}
                   </p>
                 </div>
 
                 {/* Bottom accent line */}
                 <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 rounded-full opacity-30 group-hover:opacity-80 group-hover:w-20 transition-all duration-500"
-                     style={{ backgroundColor: "#f1c23b" }} />
+                     style={{ backgroundColor: "#c79d2a" }} />
               </div>
             </motion.div>
           ))}
@@ -178,7 +178,7 @@ export default function ValuesSection() {
             {/* Background glow effect */}
             <div className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                  style={{
-                   background: "linear-gradient(135deg, rgba(35,33,74,0.1) 0%, rgba(241,194,59,0.1) 100%)",
+                   background: "linear-gradient(135deg, rgba(25,39,74,0.1) 0%, rgba(199,157,42,0.1) 100%)",
                    filter: "blur(25px)",
                    zIndex: -1
                  }} />
