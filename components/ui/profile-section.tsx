@@ -1,0 +1,148 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { ReactNode } from "react"
+
+interface ProfileSectionProps {
+  name: string
+  title: string
+  imageSrc: string
+  imageAlt: string
+  children: ReactNode
+  quote?: ReactNode
+  reverse?: boolean
+  className?: string
+}
+
+export default function ProfileSection({
+  name,
+  title,
+  imageSrc,
+  imageAlt,
+  children,
+  quote,
+  reverse = false,
+  className = ""
+}: ProfileSectionProps) {
+  const imageContent = (
+    <div className="relative group">
+      <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+        {/* Multi-layered background glow effect */}
+        <div
+          className="absolute -inset-8 rounded-3xl opacity-0 group-hover:opacity-15 transition-opacity duration-700 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(199,157,42,0.3) 0%, transparent 70%)",
+            filter: "blur(40px)",
+            zIndex: -3
+          }}
+        />
+        <div
+          className="absolute -inset-6 rounded-3xl opacity-0 group-hover:opacity-25 transition-opacity duration-600 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(199,157,42,0.2) 0%, transparent 60%)",
+            filter: "blur(25px)",
+            zIndex: -2
+          }}
+        />
+        <div
+          className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: reverse
+              ? "radial-gradient(ellipse at center, rgba(199,157,42,0.15) 0%, transparent 50%)"
+              : "radial-gradient(ellipse at center, rgba(199,157,42,0.15) 0%, transparent 50%)",
+            filter: "blur(15px)",
+            zIndex: -1
+          }}
+        />
+
+        {/* Main image container */}
+        <div className="relative bg-white p-4 rounded-3xl">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className="w-full h-[600px] lg:h-[700px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
+            style={{
+              boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
+            }}
+          />
+
+          {/* Image overlay gradient */}
+          <div className="absolute inset-4 rounded-2xl bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+        </div>
+
+        {/* Decorative elements */}
+        <div
+          className={`absolute ${reverse ? '-bottom-4 -left-4' : '-bottom-4 -right-4'} w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
+          style={{
+            background: reverse
+              ? "linear-gradient(225deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)"
+              : "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)"
+          }}
+        />
+        <div
+          className={`absolute ${reverse ? '-top-4 -right-4' : '-top-4 -left-4'} w-16 h-16 rounded-full opacity-15 group-hover:opacity-30 transition-opacity duration-500`}
+          style={{
+            background: reverse
+              ? "linear-gradient(225deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)"
+              : "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)"
+          }}
+        />
+      </div>
+    </div>
+  )
+
+  const contentSection = (
+    <div className="flex flex-col justify-center space-y-8">
+      {/* Title */}
+      <div className="space-y-4">
+        <h2
+          className="text-5xl lg:text-6xl font-serif font-bold leading-tight"
+          style={{ color: "rgba(25,39,74,0.97)" }}
+        >
+          {name}
+        </h2>
+        <div className="flex items-center gap-4">
+          <div
+            className="h-1 w-16 rounded-full"
+            style={{ background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 100%)" }}
+          />
+          <p className="text-2xl font-medium" style={{ color: "#c79d2a" }}>
+            {title}
+          </p>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="space-y-8 text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.97)" }}>
+        {children}
+
+        {/* Quote section */}
+        {quote && quote}
+      </div>
+    </div>
+  )
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className={`mb-32 ${className}`}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
+        {reverse ? (
+          <>
+            <div className="lg:order-1">{contentSection}</div>
+            <div className="lg:order-2">{imageContent}</div>
+          </>
+        ) : (
+          <>
+            {imageContent}
+            {contentSection}
+          </>
+        )}
+      </div>
+    </motion.div>
+  )
+}

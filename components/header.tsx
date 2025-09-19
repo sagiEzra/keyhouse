@@ -122,7 +122,7 @@ export default function Header() {
             <Link key={link.name} href={link.href} className="group relative">
               <motion.div
                 className="relative px-3 py-2 rounded-xl transition-all duration-300"
-                whileHover={{ y: -3, scale: 1.05 }}
+                whileHover={{ y: -3 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 {/* Navigation item glow effect */}

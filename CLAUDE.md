@@ -45,61 +45,128 @@ This is a Next.js 13 real estate website for Keyhouse, a luxury real estate agen
 
 ### **Brand Colors (Critical - Use Exactly)**
 ```css
-Primary Navy: #23214a
-Primary Gold: #f1c23b
-Text Primary: #23214a (80-100% opacity)
-Text Secondary: #23214a (60-80% opacity)
-Background Variants: 
+/* PRIMARY COLORS - Updated from actual implementation */
+Primary Navy: rgba(25,39,74,0.97) /* #192746 with 97% opacity */
+Primary Gold: #c79d2a /* Updated gold from actual implementation */
+Secondary Navy: #1a2756, #2d4a8e /* For gradients */
+
+/* TEXT COLORS */
+Text Primary: rgba(25,39,74,0.97) /* 97% opacity navy */
+Text Secondary: rgba(25,39,74,0.85) /* 85% opacity navy */
+Text Muted: rgba(25,39,74,0.6) /* 60% opacity navy */
+
+/* BACKGROUND VARIANTS */
+Background Variants:
   - Pure white: #ffffff
-  - Light tint: #fafafa, #f8f9ff
-  - Subtle gold tint: rgba(241,194,59,0.02-0.05)
+  - Light tints: #fafafa, #f8f9ff
+  - Subtle gold tint: rgba(199,157,42,0.02-0.05)
+  - Light gradient: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, #fafafa 50%, rgba(241,194,59,0.03) 100%)"
+  - Dark gradient: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)"
 ```
 
-### **Typography Hierarchy (Strict Standards)**
+### **Typography Hierarchy (Strict Standards - Updated)**
 ```css
+/* HEADING SIZES - From actual implementation */
 Hero Headings: text-5xl md:text-6xl lg:text-7xl font-serif font-extrabold
-Section Headings: text-4xl md:text-5xl lg:text-6xl font-serif font-bold  
+Section Headings: text-5xl lg:text-6xl font-serif font-bold (main sections)
+Profile Names: text-5xl lg:text-6xl font-serif font-bold (team member names)
 Subsection Headings: text-3xl md:text-4xl font-serif font-bold
-Card Titles: text-xl lg:text-2xl font-bold
-Body Text Large: text-lg lg:text-xl leading-relaxed
-Body Text Standard: text-base lg:text-lg leading-relaxed
-Small Text: text-sm lg:text-base
+Card Titles: text-2xl font-bold
+Body Text Large: text-xl leading-relaxed (introductory paragraphs)
+Body Text Standard: text-lg leading-relaxed (main content)
+Small Text: text-base
 
-Font Rules:
-- Always use font-serif for ALL headings
-- Body text uses default Rubik font
-- line-height: leading-relaxed (1.6) minimum for readability
-- Hebrew text requires RTL support
+/* FONT RULES - Critical */
+- Always use font-serif for ALL headings and titles
+- Body text uses default Rubik font (never specify, let default handle it)
+- line-height: leading-relaxed (1.6) for all body text
+- Hebrew text requires RTL support and proper Unicode handling
+- All text should have proper contrast: rgba(25,39,74,0.97) for primary text
+
+/* TEXT SHADOWS AND EFFECTS */
+- Hero text (on dark backgrounds): textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)"
+- Regular headings: Optional subtle shadow for depth
+- Navigation text: textShadow varies based on header state (scrolled vs top)
 ```
 
-### **Luxury Card Design Patterns (Standard)**
-Every card/section must follow this exact structure:
+## **REUSABLE COMPONENTS (Use These!)**
 
+### **Available Luxury Components**
 ```jsx
-<div className="group relative">
-  {/* Outer glow effect - REQUIRED */}
-  <div className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500-700 pointer-events-none"
-       style={{
-         background: "linear-gradient(135deg, rgba(241,194,59,0.15-0.2) 0%, rgba(35,33,74,0.08-0.1) 100%)",
-         filter: "blur(20px)",
-         zIndex: -1
-       }} />
-  
-  {/* Main card - REQUIRED STYLING */}
-  <div className="relative bg-gradient-to-br from-white via-white to-gray-50/30 rounded-3xl p-8 lg:p-10-12 shadow-xl border backdrop-blur-xl transition-all duration-300-500"
-       style={{
-         borderColor: "rgba(35,33,74,0.1-0.15)",
-         boxShadow: "0 20px-30px 40px-60px rgba(35,33,74,0.08), 0 8px-15px 20px-35px rgba(35,33,74,0.05), inset 0 1px 0 rgba(255,255,255,0.6)"
-       }}>
-    
-    {/* Content with proper spacing */}
-    
-    {/* Bottom accent - REQUIRED */}
-    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 rounded-full opacity-30 group-hover:opacity-60-80 group-hover:w-20 transition-all duration-500"
-         style={{ backgroundColor: "#f1c23b" }} />
-  </div>
-</div>
+// Use these components instead of recreating patterns:
+import LuxuryCard from "@/components/ui/luxury-card"
+import LuxuryBackground from "@/components/ui/luxury-background"
+import ProfileSection from "@/components/ui/profile-section"
+import SectionHeader from "@/components/ui/section-header"
+import LuxuryButton from "@/components/ui/luxury-button"
+import QuoteCard from "@/components/ui/quote-card"
 ```
+
+### **LuxuryCard Component** - **ALWAYS USE THIS**
+```jsx
+// Standard luxury card - replaces manual card creation
+<LuxuryCard className="p-8">
+  {/* Your content */}
+</LuxuryCard>
+
+// With custom styling
+<LuxuryCard
+  hoverable={true}
+  glowColor="rgba(199,157,42,0.15)"
+  borderColor="rgba(25,39,74,0.1)"
+>
+  {/* Content automatically gets proper spacing and effects */}
+</LuxuryCard>
+```
+
+### **LuxuryBackground Component** - **ALWAYS USE THIS**
+```jsx
+// Light background sections
+<LuxuryBackground variant="light" className="py-24">
+  {/* Content - automatically gets proper background orbs and gradients */}
+</LuxuryBackground>
+
+// Dark hero sections
+<LuxuryBackground variant="hero" className="flex min-h-[50vh] items-center justify-center pt-20">
+  {/* Hero content with proper dark background and bottom fade */}
+</LuxuryBackground>
+```
+
+### **SectionHeader Component** - **ALWAYS USE THIS**
+```jsx
+// Standard section headers
+<SectionHeader
+  title="הערכים שלנו"
+  subtitle="Long descriptive subtitle here..."
+  className="mb-20"
+/>
+
+// Different alignments and sizes
+<SectionHeader
+  title="About Us"
+  alignment="left"
+  titleSize="medium"
+  showAccentLine={true}
+/>
+```
+
+### **ProfileSection Component** - **For Team/Person Profiles**
+```jsx
+<ProfileSection
+  name="רותם קהלון"
+  title="בעלת המשרד"
+  imageSrc="/images/rotem5.jpg"
+  imageAlt="רותם קהלון - בעלת המשרד"
+  reverse={false} // true for alternating layouts
+  quote={<QuoteCard>"Quote text here"</QuoteCard>}
+>
+  <p>Biography content...</p>
+  <p>More content...</p>
+</ProfileSection>
+```
+
+### **Luxury Card Design Patterns (DEPRECATED - Use LuxuryCard Component)**
+**⚠️ DO NOT manually create cards - use the LuxuryCard component above**
 
 ### **Animation Standards (Framer Motion)**
 ```jsx
@@ -187,18 +254,105 @@ transition-all duration-300-500
 </div>
 ```
 
-### **Button & Interactive Element Standards**
+### **LuxuryButton Component** - **ALWAYS USE THIS**
 ```jsx
-// Luxury buttons
-className="rounded-full px-6-8 py-3-4 font-medium transition-all duration-300 hover:scale-105 shadow-lg"
-style={{ 
-  background: "linear-gradient(135deg, #23214a 0%, #2d2b5a 100%)",
-  color: "white",
-  boxShadow: "0 8px 25px rgba(35,33,74,0.3)"
-}}
+// Primary button (default)
+<LuxuryButton href="/contact">
+  Call Now
+</LuxuryButton>
 
-// Hover states
-onMouseEnter/Leave for dynamic shadow changes
+// Different variants
+<LuxuryButton variant="secondary" size="large" onClick={handleClick}>
+  Learn More
+</LuxuryButton>
+
+// Admin style
+<LuxuryButton variant="admin" href="/admin">
+  <FaHome className="h-4 w-4" />
+  Admin Panel
+</LuxuryButton>
+```
+
+### **QuoteCard Component**
+```jsx
+// Standard quote (right-aligned border)
+<QuoteCard>
+  "Quote text here"
+</QuoteCard>
+
+// Left-aligned with author
+<QuoteCard align="left" author="John Doe" position="CEO">
+  "Quote text here"
+</QuoteCard>
+
+// Emphasized style with large quote marks
+<QuoteCard variant="emphasized">
+  "Important quote with visual emphasis"
+</QuoteCard>
+```
+
+## **HEADER DESIGN STANDARDS**
+
+### **Navigation Patterns (From Header Implementation)**
+```jsx
+// Header state management - critical for luxury feel
+const [isScrolled, setIsScrolled] = useState(false)
+
+// Header background transitions
+background: isScrolled
+  ? "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,249,255,0.95) 50%, rgba(255,255,255,0.98) 100%)"
+  : "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%)"
+
+// Shadow progression
+boxShadow: isScrolled
+  ? "0 25px 50px rgba(25,39,74,0.12), 0 10px 25px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+  : "0 8px 32px rgba(0,0,0,0.3)"
+```
+
+### **Navigation Link Styling**
+```jsx
+// Each nav item gets glow effect and background
+<div className="absolute -inset-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+     style={{
+       background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(25,39,74,0.05) 100%)",
+       filter: "blur(15px)"
+     }} />
+
+// Active state styling
+background: activeLink === link.href
+  ? "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.08) 100%)"
+  : "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)"
+
+// Text color based on scroll state
+color: isScrolled
+  ? (activeLink === link.href ? "#c79d2a" : "rgba(25,39,74,0.97)")
+  : "#ffffff"
+```
+
+### **Logo Treatment**
+```jsx
+// Logo gets luxury frame and glow when scrolled
+<div className="relative p-2 rounded-2xl transition-all duration-500 bg-gradient-to-br from-white/60 to-white/40"
+     style={{
+       boxShadow: "0 8px 25px rgba(25,39,74,0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+     }}>
+  <img className="h-12 transition-all duration-500" /* height adjusts on scroll */ />
+</div>
+```
+
+### **Mobile Menu Patterns**
+```jsx
+// Full-screen luxury mobile menu
+<motion.div
+  className="absolute left-0 right-0 top-0 min-h-screen"
+  style={{
+    background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,249,255,0.95) 50%, rgba(255,255,255,0.98) 100%)",
+    backdropFilter: "blur(30px)"
+  }}
+>
+  {/* Decorative background orbs */}
+  {/* Staggered animation for menu items */}
+</motion.div>
 ```
 
 ### **Carousel/Slider Standards**
@@ -246,34 +400,42 @@ Every section needs subtle background orbs:
 - Luxury card styling with hover animations
 - Closing statement in premium dark card
 
-## **Implementation Rules (CRITICAL)**
+## **IMPLEMENTATION RULES (CRITICAL)**
 
-### **ALWAYS Include:**
-1. Glow effects on hover for interactive elements
-2. Rounded-3xl corners for all cards (never use smaller radius)
-3. Multi-layered shadows with inset highlights
-4. Gold accent lines/dots for section breaks
-5. Proper RTL support for Hebrew text
-6. Smooth Framer Motion animations (stagger reveals)
-7. Glass morphism effects (backdrop-blur-xl)
-8. Background decoration orbs (subtle, low opacity)
+### **MANDATORY REQUIREMENTS (From About Page Standards):**
+1. **USE REUSABLE COMPONENTS** - Always import and use LuxuryCard, LuxuryBackground, SectionHeader, etc.
+2. **Glow effects on hover** - Every interactive element must have proper glow
+3. **Rounded-3xl corners** - All cards/sections use rounded-3xl (never smaller)
+4. **Multi-layered shadows** - Complex shadow combinations with inset highlights
+5. **Gold accent lines** - Section breaks and decorative elements use #c79d2a
+6. **RTL support** - All Hebrew text and layouts must work right-to-left
+7. **Framer Motion animations** - Staggered reveals, smooth transitions (0.8s duration)
+8. **Glass morphism** - backdrop-blur-xl on overlays and cards
+9. **Background orbs** - Subtle decorative elements in all sections
 
-### **NEVER Use:**
-- Sharp corners (always rounded-2xl minimum, prefer rounded-3xl)
-- Single-layer shadows (always multi-layered)
-- Static elements (everything should have hover states)
-- Small font sizes without purpose
-- Layouts without proper spacing/breathing room
-- Colors outside the brand palette
-- Animations shorter than 300ms
+### **STRICTLY FORBIDDEN:**
+- Creating manual cards instead of using LuxuryCard component
+- Using sharp corners (always rounded-2xl minimum, prefer rounded-3xl)
+- Single-layer shadows (always use complex multi-layer shadows)
+- Static elements without hover states
+- Colors outside the refined brand palette (must use rgba(25,39,74,0.97) and #c79d2a)
+- Font sizes smaller than text-lg for body content
+- Animations faster than 300ms (standard is 500-800ms)
+- Layouts without proper spacing (py-24 minimum for sections)
 
-### **Quality Standards:**
-- Every interactive element must have smooth hover transitions
-- All sections must feel spacious and luxurious
-- Typography hierarchy must be strictly followed
-- Brand colors must be used exactly as specified
-- Mobile experience must be as premium as desktop
-- Loading states should be elegant and smooth
+### **QUALITY STANDARDS (From Header & About Page):**
+- **Luxury feel**: Every interaction must feel premium and smooth
+- **Consistent spacing**: py-24/py-32 for sections, p-8/p-10/p-12 for cards
+- **Typography**: Always font-serif for headings, proper hierarchy
+- **Color contrast**: rgba(25,39,74,0.97) for primary text, proper opacity levels
+- **Mobile-first**: Mobile experience must be as luxurious as desktop
+- **Performance**: Animations must be smooth, no jank or stuttering
+
+### **COMPONENT USAGE PRIORITY:**
+1. **FIRST** - Check if reusable component exists (LuxuryCard, LuxuryBackground, etc.)
+2. **SECOND** - Follow established patterns from about page and header
+3. **THIRD** - Create new components only if pattern doesn't exist
+4. **NEVER** - Recreate existing patterns manually
 
 ### Firebase Schema
 Properties use the `Property` interface from `types/property.ts` with:
@@ -290,3 +452,299 @@ Properties use the `Property` interface from `types/property.ts` with:
 - **CRITICAL**: All new components must follow the luxury design patterns above
 - **CRITICAL**: When refactoring existing components, always upgrade to luxury standards
 - **CRITICAL**: Maintain visual consistency across all pages and components
+
+# **COMPLETE WEBSITE STYLING GUIDE**
+
+This section provides comprehensive instructions for applying luxury design standards across all website pages.
+
+## **WHEN TO APPLY LUXURY STYLING**
+
+When the user asks you to "style all pages of the website like the homepage and about page" or similar requests, follow this complete guide to ensure consistent luxury design across the entire website.
+
+## **REQUIRED LUXURY STANDARDS FOR ALL PAGES**
+
+### **1. LAYOUT STRUCTURE**
+```jsx
+// Every page should follow this structure:
+<LuxuryBackground variant="light" className="py-32">
+  <div className="container mx-auto px-6 relative z-10">
+    <SectionHeader
+      title="Page Title"
+      subtitle="Page subtitle"
+      className="mb-20"
+    />
+
+    {/* Page content using luxury components */}
+
+  </div>
+</LuxuryBackground>
+```
+
+### **2. FORM STYLING STANDARDS**
+```jsx
+// Input fields
+<input
+  className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50"
+  style={{
+    borderColor: "rgba(25,39,74,0.15)",
+    backgroundColor: "rgba(255,255,255,0.95)",
+    color: "rgba(25,39,74,0.97)",
+    boxShadow: "0 8px 20px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+  }}
+/>
+
+// Textarea
+<textarea
+  className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50 resize-none"
+  style={{
+    borderColor: "rgba(25,39,74,0.15)",
+    backgroundColor: "rgba(255,255,255,0.95)",
+    color: "rgba(25,39,74,0.97)",
+    boxShadow: "0 8px 20px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+  }}
+/>
+
+// Form containers
+<LuxuryCard className="p-8 lg:p-12">
+  {/* Form content */}
+</LuxuryCard>
+```
+
+### **3. BUTTON STYLING STANDARDS**
+```jsx
+// Always use LuxuryButton component
+<LuxuryButton href="/link">Button Text</LuxuryButton>
+<LuxuryButton variant="secondary">Secondary Button</LuxuryButton>
+<LuxuryButton size="large">Large Button</LuxuryButton>
+```
+
+### **4. LIST AND CONTENT STYLING**
+```jsx
+// Property/item grids
+<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+  {items.map((item, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
+    >
+      <LuxuryCard hoverable={true}>
+        {/* Item content */}
+      </LuxuryCard>
+    </motion.div>
+  ))}
+</div>
+
+// Feature lists
+<div className="space-y-6">
+  {features.map((feature, index) => (
+    <div key={index} className="flex items-start gap-4">
+      <div className="flex h-8 w-8 items-center justify-center rounded-full mt-1"
+           style={{
+             background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+             border: "2px solid rgba(199,157,42,0.3)"
+           }}>
+        <Icon className="h-4 w-4" style={{ color: "rgba(25,39,74,0.97)" }} />
+      </div>
+      <div>
+        <h3 className="text-xl font-bold mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+          {feature.title}
+        </h3>
+        <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+          {feature.description}
+        </p>
+      </div>
+    </div>
+  ))}
+</div>
+```
+
+### **5. NAVIGATION AND BREADCRUMBS**
+```jsx
+// Breadcrumb styling
+<nav className="mb-8">
+  <div className="flex items-center gap-2 text-lg">
+    <Link href="/" className="transition-colors duration-300 hover:text-[#c79d2a]"
+          style={{ color: "rgba(25,39,74,0.6)" }}>
+      דף הבית
+    </Link>
+    <span style={{ color: "rgba(25,39,74,0.4)" }}>/</span>
+    <span style={{ color: "rgba(25,39,74,0.97)" }}>עמוד נוכחי</span>
+  </div>
+</nav>
+
+// Pagination
+<div className="flex justify-center gap-3 mt-12">
+  {pages.map((page, index) => (
+    <button
+      key={index}
+      className={`w-12 h-12 rounded-full transition-all duration-300 ${
+        page.active ? 'scale-110' : 'hover:scale-105'
+      }`}
+      style={{
+        background: page.active
+          ? "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)"
+          : "rgba(255,255,255,0.95)",
+        color: page.active ? "rgba(25,39,74,0.97)" : "rgba(25,39,74,0.7)",
+        boxShadow: page.active
+          ? "0 8px 20px rgba(199,157,42,0.4), inset 0 1px 0 rgba(255,255,255,0.6)"
+          : "0 4px 12px rgba(25,39,74,0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
+        border: "1px solid rgba(25,39,74,0.1)"
+      }}
+    >
+      {page.number}
+    </button>
+  ))}
+</div>
+```
+
+### **6. IMAGE AND MEDIA STYLING**
+```jsx
+// Hero images
+<div className="relative group">
+  <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+    <div className="relative bg-white p-4 rounded-3xl">
+      <img
+        src="/image.jpg"
+        alt="Description"
+        className="w-full h-[400px] lg:h-[600px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
+        style={{
+          boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
+        }}
+      />
+    </div>
+    {/* Decorative elements */}
+    <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500"
+         style={{ background: "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)" }} />
+  </div>
+</div>
+
+// Gallery images
+<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  {images.map((image, index) => (
+    <div key={index} className="group relative">
+      <div className="relative overflow-hidden rounded-2xl">
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+    </div>
+  ))}
+</div>
+```
+
+### **7. ERROR AND SUCCESS STATES**
+```jsx
+// Success message
+<div className="p-6 rounded-2xl border-r-4"
+     style={{
+       backgroundColor: "rgba(34, 197, 94, 0.05)",
+       borderColor: "#22c55e",
+       boxShadow: "0 8px 20px rgba(34, 197, 94, 0.1)"
+     }}>
+  <p className="text-lg font-medium" style={{ color: "rgba(25,39,74,0.97)" }}>
+    Success message here
+  </p>
+</div>
+
+// Error message
+<div className="p-6 rounded-2xl border-r-4"
+     style={{
+       backgroundColor: "rgba(239, 68, 68, 0.05)",
+       borderColor: "#ef4444",
+       boxShadow: "0 8px 20px rgba(239, 68, 68, 0.1)"
+     }}>
+  <p className="text-lg font-medium" style={{ color: "rgba(25,39,74,0.97)" }}>
+    Error message here
+  </p>
+</div>
+```
+
+### **8. LOADING AND SKELETON STATES**
+```jsx
+// Loading spinner
+<div className="flex justify-center items-center py-12">
+  <div className="w-12 h-12 rounded-full border-4 border-transparent animate-spin"
+       style={{
+         borderTopColor: "#c79d2a",
+         borderRightColor: "rgba(199,157,42,0.3)"
+       }} />
+</div>
+
+// Skeleton content
+<div className="space-y-4 animate-pulse">
+  <div className="h-6 rounded-full" style={{ backgroundColor: "rgba(25,39,74,0.1)" }} />
+  <div className="h-4 rounded-full w-3/4" style={{ backgroundColor: "rgba(25,39,74,0.08)" }} />
+  <div className="h-4 rounded-full w-1/2" style={{ backgroundColor: "rgba(25,39,74,0.06)" }} />
+</div>
+```
+
+## **PAGE-SPECIFIC IMPLEMENTATIONS**
+
+### **Contact Page Enhancements**
+- Use LuxuryCard for contact form
+- Style input fields with luxury standards
+- Add luxury styling to contact information cards
+- Use proper grid layout with LuxuryBackground
+
+### **Catalog/Property Pages**
+- Use LuxuryCard for property cards
+- Implement luxury filters with proper styling
+- Add luxury pagination
+- Use SectionHeader for page titles
+
+### **Service Pages (Buying/Selling/Management)**
+- Use LuxuryBackground with hero variant for top sections
+- LuxuryCard for service feature blocks
+- ProfileSection for team introductions
+- Proper luxury button styling for CTAs
+
+### **Error Pages (404, etc.)**
+- LuxuryBackground with centered content
+- Large, friendly error messages with proper typography
+- Luxury buttons for navigation back
+
+## **IMPLEMENTATION CHECKLIST**
+
+When styling any page, ensure:
+
+1. ✅ **LuxuryBackground** replaces any custom section backgrounds
+2. ✅ **SectionHeader** replaces manual header structures
+3. ✅ **LuxuryCard** replaces any div with background/shadow styling
+4. ✅ **LuxuryButton** replaces all button/link elements
+5. ✅ **Brand colors** are used consistently (rgba(25,39,74,0.97) and #c79d2a)
+6. ✅ **Typography hierarchy** follows font-serif for headings, proper sizes
+7. ✅ **Spacing standards** use py-24/py-32 for sections, proper gaps
+8. ✅ **Multi-layered shadows** replace simple shadow utilities
+9. ✅ **Hover animations** are smooth with proper transitions
+10. ✅ **RTL support** is maintained for Hebrew text
+
+## **QUICK CONVERSION GUIDE**
+
+**Replace this:**
+```jsx
+<section className="py-20 bg-gray-50">
+  <div className="container">
+    <h2>Title</h2>
+    <p>Subtitle</p>
+    <div className="bg-white rounded p-6 shadow">Content</div>
+  </div>
+</section>
+```
+
+**With this:**
+```jsx
+<LuxuryBackground variant="light" className="py-32">
+  <div className="container mx-auto px-6 relative z-10">
+    <SectionHeader title="Title" subtitle="Subtitle" className="mb-20" />
+    <LuxuryCard>Content</LuxuryCard>
+  </div>
+</LuxuryBackground>
+```
+
+This comprehensive guide ensures every page maintains the luxury design standards established in the homepage and about page.

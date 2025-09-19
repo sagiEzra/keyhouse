@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
+import LuxuryButton from "@/components/ui/luxury-button"
 
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -18,7 +19,7 @@ export default function HeroSection() {
     <section
       className="relative min-h-[95vh] md:min-h-[110vh] flex items-center justify-center overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #23214a 0%, #23214a 100%)",
+        background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
       }}
     >
       {/* Video Background */}
@@ -36,17 +37,32 @@ export default function HeroSection() {
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(to bottom, #23214a70 0%, #23214a40 50%, #23214a70 100%)",
+            background: "linear-gradient(to bottom, rgba(25,39,74,0.7) 0%, rgba(25,39,74,0.4) 50%, rgba(25,39,74,0.7) 100%)",
           }}
         />
       </div>
 
-      {/* Decorative gradients */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Enhanced decorative elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Main gradient orb */}
         <div
-          className="absolute left-1/2 top-1/4 w-[70vw] h-[50vw] max-w-4xl -translate-x-1/2 rounded-full blur-3xl opacity-30"
+          className="absolute left-1/2 top-1/3 w-[80vw] h-[60vw] max-w-5xl -translate-x-1/2 rounded-full blur-3xl opacity-20"
           style={{
-            background: "linear-gradient(135deg, #f1c23b40 0%, #f1c23b20 50%, transparent 100%)",
+            background: "radial-gradient(circle, rgba(199,157,42,0.25) 0%, rgba(199,157,42,0.125) 30%, transparent 70%)",
+          }}
+        />
+        {/* Secondary accent */}
+        <div
+          className="absolute right-0 top-0 w-1/2 h-1/2 blur-2xl opacity-15"
+          style={{
+            background: "linear-gradient(225deg, rgba(199,157,42,0.375) 0%, transparent 70%)"
+          }}
+        />
+        {/* Left accent */}
+        <div
+          className="absolute left-0 bottom-0 w-1/3 h-1/3 blur-2xl opacity-10"
+          style={{
+            background: "linear-gradient(45deg, rgba(199,157,42,0.25) 0%, transparent 100%)"
           }}
         />
       </div>
@@ -54,87 +70,87 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 text-center text-white">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="mb-6"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
+          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          className="mb-8 relative"
         >
-          <img src="/images/logoNoBg.png" alt="KeyHouse Logo" className="mx-auto h-40 md:h-56 w-auto drop-shadow-2xl" />
+          {/* Logo glow effect */}
+          <div
+            className="absolute -inset-8 rounded-full opacity-40 blur-3xl"
+            style={{
+              background: "radial-gradient(circle, rgba(199,157,42,0.3) 0%, transparent 70%)"
+            }}
+          />
+          <img
+            src="/images/logoNoBg.png"
+            alt="KeyHouse Logo"
+            className="relative mx-auto h-40 md:h-56 w-auto"
+            style={{
+              filter: "drop-shadow(0 8px 32px rgba(0,0,0,0.4)) drop-shadow(0 4px 16px rgba(199,157,42,0.3))"
+            }}
+          />
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mb-16 text-3xl md:text-5xl lg:text-6xl font-medium leading-tight tracking-tight text-white drop-shadow-2xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
+          transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+          className="mb-8 font-serif text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight text-white"
+          style={{
+            textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)"
+          }}
         >
-          ברוכים הבאים לסוכנות הנדל"ן - קי האוס אילת
-          </motion.h1>
+          <span className="block mb-4">
+            ברוכים הבאים ל...
+          </span>
+          <span
+            className="block bg-gradient-to-l from-white via-gray-0 to-white bg-clip-text text-transparent"
+            style={{
+              textShadow: "0 4px 20px rgba(0,0,0,0.4)"
+            }}
+          >
+            סוכנות נדל&quot;ן - קי האוס אילת
+          </span>
+        </motion.h1>
 
-        {/* <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-          transition={{ duration: 1, delay: 1.0 }}
-          className="mb-12 text-xl md:text-2xl font-medium text-blue-100 max-w-3xl mx-auto drop-shadow-lg"
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoaded ? 1 : 0 }}
+          transition={{ delay: 1.0, duration: 0.8 }}
+          className="mx-auto mb-10 max-w-4xl text-xl text-blue-100 md:text-2xl font-light leading-relaxed"
+          style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}
         >
-          מומחים במכירה, קנייה וניהול נכסים באילת עם ליווי אישי ומקצועי
-        </motion.p> */}
+          החזון, האנשים והערכים שמאחורי סוכנות הנדל&quot;ן המובילה באילת
+        </motion.p>
 
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          className="mx-auto h-1.5 w-32 rounded-full"
+          style={{
+            background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 50%, #c79d2a 100%)",
+            boxShadow: "0 4px 20px rgba(199,157,42,0.4), 0 2px 10px rgba(199,157,42,0.2)",
+          }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: isLoaded ? 1 : 0 }}
+          transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
+        />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
+          transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
+          className="mt-16"
         >
-          <a
-            href="#services-grid"
-            className="group relative overflow-hidden rounded-full px-10 py-4 text-lg md:text-xl font-bold text-white shadow-2xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#f1c23b55] hover:scale-105 active:scale-95"
-            style={{
-              background: "linear-gradient(90deg, #23214a 0%, #23214a 100%)",
-              // focusRingColor: "#f1c23b55",
-            }}
-            onMouseEnter={(e) => {
-              ;(e.currentTarget as HTMLAnchorElement).style.background =
-                "linear-gradient(90deg, #f1c23b 0%, #f1c23b 100%)"
-              ;(e.currentTarget as HTMLAnchorElement).style.color = "#23214a"
-            }}
-            onMouseLeave={(e) => {
-              ;(e.currentTarget as HTMLAnchorElement).style.background =
-                "linear-gradient(90deg, #23214a 0%, #23214a 100%)"
-              ;(e.currentTarget as HTMLAnchorElement).style.color = "#ffffff"
-            }}
-            aria-label="השירותים שלנו"
-          >
-            <span className="relative z-10 transition-colors duration-300">השירותים שלנו</span>
+          <a href="#services-grid">
+            <LuxuryButton size="large">
+              השירותים שלנו
+            </LuxuryButton>
           </a>
         </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="mt-12"
-        >
-          <div className="flex flex-col items-center">
-            <span className="mb-2 text-sm font-light text-white/80">גלול למטה</span>
-            <div className="h-14 w-8 rounded-full border-2 border-white/30 p-1">
-              <motion.div
-                className="h-3 w-3 rounded-full bg-white"
-                animate={{
-                  y: [0, 20, 0],
-                }}
-                transition={{
-                  repeat: Number.POSITIVE_INFINITY,
-                  duration: 1.5,
-                  ease: "easeInOut",
-                }}
-              />
-            </div>
-          </div>
-        </motion.div>
       </div>
+
+      {/* Enhanced bottom gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent"></div>
     </section>
   )
 }

@@ -19,22 +19,24 @@ export default function Footer() {
       dir="rtl"
       className="relative z-10 mt-0 overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
-        boxShadow: "0 -20px 40px rgba(25,39,74,0.35), 0 -8px 20px rgba(199,157,42,0.15)",
+        background: "linear-gradient(135deg, rgba(25,39,74,0.03) 0%, rgba(25,39,74,0.08) 25%, rgba(25,39,74,0.12) 50%, rgba(25,39,74,0.08) 75%, rgba(25,39,74,0.03) 100%)",
+        boxShadow: "0 -25px 50px rgba(25,39,74,0.15), 0 -10px 25px rgba(199,157,42,0.08), inset 0 1px 0 rgba(255,255,255,0.8)",
       }}
     >
-      {/* Enhanced background decoration */}
+      {/* Enhanced luxury background decoration */}
       <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute left-1/2 top-0 w-[70vw] h-[50vw] max-w-4xl -translate-x-1/2 -translate-y-1/3 rounded-full blur-3xl opacity-10"
+          className="absolute left-1/2 top-0 w-[60vw] h-[40vw] max-w-3xl -translate-x-1/2 -translate-y-1/4 rounded-full opacity-4"
           style={{
-            background: "radial-gradient(ellipse, rgba(199,157,42,0.2) 0%, rgba(199,157,42,0.08) 40%, transparent 70%)",
+            background: "radial-gradient(ellipse, rgba(199,157,42,0.08) 0%, rgba(199,157,42,0.04) 40%, transparent 70%)",
+            filter: "blur(40px)"
           }}
         />
         <div
-          className="absolute right-10 bottom-10 w-96 h-96 blur-3xl opacity-6"
+          className="absolute right-1/6 bottom-1/4 w-72 h-72 rounded-full opacity-3"
           style={{
-            background: "radial-gradient(circle, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.04) 50%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(25,39,74,0.06) 0%, rgba(25,39,74,0.02) 50%, transparent 70%)",
+            filter: "blur(30px)"
           }}
         />
       </div>
@@ -50,34 +52,19 @@ export default function Footer() {
             transition={{ duration: 0.8 }}
             className="flex flex-col items-center md:items-center justify-center ml-8 h-full"
           >
-            {/* Clean Logo with luxury styling */}
+            {/* Clean minimalistic logo */}
             <div className="relative mb-6">
-              <div className="relative bg-white p-4 rounded-3xl">
-                <img
-                  src="/images/keyhouse.jpg"
-                  alt="KeyHouse"
-                  className="w-56 h-36 object-cover rounded-2xl"
-                  style={{
-                    boxShadow: "0 25px 60px rgba(0,0,0,0.3), 0 12px 35px rgba(199,157,42,0.18), inset 0 2px 0 rgba(255,255,255,0.7)",
-                  }}
-                />
-                {/* Subtle inner highlight */}
-                <div className="absolute inset-4 rounded-2xl opacity-15 pointer-events-none"
-                     style={{
-                       background: "linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 100%)"
-                     }} />
-              </div>
-              
-              {/* Clean border accent */}
-              <div className="absolute inset-0 rounded-3xl border-2"
-                   style={{
-                     borderColor: "rgba(199,157,42,0.3)",
-                     boxShadow: "0 0 25px rgba(199,157,42,0.12)"
-                   }} />
+              <img
+                src="/images/keyhouse.jpg"
+                alt="KeyHouse"
+                className="w-56 h-36 object-cover rounded-2xl transition-all duration-300 hover:shadow-lg"
+                style={{
+                  boxShadow: "0 15px 30px rgba(25,39,74,0.15), 0 6px 15px rgba(25,39,74,0.08)",
+                }}
+              />
             </div>
             
-            <p className="text-lg text-blue-100 font-light text-center md:text-right leading-relaxed max-w-sm mb-4"
-               style={{ textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>
+            <p className="text-lg font-light text-center md:text-right leading-relaxed max-w-sm mb-4" style={{ color: "rgba(25,39,74,0.85)" }}>
               הבית שלך בנדל״ן באילת
             </p>
 
@@ -99,8 +86,8 @@ export default function Footer() {
           >
             <h3 className="font-serif text-xl font-bold mb-6 relative"
                 style={{ 
-                  color: "#c79d2a",
-                  textShadow: "0 3px 12px rgba(199,157,42,0.35)"
+                  color: "rgba(25,39,74,0.97)",
+                  textShadow: "0 2px 8px rgba(25,39,74,0.15)"
                 }}>
               ניווט באתר
               {/* Underline accent */}
@@ -119,8 +106,8 @@ export default function Footer() {
                 >
                   <Link
                     href={link.href}
-                    className="group/link relative block text-base text-white/85 hover:text-white transition-all duration-300 hover:translate-x-2 py-1"
-                    style={{ textShadow: "0 2px 6px rgba(0,0,0,0.3)" }}
+                    className="group/link relative block text-base transition-all duration-300 hover:translate-x-2 py-1"
+                    style={{ color: "rgba(25,39,74,0.85)" }}
                   >
                     {/* Link hover effect */}
                     <div className="absolute -inset-x-2 -inset-y-1 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -144,8 +131,8 @@ export default function Footer() {
           >
             <h3 className="font-serif text-xl font-bold mb-6 relative"
                 style={{ 
-                  color: "#c79d2a",
-                  textShadow: "0 3px 12px rgba(199,157,42,0.35)"
+                  color: "rgba(25,39,74,0.97)",
+                  textShadow: "0 2px 8px rgba(25,39,74,0.15)"
                 }}>
               שירותים נוספים
               {/* Underline accent */}
@@ -164,8 +151,8 @@ export default function Footer() {
                 >
                   <Link
                     href={link.href}
-                    className="group/link relative block text-base text-white/85 hover:text-white transition-all duration-300 hover:translate-x-2 py-1"
-                    style={{ textShadow: "0 2px 6px rgba(0,0,0,0.3)" }}
+                    className="group/link relative block text-base transition-all duration-300 hover:translate-x-2 py-1"
+                    style={{ color: "rgba(25,39,74,0.85)" }}
                   >
                     {/* Link hover effect */}
                     <div className="absolute -inset-x-2 -inset-y-1 rounded-lg opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -190,8 +177,8 @@ export default function Footer() {
           >
             <h3 className="font-serif text-xl font-bold mb-6 relative"
                 style={{ 
-                  color: "#c79d2a",
-                  textShadow: "0 3px 12px rgba(199,157,42,0.35)"
+                  color: "rgba(25,39,74,0.97)",
+                  textShadow: "0 2px 8px rgba(25,39,74,0.15)"
                 }}>
               בואו נתחבר
               {/* Underline accent */}
@@ -214,12 +201,13 @@ export default function Footer() {
                          filter: "blur(15px)"
                        }} />
                   
-                  <div 
+                  <div
                     className="relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 group-hover/item:scale-110"
-                    style={{ 
-                      background: "linear-gradient(135deg, #c79d2a 0%, #b88924 100%)",
-                      color: "#1a2756",
-                      boxShadow: "0 8px 20px rgba(199,157,42,0.25), inset 0 1px 0 rgba(255,255,255,0.3)"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.98) 100%)",
+                      color: "rgba(25,39,74,0.97)",
+                      boxShadow: "0 8px 20px rgba(25,39,74,0.15), 0 4px 10px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                      border: "1px solid rgba(25,39,74,0.1)"
                     }}
                   >
                     <FaPhoneAlt className="h-5 w-5" />
@@ -229,12 +217,12 @@ export default function Footer() {
                 <div>
                   <a 
                     href={`tel:+${businessStaticData.phone.israelNumber}`} 
-                    className="block font-serif text-lg font-medium text-white hover:text-yellow-200 transition-all duration-300 hover:drop-shadow-lg"
-                    style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}
+                    className="block font-serif text-lg font-medium transition-all duration-300 hover:drop-shadow-lg"
+                    style={{ color: "rgba(25,39,74,0.97)" }}
                   >
                     {businessStaticData.phone.numberToDisplay}
                   </a>
-                  <p className="text-sm text-blue-100 opacity-70">התקשרו עכשיו</p>
+                  <p className="text-sm opacity-60" style={{ color: "rgba(25,39,74,0.7)" }}>התקשרו עכשיו</p>
                 </div>
               </motion.div>
 
@@ -252,12 +240,13 @@ export default function Footer() {
                          filter: "blur(15px)"
                        }} />
                   
-                  <div 
+                  <div
                     className="relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 group-hover/item:scale-110"
-                    style={{ 
-                      background: "linear-gradient(135deg, #c79d2a 0%, #b88924 100%)",
-                      color: "#1a2756",
-                      boxShadow: "0 8px 20px rgba(199,157,42,0.25), inset 0 1px 0 rgba(255,255,255,0.3)"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.98) 100%)",
+                      color: "rgba(25,39,74,0.97)",
+                      boxShadow: "0 8px 20px rgba(25,39,74,0.15), 0 4px 10px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                      border: "1px solid rgba(25,39,74,0.1)"
                     }}
                   >
                     <FaEnvelope className="h-5 w-5" />
@@ -267,39 +256,40 @@ export default function Footer() {
                 <div>
                   <a
                     href={businessStaticData.social.emailLink}
-                    className="block font-serif text-lg font-medium text-white hover:text-yellow-200 transition-all duration-300 hover:drop-shadow-lg"
-                    style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}
+                    className="block font-serif text-lg font-medium transition-all duration-300 hover:drop-shadow-lg"
+                    style={{ color: "rgba(25,39,74,0.97)" }}
                   >
                     {businessStaticData.social.email}
                   </a>
-                  <p className="text-sm text-blue-100 opacity-70">שלחו הודעה</p>
+                  <p className="text-sm opacity-60" style={{ color: "rgba(25,39,74,0.7)" }}>שלחו הודעה</p>
                 </div>
               </motion.div>
 
               {/* Location */}
               <div className="flex items-center gap-4">
-                <div 
+                <div
                   className="flex h-12 w-12 items-center justify-center rounded-full"
-                  style={{ 
-                    background: "linear-gradient(135deg, #daa520 0%, #c8941f 100%)",
-                    color: "#1a2756",
-                    boxShadow: "0 8px 20px rgba(218,165,32,0.25), inset 0 1px 0 rgba(255,255,255,0.3)"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.98) 100%)",
+                    color: "rgba(25,39,74,0.97)",
+                    boxShadow: "0 8px 20px rgba(25,39,74,0.15), 0 4px 10px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                    border: "1px solid rgba(25,39,74,0.1)"
                   }}
                 >
                   <FaMapMarkerAlt className="h-5 w-5" />
                 </div>
                 
                 <div>
-                  <p className="font-serif text-lg font-medium text-white" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
+                  <p className="font-serif text-lg font-medium" style={{ color: "rgba(25,39,74,0.97)" }}>
                     אילת, ישראל
                   </p>
-                  <p className="text-sm text-blue-100 opacity-70">המיקום שלנו</p>
+                  <p className="text-sm opacity-60" style={{ color: "rgba(25,39,74,0.7)" }}>המיקום שלנו</p>
                 </div>
               </div>
 
               {/* Social Media */}
-              <div className="pt-4 border-t border-opacity-20" style={{ borderColor: "rgba(218,165,32,0.2)" }}>
-                <p className="text-center md:text-right text-white font-serif mb-4 text-base">עקבו אחרינו</p>
+              <div className="pt-4 border-t border-opacity-30" style={{ borderColor: "rgba(199,157,42,0.3)" }}>
+                <p className="text-center md:text-right font-serif mb-4 text-base" style={{ color: "rgba(25,39,74,0.97)" }}>עקבו אחרינו</p>
                 <div className="flex justify-center md:justify-start gap-4">
                   {/* Facebook */}
                   <motion.div 
@@ -321,9 +311,10 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       className="relative block rounded-full p-4 transition-all duration-500"
                       style={{
-                        background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
-                        boxShadow: "0 8px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
-                        backdropFilter: "blur(10px)"
+                        background: "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)",
+                        boxShadow: "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)",
+                        backdropFilter: "blur(15px)",
+                        border: "1px solid rgba(25,39,74,0.1)"
                       }}
                       onMouseEnter={(e) => {
                         const target = e.currentTarget as HTMLAnchorElement;
@@ -332,12 +323,12 @@ export default function Footer() {
                       }}
                       onMouseLeave={(e) => {
                         const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)";
-                        target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)";
+                        target.style.background = "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)";
+                        target.style.boxShadow = "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)";
                       }}
                       aria-label="Facebook"
                     >
-                      <FaFacebook className="h-6 w-6 text-white transition-transform duration-300 group-hover:scale-110" />
+                      <FaFacebook className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" style={{ color: "rgba(25,39,74,0.97)" }} />
                     </a>
                   </motion.div>
 
@@ -361,9 +352,10 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       className="relative block rounded-full p-4 transition-all duration-500"
                       style={{
-                        background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
-                        boxShadow: "0 8px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
-                        backdropFilter: "blur(10px)"
+                        background: "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)",
+                        boxShadow: "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)",
+                        backdropFilter: "blur(15px)",
+                        border: "1px solid rgba(25,39,74,0.1)"
                       }}
                       onMouseEnter={(e) => {
                         const target = e.currentTarget as HTMLAnchorElement;
@@ -372,12 +364,12 @@ export default function Footer() {
                       }}
                       onMouseLeave={(e) => {
                         const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)";
-                        target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)";
+                        target.style.background = "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)";
+                        target.style.boxShadow = "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)";
                       }}
                       aria-label="Instagram"
                     >
-                      <FaInstagram className="h-6 w-6 text-white transition-transform duration-300 group-hover:scale-110" />
+                      <FaInstagram className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" style={{ color: "rgba(25,39,74,0.97)" }} />
                     </a>
                   </motion.div>
 
@@ -401,9 +393,10 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       className="relative block rounded-full p-4 transition-all duration-500"
                       style={{
-                        background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
-                        boxShadow: "0 8px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
-                        backdropFilter: "blur(10px)"
+                        background: "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)",
+                        boxShadow: "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)",
+                        backdropFilter: "blur(15px)",
+                        border: "1px solid rgba(25,39,74,0.1)"
                       }}
                       onMouseEnter={(e) => {
                         const target = e.currentTarget as HTMLAnchorElement;
@@ -412,12 +405,12 @@ export default function Footer() {
                       }}
                       onMouseLeave={(e) => {
                         const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)";
-                        target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)";
+                        target.style.background = "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)";
+                        target.style.boxShadow = "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)";
                       }}
                       aria-label="WhatsApp"
                     >
-                      <FaWhatsapp className="h-6 w-6 text-white transition-transform duration-300 group-hover:scale-110" />
+                      <FaWhatsapp className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" style={{ color: "rgba(25,39,74,0.97)" }} />
                     </a>
                   </motion.div>
                 </div>
@@ -435,9 +428,9 @@ export default function Footer() {
         transition={{ duration: 0.8, delay: 0.4 }}
         className="py-6 text-center border-t relative z-10"
         style={{
-          borderColor: "rgba(199,157,42,0.2)",
-          background: "linear-gradient(135deg, rgba(25,39,74,0.98) 0%, rgba(26,39,86,0.95) 50%, rgba(45,74,142,0.98) 100%)",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)"
+          borderColor: "rgba(199,157,42,0.3)",
+          background: "linear-gradient(135deg, rgba(25,39,74,0.05) 0%, rgba(25,39,74,0.08) 50%, rgba(25,39,74,0.05) 100%)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8), 0 -1px 3px rgba(25,39,74,0.1)"
         }}
       >
         {/* Decorative top border accent */}
@@ -449,8 +442,7 @@ export default function Footer() {
 
         <div className="container mx-auto px-6">
           <div className="flex flex-col items-center gap-4">
-            <p className="text-blue-100/90 font-light tracking-wide text-base"
-               style={{ textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>
+            <p className="font-light tracking-wide text-base" style={{ color: "rgba(25,39,74,0.85)" }}>
               © {new Date().getFullYear()} KeyHouse נדל״ן. כל הזכויות שמורות.
             </p>
             
@@ -461,7 +453,7 @@ export default function Footer() {
               <div className="h-px w-12 opacity-40" style={{ backgroundColor: "#c79d2a" }} />
             </div>
 
-            <p className="text-blue-200/70 text-sm font-light">
+            <p className="text-sm font-light" style={{ color: "rgba(25,39,74,0.65)" }}>
               נבנה באהבה עבור לקוחותינו
             </p>
           </div>

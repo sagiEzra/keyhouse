@@ -3,6 +3,9 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { FaBullseye, FaSearch, FaKey, FaHome, FaArrowRight } from "react-icons/fa"
+import LuxuryBackground from "@/components/ui/luxury-background"
+import SectionHeader from "@/components/ui/section-header"
+import LuxuryButton from "@/components/ui/luxury-button"
 
 export default function ServicesGrid() {
   const services = [
@@ -60,53 +63,19 @@ export default function ServicesGrid() {
   }
 
   return (
-    <section
-      id="services-grid"
-      className="relative py-24 overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #f1c23b0d 100%)",
-      }}
+    <LuxuryBackground
+      variant="light"
+      // id="services-grid"
+      className="py-32"
     >
-      {/* Decorative gradients */}
-      <div
-        className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-[40vw] rounded-full blur-3xl opacity-60"
-        style={{
-          background: "linear-gradient(135deg, #23214a4d 0%, #23214a1a 100%)",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute bottom-0 right-0 w-1/3 h-1/3 blur-2xl opacity-40"
-        style={{
-          background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)",
-        }}
-      />
 
-      <div className="container mx-auto px-4">
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-20 text-center"
-        >
-          <h2
-            className="mb-4 font-serif text-3xl font-extrabold md:text-5xl tracking-tight drop-shadow-xl"
-            style={{ color: "#23214a" }}
-          >
-            פותחים את כל הדלתות לכל צרכי הנדל"ן שלך
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg md:text-xl font-semibold" style={{ color: "#23214a" }}>
-            הכול תחת קורת גג אחת - יש על מי לסמוך
-          </p>
-          <div
-            className="mx-auto mt-6 h-2 w-28 rounded-full"
-            style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
-              boxShadow: "0 2px 12px #f1c23b55",
-            }}
-          />
-        </motion.div>
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Section Header */}
+        <SectionHeader
+          title="פותחים את כל הדלתות לכל צרכי הנדל&quot;ן שלך"
+          subtitle="הכול תחת קורת גג אחת - יש על מי לסמוך"
+          className="mb-20"
+        />
 
         {/* Services Grid */}
         <motion.div
@@ -121,20 +90,34 @@ export default function ServicesGrid() {
               key={index}
               variants={cardVariants as any}
               className="group relative"
-              whileHover={{ y: -8, boxShadow: "0 8px 32px #f1c23b55" }}
+              whileHover={{ y: -8 }}
             >
+              {/* Multi-layered glow effect */}
+              <div className="absolute -inset-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" style={{ zIndex: -1 }}>
+                <div className="absolute inset-0 rounded-3xl"
+                     style={{
+                       background: "radial-gradient(ellipse 120% 120% at 50% 50%, rgba(241,194,59,0.2) 0%, rgba(241,194,59,0.1) 35%, transparent 70%)",
+                       filter: "blur(20px)"
+                     }} />
+                <div className="absolute inset-2 rounded-3xl"
+                     style={{
+                       background: "radial-gradient(ellipse 100% 100% at 50% 50%, rgba(35,33,74,0.1) 0%, rgba(35,33,74,0.05) 40%, transparent 70%)",
+                       filter: "blur(15px)"
+                     }} />
+              </div>
+
               <Link href={service.href} className="block focus:outline-none">
                 <div
-                  className="relative aspect-[3/5] overflow-hidden rounded-2xl shadow-xl border bg-white/90 backdrop-blur-xl transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-2 focus:ring-4 focus:ring-[#f1c23b55]"
+                  className="relative aspect-[3/5] overflow-hidden rounded-3xl shadow-xl border bg-white/95 backdrop-blur-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 focus:ring-4 focus:ring-[#f1c23b55]"
                   style={{
-                    borderColor: "#ffff",
-                    boxShadow: "0 12px 48px 0 #23214a33, 0 4px 24px 0 #23214a18, 0 1.5px 16px 0 #23214a08",
+                    borderColor: "rgba(35,33,74,0.1)",
+                    boxShadow: "0 20px 50px rgba(35,33,74,0.12), 0 8px 30px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40"
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 30px 80px rgba(35,33,74,0.15), 0 15px 50px rgba(241,194,59,0.15), 0 8px 30px rgba(35,33,74,0.1), inset 0 1px 0 rgba(255,255,255,0.8)"
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 50px rgba(35,33,74,0.12), 0 8px 30px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
                   }}
                 >
                   {/* Decorative Icon */}
@@ -194,14 +177,14 @@ export default function ServicesGrid() {
                   </div>
                   {/* Hover Border Effect */}
                   <div
-                    className="pointer-events-none absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-opacity-80 transition-all duration-500"
-                    // style={{ borderColor: "#23214aee" }}
+                    className="pointer-events-none absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-opacity-30 transition-all duration-500"
+                    style={{ borderColor: "rgba(241,194,59,0.8)" }}
                   />
                   {/* Additional Hover Glow Effect */}
                   <div
-                    className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                    className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-15 transition-opacity duration-500"
                     style={{
-                      background: "linear-gradient(135deg, #f1c23b40 0%, transparent 50%, #f1c23b20 100%)",
+                      background: "linear-gradient(135deg, rgba(241,194,59,0.25) 0%, transparent 50%, rgba(241,194,59,0.15) 100%)",
                     }}
                   />
                   {/* Bottom Info Bar */}
@@ -223,32 +206,14 @@ export default function ServicesGrid() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-20 text-center"
         >
-          <p className="mb-6 text-lg font-medium" style={{ color: "#23214a" }}>
+          <p className="mb-8 text-xl font-medium leading-relaxed" style={{ color: "rgba(25,39,74,0.97)" }}>
             לא בטוחים איזה שירות מתאים לכם? אנחנו כאן לעזור
           </p>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full px-10 py-4 font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-2xl"
-              style={{
-                background: "linear-gradient(90deg, #23214a 0%, #23214a 100%)",
-              }}
-              onMouseEnter={(e) => {
-                ;(e.currentTarget as HTMLAnchorElement).style.background =
-                  "linear-gradient(90deg, #f1c23b 0%, #f1c23b 100%)"
-                ;(e.currentTarget as HTMLAnchorElement).style.color = "#23214a"
-              }}
-              onMouseLeave={(e) => {
-                ;(e.currentTarget as HTMLAnchorElement).style.background =
-                  "linear-gradient(90deg, #23214a 0%, #23214a 100%)"
-                ;(e.currentTarget as HTMLAnchorElement).style.color = "#ffffff"
-              }}
-            >
-              <span>בואו נדבר</span>
-            </Link>
-          </motion.div>
+          <LuxuryButton size="large" href="/contact">
+            בואו נדבר
+          </LuxuryButton>
         </motion.div>
       </div>
-    </section>
+    </LuxuryBackground>
   )
 }
