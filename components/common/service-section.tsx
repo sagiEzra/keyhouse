@@ -38,18 +38,6 @@ export default function ServiceSection({
       className="py-24 relative overflow-hidden"
       style={getBackgroundStyle()}
     >
-      {/* Decorative gradients */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-1/4 left-1/4 w-64 h-32 rounded-full opacity-2"
-          style={{ background: "linear-gradient(45deg, rgba(25,39,74,0.03) 0%, transparent 100%)" }}
-        />
-        <div
-          className="absolute bottom-1/3 right-1/4 w-48 h-24 rounded-full opacity-2"
-          style={{ background: "linear-gradient(135deg, rgba(199,157,42,0.03) 0%, transparent 100%)" }}
-        />
-      </div>
-
       <div className="container mx-auto px-6 relative z-10">
         <div className={`flex flex-col items-center gap-12 lg:gap-16 lg:flex-row ${reverse ? "lg:flex-row-reverse" : ""}`}>
           <motion.div
@@ -118,13 +106,6 @@ export default function ServiceSection({
                     {/* Hover overlay */}
                     <div className="absolute inset-4 rounded-2xl bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   </div>
-                  {/* Decorative accent orb */}
-                  <div
-                    className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500"
-                    style={{
-                      background: "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)"
-                    }}
-                  />
                 </div>
               </div>
             </motion.div>

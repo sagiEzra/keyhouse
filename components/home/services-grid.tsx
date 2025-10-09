@@ -112,7 +112,6 @@ export default function ServicesGrid() {
                   style={{
                     borderColor: "rgba(25,39,74,0.1)",
                     boxShadow: "0 20px 50px rgba(25,39,74,0.12), 0 8px 30px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
-                    focusRing: "rgba(199,157,42,0.3)"
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLDivElement).style.boxShadow = "0 30px 80px rgba(25,39,74,0.15), 0 15px 50px rgba(199,157,42,0.15), 0 8px 30px rgba(25,39,74,0.1), inset 0 1px 0 rgba(255,255,255,0.8)"

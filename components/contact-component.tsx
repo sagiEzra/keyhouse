@@ -93,7 +93,7 @@ export default function ContactComponent() {
                     }}
                     placeholder="your@email.com"
                   />
-                  <div className="mt-3 flex items-start gap-2">
+                  <div className="mt-3 flex items-start gap-2 select-none">
                     <input
                       type="checkbox"
                       id="newsletter"

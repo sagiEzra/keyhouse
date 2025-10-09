@@ -69,24 +69,6 @@ export default function ProfileSection({
           {/* Image overlay gradient */}
           <div className="absolute inset-4 rounded-2xl bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         </div>
-
-        {/* Decorative elements */}
-        <div
-          className={`absolute ${reverse ? '-bottom-4 -left-4' : '-bottom-4 -right-4'} w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
-          style={{
-            background: reverse
-              ? "linear-gradient(225deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)"
-              : "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)"
-          }}
-        />
-        <div
-          className={`absolute ${reverse ? '-top-4 -right-4' : '-top-4 -left-4'} w-16 h-16 rounded-full opacity-15 group-hover:opacity-30 transition-opacity duration-500`}
-          style={{
-            background: reverse
-              ? "linear-gradient(225deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)"
-              : "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)"
-          }}
-        />
       </div>
     </div>
   )
