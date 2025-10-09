@@ -96,28 +96,29 @@ export default function ServicesGrid() {
               <div className="absolute -inset-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" style={{ zIndex: -1 }}>
                 <div className="absolute inset-0 rounded-3xl"
                      style={{
-                       background: "radial-gradient(ellipse 120% 120% at 50% 50%, rgba(241,194,59,0.2) 0%, rgba(241,194,59,0.1) 35%, transparent 70%)",
+                       background: "radial-gradient(ellipse 120% 120% at 50% 50%, rgba(199,157,42,0.2) 0%, rgba(199,157,42,0.1) 35%, transparent 70%)",
                        filter: "blur(20px)"
                      }} />
                 <div className="absolute inset-2 rounded-3xl"
                      style={{
-                       background: "radial-gradient(ellipse 100% 100% at 50% 50%, rgba(35,33,74,0.1) 0%, rgba(35,33,74,0.05) 40%, transparent 70%)",
+                       background: "radial-gradient(ellipse 100% 100% at 50% 50%, rgba(25,39,74,0.1) 0%, rgba(25,39,74,0.05) 40%, transparent 70%)",
                        filter: "blur(15px)"
                      }} />
               </div>
 
               <Link href={service.href} className="block focus:outline-none">
                 <div
-                  className="relative aspect-[3/5] overflow-hidden rounded-3xl shadow-xl border bg-white/95 backdrop-blur-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 focus:ring-4 focus:ring-[#f1c23b55]"
+                  className="relative aspect-[3/5] overflow-hidden rounded-3xl shadow-xl border bg-white/95 backdrop-blur-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 focus:ring-4"
                   style={{
-                    borderColor: "rgba(35,33,74,0.1)",
-                    boxShadow: "0 20px 50px rgba(35,33,74,0.12), 0 8px 30px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                    borderColor: "rgba(25,39,74,0.1)",
+                    boxShadow: "0 20px 50px rgba(25,39,74,0.12), 0 8px 30px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                    focusRing: "rgba(199,157,42,0.3)"
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 30px 80px rgba(35,33,74,0.15), 0 15px 50px rgba(241,194,59,0.15), 0 8px 30px rgba(35,33,74,0.1), inset 0 1px 0 rgba(255,255,255,0.8)"
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 30px 80px rgba(25,39,74,0.15), 0 15px 50px rgba(199,157,42,0.15), 0 8px 30px rgba(25,39,74,0.1), inset 0 1px 0 rgba(255,255,255,0.8)"
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 50px rgba(35,33,74,0.12), 0 8px 30px rgba(35,33,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 50px rgba(25,39,74,0.12), 0 8px 30px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
                   }}
                 >
                   {/* Decorative Icon */}
@@ -134,26 +135,26 @@ export default function ServicesGrid() {
                   <div
                     className="absolute inset-0 opacity-40 group-hover:opacity-50 transition-opacity duration-500"
                     style={{
-                      background: "linear-gradient(135deg, #23214a70 0%, #23214a40 100%)",
+                      background: "linear-gradient(135deg, rgba(25,39,74,0.7) 0%, rgba(25,39,74,0.4) 100%)",
                     }}
                   />
                   {/* Bottom Gradient for Text Contrast */}
                   <div
                     className="absolute bottom-0 left-0 right-0 h-32 opacity-90 group-hover:opacity-95 transition-opacity duration-500"
                     style={{
-                      background: "linear-gradient(to top, #23214aee 0%, #23214a99 50%, transparent 100%)",
+                      background: "linear-gradient(to top, rgba(25,39,74,0.93) 0%, rgba(25,39,74,0.6) 50%, transparent 100%)",
                     }}
                   />
                   {/* Left-Pointing Arrow with Service Title */}
                   <div className="absolute top-6 right-0 z-20">
                     <div
-                      className="relative overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:-translate-x-1 drop-shadow-[0_4px_12px_rgba(35,33,74,0.18)] group-hover:drop-shadow-[0_12px_32px_rgba(241,194,59,0.35)]"
+                      className="relative overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:-translate-x-1 drop-shadow-[0_4px_12px_rgba(25,39,74,0.18)] group-hover:drop-shadow-[0_12px_32px_rgba(199,157,42,0.35)]"
                     >
                       <div
                         className="px-8 py-4 pl-12 font-bold text-base md:text-lg tracking-wide shadow-xl"
                         style={{
-                          background: "linear-gradient(90deg, #23214a 0%, #23214a 100%)",
-                          color: "#ffff",
+                          background: "linear-gradient(90deg, rgba(25,39,74,0.97) 0%, rgba(25,39,74,0.97) 100%)",
+                          color: "#ffffff",
                           clipPath: "polygon(20px 0, 100% 0, 100% 100%, 20px 100%, 0 50%)",
                         }}
                       >
@@ -166,25 +167,20 @@ export default function ServicesGrid() {
                     <div className="text-center">
                       <h3
                         className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight drop-shadow-xl"
-                        style={{ color: "#fff", textShadow: "0 2px 8px #23214a99" }}
+                        style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(25,39,74,0.6)" }}
                       >
                         {service.subtitle}
                       </h3>
-                      <p className="mt-2 text-base md:text-lg font-medium text-white/90 drop-shadow" style={{ textShadow: "0 1px 6px #23214a88" }}>
+                      <p className="mt-2 text-base md:text-lg font-medium text-white/90 drop-shadow" style={{ textShadow: "0 1px 6px rgba(25,39,74,0.5)" }}>
                         {service.description}
                       </p>
                     </div>
                   </div>
-                  {/* Hover Border Effect */}
-                  <div
-                    className="pointer-events-none absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-opacity-30 transition-all duration-500"
-                    style={{ borderColor: "rgba(241,194,59,0.8)" }}
-                  />
-                  {/* Additional Hover Glow Effect */}
+                  {/* Hover Glow Effect */}
                   <div
                     className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-15 transition-opacity duration-500"
                     style={{
-                      background: "linear-gradient(135deg, rgba(241,194,59,0.25) 0%, transparent 50%, rgba(241,194,59,0.15) 100%)",
+                      background: "linear-gradient(135deg, rgba(199,157,42,0.25) 0%, transparent 50%, rgba(199,157,42,0.15) 100%)",
                     }}
                   />
                   {/* Bottom Info Bar */}

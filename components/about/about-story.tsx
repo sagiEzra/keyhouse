@@ -25,7 +25,7 @@ export default function AboutStory() {
         >
           <div className="relative">
             <p className="font-medium text-xl">
-              ילידת אילת, יועצת נדלן ומתווכת
+              ילידת אילת, יועצת נדלן ומגשרת
             </p>
           </div>
 

@@ -1,3 +1,4 @@
+import CTASection from "@/components/common/cta-section";
 import StatsSection from "../components/common/stats-section";
 import AboutSection from "../components/home/about-section";
 import HeroSection from "../components/home/hero-section";
@@ -26,6 +27,11 @@ export default function HomePage() {
           ]}
         />
       <TestimonialsCarousel />
+      <CTASection 
+        title="רוצה להתייעץ איתנו?"
+        description="צור קשר עוד היום ונשמח לעזור לך למצוא את הנכס המושלם או למכור את הנכס שלך במחיר הטוב ביותר."
+        buttonText="צור קשר"
+      />
     </main>
   )
 }

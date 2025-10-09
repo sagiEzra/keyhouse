@@ -100,6 +100,14 @@ import ProfileSection from "@/components/ui/profile-section"
 import SectionHeader from "@/components/ui/section-header"
 import LuxuryButton from "@/components/ui/luxury-button"
 import QuoteCard from "@/components/ui/quote-card"
+
+// Service section children components (for service pages like buying, selling, property-management):
+import {
+  ChecklistContent,
+  NumberedStepsCard,
+  FeatureGrid,
+  HighlightCards
+} from "@/components/common/service-section-children"
 ```
 
 ### **LuxuryCard Component** - **ALWAYS USE THIS**
@@ -123,7 +131,7 @@ import QuoteCard from "@/components/ui/quote-card"
 ```jsx
 // Light background sections
 <LuxuryBackground variant="light" className="py-24">
-  {/* Content - automatically gets proper background orbs and gradients */}
+  {/* Content - automatically gets proper background gradients */}
 </LuxuryBackground>
 
 // Dark hero sections
@@ -165,6 +173,71 @@ import QuoteCard from "@/components/ui/quote-card"
 </ProfileSection>
 ```
 
+### **Service Section Children Components** - **For Service Pages**
+```jsx
+// 1. ChecklistContent - For simple bulleted lists with checkmarks
+<ChecklistContent
+  items={[
+    { text: "בדיקת היסטוריית הנכס ומצבו המשפטי" },
+    { text: "ליווי בהליך המשפטי והפיננסי" },
+    { text: "תיאום מועדי צפייה" }
+  ]}
+/>
+
+// 2. NumberedStepsCard - For numbered steps in a light card
+<NumberedStepsCard
+  title="איך אנחנו עובדים?"
+  steps={[
+    { text: "בדיקות תקופתיות של מצב הנכס" },
+    { text: "תחזוקה מונעת למניעת נזקים עתידיים" },
+    { text: "טיפול מהיר בתקלות ובעיות" }
+  ]}
+/>
+
+// 3. FeatureGrid - For feature cards in grid layout
+<FeatureGrid
+  columns={2} // or 3, 4
+  features={[
+    {
+      title: "דו״חות חודשיים",
+      description: "דו״חות מפורטים על הכנסות, הוצאות ופעילות בנכס."
+    },
+    {
+      title: "עדכונים שוטפים",
+      description: "עדכונים על כל אירוע משמעותי הקשור לנכס."
+    }
+  ]}
+/>
+
+// 4. HighlightCards - For emphasized content cards
+// Available variants: "dark", "gold", "light", "accent"
+<HighlightCards
+  cards={[
+    {
+      variant: "dark",  // Navy gradient with white text
+      title: "חיסכון בזמן ובכסף",
+      content: "אנחנו חוסכים לך את הזמן והמאמץ הכרוכים בניהול נכס..."
+    },
+    {
+      variant: "light",  // White/light gradient with gold border (recommended alternative to gold)
+      title: "שקט נפשי מלא",
+      content: "אנחנו דואגים לכל הפרטים הקטנים..."
+    },
+    {
+      variant: "accent",  // Subtle gold tint gradient (recommended alternative to gold)
+      title: "שירות מקצועי",
+      content: "הצוות המנוסה שלנו מבטיח טיפול מקצועי..."
+    }
+  ]}
+/>
+```
+
+**HighlightCards Variant Guidelines:**
+- **"dark"**: Navy gradient with white text - Use for primary/important messages
+- **"gold"**: Full gold gradient - Use sparingly (currently not recommended)
+- **"light"**: White/light gradient with gold border - **RECOMMENDED** for secondary emphasis
+- **"accent"**: Subtle gold tint gradient - **RECOMMENDED** for tertiary emphasis
+
 ### **Luxury Card Design Patterns (DEPRECATED - Use LuxuryCard Component)**
 **⚠️ DO NOT manually create cards - use the LuxuryCard component above**
 
@@ -197,7 +270,6 @@ transition-all duration-300-500
 ```jsx
 <section className="relative flex min-h-[50vh] items-center justify-center overflow-hidden pt-20"
          style={{ background: "linear-gradient(135deg, #23214a 0%, #2d2b5a 50%, #23214a 100%)" }}>
-  {/* Multi-layered background orbs */}
   {/* Content with large serif headings */}
   {/* Bottom gradient fade to white */}
 </section>
@@ -207,7 +279,6 @@ transition-all duration-300-500
 ```jsx
 <section className="relative py-24-32 overflow-hidden"
          style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, #fafafa 50%, rgba(241,194,59,0.03) 100%)" }}>
-  {/* Subtle background decoration orbs */}
   <div className="container mx-auto px-6 relative z-10">
     {/* Section header with title + subtitle + accent line */}
     {/* Main content with proper spacing */}
@@ -350,7 +421,6 @@ color: isScrolled
     backdropFilter: "blur(30px)"
   }}
 >
-  {/* Decorative background orbs */}
   {/* Staggered animation for menu items */}
 </motion.div>
 ```
@@ -374,16 +444,6 @@ Section Gaps: mb-16-32
 Grid Gaps: gap-8-16
 ```
 
-### **Background Decoration Standards**
-Every section needs subtle background orbs:
-```jsx
-<div className="absolute inset-0 pointer-events-none">
-  <div className="absolute top-20 left-10 w-96 h-96 rounded-full blur-3xl opacity-4-5"
-       style={{ background: "radial-gradient(circle, #23214a 0%, transparent 70%)" }} />
-  <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full blur-3xl opacity-3-4"
-       style={{ background: "radial-gradient(circle, #f1c23b 0%, transparent 70%)" }} />
-</div>
-```
 
 ### **Content Layout Patterns**
 
@@ -411,7 +471,6 @@ Every section needs subtle background orbs:
 6. **RTL support** - All Hebrew text and layouts must work right-to-left
 7. **Framer Motion animations** - Staggered reveals, smooth transitions (0.8s duration)
 8. **Glass morphism** - backdrop-blur-xl on overlays and cards
-9. **Background orbs** - Subtle decorative elements in all sections
 
 ### **STRICTLY FORBIDDEN:**
 - Creating manual cards instead of using LuxuryCard component

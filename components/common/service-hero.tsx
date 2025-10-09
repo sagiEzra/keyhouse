@@ -7,9 +7,10 @@ interface ServiceHeroProps {
   subtitle: string
   image: string
   imageAlt: string
+  overlayOpacity?: number
 }
 
-export default function ServiceHero({ title, subtitle, image, imageAlt }: ServiceHeroProps) {
+export default function ServiceHero({ title, subtitle, image, imageAlt, overlayOpacity = 0.6 }: ServiceHeroProps) {
   return (
     <section className="relative min-h-[70vh] overflow-hidden pt-20">
       {/* Background Image with Overlay */}
@@ -18,37 +19,81 @@ export default function ServiceHero({ title, subtitle, image, imageAlt }: Servic
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(to bottom, #23214a80 0%, #23214a70 50%, #23214a80 100%)",
+            background: `linear-gradient(135deg, rgba(25,39,74,${overlayOpacity}) 0%, rgba(26,39,86,${overlayOpacity * 0.9}) 35%, rgba(45,74,142,${overlayOpacity * 0.85}) 65%, rgba(25,39,74,${overlayOpacity}) 100%)`,
+          }}
+        />
+      </div>
+
+      {/* Decorative background orbs */}
+      <div className="absolute inset-0 pointer-events-none z-[1]">
+        {/* Main gradient orb */}
+        <div
+          className="absolute left-1/2 top-1/3 w-[80vw] h-[60vw] max-w-5xl -translate-x-1/2 rounded-full blur-3xl opacity-20"
+          style={{
+            background: "radial-gradient(circle, rgba(199,157,42,0.25) 0%, rgba(199,157,42,0.125) 30%, transparent 70%)",
+          }}
+        />
+        {/* Secondary accent */}
+        <div
+          className="absolute right-0 top-0 w-1/2 h-1/2 blur-2xl opacity-15"
+          style={{
+            background: "linear-gradient(225deg, rgba(199,157,42,0.375) 0%, transparent 70%)"
+          }}
+        />
+        {/* Left accent */}
+        <div
+          className="absolute left-0 bottom-0 w-1/3 h-1/3 blur-2xl opacity-10"
+          style={{
+            background: "linear-gradient(45deg, rgba(199,157,42,0.25) 0%, transparent 100%)"
           }}
         />
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto flex min-h-[70vh] flex-col items-center justify-center px-4 py-16 text-center">
+      <div className="container relative z-10 mx-auto flex min-h-[70vh] flex-col items-center justify-center px-6 py-16 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1, ease: "easeOut" }}
           className="max-w-4xl"
         >
-          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-xl">
+          <h1
+            className="mb-6 font-serif text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl"
+            style={{
+              textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)"
+            }}
+          >
             {title}
           </h1>
-          <p className="mx-auto mb-10 max-w-3xl text-xl text-blue-100 md:text-2xl font-medium drop-shadow-lg">
-            {subtitle}
-          </p>
-          <div
-            className="mx-auto h-2 w-32 rounded-full"
+
+          <motion.p
+            className="mx-auto mb-10 max-w-3xl text-xl leading-relaxed md:text-2xl"
             style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
-              boxShadow: "0 2px 12px #f1c23b55",
+              color: "rgba(255,255,255,0.95)",
+              textShadow: "0 2px 10px rgba(0,0,0,0.2)"
             }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+          >
+            {subtitle}
+          </motion.p>
+
+          <motion.div
+            className="mx-auto h-1.5 w-32 rounded-full"
+            style={{
+              background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 50%, #c79d2a 100%)",
+              boxShadow: "0 4px 20px rgba(199,157,42,0.4)",
+            }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
           />
         </motion.div>
       </div>
 
       {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent z-[2]"></div>
     </section>
   )
 }

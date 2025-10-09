@@ -59,7 +59,13 @@ export default function AboutSection() {
         />
 
         {/* About Us Section */}
-        <div className="max-w-7xl mx-auto mb-28">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-7xl mx-auto mb-28"
+        >
           <LuxuryCard
             className="overflow-hidden"
             backgroundStyle={{
@@ -101,7 +107,7 @@ export default function AboutSection() {
                     המשך לקרוא עלינו
                   </LuxuryButton>
                   <LuxuryButton href="/contact">
-                    בואו נכיר
+                    דבר איתנו
                   </LuxuryButton>
                 </div>
               </div>
@@ -130,7 +136,7 @@ export default function AboutSection() {
               </div>
             </div>
           </LuxuryCard>
-        </div>
+        </motion.div>
 
         {/* Values Cards - Using LuxuryCard Component */}
         <motion.div

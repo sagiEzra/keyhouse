@@ -133,8 +133,8 @@ export default function VideosCarousel() {
     <LuxuryBackground variant="light" className="py-32">
       <div className="container mx-auto px-6 relative z-10">
         <SectionHeader
-          title="לקוחות מספרים בוידאו"
-          subtitle="צפו בלקוחות מרוצים משתפים את החוויה שלהם איתנו"
+          title="לקוחות משתפים את החוויה שלהם"
+          subtitle="צפו בלקוחות מרוצים משתפים איך הייתה החוויה שלהם איתנו"
           className="mb-20"
         />
         <div
