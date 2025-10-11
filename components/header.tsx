@@ -63,6 +63,7 @@ export default function Header() {
     { name: "מוכרים", href: "/selling" },
     { name: "קונים", href: "/buying" },
     { name: "ניהול נכסים", href: "/property-management" },
+    { name: "הערכת שווי", href: "/property-valuation" },
     { name: "קטלוג הנכסים", href: "/catalog" },
     { name: "צור קשר", href: "/contact" },
   ]

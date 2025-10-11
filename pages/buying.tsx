@@ -1,5 +1,4 @@
 import ServiceHero from "../components/common/service-hero"
-import Header from "../components/header"
 import ServiceSection from "../components/common/service-section"
 import StatsSection from "../components/common/stats-section"
 import CTASection from "../components/common/cta-section"

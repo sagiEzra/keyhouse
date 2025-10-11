@@ -11,6 +11,7 @@ const navLinks = [
   { name: "ניהול", href: "/property-management" },
   { name: "נכסים", href: "/catalog" },
   { name: "צור קשר", href: "/contact" },
+  { name: "הערכת שווי", href: "/property-valuation" },
 ]
 
 export default function Footer() {

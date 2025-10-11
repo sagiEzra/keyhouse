@@ -46,6 +46,7 @@ export default function ContactComponent() {
                     id="name"
                     name="name"
                     required
+                    maxLength={30}
                     className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 text-right"
                     style={{
                       borderColor: "rgba(25,39,74,0.15)",
@@ -65,6 +66,7 @@ export default function ContactComponent() {
                     id="phone"
                     name="phone"
                     required
+                    maxLength={20}
                     className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 text-right"
                     style={{
                       borderColor: "rgba(25,39,74,0.15)",
@@ -84,6 +86,7 @@ export default function ContactComponent() {
                     type="email"
                     id="email"
                     name="email"
+                    maxLength={50}
                     className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 text-right"
                     style={{
                       borderColor: "rgba(25,39,74,0.15)",
@@ -105,9 +108,9 @@ export default function ContactComponent() {
                       }}
                     />
                     <label htmlFor="newsletter" className="text-sm leading-relaxed cursor-pointer" style={{ color: "rgba(25,39,74,0.7)" }}>
-                      אני מאשר שתשלחו לי דיוור במייל (:{" "}
+                      אני מאשר/ת שתשלחו לי דיוור במייל (:{" "}
                       <a href="/privacy-policy" className="underline transition-colors duration-300 hover:text-[#c79d2a]">
-                        קרא עוד בתקנון הפרטיות
+                        קרא/י עוד בתקנון הפרטיות
                       </a>
                     </label>
                   </div>
@@ -120,6 +123,7 @@ export default function ContactComponent() {
                     id="message"
                     name="message"
                     rows={4}
+                    maxLength={1000}
                     className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 resize-none text-right"
                     style={{
                       borderColor: "rgba(25,39,74,0.15)",

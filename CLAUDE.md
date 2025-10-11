@@ -41,6 +41,39 @@ This is a Next.js 13 real estate website for Keyhouse, a luxury real estate agen
 - **Premium Responsive Design**: Luxury mobile-first approach with sophisticated breakpoints
 - **Luxury Animations**: Smooth Framer Motion interactions throughout
 
+### **IMPORTANT: Page Layout Pattern**
+**DO NOT manually add Header, Footer, or FloatingWhatsAppButton to individual page files.**
+These components are already included globally in `pages/_app.tsx` and are automatically wrapped around all pages.
+
+When creating a new page, simply export the page content without these wrapper components:
+```jsx
+// ✅ CORRECT - No Header/Footer/FloatingWhatsAppButton
+export default function MyPage() {
+  return (
+    <>
+      <Head>
+        <title>Page Title</title>
+      </Head>
+
+      {/* Page content here */}
+    </>
+  )
+}
+
+// ❌ WRONG - Don't add these (they're already in _app.tsx)
+export default function MyPage() {
+  return (
+    <>
+      <Header /> {/* ❌ Don't add */}
+      <Head>...</Head>
+      {/* Page content */}
+      <Footer /> {/* ❌ Don't add */}
+      <FloatingWhatsAppButton /> {/* ❌ Don't add */}
+    </>
+  )
+}
+```
+
 ## 🎨 **LUXURY DESIGN SYSTEM & UI/UX GUIDELINES**
 
 ### **Brand Colors (Critical - Use Exactly)**
