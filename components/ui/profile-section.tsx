@@ -74,28 +74,28 @@ export default function ProfileSection({
   )
 
   const contentSection = (
-    <div className="flex flex-col justify-center space-y-8">
+    <div className="flex flex-col justify-center space-y-10">
       {/* Title */}
-      <div className="space-y-4">
+      <div className="space-y-6">
         <h2
           className="text-5xl lg:text-6xl font-serif font-bold leading-tight"
           style={{ color: "rgba(25,39,74,0.97)" }}
         >
           {name}
         </h2>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <div
-            className="h-1 w-16 rounded-full"
+            className="h-1.5 w-20 rounded-full"
             style={{ background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 100%)" }}
           />
-          <p className="text-2xl font-medium" style={{ color: "#c79d2a" }}>
+          <p className="text-2xl lg:text-3xl font-semibold" style={{ color: "#c79d2a" }}>
             {title}
           </p>
         </div>
       </div>
 
       {/* Content */}
-      <div className="space-y-8 text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.97)" }}>
+      <div className="space-y-8 text-lg lg:text-xl leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
         {children}
 
         {/* Quote section */}

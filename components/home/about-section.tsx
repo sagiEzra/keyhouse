@@ -7,8 +7,8 @@ import StatsSection from "../common/stats-section"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import LuxuryCard from "@/components/ui/luxury-card"
 import SectionHeader from "@/components/ui/section-header"
-import ProfileSection from "@/components/ui/profile-section"
 import LuxuryButton from "@/components/ui/luxury-button"
+import QuoteCard from "@/components/ui/quote-card"
 
 export default function AboutSection() {
   const values = [
@@ -64,49 +64,51 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-7xl mx-auto mb-28"
+          className="mb-32"
         >
           <LuxuryCard
-            className="overflow-hidden"
+            className="overflow-hidden p-12 lg:p-16"
             backgroundStyle={{
               background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, #fafafa 50%, rgba(199,157,42,0.03) 100%)"
             }}
+            hoverable={false}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               {/* Content */}
-              <div className="space-y-8">
+              <div className="space-y-10">
                 <div>
-                  <h3 className="text-3xl lg:text-4xl font-serif font-bold leading-tight mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <h3 className="text-4xl lg:text-5xl font-serif font-bold leading-tight mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
                     קצת עלינו
                   </h3>
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="h-1 w-16 rounded-full" style={{ background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 100%)" }} />
+                  <div className="flex items-center gap-6 mb-10">
+                    <div className="h-1.5 w-20 rounded-full" style={{ background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 100%)" }} />
                     <div className="h-px flex-1 opacity-20" style={{ backgroundColor: "rgba(25,39,74,0.97)" }} />
                   </div>
                 </div>
 
-                <div className="space-y-6">
-                  <p className="text-lg lg:text-xl leading-relaxed font-medium" style={{ color: "rgba(25,39,74,0.97)" }}>
+                <div className="space-y-8">
+                  <p className="text-xl lg:text-2xl leading-relaxed font-semibold" style={{ color: "rgba(25,39,74,0.97)" }}>
                     סניף אילת הוקם בשנת 2013 במטרה לעזור ללקוחותינו למקסם את הרווח ולהגשים חלומות דרך עסקאות נדל&quot;ן.
                   </p>
 
-                  <p className="text-lg lg:text-xl leading-relaxed" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <p className="text-xl lg:text-2xl leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
                     אנו מספקים תוצאות מוכחות ורווחיות תוך חדשנות ויצירתיות בלתי מתפשרת. אנו מתמחים במכירה, קניה, השכרה וניהול נכסים ומה שמייחד אותנו זאת הגישה האנושית, השקיפות והמחויבות המלאה להצלחה שלך!
                   </p>
-                </div>
 
-                <div className="bg-gradient-to-l from-white via-gray-50 to-white p-6 rounded-2xl border-r-4 shadow-lg"
-                     style={{ borderColor: "#c79d2a", boxShadow: "0 10px 30px rgba(25,39,74,0.08)" }}>
-                  <p className="text-lg italic font-medium leading-relaxed text-center" style={{ color: "rgba(25,39,74,0.97)" }}>
-                    &quot;מחויבים להפוך כל חלום נדל&quot;ן למציאות מוחשית&quot;
+                  <p className="text-lg lg:text-xl leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                    עם ניסיון של למעלה מעשור בשוק האילתי, אנחנו מכירים כל פינה בעיר ויודעים בדיוק איך למצוא את הנכס המושלם עבורך. הצוות המקצועי שלנו משלב ידע מעמיק בשוק המקומי עם גישה ושירות אישי ברמה הגבוהה ביותר.
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <LuxuryButton variant="secondary" href="/about">
+                <QuoteCard align="center">
+                  &quot;שקיפות והקשבה לצרכים של הלקוח, הנסיון המתאים, ומקצועיות - אלו הדברים שהופכים אותנו לסוכנות שהלקוחות שלה חוזרים אליה&quot;
+                </QuoteCard>
+
+                <div className="flex flex-col sm:flex-row gap-5 pt-6">
+                  <LuxuryButton variant="secondary" href="/about" size="large">
                     המשך לקרוא עלינו
                   </LuxuryButton>
-                  <LuxuryButton href="/contact">
+                  <LuxuryButton href="/contact" size="large">
                     דבר איתנו
                   </LuxuryButton>
                 </div>
@@ -115,16 +117,16 @@ export default function AboutSection() {
               {/* Image */}
               <div className="relative group">
                 <div className="relative overflow-hidden rounded-3xl shadow-2xl">
-                  <div className="relative bg-white p-4 rounded-3xl">
+                  <div className="relative bg-white p-6 rounded-3xl">
                     <img
                       src="/images/rotem5.jpg"
                       alt="רותם ושירז - צוות KeyHouse"
-                      className="w-full h-[400px] lg:h-[500px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
+                      className="w-full h-[600px] lg:h-[750px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
                       style={{
-                        boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
+                        boxShadow: "0 25px 60px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.6)"
                       }}
                     />
-                    <div className="absolute inset-4 rounded-2xl bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    <div className="absolute inset-6 rounded-2xl bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   </div>
                 </div>
               </div>

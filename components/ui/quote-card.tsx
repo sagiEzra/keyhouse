@@ -64,7 +64,7 @@ export default function QuoteCard({
           boxShadow: "0 10px 30px rgba(25,39,74,0.08)"
         }}
       >
-        <div className="text-xl italic font-medium leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+        <div className={`text-xl lg:text-2xl italic font-semibold leading-relaxed ${(author || position) ? 'mb-4' : ''} ${align === 'center' ? 'text-center' : ''}`} style={{ color: "rgba(25,39,74,0.97)" }}>
           {children}
         </div>
 

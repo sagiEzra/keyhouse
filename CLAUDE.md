@@ -296,7 +296,6 @@ transition-all duration-300-500
            style={{ boxShadow: "0 20px 50px rgba(35,33,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)" }} />
       {/* Overlay gradient on hover */}
     </div>
-    {/* Decorative accent orbs */}
   </div>
 </div>
 ```
