@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import React from 'react';
 import type { AppProps } from 'next/app';
-import Header from '../components/Header';
+import Header from '../components/header';
 import Footer from '../components/footer';
 import { Rubik } from "next/font/google"
 import { ThemeProvider } from "../components/theme-provider"
