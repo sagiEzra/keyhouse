@@ -700,68 +700,6 @@ export default function PropertyValuation() {
           </div>
         </div>
       </LuxuryBackground>
-
-      {/* Trust Section */}
-      <section className="relative py-24 overflow-hidden" style={{ backgroundColor: "#fafafa" }}>
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <LuxuryCard className="p-8 lg:p-12">
-                <div className="text-center mb-8">
-                  <div className="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden border-4"
-                       style={{ borderColor: "#c79d2a" }}>
-                    <img
-                      src="/images/rotem5.jpg"
-                      alt="רותם קהלון"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="text-3xl font-serif font-bold mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
-                    רותם קהלון
-                  </h3>
-                  <p className="text-xl" style={{ color: "rgba(25,39,74,0.7)" }}>
-                    בעלת המשרד ומומחית לשוק האילתי
-                  </p>
-                </div>
-
-                <QuoteCard variant="emphasized">
-                  הערכת שווי נכון היא הבסיס לכל עסקת נדל"ן מוצלחת.
-                  עם למעלה מעשור של ניסיון בשוק האילתי,
-                  אני מבטיחה לכם הערכת שווי מדויקת ומקצועית המבוססת על ניתוח מעמיק של השוק המקומי.
-                </QuoteCard>
-              </LuxuryCard>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <LuxuryBackground variant="light" className="py-24">
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-              מוכנים להתחיל?
-            </h2>
-            <p className="text-xl leading-relaxed mb-8 max-w-2xl mx-auto" style={{ color: "rgba(25,39,74,0.8)" }}>
-              קבל הערכת שווי מקצועית עכשיו וגלה את הפוטנציאל האמיתי של הנכס שלך
-            </p>
-            <LuxuryButton size="large" onClick={scrollToForm}>
-              מלא את הטופס עכשיו
-              <FaArrowDown className="mr-2 h-5 w-5" />
-            </LuxuryButton>
-          </motion.div>
-        </div>
-      </LuxuryBackground>
     </>
   )
 }
