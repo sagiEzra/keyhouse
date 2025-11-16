@@ -84,7 +84,7 @@ export default function ValuesSection() {
         >
           {values.map((value, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <LuxuryCard className="h-full">
+              <LuxuryCard className="grid h-full">
                 {/* Icon container with enhanced styling */}
                 <div className="relative mb-8">
                   <div

@@ -163,14 +163,14 @@ export default function ServicesGrid() {
                   </div>
                   {/* Subtitle at Bottom */}
                   <div className="absolute bottom-0 left-0 right-0 z-10 p-6">
-                    <div className="text-center">
+                    <div className="text-center flex flex-col">
                       <h3
-                        className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight drop-shadow-xl"
+                        className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight drop-shadow-xl h-16 md:h-20 flex items-center justify-center"
                         style={{ color: "#ffffff", textShadow: "0 2px 8px rgba(25,39,74,0.6)" }}
                       >
                         {service.subtitle}
                       </h3>
-                      <p className="mt-2 text-base md:text-lg font-medium text-white/90 drop-shadow" style={{ textShadow: "0 1px 6px rgba(25,39,74,0.5)" }}>
+                      <p className="mt-2 text-base md:text-lg font-medium text-white/90 drop-shadow h-16 md:h-20 flex items-center justify-center" style={{ textShadow: "0 1px 6px rgba(25,39,74,0.5)" }}>
                         {service.description}
                       </p>
                     </div>

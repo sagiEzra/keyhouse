@@ -64,7 +64,7 @@ export default function SectionHeader({
 
       {subtitle && (
         <p
-          className="mx-auto max-w-4xl text-xl leading-relaxed font-light"
+          className={`${alignment === 'center' ? 'mx-auto' : alignment === 'right' ? 'mr-0 ml-auto' : 'ml-0'} max-w-4xl text-xl leading-relaxed font-light`}
           style={{ color: "rgba(25,39,74,0.97)" }}
         >
           {subtitle}

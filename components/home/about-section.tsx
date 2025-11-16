@@ -156,7 +156,7 @@ export default function AboutSection() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
               }}
             >
-              <LuxuryCard className="h-full">
+              <LuxuryCard className="grid h-full">
                 {/* Icon container with enhanced styling */}
                 <div className="relative mb-8">
                   <div

@@ -181,7 +181,7 @@ export default function PropertyValuation() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
               >
-                <LuxuryCard hoverable={true} className="p-8 h-full text-center">
+                <LuxuryCard hoverable={true} className="grid p-8 h-full text-center">
                   <div className="flex justify-center mb-6">
                     <div
                       className="flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
@@ -220,18 +220,18 @@ export default function PropertyValuation() {
             {[
               {
                 number: "01",
-                title: "מלא פרטים בטופס",
+                title: "מלא פרטים בטופס תוך 2 דקות",
                 description: "מלא את הטופס הקצר עם פרטיך ופרטי הנכס הבסיסיים"
               },
               {
                 number: "02",
-                title: "ניתוח מעמיק של השוק",
+                title: "נבצע ניתוח מעמיק של השוק",
                 description: "נבצע בדיקה יסודית של עסקאות דומות ומגמות שוק נוכחיות"
               },
               {
                 number: "03",
-                title: "קבל הערכת שווי מפורטת",
-                description: "תקבל הערכת שווי מקצועית ואפשרות להמשיך למכירה"
+                title: "קבל הערכת שווי נכס מפורטת",
+                description: "תקבל הערכת שווי נכס מקצועית ואפשרות להמשיך למכירה"
               }
             ].map((step, index) => (
               <motion.div
@@ -242,7 +242,7 @@ export default function PropertyValuation() {
                 transition={{ duration: 0.8, delay: index * 0.15 }}
                 className="relative"
               >
-                <LuxuryCard className="p-8 h-full text-center relative overflow-hidden">
+                <LuxuryCard className="grid p-8 h-full text-center relative overflow-hidden">
                   {/* Large number background */}
                   <div
                     className="absolute top-4 left-1/2 transform -translate-x-1/2 text-9xl font-serif font-bold opacity-20 pointer-events-none"

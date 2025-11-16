@@ -10,43 +10,43 @@ import SectionHeader from "@/components/ui/section-header"
 const videoTestimonials = [
   {
     id: 1,
-    name: "לקוח מרוצה 1",
+    name: "",
     title: "",
     avatar: "/images/profile1.jpg",
     youtubeId: "Prr3mX1hHO8",
-    quote: "הצוות היה מקצועי, אדיב, וזמין לכל שאלה. ממליץ בחום!",
+    quote: "עבר כל כך נקי וחלק...",
   },
   {
     id: 2,
-    name: "לקוח מרוצה 2",
+    name: "",
     title: "",
     avatar: "/images/rotem1.jpg",
     youtubeId: "tzf_zunNucI",
-    quote: "הרגשתי בטוחה לאורך כל התהליך. תודה על הליווי המסור!",
+    quote: "כל כך הרבה דברים טובים קרו בזכות האמינות והמקצועיות שלה...",
   },
   {
     id: 3,
-    name: "לקוח מרוצה 3",
+    name: "",
     title: "",
     avatar: "/images/rotem2.jpg",
     youtubeId: "pP5i5Ohnm5I",
-    quote: "השירות היה מהיר, אמין ומקצועי. חוויה מצוינת!",
+    quote: "בהחלט רותם הגיעה והייתה שירותית, מקצועית...",
   },
   {
     id: 4,
-    name: "לקוח מרוצה 4",
+    name: "",
     title: "",
     avatar: "/images/rotem3.jpg",
     youtubeId: "35SMArYLrvo",
-    quote: "המלצתי לכל החברים שלי! צוות מנצח.",
+    quote: "אני חייב לציין שהשירות היה מ-א' ועד ת', תמיד זמינה...",
   },
   {
     id: 5,
-    name: "לקוח מרוצה 5",
+    name: "",
     title: "",
     avatar: "/images/rotem4.jpg",
     youtubeId: "KSvreJ8I5Ag",
-    quote: "שירות יוצא דופן!",
+    quote: "רותם דואגת לפרטים הקטנים, נכנסת לעסקה בכל הכוח...",
   },
 ]
 
@@ -208,7 +208,9 @@ export default function VideosCarousel() {
                     <div className="flex flex-col items-center text-center space-y-3 flex-1">
                       <div className="flex items-center gap-3">
                         <div className="text-center">
+                          {video.name && (
                           <div className="font-serif font-bold text-xl text-[rgba(25,39,74,0.97)] mb-1">{video.name}</div>
+                          )}
                           {video.title && (
                             <div className="text-[#c79d2a] text-sm font-medium">{video.title}</div>
                           )}

@@ -13,6 +13,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Checkbox } from '../../../../components/ui/checkbox';
 import { FaArrowRight, FaPlus, FaTimes, FaSave, FaHome, FaImage, FaEdit } from 'react-icons/fa';
 import Link from 'next/link';
+import LuxuryButton from '../../../../components/ui/luxury-button';
+import LuxuryCard from '../../../../components/ui/luxury-card';
+import LuxuryBackground from '../../../../components/ui/luxury-background';
 
 export default function EditPropertyPage() {
   const router = useRouter();
@@ -188,7 +191,7 @@ export default function EditPropertyPage() {
       <div dir="rtl" className="min-h-screen bg-white">
         <div className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20"
           style={{
-            background: "linear-gradient(135deg, #23214a 0%, #23214a 100%)",
+            background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
           }}>
           <div className="animate-pulse">
             <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
@@ -219,94 +222,54 @@ export default function EditPropertyPage() {
   return (
     <div dir="rtl" className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section
-        className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20"
-        style={{
-          background: "linear-gradient(135deg, #23214a 0%, #23214a 100%)",
-        }}
-      >
-        {/* Decorative gradients */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div
-            className="absolute left-1/2 top-1/4 w-[70vw] h-[50vw] max-w-4xl -translate-x-1/2 rounded-full blur-3xl opacity-30"
-            style={{
-              background: "linear-gradient(135deg, #f1c23b40 0%, #f1c23b20 50%, transparent 100%)",
-            }}
-          />
-          <div
-            className="absolute right-0 bottom-0 w-1/3 h-1/3 blur-2xl opacity-20"
-            style={{
-              background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)",
-            }}
-          />
-        </div>
-
-        <div className="container relative z-10 mx-auto px-4 py-16 text-center">
-          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-2xl">
+      <LuxuryBackground variant="hero" className="flex min-h-[60vh] items-center justify-center pt-20">
+        <div className="container relative z-10 mx-auto px-6 py-16 text-center">
+          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-2xl"
+              style={{ textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)" }}>
             ערוך נכס
           </h1>
-          <p className="mx-auto mb-8 max-w-3xl text-xl text-blue-100 md:text-2xl font-medium drop-shadow-lg">
+          <p className="mx-auto mb-8 max-w-3xl text-xl text-white/90 md:text-2xl font-medium drop-shadow-lg">
             עדכן את פרטי הנכס: {property.title}
           </p>
           <div
             className="mx-auto h-2 w-24 rounded-full"
             style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
-              boxShadow: "0 2px 12px #f1c23b55",
+              background: "linear-gradient(90deg, #c79d2a 0%, #fff 100%)",
+              boxShadow: "0 2px 12px rgba(199,157,42,0.5)",
             }}
           />
         </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
-      </section>
+      </LuxuryBackground>
 
       {/* Main Content */}
-      <section
-        className="relative py-16 overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #f1c23b0d 100%)",
-        }}
-      >
-        {/* Background Blobs */}
-        <div
-          className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-[40vw] rounded-full blur-3xl opacity-60"
-          style={{ background: "linear-gradient(135deg, #23214a4d 0%, #23214a1a 100%)" }}
-        />
-        <div
-          className="pointer-events-none absolute bottom-0 right-0 w-1/3 h-1/3 blur-2xl opacity-40"
-          style={{ background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)" }}
-        />
+      <LuxuryBackground variant="light" className="py-24">
 
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6 relative z-10">
           {/* Back Button */}
           <div className="mb-8">
-            <div className="bg-white/90 rounded-3xl shadow-2xl p-6 backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <Link href="/catalog/manage">
-                <Button variant="ghost" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
-                  <FaArrowRight className="h-4 w-4" />
-                  חזור לניהול
-                </Button>
-              </Link>
-            </div>
+            <LuxuryButton variant="secondary" href="/catalog/manage">
+              <FaArrowRight className="h-4 w-4" />
+              חזור לניהול
+            </LuxuryButton>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                  <FaHome className="h-6 w-6 text-blue-600" />
+            <LuxuryCard>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <div className="p-2 rounded-full"
+                       style={{
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                         border: "2px solid rgba(199,157,42,0.3)",
+                       }}>
+                    <FaHome className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
+                  </div>
                   מידע בסיסי
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
+                </h3>
+              </div>
+              <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="title">כותרת הנכס *</Label>
@@ -422,18 +385,15 @@ export default function EditPropertyPage() {
                     />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </LuxuryCard>
 
             {/* Features */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">מאפיינים</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <LuxuryCard>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>מאפיינים</h3>
+              </div>
+              <div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <Checkbox
@@ -556,18 +516,15 @@ export default function EditPropertyPage() {
                     <Label htmlFor="closetRoom">חדר ארונות</Label>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </LuxuryCard>
 
             {/* Special Tags */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">תגיות מיוחדות</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <LuxuryCard>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>תגיות מיוחדות</h3>
+              </div>
+              <div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <Checkbox
@@ -604,18 +561,15 @@ export default function EditPropertyPage() {
                     />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </LuxuryCard>
 
             {/* Contact Information */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">פרטי קשר</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <LuxuryCard>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>פרטי קשר</h3>
+              </div>
+              <div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="contactPhone">טלפון</Label>
@@ -639,21 +593,24 @@ export default function EditPropertyPage() {
                     />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </LuxuryCard>
 
             {/* Images */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                  <FaImage className="h-6 w-6 text-blue-600" />
+            <LuxuryCard>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <div className="p-2 rounded-full"
+                       style={{
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                         border: "2px solid rgba(199,157,42,0.3)",
+                       }}>
+                    <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
+                  </div>
                   תמונות
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+                </h3>
+              </div>
+              <div>
                 <div className="space-y-4">
                   <Button
                     type="button"
@@ -687,42 +644,37 @@ export default function EditPropertyPage() {
                     </div>
                   )}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </LuxuryCard>
 
             {/* Description */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">תיאור הנכס</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Textarea
-                  value={formData.description}
-                  onChange={(e) => handleInputChange('description', e.target.value)}
-                  placeholder="תיאור מפורט של הנכס..."
-                  rows={6}
-                  required
-                />
-              </CardContent>
-            </Card>
+            <LuxuryCard>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>תיאור הנכס</h3>
+              </div>
+              <Textarea
+                value={formData.description}
+                onChange={(e) => handleInputChange('description', e.target.value)}
+                placeholder="תיאור מפורט של הנכס..."
+                rows={6}
+                required
+              />
+            </LuxuryCard>
 
             {/* Submit Button */}
             <div className="flex justify-center">
-              <Button
+              <LuxuryButton
                 type="submit"
                 disabled={submitting}
-                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-12 py-4 text-lg"
+                size="large"
               >
                 <FaSave className="h-5 w-5" />
                 {submitting ? 'מעדכן נכס...' : 'עדכן נכס'}
-              </Button>
+              </LuxuryButton>
             </div>
           </form>
         </div>
-      </section>
+      </LuxuryBackground>
     </div>
   );
 } 

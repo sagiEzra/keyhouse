@@ -1,664 +1,818 @@
-import { useState, useEffect, useCallback } from 'react';
-import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
-import { db } from '../lib/firebase';
-import { Property } from '../types/property';
-import { Card, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { Badge } from '../components/ui/badge';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../components/ui/sheet';
-import { Slider } from '../components/ui/slider';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { FaSearch, FaFilter, FaMapMarkerAlt, FaBed, FaRulerCombined, FaCar, FaHome, FaCheckCircle, FaBuilding, FaCheck, FaEye, FaHeart } from 'react-icons/fa';
-import Link from 'next/link';
+import { useState, useEffect } from "react"
+import { collection, getDocs, query, orderBy } from "firebase/firestore"
+import { db } from "../lib/firebase"
+import { Property } from "../types/property"
+import { motion } from "framer-motion"
+import Head from "next/head"
+import Link from "next/link"
+import LuxuryBackground from "@/components/ui/luxury-background"
+import LuxuryCard from "@/components/ui/luxury-card"
+import SectionHeader from "@/components/ui/section-header"
+import LuxuryButton from "@/components/ui/luxury-button"
+import {
+  FaSearch,
+  FaFilter,
+  FaMapMarkerAlt,
+  FaBed,
+  FaRulerCombined,
+  FaBuilding,
+  FaHome,
+  FaEye,
+  FaTimes,
+  FaCheckCircle,
+} from "react-icons/fa"
 
 // Property categories with Hebrew labels
 const propertyCategories = {
-  all: 'הכל',
-  apartment: 'דירות',
-  house: 'בתים',
-  penthouse: 'פנטהאוזים',
-  garden: 'דירות גן'
-} as const;
+  all: "הכל",
+  apartment: "דירות",
+  house: "בתים",
+  penthouse: "פנטהאוזים",
+  garden: "דירות גן",
+} as const
 
-type PropertyCategory = keyof typeof propertyCategories;
+type PropertyCategory = keyof typeof propertyCategories
 
 // Property features with Hebrew labels
 const propertyFeatures = {
-  elevator: 'מעלית',
-  parking: 'חניה',
-  balcony: 'מרפסת',
-  storage: 'מחסן',
-  accessibility: 'גישה לנכים',
-  renovated: 'משופצת',
-  furnished: 'מרוהטת',
-  airConditioned: 'מיזוג',
-  secure: 'אבטחה 24/7',
-  immediate: 'כניסה מיידית'
-} as const;
+  elevator: "מעלית",
+  parking: "חניה",
+  balcony: "מרפסת",
+  storage: "מחסן",
+  accessibility: "גישה לנכים",
+  renovated: "משופצת",
+  furnished: "מרוהטת",
+  airConditioned: "מיזוג",
+  immediate: "כניסה מיידית",
+} as const
 
 export default function CatalogPage() {
-  const [properties, setProperties] = useState<Property[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<PropertyCategory>('all');
-  const [selectedCity, setSelectedCity] = useState<string>('all');
-  const [priceRange, setPriceRange] = useState<number[]>([0, 10000000]);
-  const [roomsRange, setRoomsRange] = useState<number[]>([1, 10]);
-  const [sortBy, setSortBy] = useState<string>('date');
-  const [showFilters, setShowFilters] = useState(false);
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [properties, setProperties] = useState<Property[]>([])
+  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState<PropertyCategory>("all")
+  const [selectedCity, setSelectedCity] = useState<string>("all")
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000000])
+  const [roomsRange, setRoomsRange] = useState<[number, number]>([1, 10])
+  const [showFilters, setShowFilters] = useState(false)
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
 
   useEffect(() => {
-    fetchProperties();
-  }, []);
+    fetchProperties()
+  }, [])
 
   const fetchProperties = async () => {
     try {
-      const propertiesRef = collection(db, 'properties');
-      const q = query(propertiesRef, orderBy('createdAt', 'desc'));
-      const querySnapshot = await getDocs(q);
-      const propertiesData = querySnapshot.docs.map(doc => ({
+      const propertiesRef = collection(db, "properties")
+      const q = query(propertiesRef, orderBy("createdAt", "desc"))
+      const querySnapshot = await getDocs(q)
+      const propertiesData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
-      })) as Property[];
-      setProperties(propertiesData);
+        ...doc.data(),
+      })) as Property[]
+      setProperties(propertiesData)
     } catch (error) {
-      console.error('Error fetching properties:', error);
+      console.error("Error fetching properties:", error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const filterProperties = (propertyList: Property[]) => {
-    let filtered = [...propertyList];
+    let filtered = [...propertyList]
 
     // Search filter
     if (searchTerm) {
-      const searchTermLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(property =>
-        property.title.toLowerCase().includes(searchTermLower) ||
-        property.address.toLowerCase().includes(searchTermLower) ||
-        property.city.toLowerCase().includes(searchTermLower)
-      );
+      const searchTermLower = searchTerm.toLowerCase()
+      filtered = filtered.filter(
+        (property) =>
+          property.title.toLowerCase().includes(searchTermLower) ||
+          property.address.toLowerCase().includes(searchTermLower) ||
+          property.city.toLowerCase().includes(searchTermLower)
+      )
     }
 
     // Category filter
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(property => property.category === selectedCategory);
+    if (selectedCategory !== "all") {
+      filtered = filtered.filter((property) => property.category === selectedCategory)
     }
 
     // City filter
-    if (selectedCity !== 'all') {
-      filtered = filtered.filter(property => property.city === selectedCity);
+    if (selectedCity !== "all") {
+      filtered = filtered.filter((property) => property.city === selectedCity)
     }
 
     // Price range filter
-    filtered = filtered.filter(property => 
-      property.price >= priceRange[0] && property.price <= priceRange[1]
-    );
+    filtered = filtered.filter((property) => property.price >= priceRange[0] && property.price <= priceRange[1])
 
     // Rooms range filter
-    filtered = filtered.filter(property => 
-      property.rooms >= roomsRange[0] && property.rooms <= roomsRange[1]
-    );
+    filtered = filtered.filter((property) => property.rooms >= roomsRange[0] && property.rooms <= roomsRange[1])
 
     // Features filter
     if (selectedFeatures.length > 0) {
-      filtered = filtered.filter(property => 
-        selectedFeatures.every(feature => property[feature as keyof Property])
-      );
+      filtered = filtered.filter((property) =>
+        selectedFeatures.every((feature) => property[feature as keyof Property])
+      )
     }
 
-    // Sort
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'price-asc':
-          return a.price - b.price;
-        case 'price-desc':
-          return b.price - a.price;
-        case 'date':
-          return b.createdAt.toMillis() - a.createdAt.toMillis();
-        default:
-          return 0;
-      }
-    });
-
-    return filtered;
-  };
+    return filtered
+  }
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('he-IL').format(price);
-  };
+    return new Intl.NumberFormat("he-IL").format(price)
+  }
 
   const getCities = () => {
-    const cityArr = properties.map(p => p.city);
-    const uniqueCities: string[] = [];
+    const cityArr = properties.map((p) => p.city)
+    const uniqueCities: string[] = []
     for (let i = 0; i < cityArr.length; i++) {
       if (!uniqueCities.includes(cityArr[i])) {
-        uniqueCities.push(cityArr[i]);
+        uniqueCities.push(cityArr[i])
       }
     }
-    return uniqueCities.sort();
-  };
+    return uniqueCities.sort()
+  }
 
-  const getPriceRange = (type: 'sale' | 'rent') => {
-    const typeProperties = properties.filter(p => p.type === type);
-    if (typeProperties.length === 0) return [0, 1000000];
-    
-    const prices = typeProperties.map(p => p.price);
-    const min = Math.min(...prices);
-    const max = Math.max(...prices);
-    return [Math.floor(min / 100000) * 100000, Math.ceil(max / 100000) * 100000];
-  };
+  const toggleFeature = (feature: string) => {
+    setSelectedFeatures((prev) => (prev.includes(feature) ? prev.filter((f) => f !== feature) : [...prev, feature]))
+  }
 
-  const saleProperties = filterProperties(properties.filter(p => p.type === 'sale'));
-  const rentProperties = filterProperties(properties.filter(p => p.type === 'rent'));
+  const clearFilters = () => {
+    setSearchTerm("")
+    setSelectedCategory("all")
+    setSelectedCity("all")
+    setPriceRange([0, 10000000])
+    setRoomsRange([1, 10])
+    setSelectedFeatures([])
+  }
+
+  const saleProperties = filterProperties(properties.filter(p => p.type === "sale"))
+  const rentProperties = filterProperties(properties.filter(p => p.type === "rent"))
+
+  const activeFiltersCount =
+    (selectedCategory !== "all" ? 1 : 0) +
+    (selectedCity !== "all" ? 1 : 0) +
+    selectedFeatures.length +
+    (searchTerm ? 1 : 0)
 
   if (loading) {
     return (
-      <div dir="rtl" className="min-h-screen bg-white">
-        <div className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20"
-          style={{
-            background: "linear-gradient(135deg, #23214a 0%, #23214a 100%)",
-          }}>
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="h-80 bg-gray-200 rounded-lg"></div>
-              ))}
-            </div>
+      <>
+        <Head>
+          <title>קטלוג נכסים - Keyhouse</title>
+        </Head>
+        <LuxuryBackground variant="hero" className="flex min-h-screen items-center justify-center pt-20">
+          <div className="flex flex-col items-center gap-4">
+            <div
+              className="h-16 w-16 animate-spin rounded-full border-4 border-transparent"
+              style={{
+                borderTopColor: "#c79d2a",
+                borderRightColor: "rgba(199,157,42,0.3)",
+              }}
+            />
+            <p className="text-xl font-medium" style={{ color: "#ffffff" }}>
+              טוען נכסים...
+            </p>
           </div>
-        </div>
-      </div>
-    );
+        </LuxuryBackground>
+      </>
+    )
   }
 
   return (
-    <div dir="rtl" className="min-h-screen bg-white">
+    <>
+      <Head>
+        <title>קטלוג נכסים - Keyhouse</title>
+        <meta
+          name="description"
+          content="גלה את הנכס המושלם עבורך - דירות למכירה ולהשכרה באילת. קטלוג נכסים מעודכן עם מגוון אפשרויות מגורים והשקעה."
+        />
+      </Head>
+
       {/* Hero Section */}
-      <section
-        className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20"
-        style={{
-          background: "linear-gradient(135deg, #23214a 0%, #23214a 100%)",
-        }}
-      >
-        {/* Decorative gradients */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div
-            className="absolute left-1/2 top-1/4 w-[70vw] h-[50vw] max-w-4xl -translate-x-1/2 rounded-full blur-3xl opacity-30"
+      <LuxuryBackground variant="hero" className="flex min-h-[60vh] items-center justify-center pt-20">
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-5xl md:text-6xl lg:text-7xl font-serif font-extrabold mb-6 leading-tight"
             style={{
-              background: "linear-gradient(135deg, #f1c23b40 0%, #f1c23b20 50%, transparent 100%)",
+              color: "#ffffff",
+              textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)",
             }}
-          />
-          <div
-            className="absolute right-0 bottom-0 w-1/3 h-1/3 blur-2xl opacity-20"
-            style={{
-              background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)",
-            }}
-          />
-        </div>
-
-        <div className="container relative z-10 mx-auto px-4 py-16 text-center">
-          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-2xl">
+          >
             קטלוג הנכסים שלנו
-          </h1>
-          <p className="mx-auto mb-8 max-w-3xl text-xl text-blue-100 md:text-2xl font-medium drop-shadow-lg">
-            גלה את הנכס המושלם עבורך - דירות למכירה ולהשכרה באילת ובסביבתה
-          </p>
-          <div
-            className="mx-auto h-2 w-24 rounded-full"
-            style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
-              boxShadow: "0 2px 12px #f1c23b55",
-            }}
-          />
-        </div>
+          </motion.h1>
 
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
-      </section>
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl md:text-2xl mb-10 leading-relaxed max-w-3xl mx-auto"
+            style={{
+              color: "rgba(255,255,255,0.95)",
+              textShadow: "0 2px 10px rgba(0,0,0,0.3)",
+            }}
+          >
+            נכסים מומלצים נבחרים - דירות למכירה ולהשכרה באילת ובסביבתה
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex justify-center gap-4"
+          >
+            <div
+              className="mx-auto h-2 w-32 rounded-full"
+              style={{
+                background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.4) 50%, #c79d2a 100%)",
+                boxShadow: "0 4px 20px rgba(199,157,42,0.35)",
+              }}
+            />
+          </motion.div>
+        </div>
+      </LuxuryBackground>
 
       {/* Main Content */}
-      <section
-        className="relative py-16 overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #f1c23b0d 100%)",
-        }}
-      >
-        {/* Background Blobs */}
-        <div
-          className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-[40vw] rounded-full blur-3xl opacity-60"
-          style={{ background: "linear-gradient(135deg, #23214a4d 0%, #23214a1a 100%)" }}
-        />
-        <div
-          className="pointer-events-none absolute bottom-0 right-0 w-1/3 h-1/3 blur-2xl opacity-40"
-          style={{ background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)" }}
-        />
-
-        <div className="container mx-auto px-4">
-          {/* Global Filters */}
-          <div className="mb-12">
-            <div className="bg-white/90 rounded-3xl shadow-2xl p-8 backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <LuxuryBackground variant="light" className="py-24">
+        <div className="container mx-auto px-6 relative z-10">
+          {/* FILTERING SECTION - COMMENTED OUT FOR NOW
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-12"
+          >
+            <LuxuryCard className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="relative">
-                  <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input
+                  <FaSearch
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5"
+                    style={{ color: "rgba(25,39,74,0.4)" }}
+                  />
+                  <input
+                    type="text"
                     placeholder="חיפוש נכסים..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pr-10 border-gray-200 focus:border-blue-500"
+                    className="w-full pr-12 pl-4 py-4 rounded-2xl border text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50"
+                    style={{
+                      borderColor: "rgba(25,39,74,0.15)",
+                      backgroundColor: "rgba(255,255,255,0.95)",
+                      color: "rgba(25,39,74,0.97)",
+                      boxShadow: "0 4px 12px rgba(25,39,74,0.06)",
+                    }}
                   />
                 </div>
 
-                <Select dir="rtl" value={selectedCategory} onValueChange={(value) => setSelectedCategory(value as PropertyCategory)}>
-                  <SelectTrigger className="border-gray-200 focus:border-blue-500">
-                    <SelectValue placeholder="סוג נכס" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(propertyCategories).map(([key, label]) => (
-                      <SelectItem key={key} value={key}>{label}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select dir="rtl" value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger className="border-gray-200 focus:border-blue-500">
-                    <SelectValue placeholder="עיר" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">כל הערים</SelectItem>
-                    {getCities().map(city => (
-                      <SelectItem key={city} value={city}>{city}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Button 
-                  variant="outline" 
-                  className="flex items-center justify-center gap-2 border-gray-200 hover:border-blue-500"
-                  onClick={() => setShowFilters(show => !show)}
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value as PropertyCategory)}
+                  className="w-full px-6 py-4 rounded-2xl border text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50 cursor-pointer appearance-none"
+                  style={{
+                    borderColor: "rgba(25,39,74,0.15)",
+                    backgroundColor: "rgba(255,255,255,0.95)",
+                    color: "rgba(25,39,74,0.97)",
+                    boxShadow: "0 4px 12px rgba(25,39,74,0.06)",
+                    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23192746' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                    backgroundPosition: "left 1rem center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "1.5em 1.5em",
+                  }}
                 >
-                  <FaFilter className="h-4 w-4" />
-                  סינון מתקדם
-                </Button>
+                  {Object.entries(propertyCategories).map(([key, label]) => (
+                    <option key={key} value={key}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  className="w-full px-6 py-4 rounded-2xl border text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50 cursor-pointer appearance-none"
+                  style={{
+                    borderColor: "rgba(25,39,74,0.15)",
+                    backgroundColor: "rgba(255,255,255,0.95)",
+                    color: "rgba(25,39,74,0.97)",
+                    boxShadow: "0 4px 12px rgba(25,39,74,0.06)",
+                    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23192746' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                    backgroundPosition: "left 1rem center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "1.5em 1.5em",
+                  }}
+                >
+                  <option value="all">כל הערים</option>
+                  {getCities().map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
               </div>
-            </div>
+
+              <div className="mt-6 flex items-center justify-between">
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="flex items-center gap-3 px-6 py-3 rounded-2xl transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: showFilters
+                      ? "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)"
+                      : "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                    border: "2px solid rgba(199,157,42,0.3)",
+                    boxShadow: "0 4px 12px rgba(199,157,42,0.2)",
+                    color: showFilters ? "#ffffff" : "rgba(25,39,74,0.97)",
+                  }}
+                >
+                  <FaFilter className="h-5 w-5" />
+                  <span className="font-medium">סינון מתקדם</span>
+                  {activeFiltersCount > 0 && (
+                    <span
+                      className="flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold"
+                      style={{
+                        backgroundColor: showFilters ? "rgba(255,255,255,0.3)" : "#c79d2a",
+                        color: showFilters ? "#ffffff" : "rgba(25,39,74,0.97)",
+                      }}
+                    >
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                </button>
+
+                {activeFiltersCount > 0 && (
+                  <button
+                    onClick={clearFilters}
+                    className="flex items-center gap-2 text-lg font-medium transition-colors duration-300"
+                    style={{ color: "rgba(25,39,74,0.6)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#c79d2a")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(25,39,74,0.6)")}
+                  >
+                    <FaTimes className="h-4 w-4" />
+                    נקה סינון
+                  </button>
+                )}
+              </div>
+
+              {showFilters && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="mt-8 pt-8 border-t"
+                  style={{ borderColor: "rgba(25,39,74,0.1)" }}
+                >
+                  <div className="space-y-8">
+                    <div>
+                      <label className="block text-lg font-medium mb-4" style={{ color: "rgba(25,39,74,0.9)" }}>
+                        טווח מחירים
+                      </label>
+                      <div className="flex items-center gap-4">
+                        <input
+                          type="number"
+                          value={priceRange[0]}
+                          onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                          placeholder="מינימום"
+                          className="w-full px-4 py-3 rounded-xl border text-base"
+                          style={{
+                            borderColor: "rgba(25,39,74,0.15)",
+                            color: "rgba(25,39,74,0.97)",
+                          }}
+                        />
+                        <span style={{ color: "rgba(25,39,74,0.4)" }}>-</span>
+                        <input
+                          type="number"
+                          value={priceRange[1]}
+                          onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                          placeholder="מקסימום"
+                          className="w-full px-4 py-3 rounded-xl border text-base"
+                          style={{
+                            borderColor: "rgba(25,39,74,0.15)",
+                            color: "rgba(25,39,74,0.97)",
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-lg font-medium mb-4" style={{ color: "rgba(25,39,74,0.9)" }}>
+                        מספר חדרים
+                      </label>
+                      <div className="flex items-center gap-4">
+                        <input
+                          type="number"
+                          value={roomsRange[0]}
+                          onChange={(e) => setRoomsRange([Number(e.target.value), roomsRange[1]])}
+                          placeholder="מינימום"
+                          min="1"
+                          max="10"
+                          className="w-full px-4 py-3 rounded-xl border text-base"
+                          style={{
+                            borderColor: "rgba(25,39,74,0.15)",
+                            color: "rgba(25,39,74,0.97)",
+                          }}
+                        />
+                        <span style={{ color: "rgba(25,39,74,0.4)" }}>-</span>
+                        <input
+                          type="number"
+                          value={roomsRange[1]}
+                          onChange={(e) => setRoomsRange([roomsRange[0], Number(e.target.value)])}
+                          placeholder="מקסימום"
+                          min="1"
+                          max="10"
+                          className="w-full px-4 py-3 rounded-xl border text-base"
+                          style={{
+                            borderColor: "rgba(25,39,74,0.15)",
+                            color: "rgba(25,39,74,0.97)",
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-lg font-medium mb-4" style={{ color: "rgba(25,39,74,0.9)" }}>
+                        מאפיינים
+                      </label>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                        {Object.entries(propertyFeatures).map(([key, label]) => {
+                          const isSelected = selectedFeatures.includes(key)
+                          return (
+                            <button
+                              key={key}
+                              onClick={() => toggleFeature(key)}
+                              className="flex items-center gap-3 px-4 py-3 rounded-xl border text-base font-medium transition-all duration-300"
+                              style={{
+                                borderColor: isSelected ? "#c79d2a" : "rgba(25,39,74,0.15)",
+                                backgroundColor: isSelected ? "rgba(199,157,42,0.1)" : "rgba(255,255,255,0.95)",
+                                color: isSelected ? "#c79d2a" : "rgba(25,39,74,0.8)",
+                              }}
+                            >
+                              {isSelected ? (
+                                <FaCheckCircle className="h-4 w-4" style={{ color: "#c79d2a" }} />
+                              ) : (
+                                <div
+                                  className="w-4 h-4 rounded-full border-2"
+                                  style={{ borderColor: "rgba(25,39,74,0.3)" }}
+                                />
+                              )}
+                              {label}
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </LuxuryCard>
+          </motion.div>
+          */}
+
+          {/* Sale Properties Section */}
+          <div className="mb-20">
+            <SectionHeader
+              title="נכסים למכירה"
+              subtitle={`${saleProperties.length} נכסים זמינים למכירה`}
+              alignment="right"
+              className="mb-12"
+            />
+
+            {saleProperties.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <LuxuryCard className="text-center py-20">
+                <FaHome
+                  className="mx-auto mb-6 h-20 w-20"
+                  style={{ color: "rgba(25,39,74,0.3)" }}
+                />
+                <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  לא נמצאו נכסים למכירה
+                </h3>
+                <p className="text-lg mb-8" style={{ color: "rgba(25,39,74,0.7)" }}>
+                  דבר איתנו להזדמנויות שטרם מופיעות כאן
+                </p>
+                {/* <LuxuryButton onClick={clearFilters}>נקה את כל הסינון</LuxuryButton> */}
+              </LuxuryCard>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 },
+                },
+              }}
+              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {saleProperties.map((property, index) => (
+                <motion.div
+                  key={property.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+                  }}
+                >
+                  <Link href={`/catalog/${property.id}`}>
+                    <LuxuryCard hoverable={true} className="group cursor-pointer overflow-hidden p-0 h-full flex flex-col">
+                      {/* Image */}
+                      <div className="relative h-64 overflow-hidden">
+                        <img
+                          src={property.images[0] || "/images/image2.jpg"}
+                          alt={property.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        {/* Gradient Overlay */}
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+                        />
+                        {/* Badges */}
+                        <div className="absolute top-4 right-4 flex gap-2">
+                          <span
+                            className="px-4 py-2 rounded-full text-sm font-bold"
+                            style={{
+                              backgroundColor: property.type === "sale" ? "#22c55e" : "#3b82f6",
+                              color: "#ffffff",
+                            }}
+                          >
+                            {property.type === "sale" ? "למכירה" : "להשכרה"}
+                          </span>
+                          {property.immediate && (
+                            <span
+                              className="px-4 py-2 rounded-full text-sm font-bold"
+                              style={{
+                                backgroundColor: "#f97316",
+                                color: "#ffffff",
+                              }}
+                            >
+                              כניסה מיידית
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="p-6 flex-1 flex flex-col">
+                        <h3
+                          className="text-2xl font-serif font-bold mb-2 line-clamp-1"
+                          style={{ color: "rgba(25,39,74,0.97)" }}
+                        >
+                          {property.title}
+                        </h3>
+
+                        <div className="flex items-center gap-2 mb-4 text-base" style={{ color: "rgba(25,39,74,0.7)" }}>
+                          <FaMapMarkerAlt className="h-4 w-4" style={{ color: "#c79d2a" }} />
+                          {property.address}, {property.city}
+                        </div>
+
+                        {/* Price */}
+                        <div className="mb-4">
+                          <div className="text-3xl font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>
+                            ₪{formatPrice(property.price)}
+                          </div>
+                          {property.type === "rent" && (
+                            <div className="text-sm" style={{ color: "rgba(25,39,74,0.6)" }}>
+                              לחודש
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Property Details */}
+                        <div className="grid grid-cols-3 gap-4 mb-4 pb-4 border-b" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                          <div className="flex flex-col items-center">
+                            <FaBed className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                            <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                              {property.rooms} חדרים
+                            </span>
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <FaRulerCombined className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                            <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                              {property.size} מ"ר
+                            </span>
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <FaBuilding className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                            <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                              קומה {property.floor}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Features */}
+                        <div className="flex flex-wrap gap-2 mb-4 flex-1">
+                          {Object.entries(propertyFeatures)
+                            .slice(0, 4)
+                            .map(
+                              ([key, label]) =>
+                                property[key as keyof Property] && (
+                                  <span
+                                    key={key}
+                                    className="px-3 py-1 rounded-full text-xs font-medium border"
+                                    style={{
+                                      backgroundColor: "rgba(199,157,42,0.1)",
+                                      borderColor: "rgba(199,157,42,0.3)",
+                                      color: "#c79d2a",
+                                    }}
+                                  >
+                                    {label}
+                                  </span>
+                                )
+                            )}
+                        </div>
+
+                        {/* View Button */}
+                        <LuxuryButton variant="secondary" className="w-full">
+                          <FaEye className="h-5 w-5 ml-2" />
+                          צפה בפרטים
+                        </LuxuryButton>
+                      </div>
+                    </LuxuryCard>
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
           </div>
 
-          {/* Advanced Filters Sheet */}
-          <Sheet open={showFilters} onOpenChange={setShowFilters}>
-            <SheetContent side="right" className="w-full sm:w-[540px]" dir="rtl">
-              <SheetHeader>
-                <SheetTitle>סינון מתקדם</SheetTitle>
-              </SheetHeader>
-              
-              <div className="py-6">
-                <div className="space-y-6">
-                  {/* Features */}
-                  <div>
-                    <label className="text-sm font-medium mb-4 block">מאפיינים</label>
-                    <div className="grid grid-cols-2 gap-3">
-                      {Object.entries(propertyFeatures).map(([key, label]) => (
-                        <Button
-                          key={key}
-                          variant="outline"
-                          className={`justify-start gap-2 ${
-                            selectedFeatures.includes(key) ? 'bg-blue-50 border-blue-200' : ''
-                          }`}
-                          onClick={() => {
-                            setSelectedFeatures(prev =>
-                              prev.includes(key)
-                                ? prev.filter(f => f !== key)
-                                : [...prev, key]
-                            );
-                          }}
-                        >
-                          {selectedFeatures.includes(key) ? (
-                            <FaCheckCircle className="h-4 w-4 text-blue-500" />
-                          ) : (
-                            <div className="h-4 w-4 rounded-full border-2 border-gray-300" />
+          {/* Rent Properties Section */}
+          <div>
+            <SectionHeader
+              title="נכסים להשכרה"
+              subtitle={`${rentProperties.length} נכסים זמינים להשכרה`}
+              alignment="right"
+              className="mb-12"
+            />
+
+            {rentProperties.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <LuxuryCard className="text-center py-20">
+                <FaHome
+                  className="mx-auto mb-6 h-20 w-20"
+                  style={{ color: "rgba(25,39,74,0.3)" }}
+                />
+                <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  לא נמצאו נכסים להשכרה
+                </h3>
+                <p className="text-lg mb-8" style={{ color: "rgba(25,39,74,0.7)" }}>
+                  דבר איתנו להזדמנויות שטרם מופיעות כאן
+                </p>
+                {/* <LuxuryButton onClick={clearFilters}>נקה את כל הסינון</LuxuryButton> */}
+              </LuxuryCard>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 },
+                },
+              }}
+              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {rentProperties.map((property) => (
+                <motion.div
+                  key={property.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+                  }}
+                >
+                  <Link href={`/catalog/${property.id}`}>
+                    <LuxuryCard hoverable={true} className="group cursor-pointer overflow-hidden p-0 h-full flex flex-col">
+                      {/* Image */}
+                      <div className="relative h-64 overflow-hidden">
+                        <img
+                          src={property.images[0] || "/images/image2.jpg"}
+                          alt={property.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        {/* Gradient Overlay */}
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+                        />
+                        {/* Badges */}
+                        <div className="absolute top-4 right-4 flex gap-2">
+                          <span
+                            className="px-4 py-2 rounded-full text-sm font-bold"
+                            style={{
+                              backgroundColor: "#3b82f6",
+                              color: "#ffffff",
+                            }}
+                          >
+                            להשכרה
+                          </span>
+                          {property.immediate && (
+                            <span
+                              className="px-4 py-2 rounded-full text-sm font-bold"
+                              style={{
+                                backgroundColor: "#f97316",
+                                color: "#ffffff",
+                              }}
+                            >
+                              כניסה מיידית
+                            </span>
                           )}
-                          {label}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Sort */}
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">מיון לפי</label>
-                    <Select dir="rtl" value={sortBy} onValueChange={setSortBy}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="מיון" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="date">חדש ביותר</SelectItem>
-                        <SelectItem value="price-asc">מחיר: נמוך לגבוה</SelectItem>
-                        <SelectItem value="price-desc">מחיר: גבוה לנמוך</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
-
-          {/* Properties Sections */}
-          <div className="space-y-16">
-            {/* Sale Properties Section */}
-            <div>
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">נכסים למכירה</h2>
-                <div className="bg-white/90 rounded-2xl shadow-xl p-6 backdrop-blur-xl border"
-                  style={{
-                    boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-                  }}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div>
-                      <label className="text-s font-medium mb-2 block">טווח מחירים</label>
-                      <div className="space-y-2">
-                        <Slider
-                          value={priceRange}
-                          onValueChange={setPriceRange}
-                          max={getPriceRange('sale')[1]}
-                          min={getPriceRange('sale')[0]}
-                          step={10000}
-                          className="w-full"
-                        />
-                        <div className="flex justify-between text-s text-gray-600">
-                          <span>₪{formatPrice(priceRange[0])}</span>
-                          <span>₪{formatPrice(priceRange[1])}</span>
                         </div>
                       </div>
-                    </div>
-                    <div>
-                      <label className="text-s font-medium mb-2 block">מספר חדרים</label>
-                      <div className="space-y-2">
-                        <Slider
-                          value={roomsRange}
-                          onValueChange={setRoomsRange}
-                          max={10}
-                          min={1}
-                          step={1}
-                          className="w-full"
-                        />
-                        <div className="flex justify-between text-s text-gray-600">
-                          <span>{roomsRange[0]} חדרים</span>
-                          <span>{roomsRange[1]} חדרים</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              {saleProperties.length === 0 ? (
-                <div className="text-center py-12 bg-white/90 rounded-3xl shadow-xl backdrop-blur-xl border">
-                  <FaHome className="mx-auto h-12 w-12 text-gray-400" />
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">לא נמצאו נכסים למכירה</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    נסה לשנות את הפילטרים שלך או לחזור מאוחר יותר
-                  </p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {saleProperties.map((property) => (
-                    <Link key={property.id} href={`/catalog/${property.id}`}>
-                      <Card className="group hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden transform hover:-translate-y-2 bg-white/90 backdrop-blur-xl border"
-                        style={{
-                          boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.boxShadow = "0 8px 64px 0 #f1c23b55")
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08")
-                        }>
-                        <div className="relative">
-                          <img
-                            src={property.images[0] || '/images/image2.jpg'}
-                            alt={property.title}
-                            className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                          <div className="absolute top-4 right-4 flex gap-2">
-                            <Badge className="bg-green-500 hover:bg-green-600 text-white font-bold">
-                              למכירה
-                            </Badge>
-                            {property.immediate && (
-                              <Badge className="bg-orange-500 hover:bg-orange-600 text-white font-bold">
-                                כניסה מיידית
-                              </Badge>
-                            )}
+                      {/* Content */}
+                      <div className="p-6 flex-1 flex flex-col">
+                        <h3
+                          className="text-2xl font-serif font-bold mb-2 line-clamp-1"
+                          style={{ color: "rgba(25,39,74,0.97)" }}
+                        >
+                          {property.title}
+                        </h3>
+
+                        <div className="flex items-center gap-2 mb-4 text-base" style={{ color: "rgba(25,39,74,0.7)" }}>
+                          <FaMapMarkerAlt className="h-4 w-4" style={{ color: "#c79d2a" }} />
+                          {property.address}, {property.city}
+                        </div>
+
+                        {/* Price */}
+                        <div className="mb-4">
+                          <div className="text-3xl font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>
+                            ₪{formatPrice(property.price)}
                           </div>
-                          <div className="absolute top-4 left-4">
-                            <Button variant="ghost" size="icon" className="bg-white/80 hover:bg-white">
-                              <FaHeart className="h-4 w-4" />
-                            </Button>
-                          </div>
-                          <div className="absolute bottom-0 right-0 left-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                            <h3 className="text-xl font-bold text-white mb-2 line-clamp-1">
-                              {property.title}
-                            </h3>
-                            <div className="flex items-center text-white/90 text-sm">
-                              <FaMapMarkerAlt className="h-4 w-4 ml-2" />
-                              {property.address}, {property.city}
-                            </div>
+                          <div className="text-sm" style={{ color: "rgba(25,39,74,0.6)" }}>
+                            לחודש
                           </div>
                         </div>
-                        <CardContent className="p-6">
-                          <div className="flex items-center justify-between mb-4">
-                            <div>
-                              <div className="text-2xl font-bold text-gray-900">
-                                ₪{formatPrice(property.price)}
-                              </div>
-                            </div>
-                            <Badge variant="secondary" className="text-sm bg-blue-100 text-blue-800">
-                              {propertyCategories[property.category as PropertyCategory]}
-                            </Badge>
-                          </div>
-                          
-                          <div className="grid grid-cols-3 gap-4 text-sm text-gray-600 mb-4">
-                            <div className="flex items-center">
-                              <FaBed className="h-4 w-4 ml-1" />
+
+                        {/* Property Details */}
+                        <div className="grid grid-cols-3 gap-4 mb-4 pb-4 border-b" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                          <div className="flex flex-col items-center">
+                            <FaBed className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                            <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
                               {property.rooms} חדרים
-                            </div>
-                            <div className="flex items-center">
-                              <FaRulerCombined className="h-4 w-4 ml-1" />
+                            </span>
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <FaRulerCombined className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                            <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
                               {property.size} מ"ר
-                            </div>
-                            <div className="flex items-center">
-                              <FaBuilding className="h-4 w-4 ml-1" />
+                            </span>
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <FaBuilding className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                            <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
                               קומה {property.floor}
-                            </div>
+                            </span>
                           </div>
-
-                          <div className="flex flex-wrap gap-2 mb-4">
-                            {Object.entries(propertyFeatures).map(([key, label]) => 
-                              property[key as keyof Property] && (
-                                <Badge 
-                                  key={key}
-                                  variant="outline" 
-                                  className="text-xs bg-blue-50 border-blue-200 text-blue-700"
-                                >
-                                  {label}
-                                </Badge>
-                              )
-                            )}
-                          </div>
-
-                          <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
-                            <FaEye className="h-4 w-4 ml-2" />
-                            צפה בפרטים
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Rent Properties Section */}
-            <div>
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">נכסים להשכרה</h2>
-                <div className="bg-white/90 rounded-2xl shadow-xl p-6 backdrop-blur-xl border"
-                  style={{
-                    boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-                  }}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="text-s font-medium mb-2 block">טווח מחירים</label>
-                      <div className="space-y-2 w-full">
-                        <Slider
-                          value={priceRange}
-                          onValueChange={setPriceRange}
-                          max={getPriceRange('rent')[1]}
-                          min={getPriceRange('rent')[0]}
-                          step={1000}
-                          className="w-full"
-                        />
-                        <div className="flex justify-between text-s text-gray-600">
-                          <span>₪{formatPrice(priceRange[0])}</span>
-                          <span>₪{formatPrice(priceRange[1])}</span>
                         </div>
+
+                        {/* Features */}
+                        <div className="flex flex-wrap gap-2 mb-4 flex-1">
+                          {Object.entries(propertyFeatures)
+                            .slice(0, 4)
+                            .map(
+                              ([key, label]) =>
+                                property[key as keyof Property] && (
+                                  <span
+                                    key={key}
+                                    className="px-3 py-1 rounded-full text-xs font-medium border"
+                                    style={{
+                                      backgroundColor: "rgba(199,157,42,0.1)",
+                                      borderColor: "rgba(199,157,42,0.3)",
+                                      color: "#c79d2a",
+                                    }}
+                                  >
+                                    {label}
+                                  </span>
+                                )
+                            )}
+                        </div>
+
+                        {/* View Button */}
+                        <LuxuryButton variant="secondary" className="w-full">
+                          <FaEye className="h-5 w-5 ml-2" />
+                          צפה בפרטים
+                        </LuxuryButton>
                       </div>
-                    </div>
-                    <div>
-                      <label className="text-s font-medium mb-2 block">מספר חדרים</label>
-                      <div className="space-y-2">
-                        <Slider
-                          value={roomsRange}
-                          onValueChange={setRoomsRange}
-                          max={10}
-                          min={1}
-                          step={1}
-                          className="w-full"
-                        />
-                        <div className="flex justify-between text-s text-gray-600">
-                          <span>{roomsRange[0]} חדרים</span>
-                          <span>{roomsRange[1]} חדרים</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {rentProperties.length === 0 ? (
-                <div className="text-center py-12 bg-white/90 rounded-3xl shadow-xl backdrop-blur-xl border">
-                  <FaHome className="mx-auto h-12 w-12 text-gray-400" />
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">לא נמצאו נכסים להשכרה</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    נסה לשנות את הפילטרים שלך או לחזור מאוחר יותר
-                  </p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {rentProperties.map((property) => (
-                    <Link key={property.id} href={`/catalog/${property.id}`}>
-                      <Card className="group hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden transform hover:-translate-y-2 bg-white/90 backdrop-blur-xl border"
-                        style={{
-                          boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.boxShadow = "0 8px 64px 0 #f1c23b55")
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08")
-                        }>
-                        <div className="relative">
-                          <img
-                            src={property.images[0] || '/images/image2.jpg'}
-                            alt={property.title}
-                            className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                          <div className="absolute top-4 right-4 flex gap-2">
-                            <Badge className="bg-blue-500 hover:bg-blue-600 text-white font-bold">
-                              להשכרה
-                            </Badge>
-                            {property.immediate && (
-                              <Badge className="bg-orange-500 hover:bg-orange-600 text-white font-bold">
-                                כניסה מיידית
-                              </Badge>
-                            )}
-                          </div>
-                          <div className="absolute top-4 left-4">
-                            <Button variant="ghost" size="icon" className="bg-white/80 hover:bg-white">
-                              <FaHeart className="h-4 w-4" />
-                            </Button>
-                          </div>
-                          <div className="absolute bottom-0 right-0 left-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                            <h3 className="text-xl font-bold text-white mb-2 line-clamp-1">
-                              {property.title}
-                            </h3>
-                            <div className="flex items-center text-white/90 text-sm">
-                              <FaMapMarkerAlt className="h-4 w-4 ml-2" />
-                              {property.address}, {property.city}
-                            </div>
-                          </div>
-                        </div>
-                        <CardContent className="p-6">
-                          <div className="flex items-center justify-between mb-4">
-                            <div>
-                              <div className="text-2xl font-bold text-gray-900">
-                                ₪{formatPrice(property.price)}
-                              </div>
-                              <div className="text-sm text-gray-500">לחודש</div>
-                            </div>
-                            <Badge variant="secondary" className="text-sm bg-blue-100 text-blue-800">
-                              {propertyCategories[property.category as PropertyCategory]}
-                            </Badge>
-                          </div>
-                          
-                          <div className="grid grid-cols-3 gap-4 text-sm text-gray-600 mb-4">
-                            <div className="flex items-center">
-                              <FaBed className="h-4 w-4 ml-1" />
-                              {property.rooms} חדרים
-                            </div>
-                            <div className="flex items-center">
-                              <FaRulerCombined className="h-4 w-4 ml-1" />
-                              {property.size} מ"ר
-                            </div>
-                            <div className="flex items-center">
-                              <FaBuilding className="h-4 w-4 ml-1" />
-                              קומה {property.floor}
-                            </div>
-                          </div>
-
-                          <div className="flex flex-wrap gap-2 mb-4">
-                            {Object.entries(propertyFeatures).map(([key, label]) => 
-                              property[key as keyof Property] && (
-                                <Badge 
-                                  key={key}
-                                  variant="outline" 
-                                  className="text-xs bg-blue-50 border-blue-200 text-blue-700"
-                                >
-                                  {label}
-                                </Badge>
-                              )
-                            )}
-                          </div>
-
-                          <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
-                            <FaEye className="h-4 w-4 ml-2" />
-                            צפה בפרטים
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+                    </LuxuryCard>
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
           </div>
         </div>
-      </section>
-    </div>
-  );
+      </LuxuryBackground>
+    </>
+  )
 }

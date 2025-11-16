@@ -90,7 +90,7 @@ export default function StatsSection({ title, description, stats }: StatsSection
             const animatedValue = useCountUp(stat.value, inView)
             return (
               <motion.div key={index} variants={itemVariants} ref={ref}>
-                <LuxuryCard className="text-center h-full">
+                <LuxuryCard className="grid text-center h-full">
                   {/* Animated stat value */}
                   <div className="mb-4 text-4xl lg:text-5xl font-serif font-bold transition-colors duration-300" style={{ color: "#c79d2a" }}>
                     {stat.type === 'precentage'

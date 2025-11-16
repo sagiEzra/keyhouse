@@ -41,8 +41,8 @@ export default function ServiceSection({
       <div className="container mx-auto px-6 relative z-10">
         <div className={`flex flex-col items-center gap-12 lg:gap-16 lg:flex-row ${reverse ? "lg:flex-row-reverse" : ""}`}>
           <motion.div
-            initial={{ opacity: 0, x: reverse ? 20 : -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="w-full lg:w-1/2"
@@ -77,10 +77,10 @@ export default function ServiceSection({
 
           {image && (
             <motion.div
-              initial={{ opacity: 0, x: reverse ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
               className="w-full lg:w-1/2"
             >
               <div className="relative group">

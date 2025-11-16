@@ -20,10 +20,6 @@ export default function HomePage() {
             { value: 350, label: "עסקאות מוצלחות", type: '+' },
             { value: 98, label: "שביעות רצון לקוחות", type: 'precentage' },
             { value: 72, label: "אחוז מהלקוחות שלנו הם לקוחות חוזרים", type: 'precentage' },
-            { value: 12, label: "שנות ניסיון בשוק האילתי", type: '+' },
-            { value: 350, label: "עסקאות מוצלחות", type: '+' },
-            { value: 98, label: "שביעות רצון לקוחות", type: 'precentage' },
-            { value: 72, label: "אחוז מהלקוחות שלנו הם לקוחות חוזרים", type: 'precentage' },
           ]}
         />
       <TestimonialsCarousel />
