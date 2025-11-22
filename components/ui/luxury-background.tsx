@@ -35,18 +35,17 @@ export default function LuxuryBackground({
 
   return (
     <section
-      className={`relative overflow-hidden ${className}`}
+      className={`relative overflow-hidden ${variant === "hero" ? "pt-24 md:pt-28 pb-12" : ""} ${className}`}
       style={{
         ...getBackgroundStyle(),
         ...style
       }}
     >
-
       {children}
 
       {/* Bottom gradient for hero sections */}
       {variant === "hero" && (
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent pointer-events-none"></div>
       )}
     </section>
   )

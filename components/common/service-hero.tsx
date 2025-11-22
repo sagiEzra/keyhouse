@@ -12,7 +12,7 @@ interface ServiceHeroProps {
 
 export default function ServiceHero({ title, subtitle, image, imageAlt, overlayOpacity = 0.6 }: ServiceHeroProps) {
   return (
-    <section className="relative min-h-[70vh] overflow-hidden pt-20">
+    <section className="relative overflow-hidden pt-24 md:pt-28">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={image || "/placeholder.svg"} alt={imageAlt} className="h-full w-full object-cover" />
@@ -24,33 +24,8 @@ export default function ServiceHero({ title, subtitle, image, imageAlt, overlayO
         />
       </div>
 
-      {/* Decorative background orbs */}
-      <div className="absolute inset-0 pointer-events-none z-[1]">
-        {/* Main gradient orb */}
-        <div
-          className="absolute left-1/2 top-1/3 w-[80vw] h-[60vw] max-w-5xl -translate-x-1/2 rounded-full blur-3xl opacity-20"
-          style={{
-            background: "radial-gradient(circle, rgba(199,157,42,0.25) 0%, rgba(199,157,42,0.125) 30%, transparent 70%)",
-          }}
-        />
-        {/* Secondary accent */}
-        <div
-          className="absolute right-0 top-0 w-1/2 h-1/2 blur-2xl opacity-15"
-          style={{
-            background: "linear-gradient(225deg, rgba(199,157,42,0.375) 0%, transparent 70%)"
-          }}
-        />
-        {/* Left accent */}
-        <div
-          className="absolute left-0 bottom-0 w-1/3 h-1/3 blur-2xl opacity-10"
-          style={{
-            background: "linear-gradient(45deg, rgba(199,157,42,0.25) 0%, transparent 100%)"
-          }}
-        />
-      </div>
-
       {/* Content */}
-      <div className="container relative z-10 mx-auto flex min-h-[70vh] flex-col items-center justify-center px-6 py-16 text-center">
+      <div className="container relative z-10 mx-auto flex flex-col items-center justify-center px-6 py-20 pb-12 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

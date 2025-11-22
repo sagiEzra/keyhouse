@@ -30,7 +30,7 @@ export default function AboutSection() {
     {
       icon: <FaMagic className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
       title: "מצוינות בשירות",
-      description: "חותרים למצוינות בכל היבט של השירות שלנו, מהפגישה הראשונה ועד לאחר סגירת העסקה.",
+      description: "חותרים למצוינות בכל היבט של השירות שלנו, מהפגישה הראשונה וגם לאחר סגירת העסקה.",
     },
     {
       icon: <FaBullseye className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
@@ -52,11 +52,11 @@ export default function AboutSection() {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <SectionHeader
+        {/* <SectionHeader
           title="קי האוס אילת – סוכנות נדל&quot;ן בצד שלכם"
           subtitle="אנחנו לא רק מוצאים לך נכס – אנחנו מלווים אותך בדרך לבית הנכון. KeyHouse היא סוכנות נדל&quot;ן מובילה באילת, שנולדה מתוך תשוקה אמיתית לעזור לאנשים להגשים חלומות."
           className="mb-20"
-        />
+        /> */}
 
         {/* About Us Section */}
         <motion.div

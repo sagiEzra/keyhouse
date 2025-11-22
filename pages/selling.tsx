@@ -3,6 +3,7 @@ import ServiceHero from "../components/common/service-hero"
 import ServiceSection from "../components/common/service-section"
 import StatsSection from "../components/common/stats-section"
 import CTASection from "../components/common/cta-section"
+import { PropertyValuationPopup } from "../components/common/PropertyValuationPopup"
 import {
   ChecklistContent,
   NumberedStepsCard,
@@ -12,9 +13,10 @@ import {
 export default function SellingPage() {
   return (
     <main dir="rtl" className="min-h-screen bg-white">
+      <PropertyValuationPopup />
 
       <ServiceHero
-        title="למכור את הנכס שלך, בלי דאגות"
+        title="מוכרים נכון - מרוויחים יותר"
         subtitle="עם מי שמבינים איך עושים את זה נכון - מקצועיות, שקיפות ותוצאות"
         image="/images/buying-card.jpg"
         imageAlt="מכירת נכס עם KeyHouse"

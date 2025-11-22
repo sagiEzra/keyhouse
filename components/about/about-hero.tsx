@@ -7,7 +7,7 @@ export default function AboutHero() {
   return (
     <LuxuryBackground
       variant="hero"
-      className="flex min-h-[50vh] items-center justify-center pt-20"
+      className="flex items-center justify-center"
     >
 
       <div className="container relative z-10 mx-auto px-6 py-20 text-center">

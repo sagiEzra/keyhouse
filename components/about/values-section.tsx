@@ -26,7 +26,7 @@ export default function ValuesSection() {
     {
       icon: <FaMagic className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,
       title: "מצוינות בשירות",
-      description: "חותרים למצוינות בכל היבט של השירות שלנו, מהפגישה הראשונה ועד לאחר סגירת העסקה.",
+      description: "חותרים למצוינות בכל היבט של השירות שלנו, מהפגישה הראשונה וגם לאחר סגירת העסקה.",
     },
     {
       icon: <FaBullseye className="h-10 w-10" style={{ color: "rgba(25,39,74,0.97)" }} />,

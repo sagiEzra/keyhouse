@@ -6,7 +6,6 @@ import Footer from '../components/footer';
 import { Rubik } from "next/font/google"
 import { ThemeProvider } from "../components/theme-provider"
 import { FloatingWhatsAppButton } from '../components/common/floatingWhatsAppButton ';
-import { PropertyValuationPopup } from '../components/common/PropertyValuationPopup';
 
 // Hebrew font
 const rubik = Rubik({
@@ -24,7 +23,6 @@ export default function App({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
             <Footer />
             <FloatingWhatsAppButton />
-            <PropertyValuationPopup />
           </ThemeProvider>
         </div>
       </main>

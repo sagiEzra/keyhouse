@@ -161,7 +161,7 @@ export default function CatalogPage() {
         <Head>
           <title>קטלוג נכסים - Keyhouse</title>
         </Head>
-        <LuxuryBackground variant="hero" className="flex min-h-screen items-center justify-center pt-20">
+        <LuxuryBackground variant="hero" className="flex items-center justify-center py-20">
           <div className="flex flex-col items-center gap-4">
             <div
               className="h-16 w-16 animate-spin rounded-full border-4 border-transparent"
@@ -190,8 +190,8 @@ export default function CatalogPage() {
       </Head>
 
       {/* Hero Section */}
-      <LuxuryBackground variant="hero" className="flex min-h-[60vh] items-center justify-center pt-20">
-        <div className="container mx-auto px-6 relative z-10 text-center">
+      <LuxuryBackground variant="hero" className="flex items-center justify-center">
+        <div className="container mx-auto px-6 relative z-10 text-center py-20">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}

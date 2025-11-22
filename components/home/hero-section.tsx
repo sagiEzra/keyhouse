@@ -4,20 +4,74 @@ import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import LuxuryButton from "@/components/ui/luxury-button"
 
+// Extend Window interface to include YT
+declare global {
+  interface Window {
+    YT: any
+    onYouTubeIframeAPIReady: () => void
+  }
+}
+
 export default function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const playerRef = useRef<any>(null)
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.7
-    }
+    // Set loaded to true immediately so content shows
     setIsLoaded(true)
+
+    const initializePlayer = () => {
+      // Wait for iframe to be in DOM
+      const iframe = document.getElementById('youtube-player')
+      if (!iframe || playerRef.current) return
+
+      playerRef.current = new window.YT.Player('youtube-player', {
+        events: {
+          onReady: (event: any) => {
+            event.target.mute()
+            event.target.playVideo()
+          },
+          onStateChange: (event: any) => {
+            // When video ends (state 0), seek to second 33 and play again
+            if (event.data === window.YT.PlayerState.ENDED) {
+              event.target.seekTo(33, true)
+              event.target.playVideo()
+            }
+          }
+        }
+      })
+    }
+
+    // Check if YouTube API is already loaded
+    if (window.YT && window.YT.Player) {
+      initializePlayer()
+    } else {
+      // Check if script is already being loaded
+      const existingScript = document.querySelector('script[src="https://www.youtube.com/iframe_api"]')
+
+      if (!existingScript) {
+        // Load YouTube IFrame API
+        const tag = document.createElement('script')
+        tag.src = 'https://www.youtube.com/iframe_api'
+        const firstScriptTag = document.getElementsByTagName('script')[0]
+        firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag)
+      }
+
+      // Initialize player when API is ready
+      window.onYouTubeIframeAPIReady = initializePlayer
+    }
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.destroy()
+        playerRef.current = null
+      }
+    }
   }, [])
 
   return (
     <section
-      className="relative min-h-[95vh] md:min-h-[110vh] flex items-center justify-center overflow-hidden"
+      className="relative flex items-center justify-center overflow-hidden pt-24 md:pt-28 pb-12"
       style={{
         background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
       }}
@@ -26,8 +80,9 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <iframe
+            id="youtube-player"
             className="absolute top-0 left-0 w-[177.77vh] h-[100vh] md:w-[100vw] md:h-[56.25vw] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2"
-            src="https://www.youtube.com/embed/TzMDVInxbRw?autoplay=1&mute=1&loop=1&start=33&playlist=TzMDVInxbRw&controls=0&showinfo=0&rel=0&modestbranding=1"
+            src="https://www.youtube.com/embed/TzMDVInxbRw?enablejsapi=1&autoplay=1&mute=1&start=33&controls=0&showinfo=0&rel=0&modestbranding=1"
             title="KeyHouse Hero Video"
             frameBorder="0"
             allow="autoplay; fullscreen"
@@ -38,31 +93,6 @@ export default function HeroSection() {
           className="absolute inset-0"
           style={{
             background: "linear-gradient(to bottom, rgba(25,39,74,0.7) 0%, rgba(25,39,74,0.4) 50%, rgba(25,39,74,0.7) 100%)",
-          }}
-        />
-      </div>
-
-      {/* Enhanced decorative elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Main gradient orb */}
-        <div
-          className="absolute left-1/2 top-1/3 w-[80vw] h-[60vw] max-w-5xl -translate-x-1/2 rounded-full blur-3xl opacity-20"
-          style={{
-            background: "radial-gradient(circle, rgba(199,157,42,0.25) 0%, rgba(199,157,42,0.125) 30%, transparent 70%)",
-          }}
-        />
-        {/* Secondary accent */}
-        <div
-          className="absolute right-0 top-0 w-1/2 h-1/2 blur-2xl opacity-15"
-          style={{
-            background: "linear-gradient(225deg, rgba(199,157,42,0.375) 0%, transparent 70%)"
-          }}
-        />
-        {/* Left accent */}
-        <div
-          className="absolute left-0 bottom-0 w-1/3 h-1/3 blur-2xl opacity-10"
-          style={{
-            background: "linear-gradient(45deg, rgba(199,157,42,0.25) 0%, transparent 100%)"
           }}
         />
       </div>
@@ -102,7 +132,7 @@ export default function HeroSection() {
           }}
         >
           <span className="block mb-4">
-            ברוכים הבאים ל...
+            ברוכים הבאים
           </span>
           <span
             className="block bg-gradient-to-l from-white via-gray-0 to-white bg-clip-text text-transparent"
@@ -150,7 +180,7 @@ export default function HeroSection() {
       </div>
 
       {/* Enhanced bottom gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent pointer-events-none"></div>
     </section>
   )
 }

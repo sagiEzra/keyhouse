@@ -98,8 +98,8 @@ export default function PropertyValuation() {
       </Head>
 
       {/* Hero Section */}
-      <LuxuryBackground variant="hero" className="flex min-h-[70vh] items-center justify-center pt-20">
-        <div className="container mx-auto px-6 relative z-10 text-center">
+      <LuxuryBackground variant="hero" className="flex items-center justify-center">
+        <div className="container mx-auto px-6 relative z-10 text-center py-20">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}

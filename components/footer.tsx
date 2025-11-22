@@ -457,6 +457,17 @@ export default function Footer() {
             <p className="text-sm font-light" style={{ color: "rgba(25,39,74,0.65)" }}>
               נבנה באהבה עבור לקוחותינו
             </p>
+
+            {/* Accessibility Link */}
+            <div className="mt-4">
+              <Link
+                href="/accessibility"
+                className="text-sm transition-colors duration-300 hover:text-[#c79d2a] underline"
+                style={{ color: "rgba(25,39,74,0.7)" }}
+              >
+                הצהרת נגישות
+              </Link>
+            </div>
           </div>
         </div>
       </motion.div>
