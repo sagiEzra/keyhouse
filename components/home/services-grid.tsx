@@ -11,7 +11,7 @@ export default function ServicesGrid() {
   const services = [
     {
       title: "מוכרים",
-      subtitle: "מוכרים במחיר הטוב ביותר",
+      subtitle: "מוכרים נכון מרוויחים יותר",
       description: "שיווק מקצועי שמביא תוצאות ומקסם את הרווח שלכם",
       image: "/images/buying-card.jpg",
       href: "/selling",

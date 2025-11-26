@@ -94,7 +94,7 @@ export default function PropertyValuation() {
     <>
       <Head>
         <title>הערכת שווי נכס - Keyhouse</title>
-        <meta name="description" content="קבל הערכת שווי מקצועית לנכס שלך ללא עלות וללא התחייבות. ניתוח מבוסס נתוני שוק ועסקאות דומות." />
+        <meta name="description" content="קבל הערכת שווי שוק לנכס שלך ללא עלות וללא התחייבות. ניתוח מבוסס נתוני שוק ועסקאות דומות." />
       </Head>
 
       {/* Hero Section */}
@@ -110,7 +110,7 @@ export default function PropertyValuation() {
               textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)"
             }}
           >
-            רוצה לדעת כמה הנכס שלך<br />באמת שווה?
+            רוצה לדעת בכמה אפשר למכור<br />את הנכס שלך?
           </motion.h1>
 
           <motion.p
@@ -123,7 +123,7 @@ export default function PropertyValuation() {
               textShadow: "0 2px 10px rgba(0,0,0,0.3)"
             }}
           >
-            קבל הערכת שווי מקצועית ללא עלות וללא התחייבות
+            קבל הערכת שווי שוק ללא עלות וללא התחייבות
             <br />
             מבוססת על ניתוח מעמיק של השוק המקומי
           </motion.p>
@@ -147,7 +147,7 @@ export default function PropertyValuation() {
         <div className="container mx-auto px-6 relative z-10">
           {/* <SectionHeader
             title="למה לבחור בנו?"
-            subtitle="הערכת שווי מקצועית המבוססת על ניתוח עסקאות דומות, מצב השוק הנוכחי, והכרות מעמיקה עם השוק המקומי באילת"
+            subtitle="הערכת שווי שוק המבוססת על ניתוח עסקאות דומות, מצב השוק הנוכחי, והכרות מעמיקה עם השוק המקומי באילת"
             className="mb-20"
           /> */}
 
@@ -212,7 +212,7 @@ export default function PropertyValuation() {
         <div className="container mx-auto px-6 relative z-10">
           <SectionHeader
             title="איך זה עובד?"
-            subtitle="שלושה שלבים פשוטים להערכת שווי מקצועית של הנכס שלך"
+            subtitle="שלושה שלבים פשוטים להערכת שווי שוק של הנכס שלך"
             className="mb-20"
           />
 
@@ -288,8 +288,8 @@ export default function PropertyValuation() {
         <div className="container mx-auto px-6 relative z-10">
           <div id="valuation-form" className="max-w-4xl mx-auto">
             <SectionHeader
-              title="בקש מאיתנו הערכת שווי מקצועית"
-              subtitle="מלא את הפרטים הבאים ונחזור אליך בהקדם עם הערכת שווי מקצועית"
+              title="מלא את הפרטים כאן למטה"
+              subtitle="נחזור אליך בהקדם"
               className="mb-16"
             />
 
@@ -314,11 +314,8 @@ export default function PropertyValuation() {
                       תודה רבה!
                     </h3>
                     <p className="text-xl leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      קיבלנו את פנייתך ונחזור אליך בהקדם עם הערכת שווי מקצועית לנכס שלך.
+                      קיבלנו את פנייתך ונחזור אליך בהקדם עם הערכת שווי שוק לנכס שלך.
                     </p>
-                    <LuxuryButton onClick={() => setSubmitSuccess(false)}>
-                      שלח בקשה נוספת
-                    </LuxuryButton>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-8">
@@ -690,7 +687,7 @@ export default function PropertyValuation() {
                         disabled={isSubmitting}
                         className="w-full"
                       >
-                        {isSubmitting ? "שולח..." : "שלח בקשה להערכת שווי"}
+                        {isSubmitting ? "שולח..." : "שלח בקשה"}
                       </LuxuryButton>
                     </div>
                   </form>

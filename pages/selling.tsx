@@ -16,8 +16,8 @@ export default function SellingPage() {
       <PropertyValuationPopup />
 
       <ServiceHero
-        title="מוכרים נכון - מרוויחים יותר"
-        subtitle="עם מי שמבינים איך עושים את זה נכון - מקצועיות, שקיפות ותוצאות"
+        title="למכור את הנכס שלך, בלי דאגות"
+        subtitle="עם ליווי אישי, אסטרטגיית שיווק חכמה - ותוצאות שמדברות בעד עצמן"
         image="/images/buying-card.jpg"
         imageAlt="מכירת נכס עם KeyHouse"
       />
@@ -93,13 +93,13 @@ export default function SellingPage() {
         stats={[
           { value: 98, label: "לקוחות מרוצים חוזרים והמלצות אישיות", type: 'precentage' },
           { value: 87, label: "מהנכסים נמכרים במחיר היעד או מעליו ! על ידי הערכת שוק ותמחור אסטרטגי", type: 'precentage' },
-          { value: 80, label: "ויותר מהעסקאות בבלעדיות מלאה", type: 'precentage' },
-          { value: 45, label: "מתחילת ההשקה - להצעה הראשונה" },
+          { value: 86, label: "מעסקאות המכירה בבלעדיות מלאה", type: 'precentage' },
+          { value: 45, label: "יום בממוצע מתחילת ההשקה - להצעה הראשונה" },
         ]}
       />
 
       <CTASection
-        title="רוצה למכור את הנכס שלך בראש שקט וברווח גבוה?"
+        title="רוצה למכור את הנכס שלך בראש שקט ומקסימום רווח?"
         description="צוות המומחים שלנו כאן כדי ללוות אותך בכל שלב בדרך למכירה מוצלחת."
         buttonText="דבר איתנו עוד היום"
       />

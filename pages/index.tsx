@@ -16,10 +16,10 @@ export default function HomePage() {
           title="למה לתת לנו לעזור לכם?"
           description="הנתונים מדברים בעד עצמם - אנחנו מביאים תוצאות"
           stats={[
-            { value: 12, label: "שנות ניסיון בשוק האילתי", type: '+' },
-            { value: 350, label: "עסקאות מוצלחות", type: '+' },
+            { value: 13, label: "שנות ניסיון בשוק האילתי", type: '+' },
+            { value: 1000, label: "עסקאות מוצלחות", type: '+' },
             { value: 98, label: "שביעות רצון לקוחות", type: 'precentage' },
-            { value: 72, label: "אחוז מהלקוחות שלנו הם לקוחות חוזרים", type: 'precentage' },
+            { value: 98, label: "אחוז מהלקוחות שלנו הם לקוחות חוזרים", type: 'precentage' },
           ]}
         />
       <TestimonialsCarousel />

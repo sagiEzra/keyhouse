@@ -51,14 +51,14 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col items-center md:items-center justify-center ml-8 h-full"
+            className="flex flex-col items-center md:items-center justify-center h-full"
           >
             {/* Clean minimalistic logo */}
             <div className="relative mb-6">
               <img
-                src="/images/keyhouse.jpg"
+                src="/images/logoNoBg.png"
                 alt="KeyHouse"
-                className="w-56 h-36 object-cover rounded-2xl transition-all duration-300 hover:shadow-lg"
+                className="w-80 object-cover rounded-2xl transition-all duration-300 hover:shadow-lg"
                 style={{
                   boxShadow: "0 15px 30px rgba(25,39,74,0.15), 0 6px 15px rgba(25,39,74,0.08)",
                 }}

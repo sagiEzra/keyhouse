@@ -147,7 +147,7 @@ export default function ValuesSection() {
             <div className="relative z-10">
               <h3 className="mb-8 text-3xl md:text-4xl font-bold leading-tight" style={{ color: "rgba(25,39,74,0.97)" }}>
                 <span className="block mb-2">"אנחנו לא מוכרים נכסים</span>
-                <span className="block" style={{ color: "#c79d2a" }}>– אנחנו בונים אמון, מלווים חלום"</span>
+                <span className="block" style={{ color: "#c79d2a" }}>אנחנו בונים אמון, מלווים חלום"</span>
               </h3>
 
               <div className="max-w-3xl mx-auto mb-8">
@@ -162,14 +162,7 @@ export default function ValuesSection() {
                 <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#c79d2a" }} />
                 <div className="h-px w-20 opacity-40" style={{ backgroundColor: "#c79d2a" }} />
               </div>
-
-              <div
-                className="mx-auto h-2 w-32 rounded-full"
-                style={{
-                  background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.4) 50%, #c79d2a 100%)",
-                  boxShadow: "0 4px 20px rgba(199,157,42,0.35)",
-                }}
-              />
+              
             </div>
           </LuxuryCard>
         </motion.div>

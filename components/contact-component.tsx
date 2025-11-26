@@ -25,7 +25,7 @@ export default function ContactComponent() {
       <div className="container mx-auto px-6 relative z-10">
         <SectionHeader
           title="צור קשר"
-          subtitle="אנחנו כאן כדי לענות על כל שאלה ולעזור לך למצוא את הנכס המושלם. צור איתנו קשר בכל אחת מהדרכים הבאות."
+          subtitle="אנחנו כאן כדי לענות על כל שאלה ולעזור לך. צור איתנו קשר בכל אחת מהדרכים הבאות."
           className="mt-10"
         />
 

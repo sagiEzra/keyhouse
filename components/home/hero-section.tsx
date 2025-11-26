@@ -71,7 +71,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative flex items-center justify-center overflow-hidden pt-24 md:pt-28 pb-12"
+      className="relative min-h-[95vh] md:min-h-[110vh] flex items-center justify-center overflow-hidden pt-24 md:pt-28 pb-12"
       style={{
         background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
       }}
@@ -98,11 +98,11 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 text-center text-white">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 py-8 text-center text-white">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
-          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 40 }}
+          transition={{ duration: 0.8 }}
           className="mb-8 relative"
         >
           {/* Logo glow effect */}
@@ -123,9 +123,9 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
-          transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 40 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-8 font-serif text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight text-white"
           style={{
             textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)"
@@ -145,9 +145,9 @@ export default function HeroSection() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isLoaded ? 1 : 0 }}
-          transition={{ delay: 1.0, duration: 0.8 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 40 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="mx-auto mb-10 max-w-4xl text-xl text-blue-100 md:text-2xl font-light leading-relaxed"
           style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}
         >
@@ -160,15 +160,15 @@ export default function HeroSection() {
             background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 50%, #c79d2a 100%)",
             boxShadow: "0 4px 20px rgba(199,157,42,0.4), 0 2px 10px rgba(199,157,42,0.2)",
           }}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: isLoaded ? 1 : 0 }}
-          transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 40 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
-          transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 40 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-16"
         >
           <a href="#services-grid">

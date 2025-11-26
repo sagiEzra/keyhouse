@@ -84,7 +84,7 @@ export default function PropertyManagementPage() {
         />
       </ServiceSection>
 
-      <StatsSection
+      {/* <StatsSection
         title="למה לבחור בשירותי ניהול הנכסים שלנו?"
         description="הנתונים מדברים בעד עצמם - אנחנו מביאים תוצאות"
         stats={[
@@ -93,7 +93,7 @@ export default function PropertyManagementPage() {
           { value: 15, label: "עלייה ממוצעת בתשואה לאחר שנה של ניהול", type: 'precentage' },
           { value: 0, label: "ימי עיכוב בתשלומים לבעלי הנכסים" },
         ]}
-      />
+      /> */}
 
       <CTASection
         title="תן לנכס שלך לעבוד - אנחנו נדאג לכל השאר"
