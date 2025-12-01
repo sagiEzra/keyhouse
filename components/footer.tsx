@@ -66,7 +66,7 @@ export default function Footer() {
             </div>
             
             <p className="text-lg font-light text-center md:text-right leading-relaxed max-w-sm mb-4" style={{ color: "rgba(25,39,74,0.85)" }}>
-              הבית שלך בנדל״ן באילת
+              סוכנות הנדל״ן שלך באילת
             </p>
 
             {/* Clean decorative accent line */}
@@ -181,7 +181,7 @@ export default function Footer() {
                   color: "rgba(25,39,74,0.97)",
                   textShadow: "0 2px 8px rgba(25,39,74,0.15)"
                 }}>
-              בואו נתחבר
+              בואו נדבר
               {/* Underline accent */}
               <div className="absolute bottom-0 left-0 w-8 h-0.5 rounded-full mt-2 opacity-60 group-hover:w-16 group-hover:opacity-100 transition-all duration-500"
                    style={{ backgroundColor: "#c79d2a" }} />
@@ -444,7 +444,7 @@ export default function Footer() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col items-center gap-4">
             <p className="font-light tracking-wide text-base" style={{ color: "rgba(25,39,74,0.85)" }}>
-              © {new Date().getFullYear()} KeyHouse נדל״ן. כל הזכויות שמורות.
+              © {new Date().getFullYear()} KeyHouse Eilat נדל״ן. כל הזכויות שמורות.
             </p>
             
             {/* Decorative separator - now centered */}

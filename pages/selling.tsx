@@ -94,7 +94,7 @@ export default function SellingPage() {
           { value: 98, label: "לקוחות מרוצים חוזרים והמלצות אישיות", type: 'precentage' },
           { value: 87, label: "מהנכסים נמכרים במחיר היעד או מעליו ! על ידי הערכת שוק ותמחור אסטרטגי", type: 'precentage' },
           { value: 86, label: "מעסקאות המכירה בבלעדיות מלאה", type: 'precentage' },
-          { value: 45, label: "יום בממוצע מתחילת ההשקה - להצעה הראשונה" },
+          { value: 45, label: "יום בממוצע מתחילת השיווק - להצעה הראשונה" },
         ]}
       />
 

@@ -230,8 +230,8 @@ export default function PropertyValuation() {
               },
               {
                 number: "03",
-                title: "קבל הערכת שווי נכס מפורטת",
-                description: "תקבל הערכת שווי נכס מקצועית ואפשרות להמשיך למכירה"
+                title: "קבל הערכת שווי שוק לנכס שלך",
+                description: "תקבל הערכת שווי שוק ואפשרות להמשיך למכירה"
               }
             ].map((step, index) => (
               <motion.div

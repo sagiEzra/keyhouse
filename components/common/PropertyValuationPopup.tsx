@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { motion, AnimatePresence } from "framer-motion"
-import { FaTimes } from "react-icons/fa"
+import { FaArrowDown, FaTimes } from "react-icons/fa"
 import LuxuryButton from "@/components/ui/luxury-button"
 
 const POPUP_STORAGE_KEY = "propertyValuationPopupLastShown"
@@ -102,7 +102,8 @@ export function PropertyValuationPopup() {
               </p>
 
               <LuxuryButton onClick={handleNavigate} className="w-full justify-center">
-                קבל הערכת שווי עכשיו
+                 אני רוצה הערכה ראשונית
+                <FaArrowDown className="mr-2 h-5 w-5 animate-bounce" />
               </LuxuryButton>
 
               <button

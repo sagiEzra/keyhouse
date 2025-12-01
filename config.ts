@@ -8,8 +8,8 @@ export const businessStaticData = {
     },
     location: 'אנפה 1 | מרכז מור | אילת',
     social: {
-        email: 'rk.keyhouse@gmail.com',
-        emailLink: 'mailto:rk.keyhouse@gmail.com',
+        email: 'rk@keyhouse.co.il',
+        emailLink: 'mailto:rk@keyhouse.co.il',
         facebook: "https://www.facebook.com/Keyhouseeilat",
         instagram: "https://www.instagram.com/rotemkahloun_realestate",
     }
