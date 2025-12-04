@@ -18,7 +18,7 @@ export default function BuyingPage() {
       <ServiceHero
         title="הדרך הבטוחה והחכמה - לקנות נכס"
         subtitle="מתחילה מכאן - משלב החלום ועד המפתח"
-        image="/images/homeServices/buying2.jpg"
+        image="/images/homeServices/buying3.jpg"
         imageAlt="קניית נכס עם KeyHouse"
       />
 

@@ -193,7 +193,7 @@ export default function CatalogPage() {
       <LuxuryBackground
         variant="hero"
         className="flex items-center justify-center"
-        backgroundImage="/images/homeServices/catalog.png"
+        backgroundImage="/images/catalogPage/hero2.png"
         imageAlt="Property Catalog - Keyhouse Real Estate"
         overlayOpacity={0.65}
       >
