@@ -26,7 +26,7 @@ export default function BuyingPage() {
         title="קנייה בטוחה וחכמה"
         description="רכישת נכס היא אחת ההחלטות הפיננסיות המשמעותיות ביותר בחיים, ואנחנו כאן כדי לוודא שתעשה את זה נכון. הליווי המקצועי שלנו מבטיח שלא תיפול בפח ותקבל את הנכס המתאים ביותר עבורך, במחיר הוגן ובתנאים הטובים ביותר."
         icon={<ShieldCheck className="h-8 w-8" />}
-        image="/images/buyingpage/1.jpg"
+        image="/images/buyingPage/1.jpg"
         imageAlt="קנייה בטוחה של נכס"
       >
         <ChecklistContent
@@ -43,7 +43,7 @@ export default function BuyingPage() {
         title="התאמה מדויקת לצרכים שלך"
         description="אנחנו לא מבזבזים את הזמן שלך על נכסים שלא רלוונטיים עבורך. תהליך העבודה שלנו מתחיל בהבנה מעמיקה של הצרכים, הרצונות והתקציב שלך, ורק אז אנחנו מתחילים לחפש את הנכס המושלם עבורך."
         icon={<Search className="h-8 w-8" />}
-        image="/images/buyingpage/2.jpg"
+        image="/images/buyingPage/2.jpg"
         imageAlt="התאמה מדויקת של נכס"
         reverse={true}
       >
@@ -62,7 +62,7 @@ export default function BuyingPage() {
         title="תהליך יעיל וחסכוני"
         description="אנחנו יודעים שהזמן שלך יקר, ולכן אנחנו עובדים בצורה יעילה ומדויקת כדי לחסוך לך זמן, כסף וכאבי ראש. התהליך שלנו מתוכנן כך שתוכל להגיע להחלטה מושכלת במהירות האפשרית, מבלי להתפשר על איכות."
         icon={<Clock className="h-8 w-8" />}
-        image="/images/buyingpage/3.jpg"
+        image="/images/buyingPage/3.jpg"
         imageAlt="תהליך יעיל לקניית נכס"
       >
         <FeatureGrid
