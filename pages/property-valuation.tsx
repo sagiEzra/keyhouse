@@ -98,7 +98,13 @@ export default function PropertyValuation() {
       </Head>
 
       {/* Hero Section */}
-      <LuxuryBackground variant="hero" className="flex items-center justify-center">
+      <LuxuryBackground
+        variant="hero"
+        className="flex items-center justify-center"
+        backgroundImage="/images/valuationPage/hero.jpg"
+        imageAlt="Property Valuation Service - Keyhouse"
+        overlayOpacity={0.65}
+      >
         <div className="container mx-auto px-6 relative z-10 text-center py-20">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}

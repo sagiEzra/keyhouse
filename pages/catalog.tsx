@@ -190,7 +190,13 @@ export default function CatalogPage() {
       </Head>
 
       {/* Hero Section */}
-      <LuxuryBackground variant="hero" className="flex items-center justify-center">
+      <LuxuryBackground
+        variant="hero"
+        className="flex items-center justify-center"
+        backgroundImage="/images/homeServices/catalog.png"
+        imageAlt="Property Catalog - Keyhouse Real Estate"
+        overlayOpacity={0.65}
+      >
         <div className="container mx-auto px-6 relative z-10 text-center py-20">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}

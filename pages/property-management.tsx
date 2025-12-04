@@ -22,7 +22,7 @@ export default function PropertyManagementPage() {
       <ServiceHero
         title="השקעת בנדל״ן? עכשיו תן לנו לנהל את זה כמו שצריך"
         subtitle="ניהול נכסים מקצועי שנותן לך ראש שקט וביטחון"
-        image="/images/properties-card.jpg"
+        image="/images/homeServices/managing.jpg"
         imageAlt="ניהול נכסים עם KeyHouse"
       />
 
@@ -30,7 +30,7 @@ export default function PropertyManagementPage() {
         title="ניהול מקצה לקצה"
         description="אנחנו מטפלים בכל ההיבטים של ניהול הנכס שלך, מפרסום הנכס ומציאת שוכרים איכותיים, דרך גבייה ותחזוקה שוטפת, ועד לטיפול בכל בעיה שעלולה להתעורר. כל זאת תוך שמירה על שקיפות מלאה מולך כבעלים."
         icon={<LayoutGrid className="h-8 w-8" />}
-        image="/images/full-management.jpg"
+        image="/images/managingpage/1.jpg"
         imageAlt="ניהול נכסים מקצה לקצה"
       >
         <ChecklistContent
@@ -47,7 +47,7 @@ export default function PropertyManagementPage() {
         title="שמירה על הנכס וההשקעה"
         description="הנכס שלך הוא השקעה יקרה, ואנחנו מתייחסים אליו בהתאם. אנחנו מטפלים בתחזוקה שוטפת, מזמינים אנשי מקצוע שמתקנים תקלות במהירות וביעילות, כדי לשמור על ערך הנכס שלך לאורך זמן."
         icon={<Wrench className="h-8 w-8" />}
-        image="/images/property-maintenance.jpg"
+        image="/images/managingpage/2.png"
         imageAlt="שמירה על נכסים"
         reverse={true}
       >
@@ -65,7 +65,7 @@ export default function PropertyManagementPage() {
         title="שקיפות ושקט נפשי"
         description="עם שירות ניהול הנכסים שלנו, אתה יכול להיות רגוע ולדעת שהנכס שלך בידיים טובות."
         icon={<BarChart className="h-8 w-8" />}
-        image="/images/peace-of-mind.jpg"
+        image="/images/managingpage/3.jpg"
         imageAlt="שקט נפשי בניהול נכסים"
       >
         <HighlightCards

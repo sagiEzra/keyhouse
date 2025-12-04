@@ -18,7 +18,7 @@ export default function SellingPage() {
       <ServiceHero
         title="למכור את הנכס שלך, בלי דאגות"
         subtitle="עם ליווי אישי, אסטרטגיית שיווק חכמה - ותוצאות שמדברות בעד עצמן"
-        image="/images/buying-card.jpg"
+        image="/images/homeServices/selling.png"
         imageAlt="מכירת נכס עם KeyHouse"
       />
 
@@ -26,7 +26,7 @@ export default function SellingPage() {
         title="שיווק מדויק שמוכר"
         description="אנחנו לא סתם מפרסמים את הנכס שלך - אנחנו בונים אסטרטגיית שיווק מותאמת אישית שמביאה תוצאות. מהצילום המקצועי, דרך הטקסטים המשכנעים ועד לפרסום הממוקד - אנחנו יודעים איך להציג את הנכס שלך בצורה הטובה ביותר ולהביא את הקונים הנכונים."
         icon={<Target className="h-8 w-8" />}
-        image="/images/buying-card.jpg"
+        image="/images/sellingpage/1.jpg"
         imageAlt="שיווק נכסים מקצועי"
       >
         <ChecklistContent
@@ -43,7 +43,7 @@ export default function SellingPage() {
         title="תמחור שממקסם רווח"
         description="התמחור הנכון הוא אחד הגורמים המשמעותיים ביותר בהצלחת מכירת נכס. עם ניסיון של מעל לעשור בשוק הנדל״ן באילת, אנחנו יודעים בדיוק איך לתמחר את הנכס שלך כדי למקסם את הרווח שלך ולמכור במהירות האופטימלית."
         icon={<TrendingUp className="h-8 w-8" />}
-        image="/images/buying-card.jpg"
+        image="/images/sellingpage/2.jpg"
         imageAlt="תמחור נכסים מקצועי"
         reverse={true}
       >
@@ -62,7 +62,7 @@ export default function SellingPage() {
         title="ליווי מלא לאורך כל הדרך"
         description="אנחנו לא רק מוצאים קונה לנכס שלך - אנחנו מלווים אותך לאורך כל התהליך, מהרגע הראשון ועד לחתימה על החוזה ומסירת המפתחות. הניסיון שלנו מבטיח שתקבל את הליווי המקצועי ביותר, תוך שמירה על האינטרסים שלך בכל שלב."
         icon={<Shield className="h-8 w-8" />}
-        image="/images/buying-card.jpg"
+        image="/images/sellingpage/3.jpg"
         imageAlt="ליווי מלא במכירת נכס"
       >
         <FeatureGrid
