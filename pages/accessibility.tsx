@@ -244,13 +244,36 @@ export default function AccessibilityPage() {
               </div>
 
               {/* עדכון הצהרת נגישות */}
-              <div className="border-t pt-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
                   עדכון הצהרת נגישות
                 </h2>
                 <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
                   הצהרה זו עודכנה לאחרונה בתאריך <span className="font-bold">17/11/25</span>. אנו ממשיכים לשפר את נגישות האתר ונשמח לקבל את משובכם.
                 </p>
+              </div>
+
+              {/* Contact Section */}
+              <div className="border-t pt-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                <div className="p-8 rounded-2xl"
+                     style={{
+                       background: "linear-gradient(135deg, rgba(199,157,42,0.08) 0%, rgba(255,255,255,0.95) 50%, rgba(199,157,42,0.05) 100%)"
+                     }}>
+                  <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
+                    שאלות נוספות?
+                  </h2>
+                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
+                    לכל שאלה או בירור נוסף בנוגע להצהרת הנגישות, אנא{" "}
+                    <a
+                      href="/contact"
+                      className="font-bold transition-colors duration-300 hover:opacity-80"
+                      style={{ color: "#c79d2a" }}
+                    >
+                      צרו איתנו קשר
+                    </a>
+                    .
+                  </p>
+                </div>
               </div>
             </LuxuryCard>
           </motion.div>

@@ -8,7 +8,7 @@ export default function AboutHero() {
     <LuxuryBackground
       variant="hero"
       className="flex items-center justify-center"
-      backgroundImage="/images/aboutPage/hero.png"
+      backgroundImage="/images/aboutPage/hero2.png"
       imageAlt="Keyhouse Real Estate Agency - About Us"
       overlayOpacity={0.65}
     >

@@ -458,8 +458,8 @@ export default function Footer() {
               נבנה באהבה עבור לקוחותינו
             </p>
 
-            {/* Accessibility Link */}
-            <div className="mt-4">
+            {/* Links */}
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="/accessibility"
                 className="text-sm transition-colors duration-300 hover:text-[#c79d2a] underline"
@@ -467,6 +467,34 @@ export default function Footer() {
               >
                 הצהרת נגישות
               </Link>
+              <span style={{ color: "rgba(25,39,74,0.4)" }}>•</span>
+              <Link
+                href="/privacy"
+                className="text-sm transition-colors duration-300 hover:text-[#c79d2a] underline"
+                style={{ color: "rgba(25,39,74,0.7)" }}
+              >
+                מדיניות פרטיות
+              </Link>
+              <span style={{ color: "rgba(25,39,74,0.4)" }}>•</span>
+              <Link
+                href="/terms"
+                className="text-sm transition-colors duration-300 hover:text-[#c79d2a] underline"
+                style={{ color: "rgba(25,39,74,0.7)" }}
+              >
+                תקנון ותנאי שימוש
+              </Link>
+              <span style={{ color: "rgba(25,39,74,0.4)" }}>•</span>
+              <button
+                onClick={() => {
+                  // Trigger cookie preferences modal
+                  const event = new CustomEvent('openCookiePreferences')
+                  window.dispatchEvent(event)
+                }}
+                className="text-sm transition-colors duration-300 hover:text-[#c79d2a] underline"
+                style={{ color: "rgba(25,39,74,0.7)" }}
+              >
+                העדפות קוקיז
+              </button>
             </div>
           </div>
         </div>
