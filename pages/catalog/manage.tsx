@@ -12,6 +12,7 @@ import Link from 'next/link';
 import LuxuryButton from '../../components/ui/luxury-button';
 import LuxuryCard from '../../components/ui/luxury-card';
 import LuxuryBackground from '../../components/ui/luxury-background';
+import { deleteFromCloudinary } from '../../lib/cloudinary';
 
 export default function ManagePage() {
   const router = useRouter();
@@ -87,10 +88,40 @@ export default function ManagePage() {
   const handleDeleteProperty = async (propertyId: string) => {
     if (window.confirm('האם אתה בטוח שברצונך למחוק נכס זה?')) {
       try {
+        // Get property data to find media public IDs
+        const propertyDoc = await getDoc(doc(db, 'properties', propertyId));
+        if (propertyDoc.exists()) {
+          const propertyData = propertyDoc.data() as Property;
+          const publicIdsToDelete: string[] = [];
+
+          // Collect main image public ID
+          if (propertyData.mainImagePublicId) {
+            publicIdsToDelete.push(propertyData.mainImagePublicId);
+          }
+
+          // Collect additional images public IDs
+          if (propertyData.imagePublicIds && propertyData.imagePublicIds.length > 0) {
+            publicIdsToDelete.push(...propertyData.imagePublicIds.filter(id => id));
+          }
+
+          // Delete media from Cloudinary
+          if (publicIdsToDelete.length > 0) {
+            try {
+              await deleteFromCloudinary(publicIdsToDelete);
+            } catch (cloudinaryError) {
+              console.error('Error deleting media from Cloudinary:', cloudinaryError);
+              // Continue with property deletion even if Cloudinary deletion fails
+            }
+          }
+        }
+
+        // Delete property from Firestore
         await deleteDoc(doc(db, 'properties', propertyId));
         setProperties(properties.filter(p => p.id !== propertyId));
+        alert('הנכס נמחק בהצלחה!');
       } catch (error) {
         console.error('Error deleting property:', error);
+        alert('שגיאה במחיקת הנכס, נסה שוב');
       }
     }
   };
@@ -311,7 +342,7 @@ export default function ManagePage() {
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
                       <div className="flex flex-col sm:flex-row sm:items-start gap-6">
                         <img
-                          src={property.images[0] || '/images/image2.jpg'}
+                          src={property.mainImage || '/images/keyhouse.jpg'}
                           alt={property.title}
                           className="w-full h-48 sm:w-40 sm:h-40 object-cover rounded-2xl shadow-lg"
                         />

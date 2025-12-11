@@ -24,6 +24,7 @@ import {
   FaBuilding,
   FaChevronLeft,
   FaChevronRight,
+  FaPlay,
 } from "react-icons/fa"
 
 const propertyFeatures = {
@@ -45,6 +46,28 @@ export default function PropertyDetailPage() {
   const [property, setProperty] = useState<Property | null>(null)
   const [loading, setLoading] = useState(true)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  // Helper functions for media
+  const isVideo = (url: string) => {
+    return /\.(mp4|mov|avi|webm)$/i.test(url) || url.includes('/video/')
+  }
+
+  const getAllMedia = () => {
+    if (!property) return []
+    const media = []
+    if (property.mainImage) {
+      media.push({ url: property.mainImage, type: property.mainImageType || 'image' })
+    }
+    if (property.images && property.images.length > 0) {
+      property.images.forEach(url => {
+        media.push({ url, type: isVideo(url) ? 'video' : 'image' })
+      })
+    }
+    return media
+  }
+
+  const currentMedia = getAllMedia()
+  const totalMedia = currentMedia.length
 
   useEffect(() => {
     if (slug) {
@@ -75,13 +98,11 @@ export default function PropertyDetailPage() {
   }
 
   const nextImage = () => {
-    if (!property) return
-    setCurrentImageIndex((prev) => (prev === property.images.length - 1 ? 0 : prev + 1))
+    setCurrentImageIndex((prev) => (prev === currentMedia.length - 1 ? 0 : prev + 1))
   }
 
   const prevImage = () => {
-    if (!property) return
-    setCurrentImageIndex((prev) => (prev === 0 ? property.images.length - 1 : prev - 1))
+    setCurrentImageIndex((prev) => (prev === 0 ? currentMedia.length - 1 : prev - 1))
   }
 
   const copyLink = () => {
@@ -197,19 +218,30 @@ export default function PropertyDetailPage() {
                 <div className="relative group">
                   <div className="relative overflow-hidden rounded-3xl shadow-2xl">
                     <div className="relative bg-white p-4 rounded-3xl">
-                      <img
-                        src={property.images[currentImageIndex] || "/images/image2.jpg"}
-                        alt={property.title}
-                        className="w-full h-[500px] object-cover rounded-2xl transition-all duration-500"
-                        style={{
-                          boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)",
-                        }}
-                      />
+                      {currentMedia[currentImageIndex]?.type === 'video' ? (
+                        <video
+                          src={currentMedia[currentImageIndex]?.url}
+                          controls
+                          className="w-full h-[500px] object-cover rounded-2xl transition-all duration-500"
+                          style={{
+                            boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)",
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src={currentMedia[currentImageIndex]?.url || "/images/image2.jpg"}
+                          alt={property.title}
+                          className="w-full h-[500px] object-cover rounded-2xl transition-all duration-500"
+                          style={{
+                            boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)",
+                          }}
+                        />
+                      )}
                     </div>
                   </div>
 
                   {/* Navigation Arrows */}
-                  {property.images.length > 1 && (
+                  {currentMedia.length > 1 && (
                     <>
                       <button
                         onClick={prevImage}
@@ -260,9 +292,9 @@ export default function PropertyDetailPage() {
                 </div>
 
                 {/* Thumbnail Gallery */}
-                {property.images.length > 1 && (
+                {currentMedia.length > 1 && (
                   <div className="grid grid-cols-4 gap-3">
-                    {property.images.map((image, index) => (
+                    {currentMedia.map((media, index) => (
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
@@ -273,7 +305,16 @@ export default function PropertyDetailPage() {
                           boxShadow: index === currentImageIndex ? "0 4px 12px rgba(199,157,42,0.4)" : "0 2px 8px rgba(25,39,74,0.1)",
                         }}
                       >
-                        <img src={image} alt={`תמונה ${index + 1}`} className="w-full h-20 object-cover" />
+                        {media.type === 'video' ? (
+                          <div className="relative">
+                            <video src={media.url} className="w-full h-20 object-cover" />
+                            <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                              <FaPlay className="h-6 w-6" style={{ color: '#ffffff' }} />
+                            </div>
+                          </div>
+                        ) : (
+                          <img src={media.url} alt={`מדיה ${index + 1}`} className="w-full h-20 object-cover" />
+                        )}
                       </button>
                     ))}
                   </div>

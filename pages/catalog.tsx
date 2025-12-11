@@ -531,7 +531,7 @@ export default function CatalogPage() {
                       {/* Image */}
                       <div className="relative h-64 overflow-hidden">
                         <img
-                          src={property.images[0] || "/images/image2.jpg"}
+                          src={property.mainImage || "/images/keyhouse.jpg"}
                           alt={property.title}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
@@ -703,7 +703,7 @@ export default function CatalogPage() {
                       {/* Image */}
                       <div className="relative h-64 overflow-hidden">
                         <img
-                          src={property.images[0] || "/images/image2.jpg"}
+                          src={property.mainImage || "/images/keyhouse.jpg"}
                           alt={property.title}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />

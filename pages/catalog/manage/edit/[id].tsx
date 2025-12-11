@@ -4,18 +4,17 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { collection, doc, getDoc, updateDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../../../lib/firebase';
 import { Property, PropertyFormData } from '../../../../types/property';
-import { Card, CardContent, CardHeader, CardTitle } from '../../../../components/ui/card';
-import { Button } from '../../../../components/ui/button';
 import { Input } from '../../../../components/ui/input';
 import { Label } from '../../../../components/ui/label';
 import { Textarea } from '../../../../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../../components/ui/select';
 import { Checkbox } from '../../../../components/ui/checkbox';
-import { FaArrowRight, FaPlus, FaTimes, FaSave, FaHome, FaImage, FaEdit } from 'react-icons/fa';
-import Link from 'next/link';
+import { FaArrowRight, FaSave, FaHome, FaImage } from 'react-icons/fa';
 import LuxuryButton from '../../../../components/ui/luxury-button';
 import LuxuryCard from '../../../../components/ui/luxury-card';
 import LuxuryBackground from '../../../../components/ui/luxury-background';
+import MediaUploader from '../../../../components/cloudinary/MediaUploader';
+import { UploadedMedia, deleteFromCloudinary } from '../../../../lib/cloudinary';
 
 export default function EditPropertyPage() {
   const router = useRouter();
@@ -23,6 +22,10 @@ export default function EditPropertyPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [property, setProperty] = useState<Property | null>(null);
+  const [mainMedia, setMainMedia] = useState<UploadedMedia[]>([]);
+  const [additionalMedia, setAdditionalMedia] = useState<UploadedMedia[]>([]);
+  const [originalMainPublicId, setOriginalMainPublicId] = useState<string | null>(null);
+  const [originalImagePublicIds, setOriginalImagePublicIds] = useState<string[]>([]);
   const [formData, setFormData] = useState<PropertyFormData>({
     title: '',
     type: 'sale',
@@ -91,11 +94,35 @@ export default function EditPropertyPage() {
   const fetchProperty = async () => {
     try {
       if (typeof id !== 'string') return;
-      
+
       const propertyDoc = await getDoc(doc(db, 'properties', id));
       if (propertyDoc.exists()) {
         const propertyData = { id: propertyDoc.id, ...propertyDoc.data() } as Property;
         setProperty(propertyData);
+
+        // Load existing main media
+        if (propertyData.mainImage) {
+          setMainMedia([{
+            url: propertyData.mainImage,
+            publicId: propertyData.mainImagePublicId || '',
+            type: propertyData.mainImageType || 'image',
+            isTemporary: false
+          }]);
+          setOriginalMainPublicId(propertyData.mainImagePublicId || null);
+        }
+
+        // Load existing additional media
+        if (propertyData.images && propertyData.images.length > 0) {
+          const loadedMedia: UploadedMedia[] = propertyData.images.map((url, index) => ({
+            url,
+            publicId: propertyData.imagePublicIds?.[index] || '',
+            type: url.includes('/video/') ? 'video' : 'image',
+            isTemporary: false
+          }));
+          setAdditionalMedia(loadedMedia);
+          setOriginalImagePublicIds(propertyData.imagePublicIds || []);
+        }
+
         setFormData({
           title: propertyData.title,
           type: propertyData.type,
@@ -127,9 +154,7 @@ export default function EditPropertyPage() {
           nofLayam: propertyData.nofLayam || false,
           masterRoom: propertyData.masterRoom || false,
           closetRoom: propertyData.closetRoom || false,
-          balconySize: propertyData.balconySize || 0,
-          contactPhone: propertyData.contactPhone || '',
-          contactEmail: propertyData.contactEmail || ''
+          balconySize: propertyData.balconySize || 0
         });
       } else {
         router.push('/catalog/manage');
@@ -147,23 +172,6 @@ export default function EditPropertyPage() {
     }));
   };
 
-  const handleImageAdd = () => {
-    const imageUrl = prompt('הכנס כתובת URL של התמונה:');
-    if (imageUrl && imageUrl.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        images: [...prev.images, imageUrl.trim()]
-      }));
-    }
-  };
-
-  const handleImageRemove = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      images: prev.images.filter((_, i) => i !== index)
-    }));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -171,12 +179,45 @@ export default function EditPropertyPage() {
     try {
       if (typeof id !== 'string') return;
 
+      // Determine which media to delete from Cloudinary
+      const publicIdsToDelete: string[] = [];
+
+      // Check if main image changed
+      if (originalMainPublicId && (!mainMedia.length || mainMedia[0].publicId !== originalMainPublicId)) {
+        publicIdsToDelete.push(originalMainPublicId);
+      }
+
+      // Check which additional images were removed
+      const currentPublicIds = additionalMedia.map(m => m.publicId);
+      originalImagePublicIds.forEach(originalId => {
+        if (originalId && !currentPublicIds.includes(originalId)) {
+          publicIdsToDelete.push(originalId);
+        }
+      });
+
+      // Delete old media from Cloudinary if any
+      if (publicIdsToDelete.length > 0) {
+        try {
+          await deleteFromCloudinary(publicIdsToDelete);
+        } catch (deleteError) {
+          console.error('Error deleting old media:', deleteError);
+          // Continue with update even if deletion fails
+        }
+      }
+
+      // Prepare property data with new media
       const propertyData = {
         ...formData,
+        mainImage: mainMedia.length > 0 ? mainMedia[0].url : undefined,
+        mainImageType: mainMedia.length > 0 ? mainMedia[0].type : undefined,
+        mainImagePublicId: mainMedia.length > 0 ? mainMedia[0].publicId : undefined,
+        images: additionalMedia.map(media => media.url),
+        imagePublicIds: additionalMedia.map(media => media.publicId),
         updatedAt: serverTimestamp()
       };
 
       await updateDoc(doc(db, 'properties', id), propertyData);
+      alert('הנכס עודכן בהצלחה!');
       router.push('/catalog/manage');
     } catch (error) {
       console.error('Error updating property:', error);
@@ -208,14 +249,20 @@ export default function EditPropertyPage() {
 
   if (!property) {
     return (
-      <div dir="rtl" className="min-h-screen bg-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">הנכס לא נמצא</h1>
-          <Link href="/catalog/manage">
-            <Button>חזור לניהול</Button>
-          </Link>
+      <LuxuryBackground variant="light" className="flex min-h-screen items-center justify-center pt-20">
+        <div className="container mx-auto px-6 text-center">
+          <LuxuryCard className="py-20 px-8">
+            <FaHome className="mx-auto mb-6 h-24 w-24" style={{ color: "rgba(25,39,74,0.3)" }} />
+            <h1 className="text-3xl font-serif font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+              הנכס לא נמצא
+            </h1>
+            <p className="text-lg mb-8" style={{ color: "rgba(25,39,74,0.7)" }}>
+              הנכס שחיפשת אינו קיים או שהוסר מהמערכת
+            </p>
+            <LuxuryButton href="/catalog/manage">חזור לניהול</LuxuryButton>
+          </LuxuryCard>
         </div>
-      </div>
+      </LuxuryBackground>
     );
   }
 
@@ -564,39 +611,7 @@ export default function EditPropertyPage() {
               </div>
             </LuxuryCard>
 
-            {/* Contact Information */}
-            <LuxuryCard hoverable={false}>
-              <div className="mb-6">
-                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>פרטי קשר</h3>
-              </div>
-              <div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <Label htmlFor="contactPhone">טלפון</Label>
-                    <Input
-                      id="contactPhone"
-                      value={formData.contactPhone}
-                      onChange={(e) => handleInputChange('contactPhone', e.target.value)}
-                      placeholder="מספר טלפון"
-                      className="mt-2"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="contactEmail">אימייל</Label>
-                    <Input
-                      id="contactEmail"
-                      type="email"
-                      value={formData.contactEmail}
-                      onChange={(e) => handleInputChange('contactEmail', e.target.value)}
-                      placeholder="כתובת אימייל"
-                      className="mt-2"
-                    />
-                  </div>
-                </div>
-              </div>
-            </LuxuryCard>
-
-            {/* Images */}
+            {/* Main Media */}
             <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
@@ -607,44 +622,43 @@ export default function EditPropertyPage() {
                        }}>
                     <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
                   </div>
-                  תמונות
+                  תמונה/וידאו ראשיים
                 </h3>
+                <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
+                  תמונה או סרטון ראשי שיוצג בכרטיס הנכס ובראש עמוד הפרטים
+                </p>
               </div>
-              <div>
-                <div className="space-y-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleImageAdd}
-                    className="flex items-center gap-2"
-                  >
-                    <FaPlus className="h-4 w-4" />
-                    הוסף תמונה
-                  </Button>
-                  {formData.images.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {formData.images.map((image, index) => (
-                        <div key={index} className="relative group">
-                          <img
-                            src={image}
-                            alt={`תמונה ${index + 1}`}
-                            className="w-full h-32 object-cover rounded-lg"
-                          />
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleImageRemove(index)}
-                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <FaTimes className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+              <MediaUploader
+                mode="main"
+                maxFiles={1}
+                currentMedia={mainMedia}
+                onMediaChange={setMainMedia}
+              />
+            </LuxuryCard>
+
+            {/* Additional Media */}
+            <LuxuryCard hoverable={false}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <div className="p-2 rounded-full"
+                       style={{
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                         border: "2px solid rgba(199,157,42,0.3)",
+                       }}>
+                    <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
+                  </div>
+                  תמונות/סרטונים נוספים
+                </h3>
+                <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
+                  תמונות וסרטונים נוספים שיוצגו בגלריית הנכס (עד 20 קבצים)
+                </p>
               </div>
+              <MediaUploader
+                mode="additional"
+                maxFiles={20}
+                currentMedia={additionalMedia}
+                onMediaChange={setAdditionalMedia}
+              />
             </LuxuryCard>
 
             {/* Description */}

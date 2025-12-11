@@ -6,7 +6,8 @@
       "Bash(timeout /t 3)",
       "Bash(nul)",
       "Bash(timeout:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

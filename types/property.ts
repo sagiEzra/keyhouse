@@ -22,7 +22,11 @@ export interface Property {
   secure?: boolean;
   immediate?: boolean;
   description: string;
+  mainImage?: string;
+  mainImageType?: 'image' | 'video';
+  mainImagePublicId?: string;
   images: string[];
+  imagePublicIds?: string[];
   createdAt: Timestamp;
   updatedAt: Timestamp;
   
@@ -62,8 +66,12 @@ export interface PropertyFormData {
   secure?: boolean;
   immediate?: boolean;
   description: string;
+  mainImage?: string;
+  mainImageType?: 'image' | 'video';
+  mainImagePublicId?: string;
   images: string[];
-  
+  imagePublicIds?: string[];
+
   // Additional fields
   isNew?: boolean;
   isDeal?: boolean;

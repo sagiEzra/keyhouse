@@ -4,23 +4,25 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { collection, addDoc, serverTimestamp, query, where, getDocs, getDoc, doc } from 'firebase/firestore';
 import { auth, db } from '../../../lib/firebase';
 import { PropertyFormData } from '../../../types/property';
-import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
-import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
 import { Textarea } from '../../../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
 import { Checkbox } from '../../../components/ui/checkbox';
-import { FaArrowRight, FaPlus, FaTimes, FaSave, FaHome, FaImage } from 'react-icons/fa';
+import { FaArrowRight, FaSave, FaHome, FaImage } from 'react-icons/fa';
 import Link from 'next/link';
 import LuxuryButton from '../../../components/ui/luxury-button';
 import LuxuryCard from '../../../components/ui/luxury-card';
 import LuxuryBackground from '../../../components/ui/luxury-background';
+import MediaUploader from '../../../components/cloudinary/MediaUploader';
+import { UploadedMedia } from '../../../lib/cloudinary';
 
 export default function AddPropertyPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [mainMedia, setMainMedia] = useState<UploadedMedia[]>([]);
+  const [additionalMedia, setAdditionalMedia] = useState<UploadedMedia[]>([]);
   const [formData, setFormData] = useState<PropertyFormData>({
     title: '',
     type: 'sale',
@@ -87,35 +89,25 @@ export default function AddPropertyPage() {
     }));
   };
 
-  const handleImageAdd = () => {
-    const imageUrl = prompt('הכנס כתובת URL של התמונה:');
-    if (imageUrl && imageUrl.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        images: [...prev.images, imageUrl.trim()]
-      }));
-    }
-  };
-
-  const handleImageRemove = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      images: prev.images.filter((_, i) => i !== index)
-    }));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
 
     try {
+      // Prepare property data with media URLs and public IDs
       const propertyData = {
         ...formData,
+        mainImage: mainMedia.length > 0 ? mainMedia[0].url : undefined,
+        mainImageType: mainMedia.length > 0 ? mainMedia[0].type : undefined,
+        mainImagePublicId: mainMedia.length > 0 ? mainMedia[0].publicId : undefined,
+        images: additionalMedia.map(media => media.url),
+        imagePublicIds: additionalMedia.map(media => media.publicId),
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
       };
 
       await addDoc(collection(db, 'properties'), propertyData);
+      alert('הנכס נוסף בהצלחה!');
       router.push('/catalog/manage');
     } catch (error) {
       console.error('Error adding property:', error);
@@ -490,7 +482,7 @@ export default function AddPropertyPage() {
               </div>
             </LuxuryCard>
 
-            {/* Images */}
+            {/* Main Media */}
             <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
@@ -501,44 +493,43 @@ export default function AddPropertyPage() {
                        }}>
                     <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
                   </div>
-                  תמונות
+                  תמונה/וידאו ראשיים
                 </h3>
+                <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
+                  תמונה או סרטון ראשי שיוצג בכרטיס הנכס ובראש עמוד הפרטים
+                </p>
               </div>
-              <div>
-                <div className="space-y-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleImageAdd}
-                    className="flex items-center gap-2"
-                  >
-                    <FaPlus className="h-4 w-4" />
-                    הוסף תמונה
-                  </Button>
-                  {formData.images.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {formData.images.map((image, index) => (
-                        <div key={index} className="relative group">
-                          <img
-                            src={image}
-                            alt={`תמונה ${index + 1}`}
-                            className="w-full h-32 object-cover rounded-lg"
-                          />
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleImageRemove(index)}
-                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <FaTimes className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+              <MediaUploader
+                mode="main"
+                maxFiles={1}
+                currentMedia={mainMedia}
+                onMediaChange={setMainMedia}
+              />
+            </LuxuryCard>
+
+            {/* Additional Media */}
+            <LuxuryCard hoverable={false}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <div className="p-2 rounded-full"
+                       style={{
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                         border: "2px solid rgba(199,157,42,0.3)",
+                       }}>
+                    <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
+                  </div>
+                  תמונות/סרטונים נוספים
+                </h3>
+                <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
+                  תמונות וסרטונים נוספים שיוצגו בגלריית הנכס (עד 20 קבצים)
+                </p>
               </div>
+              <MediaUploader
+                mode="additional"
+                maxFiles={20}
+                currentMedia={additionalMedia}
+                onMediaChange={setAdditionalMedia}
+              />
             </LuxuryCard>
 
             {/* Description */}
