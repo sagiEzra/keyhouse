@@ -196,7 +196,7 @@ export default function Header() {
                  }} />
 
             <Link
-              href={businessStaticData.phone.callLink}
+              href={businessStaticData.rotemPhone.callLink}
               className="relative flex items-center gap-3 rounded-full px-6 py-3 font-serif font-semibold text-lg transition-all duration-500 overflow-hidden"
               style={{
                 background: isScrolled
@@ -235,7 +235,7 @@ export default function Header() {
                    }} />
               
               <Phone className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-              <span className="relative z-10">{businessStaticData.phone.numberToDisplay}</span>
+              <span className="relative z-10">{businessStaticData.rotemPhone.numberToDisplay}</span>
             </Link>
           </motion.div>
 
@@ -429,7 +429,7 @@ export default function Header() {
                          }} />
 
                     <Link
-                      href={businessStaticData.phone.callLink}
+                      href={businessStaticData.rotemPhone.callLink}
                       onClick={() => setIsOpen(false)}
                       className="relative flex items-center justify-center gap-3 rounded-full px-8 py-4 font-serif font-semibold text-lg text-white shadow-xl transition-all duration-500 overflow-hidden"
                       style={{
@@ -445,7 +445,7 @@ export default function Header() {
                            }} />
                       
                       <Phone className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                      <span className="relative z-10">{businessStaticData.phone.numberToDisplay}</span>
+                      <span className="relative z-10">{businessStaticData.rotemPhone.numberToDisplay}</span>
                     </Link>
                   </motion.div>
 

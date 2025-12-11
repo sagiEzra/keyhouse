@@ -217,11 +217,11 @@ export default function Footer() {
                 
                 <div>
                   <a 
-                    href={`tel:+${businessStaticData.phone.israelNumber}`} 
+                    href={`tel:+${businessStaticData.rotemPhone.israelNumber}`} 
                     className="block font-serif text-lg font-medium transition-all duration-300 hover:drop-shadow-lg"
                     style={{ color: "rgba(25,39,74,0.97)" }}
                   >
-                    {businessStaticData.phone.numberToDisplay}
+                    {businessStaticData.rotemPhone.numberToDisplay}
                   </a>
                   <p className="text-sm opacity-60" style={{ color: "rgba(25,39,74,0.7)" }}>התקשרו עכשיו</p>
                 </div>
@@ -389,7 +389,7 @@ export default function Footer() {
                          }} />
                     
                     <a
-                      href={businessStaticData.phone.whatsappLink}
+                      href={businessStaticData.rotemPhone.whatsappLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative block rounded-full p-4 transition-all duration-500"

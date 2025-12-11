@@ -9,6 +9,7 @@ import Link from "next/link"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import LuxuryCard from "@/components/ui/luxury-card"
 import LuxuryButton from "@/components/ui/luxury-button"
+import { businessStaticData } from "@/config"
 import {
   FaArrowRight,
   FaMapMarkerAlt,
@@ -18,7 +19,6 @@ import {
   FaCar,
   FaCheck,
   FaPhone,
-  FaEnvelope,
   FaLink,
   FaWhatsapp,
   FaBuilding,
@@ -82,16 +82,6 @@ export default function PropertyDetailPage() {
   const prevImage = () => {
     if (!property) return
     setCurrentImageIndex((prev) => (prev === 0 ? property.images.length - 1 : prev - 1))
-  }
-
-  const shareProperty = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: property?.title,
-        text: `${property?.title} - ${property?.address}, ${property?.city}`,
-        url: window.location.href,
-      })
-    }
   }
 
   const copyLink = () => {
@@ -446,26 +436,57 @@ export default function PropertyDetailPage() {
                   מעוניינים בנכס?
                 </h2>
                 <p className="text-lg mb-6" style={{ color: "rgba(255,255,255,0.9)" }}>
-                  צור קשר עכשיו לפרטים נוספים ולתיאום צפייה
+                  צרו קשר עכשיו לפרטים נוספים ולתיאום צפייה
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a href={`tel:${property.contactPhone || "+972507890123"}`} className="flex-1">
-                    <LuxuryButton className="w-full">
-                      <FaPhone className="h-5 w-5 ml-2" />
-                      התקשר עכשיו
-                    </LuxuryButton>
-                  </a>
-                  <a
-                    href={`https://wa.me/972507890123?text=${encodeURIComponent(`שלום, אני מעוניין בנכס: ${property.title}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1"
-                  >
-                    <LuxuryButton variant="secondary" className="w-full">
-                      <FaWhatsapp className="h-5 w-5 ml-2" />
-                      WhatsApp
-                    </LuxuryButton>
-                  </a>
+
+                {/* Rotem's Contact */}
+                <div className="mb-6 pb-6 border-b border-white/20">
+                  <h3 className="text-xl font-bold mb-4" style={{ color: "#c79d2a" }}>
+                    רותם
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <a href={businessStaticData.rotemPhone.callLink}>
+                      <LuxuryButton className="w-full">
+                        <FaPhone className="h-4 w-4 ml-2" />
+                        {businessStaticData.rotemPhone.numberToDisplay}
+                      </LuxuryButton>
+                    </a>
+                    <a
+                      href={`${businessStaticData.rotemPhone.whatsappLink}?text=${encodeURIComponent(`שלום רותם, אני מעוניין בנכס: ${property.title}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <LuxuryButton variant="secondary" className="w-full">
+                        <FaWhatsapp className="h-4 w-4 ml-2" />
+                        WhatsApp
+                      </LuxuryButton>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Shiraz's Contact */}
+                <div>
+                  <h3 className="text-xl font-bold mb-4" style={{ color: "#c79d2a" }}>
+                    שירז
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <a href={businessStaticData.shirazPhone.callLink}>
+                      <LuxuryButton className="w-full">
+                        <FaPhone className="h-4 w-4 ml-2" />
+                        {businessStaticData.shirazPhone.numberToDisplay}
+                      </LuxuryButton>
+                    </a>
+                    <a
+                      href={`${businessStaticData.shirazPhone.whatsappLink}?text=${encodeURIComponent(`שלום שירז, אני מעוניין בנכס: ${property.title}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <LuxuryButton variant="secondary" className="w-full">
+                        <FaWhatsapp className="h-4 w-4 ml-2" />
+                        WhatsApp
+                      </LuxuryButton>
+                    </a>
+                  </div>
                 </div>
               </LuxuryCard>
             </motion.div>

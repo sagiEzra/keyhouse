@@ -27,8 +27,8 @@ export default function AddPropertyPage() {
     category: 'apartment',
     price: 0,
     address: '',
-    city: '',
-    rooms: 1,
+    city: 'אילת',
+    rooms: 3,
     floor: 1,
     size: 0,
     balcony: false,
@@ -52,9 +52,7 @@ export default function AddPropertyPage() {
     nofLayam: false,
     masterRoom: false,
     closetRoom: false,
-    balconySize: 0,
-    contactPhone: '',
-    contactEmail: ''
+    balconySize: 0
   });
 
   useEffect(() => {
@@ -184,7 +182,7 @@ export default function AddPropertyPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
                   <div className="p-2 rounded-full"
@@ -317,7 +315,7 @@ export default function AddPropertyPage() {
             </LuxuryCard>
 
             {/* Features */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>מאפיינים</h3>
               </div>
@@ -448,7 +446,7 @@ export default function AddPropertyPage() {
             </LuxuryCard>
 
             {/* Special Tags */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>תגיות מיוחדות</h3>
               </div>
@@ -492,40 +490,8 @@ export default function AddPropertyPage() {
               </div>
             </LuxuryCard>
 
-            {/* Contact Information */}
-            <LuxuryCard>
-              <div className="mb-6">
-                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>פרטי קשר</h3>
-              </div>
-              <div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <Label htmlFor="contactPhone">טלפון</Label>
-                    <Input
-                      id="contactPhone"
-                      value={formData.contactPhone}
-                      onChange={(e) => handleInputChange('contactPhone', e.target.value)}
-                      placeholder="מספר טלפון"
-                      className="mt-2"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="contactEmail">אימייל</Label>
-                    <Input
-                      id="contactEmail"
-                      type="email"
-                      value={formData.contactEmail}
-                      onChange={(e) => handleInputChange('contactEmail', e.target.value)}
-                      placeholder="כתובת אימייל"
-                      className="mt-2"
-                    />
-                  </div>
-                </div>
-              </div>
-            </LuxuryCard>
-
             {/* Images */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
                   <div className="p-2 rounded-full"
@@ -576,7 +542,7 @@ export default function AddPropertyPage() {
             </LuxuryCard>
 
             {/* Description */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>תיאור הנכס</h3>
               </div>

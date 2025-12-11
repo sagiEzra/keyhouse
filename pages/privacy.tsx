@@ -200,11 +200,11 @@ export default function PrivacyPage() {
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
                       <span className="font-bold">טלפון:</span>{" "}
                       <a
-                        href={`tel:+${businessStaticData.phone.israelNumber}`}
+                        href={`tel:+${businessStaticData.rotemPhone.israelNumber}`}
                         className="transition-colors duration-300 hover:opacity-80"
                         style={{ color: "#c79d2a" }}
                       >
-                        {businessStaticData.phone.numberToDisplay}
+                        {businessStaticData.rotemPhone.numberToDisplay}
                       </a>
                     </p>
                   </div>

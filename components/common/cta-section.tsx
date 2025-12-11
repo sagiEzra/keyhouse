@@ -53,7 +53,7 @@ export default function CTASection({ title, description, buttonText }: CTASectio
 
             <div className="flex-shrink-0">
               <LuxuryButton
-                href={businessStaticData.phone.callLink}
+                href={businessStaticData.rotemPhone.callLink}
                 size="large"
               >
                 {buttonText}

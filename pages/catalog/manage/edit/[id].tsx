@@ -256,7 +256,7 @@ export default function EditPropertyPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
                   <div className="p-2 rounded-full"
@@ -389,7 +389,7 @@ export default function EditPropertyPage() {
             </LuxuryCard>
 
             {/* Features */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>מאפיינים</h3>
               </div>
@@ -520,7 +520,7 @@ export default function EditPropertyPage() {
             </LuxuryCard>
 
             {/* Special Tags */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>תגיות מיוחדות</h3>
               </div>
@@ -565,7 +565,7 @@ export default function EditPropertyPage() {
             </LuxuryCard>
 
             {/* Contact Information */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>פרטי קשר</h3>
               </div>
@@ -597,7 +597,7 @@ export default function EditPropertyPage() {
             </LuxuryCard>
 
             {/* Images */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
                   <div className="p-2 rounded-full"
@@ -648,7 +648,7 @@ export default function EditPropertyPage() {
             </LuxuryCard>
 
             {/* Description */}
-            <LuxuryCard>
+            <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>תיאור הנכס</h3>
               </div>

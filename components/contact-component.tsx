@@ -185,11 +185,11 @@ export default function ContactComponent() {
 
                 <div className="mb-4 flex justify-center">
                   <LuxuryButton
-                    href={businessStaticData.phone.callLink}
+                    href={businessStaticData.rotemPhone.callLink}
                     className="w-full justify-center"
                   >
                     <Phone className="h-5 w-5" />
-                    <span>{businessStaticData.phone.numberToDisplay}</span>
+                    <span>{businessStaticData.rotemPhone.numberToDisplay}</span>
                   </LuxuryButton>
                 </div>
 
@@ -217,7 +217,7 @@ export default function ContactComponent() {
                     <Instagram className="h-6 w-6" />
                   </motion.a>
                   <motion.a
-                    href={businessStaticData.phone.whatsappLink}
+                    href={businessStaticData.rotemPhone.whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1 }}

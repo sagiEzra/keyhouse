@@ -1,10 +1,17 @@
 export const businessStaticData = {
-    phone: {
+    rotemPhone: {
         regularNumber: '0502240035',
         israelNumber: '972502240035',
         whatsappLink: 'https://wa.me/972502240035',
         numberToDisplay: '050-224-0035',
         callLink: 'tel:+972502240035'
+    },
+    shirazPhone: {
+        regularNumber: '0533354218',
+        israelNumber: '972533354218',
+        whatsappLink: 'https://wa.me/972533354218',
+        numberToDisplay: '053-335-4218',
+        callLink: 'tel:+972533354218'
     },
     location: 'אנפה 1 | מרכז מור | אילת',
     social: {
