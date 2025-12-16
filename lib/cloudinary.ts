@@ -24,7 +24,6 @@ export interface UploadedMedia {
  *    - Folder: "keyhouse/properties" (or your desired folder)
  *    - Save the preset
  * 3. Use the preset name in NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
- * 4. Provide API key in NEXT_PUBLIC_CLOUDINARY_API_KEY
  */
 export async function uploadToCloudinary(
   file: File,
@@ -33,7 +32,6 @@ export async function uploadToCloudinary(
   try {
     const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
     const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-    const apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
 
     if (!cloudName || !uploadPreset) {
       throw new Error('Cloudinary configuration missing');
@@ -42,7 +40,7 @@ export async function uploadToCloudinary(
     console.log('Uploading to Cloudinary:', {
       cloudName,
       uploadPreset,
-      apiKey: apiKey ? 'present' : 'missing',
+      // apiKey: apiKey ? 'present' : 'missing',
       fileName: file.name,
       fileType: file.type,
       fileSize: file.size
@@ -53,10 +51,7 @@ export async function uploadToCloudinary(
     formData.append('file', file);
     formData.append('upload_preset', uploadPreset);
 
-    // Add API key if available (some unsigned presets may require it)
-    if (apiKey) {
-      formData.append('api_key', apiKey);
-    }
+
 
     // Upload to Cloudinary
     return new Promise((resolve, reject) => {

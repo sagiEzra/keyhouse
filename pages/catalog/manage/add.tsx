@@ -14,15 +14,15 @@ import Link from 'next/link';
 import LuxuryButton from '../../../components/ui/luxury-button';
 import LuxuryCard from '../../../components/ui/luxury-card';
 import LuxuryBackground from '../../../components/ui/luxury-background';
-import MediaUploader from '../../../components/cloudinary/MediaUploader';
-import { UploadedMedia } from '../../../lib/cloudinary';
+import LocalMediaUploader, { LocalMediaFile } from '../../../components/cloudinary/LocalMediaUploader';
+import { uploadToCloudinary } from '../../../lib/cloudinary';
 
 export default function AddPropertyPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [mainMedia, setMainMedia] = useState<UploadedMedia[]>([]);
-  const [additionalMedia, setAdditionalMedia] = useState<UploadedMedia[]>([]);
+  const [mainMediaFiles, setMainMediaFiles] = useState<LocalMediaFile[]>([]);
+  const [additionalMediaFiles, setAdditionalMediaFiles] = useState<LocalMediaFile[]>([]);
   const [formData, setFormData] = useState<PropertyFormData>({
     title: '',
     type: 'sale',
@@ -94,14 +94,33 @@ export default function AddPropertyPage() {
     setSubmitting(true);
 
     try {
-      // Prepare property data with media URLs and public IDs
+      // Upload main media to Cloudinary if exists
+      let mainImageUrl: string | undefined;
+      let mainImageType: 'image' | 'video' | undefined;
+      let mainImagePublicId: string | undefined;
+
+      if (mainMediaFiles.length > 0) {
+        const mainMedia = await uploadToCloudinary(mainMediaFiles[0].file);
+        mainImageUrl = mainMedia.url;
+        mainImageType = mainMedia.type;
+        mainImagePublicId = mainMedia.publicId;
+      }
+
+      // Upload additional media to Cloudinary
+      const uploadedAdditionalMedia = [];
+      for (const mediaFile of additionalMediaFiles) {
+        const uploadedMedia = await uploadToCloudinary(mediaFile.file);
+        uploadedAdditionalMedia.push(uploadedMedia);
+      }
+
+      // Prepare property data with uploaded media URLs and public IDs
       const propertyData = {
         ...formData,
-        mainImage: mainMedia.length > 0 ? mainMedia[0].url : undefined,
-        mainImageType: mainMedia.length > 0 ? mainMedia[0].type : undefined,
-        mainImagePublicId: mainMedia.length > 0 ? mainMedia[0].publicId : undefined,
-        images: additionalMedia.map(media => media.url),
-        imagePublicIds: additionalMedia.map(media => media.publicId),
+        mainImage: mainImageUrl,
+        mainImageType: mainImageType,
+        mainImagePublicId: mainImagePublicId,
+        images: uploadedAdditionalMedia.map(media => media.url),
+        imagePublicIds: uploadedAdditionalMedia.map(media => media.publicId),
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
       };
@@ -499,11 +518,11 @@ export default function AddPropertyPage() {
                   תמונה או סרטון ראשי שיוצג בכרטיס הנכס ובראש עמוד הפרטים
                 </p>
               </div>
-              <MediaUploader
+              <LocalMediaUploader
                 mode="main"
                 maxFiles={1}
-                currentMedia={mainMedia}
-                onMediaChange={setMainMedia}
+                currentFiles={mainMediaFiles}
+                onFilesChange={setMainMediaFiles}
               />
             </LuxuryCard>
 
@@ -524,11 +543,11 @@ export default function AddPropertyPage() {
                   תמונות וסרטונים נוספים שיוצגו בגלריית הנכס (עד 20 קבצים)
                 </p>
               </div>
-              <MediaUploader
+              <LocalMediaUploader
                 mode="additional"
                 maxFiles={20}
-                currentMedia={additionalMedia}
-                onMediaChange={setAdditionalMedia}
+                currentFiles={additionalMediaFiles}
+                onFilesChange={setAdditionalMediaFiles}
               />
             </LuxuryCard>
 

@@ -470,19 +470,19 @@ export default function PropertyDetailPage() {
               {/* Contact */}
               <LuxuryCard
                 backgroundStyle={{
-                  background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
+                  background: "linear-gradient(135deg, rgba(199,157,42,0.08) 0%, rgba(255,255,255,0.95) 50%, rgba(199,157,42,0.05) 100%)",
                 }}
               >
-                <h2 className="text-2xl font-serif font-bold mb-6" style={{ color: "#ffffff" }}>
+                <h2 className="text-2xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
                   מעוניינים בנכס?
                 </h2>
-                <p className="text-lg mb-6" style={{ color: "rgba(255,255,255,0.9)" }}>
+                <p className="text-lg mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
                   צרו קשר עכשיו לפרטים נוספים ולתיאום צפייה
                 </p>
 
                 {/* Rotem's Contact */}
-                <div className="mb-6 pb-6 border-b border-white/20">
-                  <h3 className="text-xl font-bold mb-4" style={{ color: "#c79d2a" }}>
+                <div className="mb-6 pb-6 border-b" style={{ borderColor: "rgba(199,157,42,0.2)" }}>
+                  <h3 className="text-xl font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
                     רותם
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -507,7 +507,7 @@ export default function PropertyDetailPage() {
 
                 {/* Shiraz's Contact */}
                 <div>
-                  <h3 className="text-xl font-bold mb-4" style={{ color: "#c79d2a" }}>
+                  <h3 className="text-xl font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
                     שירז
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

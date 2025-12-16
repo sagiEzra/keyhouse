@@ -13,8 +13,9 @@ import { FaArrowRight, FaSave, FaHome, FaImage } from 'react-icons/fa';
 import LuxuryButton from '../../../../components/ui/luxury-button';
 import LuxuryCard from '../../../../components/ui/luxury-card';
 import LuxuryBackground from '../../../../components/ui/luxury-background';
-import MediaUploader from '../../../../components/cloudinary/MediaUploader';
-import { UploadedMedia, deleteFromCloudinary } from '../../../../lib/cloudinary';
+import EditMediaUploader from '../../../../components/cloudinary/EditMediaUploader';
+import { UploadedMedia, deleteFromCloudinary, uploadToCloudinary } from '../../../../lib/cloudinary';
+import { LocalMediaFile } from '../../../../components/cloudinary/LocalMediaUploader';
 
 export default function EditPropertyPage() {
   const router = useRouter();
@@ -22,10 +23,18 @@ export default function EditPropertyPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [property, setProperty] = useState<Property | null>(null);
-  const [mainMedia, setMainMedia] = useState<UploadedMedia[]>([]);
-  const [additionalMedia, setAdditionalMedia] = useState<UploadedMedia[]>([]);
-  const [originalMainPublicId, setOriginalMainPublicId] = useState<string | null>(null);
-  const [originalImagePublicIds, setOriginalImagePublicIds] = useState<string[]>([]);
+
+  // Existing media from Cloudinary
+  const [existingMainMedia, setExistingMainMedia] = useState<UploadedMedia | null>(null);
+  const [existingAdditionalMedia, setExistingAdditionalMedia] = useState<UploadedMedia[]>([]);
+
+  // New files selected by user (not yet uploaded)
+  const [newMainMediaFile, setNewMainMediaFile] = useState<LocalMediaFile[]>([]);
+  const [newAdditionalMediaFiles, setNewAdditionalMediaFiles] = useState<LocalMediaFile[]>([]);
+
+  // Track what was removed (for deletion on submit)
+  const [removedMainPublicId, setRemovedMainPublicId] = useState<string | null>(null);
+  const [removedAdditionalPublicIds, setRemovedAdditionalPublicIds] = useState<string[]>([]);
   const [formData, setFormData] = useState<PropertyFormData>({
     title: '',
     type: 'sale',
@@ -102,13 +111,12 @@ export default function EditPropertyPage() {
 
         // Load existing main media
         if (propertyData.mainImage) {
-          setMainMedia([{
+          setExistingMainMedia({
             url: propertyData.mainImage,
             publicId: propertyData.mainImagePublicId || '',
             type: propertyData.mainImageType || 'image',
             isTemporary: false
-          }]);
-          setOriginalMainPublicId(propertyData.mainImagePublicId || null);
+          });
         }
 
         // Load existing additional media
@@ -119,8 +127,7 @@ export default function EditPropertyPage() {
             type: url.includes('/video/') ? 'video' : 'image',
             isTemporary: false
           }));
-          setAdditionalMedia(loadedMedia);
-          setOriginalImagePublicIds(propertyData.imagePublicIds || []);
+          setExistingAdditionalMedia(loadedMedia);
         }
 
         setFormData({
@@ -172,6 +179,28 @@ export default function EditPropertyPage() {
     }));
   };
 
+  // Handler for removing existing main media
+  const handleRemoveExistingMainMedia = () => {
+    if (existingMainMedia) {
+      setRemovedMainPublicId(existingMainMedia.publicId);
+      setExistingMainMedia(null);
+    }
+  };
+
+  // Handler for removing existing additional media
+  const handleRemoveExistingAdditionalMedia = (index: number) => {
+    const mediaToRemove = existingAdditionalMedia[index];
+    if (mediaToRemove && mediaToRemove.publicId) {
+      setRemovedAdditionalPublicIds(prev => [...prev, mediaToRemove.publicId]);
+    }
+    setExistingAdditionalMedia(prev => prev.filter((_, idx) => idx !== index));
+  };
+
+  // Handler for reordering existing additional media
+  const handleReorderExistingAdditionalMedia = (reorderedMedia: UploadedMedia[]) => {
+    setExistingAdditionalMedia(reorderedMedia);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -179,23 +208,17 @@ export default function EditPropertyPage() {
     try {
       if (typeof id !== 'string') return;
 
-      // Determine which media to delete from Cloudinary
+      // Step 1: Delete removed media from Cloudinary
       const publicIdsToDelete: string[] = [];
 
-      // Check if main image changed
-      if (originalMainPublicId && (!mainMedia.length || mainMedia[0].publicId !== originalMainPublicId)) {
-        publicIdsToDelete.push(originalMainPublicId);
+      if (removedMainPublicId) {
+        publicIdsToDelete.push(removedMainPublicId);
       }
 
-      // Check which additional images were removed
-      const currentPublicIds = additionalMedia.map(m => m.publicId);
-      originalImagePublicIds.forEach(originalId => {
-        if (originalId && !currentPublicIds.includes(originalId)) {
-          publicIdsToDelete.push(originalId);
-        }
-      });
+      if (removedAdditionalPublicIds.length > 0) {
+        publicIdsToDelete.push(...removedAdditionalPublicIds);
+      }
 
-      // Delete old media from Cloudinary if any
       if (publicIdsToDelete.length > 0) {
         try {
           await deleteFromCloudinary(publicIdsToDelete);
@@ -205,14 +228,39 @@ export default function EditPropertyPage() {
         }
       }
 
-      // Prepare property data with new media
+      // Step 2: Upload new main media if exists
+      let finalMainImageUrl: string | undefined = existingMainMedia?.url;
+      let finalMainImageType: 'image' | 'video' | undefined = existingMainMedia?.type;
+      let finalMainImagePublicId: string | undefined = existingMainMedia?.publicId;
+
+      if (newMainMediaFile.length > 0) {
+        const uploadedMain = await uploadToCloudinary(newMainMediaFile[0].file);
+        finalMainImageUrl = uploadedMain.url;
+        finalMainImageType = uploadedMain.type;
+        finalMainImagePublicId = uploadedMain.publicId;
+      }
+
+      // Step 3: Upload new additional media
+      const uploadedNewAdditional = [];
+      for (const mediaFile of newAdditionalMediaFiles) {
+        const uploaded = await uploadToCloudinary(mediaFile.file);
+        uploadedNewAdditional.push(uploaded);
+      }
+
+      // Step 4: Combine existing + newly uploaded additional media
+      const finalAdditionalMedia = [
+        ...existingAdditionalMedia,
+        ...uploadedNewAdditional
+      ];
+
+      // Step 5: Prepare property data with final media
       const propertyData = {
         ...formData,
-        mainImage: mainMedia.length > 0 ? mainMedia[0].url : undefined,
-        mainImageType: mainMedia.length > 0 ? mainMedia[0].type : undefined,
-        mainImagePublicId: mainMedia.length > 0 ? mainMedia[0].publicId : undefined,
-        images: additionalMedia.map(media => media.url),
-        imagePublicIds: additionalMedia.map(media => media.publicId),
+        mainImage: finalMainImageUrl,
+        mainImageType: finalMainImageType,
+        mainImagePublicId: finalMainImagePublicId,
+        images: finalAdditionalMedia.map(media => media.url),
+        imagePublicIds: finalAdditionalMedia.map(media => media.publicId),
         updatedAt: serverTimestamp()
       };
 
@@ -628,11 +676,13 @@ export default function EditPropertyPage() {
                   תמונה או סרטון ראשי שיוצג בכרטיס הנכס ובראש עמוד הפרטים
                 </p>
               </div>
-              <MediaUploader
+              <EditMediaUploader
                 mode="main"
                 maxFiles={1}
-                currentMedia={mainMedia}
-                onMediaChange={setMainMedia}
+                existingMedia={existingMainMedia ? [existingMainMedia] : []}
+                onExistingMediaRemove={handleRemoveExistingMainMedia}
+                newFiles={newMainMediaFile}
+                onNewFilesChange={setNewMainMediaFile}
               />
             </LuxuryCard>
 
@@ -653,11 +703,14 @@ export default function EditPropertyPage() {
                   תמונות וסרטונים נוספים שיוצגו בגלריית הנכס (עד 20 קבצים)
                 </p>
               </div>
-              <MediaUploader
+              <EditMediaUploader
                 mode="additional"
                 maxFiles={20}
-                currentMedia={additionalMedia}
-                onMediaChange={setAdditionalMedia}
+                existingMedia={existingAdditionalMedia}
+                onExistingMediaRemove={handleRemoveExistingAdditionalMedia}
+                onExistingMediaReorder={handleReorderExistingAdditionalMedia}
+                newFiles={newAdditionalMediaFiles}
+                onNewFilesChange={setNewAdditionalMediaFiles}
               />
             </LuxuryCard>
 
