@@ -12,7 +12,7 @@ export default function AccessibilityPage() {
         <meta name="description" content="הצהרת נגישות של KeyHouse - אנו מחויבים להנגשת האתר לכלל הגולשים" />
       </Head>
 
-      <LuxuryBackground variant="light" className="py-32">
+      <LuxuryBackground variant="light" className="py-32" id="main-content">
         <div className="container mx-auto px-6 relative z-10 max-w-5xl">
           <SectionHeader
             title="הצהרת נגישות"
@@ -43,9 +43,18 @@ export default function AccessibilityPage() {
                 <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.85)" }}>
                   על מנת שנוכל לספק חוויה טובה נגישה ככל הניתן, עשינו את ההתאמות הנדרשות באתר, ואת מירב המאמצים בכדי לעמוד בכללי הנגישות ככל שניתן בהתאם לעקרונות תקן הנגישות בישראל, תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), תשע"ג-2013 (סימן ג': שירותי האינטרנט).
                 </p>
-                <p className="text-lg leading-relaxed font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
-                  האתר מותאם לדרישות הנגישות תקן 5568 ברמה AA על פי הנחיות WCAG 2.1.
-                </p>
+                <div className="bg-gradient-to-l from-white via-gray-50 to-white p-6 rounded-2xl border-r-4 mb-6"
+                     style={{ borderColor: "#c79d2a", boxShadow: "0 10px 30px rgba(199,157,42,0.15)" }}>
+                  <p className="text-lg leading-relaxed font-bold mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+                    התאמה לתקן ישראלי 5568
+                  </p>
+                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
+                    האתר מותאם לדרישות הנגישות <strong>תקן ישראלי 5568 ברמה AA</strong> על פי הנחיות <strong>WCAG 2.1</strong> (Web Content Accessibility Guidelines). התאמות אלו נועדו להבטיח נגישות מלאה עבור אנשים עם מוגבלויות שונות, כולל מוגבלויות ראייה, שמיעה, מוטוריות וקוגניטיביות.
+                  </p>
+                  <p className="text-base leading-relaxed mt-3" style={{ color: "rgba(25,39,74,0.7)" }}>
+                    עדכון אחרון: דצמבר 2024
+                  </p>
+                </div>
               </div>
 
               {/* התאמות נגישות */}
@@ -60,10 +69,49 @@ export default function AccessibilityPage() {
                          style={{ backgroundColor: "#c79d2a" }} />
                     <div>
                       <h3 className="text-xl font-bold mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
-                        תמיכה בניווט מקלדת
+                        תמיכה בניווט מקלדת ודילוג לתוכן
                       </h3>
                       <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
-                        האתר מאפשר ניווט בעזרת מקלדת לרוב האלמנטים האינטראקטיביים.
+                        האתר מאפשר ניווט מלא בעזרת מקלדת לכל האלמנטים האינטראקטיביים. כולל קישור "דלג לתוכן הראשי" עבור משתמשי מקלדת וקוראי מסך. כל הכפתורים והקישורים כוללים focus indicators ברורים לשיפור הנראות.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-3 h-3 rounded-full mt-2"
+                         style={{ backgroundColor: "#c79d2a" }} />
+                    <div>
+                      <h3 className="text-xl font-bold mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+                        ARIA Labels ו-Landmarks
+                      </h3>
+                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
+                        כל האלמנטים האינטראקטיביים כוללים aria-labels מתאימים. האתר משתמש ב-ARIA landmarks (banner, navigation, main, contentinfo) לזיהוי נכון של אזורי הדף על ידי קוראי מסך.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-3 h-3 rounded-full mt-2"
+                         style={{ backgroundColor: "#c79d2a" }} />
+                    <div>
+                      <h3 className="text-xl font-bold mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+                        תיאורי תמונות (ALT Text)
+                      </h3>
+                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
+                        כל התמונות באתר כוללות תיאורים מפורטים (ALT text) המתארים את תוכן התמונה. תמונות דקורטיביות מסומנות בהתאם כדי שלא להפריע לחוויית קוראי המסך.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-3 h-3 rounded-full mt-2"
+                         style={{ backgroundColor: "#c79d2a" }} />
+                    <div>
+                      <h3 className="text-xl font-bold mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+                        נגישות טפסים
+                      </h3>
+                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
+                        כל הטפסים באתר כוללים תוויות (labels) מקושרות לשדות הקלט. הודעות שגיאה מסומנות עם role="alert" ו-aria-live לזיהוי מיידי על ידי קוראי מסך.
                       </p>
                     </div>
                   </div>

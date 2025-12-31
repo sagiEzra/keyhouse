@@ -1,16 +1,19 @@
 import { useState } from "react"
-import Head from "next/head"
 import { motion } from "framer-motion"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import LuxuryCard from "@/components/ui/luxury-card"
 import SectionHeader from "@/components/ui/section-header"
 import LuxuryButton from "@/components/ui/luxury-button"
 import QuoteCard from "@/components/ui/quote-card"
+import SEOHead from "@/components/seo/SEOHead"
+import { MultipleStructuredData } from "@/components/seo/StructuredData"
 import { FaCheckCircle, FaChartLine, FaHandshake, FaClipboardList, FaArrowDown } from "react-icons/fa"
+import { subscribeToRavMesser } from "@/lib/ravMesser"
 
 export default function PropertyValuation() {
   const [formData, setFormData] = useState({
-    fullName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     address: "",
@@ -50,17 +53,40 @@ export default function PropertyValuation() {
     setIsSubmitting(true)
     setSubmitError("")
 
+    // Validate required fields
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.address) {
+      setSubmitError("נא למלא את כל השדות החובה")
+      setIsSubmitting(false)
+      return
+    }
+
+    // Validate marketing consent checkbox
+    if (!formData.agreeToMarketing) {
+      setSubmitError("נא לאשר קבלת דיוור על מנת להמשיך")
+      setIsSubmitting(false)
+      return
+    }
+
     try {
-      // TODO: Implement actual form submission logic here
-      // For now, simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Subscribe to Rav Messer newsletter
+      const result = await subscribeToRavMesser({
+        email: formData.email,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phone: formData.phone,
+      })
+
+      if (!result.success) {
+        throw new Error("Failed to subscribe to newsletter")
+      }
 
       console.log("Form submitted:", formData)
       setSubmitSuccess(true)
 
       // Reset form after successful submission
       setFormData({
-        fullName: "",
+        firstName: "",
+        lastName: "",
         email: "",
         phone: "",
         address: "",
@@ -80,6 +106,7 @@ export default function PropertyValuation() {
         agreeToMarketing: false,
       })
     } catch (error) {
+      console.error("Error submitting property valuation form:", error)
       setSubmitError("אירעה שגיאה בשליחת הטופס. אנא נסה שנית.")
     } finally {
       setIsSubmitting(false)
@@ -92,11 +119,44 @@ export default function PropertyValuation() {
 
   return (
     <>
-      <Head>
-        <title>הערכת שווי נכס - Keyhouse</title>
-        <meta name="description" content="קבל הערכת שווי שוק לנכס שלך ללא עלות וללא התחייבות. ניתוח מבוסס נתוני שוק ועסקאות דומות." />
-      </Head>
+      <SEOHead
+        title="הערכת שווי דירה באילת | שמאות נדל״ן | קי האוס"
+        description="רוצים לדעת כמה שווה הנכס שלכם? קבלו הערכת שווי מקצועית ומדויקת מומחי הנדל״ן שלנו באילת. ניתוח מבוסס נתוני שוק ועסקאות דומות, ללא עלות וללא התחייבות."
+        canonical="/property-valuation"
+        keywords={[
+          'הערכת שווי דירה',
+          'שמאות אילת',
+          'שווי נכס אילת',
+          'הערכת שווי נכס',
+          'תמחור דירה',
+          'שמאי מקרקעין אילת',
+          'ייעוץ נדל"ן אילת'
+        ]}
+      />
 
+      <MultipleStructuredData
+        schemas={[
+          {
+            type: 'BreadcrumbList',
+            data: {
+              items: [
+                { name: 'דף הבית', url: '/' },
+                { name: 'הערכת שווי', url: '/property-valuation' }
+              ]
+            }
+          },
+          {
+            type: 'WebPage',
+            data: {
+              name: 'הערכת שווי נכס באילת - ייעוץ מקצועי',
+              url: '/property-valuation',
+              description: 'קבלו הערכת שווי מקצועית לנכס שלכם באילת'
+            }
+          }
+        ]}
+      />
+
+      <main id="main-content">
       {/* Hero Section */}
       <LuxuryBackground
         variant="hero"
@@ -305,7 +365,7 @@ export default function PropertyValuation() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <LuxuryCard className="p-8 lg:p-12" hoverable={false}>
+              <LuxuryCard className="p-6 md:p-8 lg:p-12" hoverable={false}>
                 {submitSuccess ? (
                   <div
                     className="p-8 rounded-2xl border-r-4 text-center"
@@ -407,7 +467,7 @@ export default function PropertyValuation() {
                           <label className="block text-lg font-medium mb-4" style={{ color: "rgba(25,39,74,0.9)" }}>
                             תכונות נוספות
                           </label>
-                          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                             <label className="flex items-center gap-3 cursor-pointer group">
                               <input
                                 type="checkbox"
@@ -581,16 +641,38 @@ export default function PropertyValuation() {
                       <div className="grid gap-6 md:grid-cols-2">
                         <div>
                           <label className="block text-lg font-medium mb-3" style={{ color: "rgba(25,39,74,0.9)" }}>
-                            שם מלא <span style={{ color: "#c79d2a" }}>*</span>
+                            שם פרטי <span style={{ color: "#c79d2a" }}>*</span>
                           </label>
                           <input
                             type="text"
-                            name="fullName"
-                            value={formData.fullName}
+                            name="firstName"
+                            value={formData.firstName}
                             onChange={handleInputChange}
                             required
                             maxLength={30}
-                            placeholder="הכנס שם מלא"
+                            placeholder="הכנס שם פרטי"
+                            className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50"
+                            style={{
+                              borderColor: "rgba(25,39,74,0.15)",
+                              backgroundColor: "rgba(255,255,255,0.95)",
+                              color: "rgba(25,39,74,0.97)",
+                              boxShadow: "0 8px 20px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+                            }}
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-lg font-medium mb-3" style={{ color: "rgba(25,39,74,0.9)" }}>
+                            שם משפחה <span style={{ color: "#c79d2a" }}>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                            required
+                            maxLength={30}
+                            placeholder="הכנס שם משפחה"
                             className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50"
                             style={{
                               borderColor: "rgba(25,39,74,0.15)",
@@ -623,7 +705,7 @@ export default function PropertyValuation() {
                           />
                         </div>
 
-                        <div className="md:col-span-2">
+                        <div>
                           <label className="block text-lg font-medium mb-3" style={{ color: "rgba(25,39,74,0.9)" }}>
                             טלפון <span style={{ color: "#c79d2a" }}>*</span>
                           </label>
@@ -661,7 +743,7 @@ export default function PropertyValuation() {
                         />
                         <span className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
                           אני מאשר/ת שתשלחו לי דיוור במייל (:{" "}
-                          <a href="/privacy-policy" className="underline transition-colors duration-300 hover:text-[#c79d2a]">
+                          <a href="/privacy" className="underline transition-colors duration-300 hover:text-[#c79d2a]">
                             קרא/י עוד בתקנון הפרטיות
                           </a>
                           {" "}<span style={{ color: "#c79d2a" }}>*</span>
@@ -672,6 +754,9 @@ export default function PropertyValuation() {
                     {/* Error Message */}
                     {submitError && (
                       <div
+                        id="valuation-form-error"
+                        role="alert"
+                        aria-live="polite"
                         className="p-6 rounded-2xl border-r-4"
                         style={{
                           backgroundColor: "rgba(239, 68, 68, 0.05)",
@@ -703,6 +788,7 @@ export default function PropertyValuation() {
           </div>
         </div>
       </LuxuryBackground>
+      </main>
     </>
   )
 }

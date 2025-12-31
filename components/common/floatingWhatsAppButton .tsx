@@ -6,8 +6,15 @@ const whatsappLink = `${businessStaticData.rotemPhone.whatsappLink}?text=%D7%A9%
 export const FloatingWhatsAppButton: React.FC = () => {
   return (
     <div className="fixed bottom-2.5 right-2.5 w-[70px] h-[70px] bg-[#25d366] rounded-full flex justify-center items-center shadow-lg z-[1000] cursor-pointer">
-      <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="text-white text-[30px] z-[1001]">
-        <FaWhatsapp className="text-[35px]" />
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-white text-[30px] z-[1001]"
+        aria-label="פתח שיחה בוואטסאפ עם רותם קהלון"
+        title="פתח שיחה בוואטסאפ"
+      >
+        <FaWhatsapp className="text-[35px]" aria-hidden="true" />
       </a>
       <div className="absolute w-full h-full rounded-full bg-[rgba(37,211,102,0.5)] animate-wave" />
       <div className="absolute w-full h-full rounded-full bg-[rgba(37,211,102,0.5)] animate-wave delay-[0.9s]" />

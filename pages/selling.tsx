@@ -9,10 +9,51 @@ import {
   NumberedStepsCard,
   FeatureGrid
 } from "../components/common/service-section-children"
+import SEOHead from "@/components/seo/SEOHead"
+import { MultipleStructuredData } from "@/components/seo/StructuredData"
 
 export default function SellingPage() {
   return (
-    <main dir="rtl" className="min-h-screen bg-white">
+    <>
+      <SEOHead
+        title="מכירת דירה באילת | שיווק נכסים מקצועי | קי האוס"
+        description="רוצים למכור דירה באילת? נשווק את הנכס שלכם בצורה המקצועית ביותר. צילום מקצועי, חשיפה מקסימלית, משא ומתן וליווי מלא. קבלו את המחיר הטוב ביותר לנכס שלכם."
+        canonical="/selling"
+        keywords={[
+          'מכירת דירה באילת',
+          'שיווק נכסים אילת',
+          'תיווך אילת',
+          'מכירת נכס באילת',
+          'שמאות אילת',
+          'תמחור נכס',
+          'צילום נכס מקצועי',
+          'מכירת דירה מהירה'
+        ]}
+      />
+
+      <MultipleStructuredData
+        schemas={[
+          {
+            type: 'BreadcrumbList',
+            data: {
+              items: [
+                { name: 'דף הבית', url: '/' },
+                { name: 'מכירת דירה', url: '/selling' }
+              ]
+            }
+          },
+          {
+            type: 'WebPage',
+            data: {
+              name: 'מכירת דירה באילת - שיווק מקצועי מלא',
+              url: '/selling',
+              description: 'שירותי שיווק ומכירה מקצועיים לנכסים באילת'
+            }
+          }
+        ]}
+      />
+
+      <main id="main-content" dir="rtl" className="min-h-screen bg-white">
       <PropertyValuationPopup />
 
       <ServiceHero
@@ -104,5 +145,6 @@ export default function SellingPage() {
         buttonText="דבר איתנו עוד היום"
       />
     </main>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { motion } from "framer-motion"
 
 // ============================================================================
 // Type Definitions
@@ -38,12 +39,19 @@ export function ChecklistContent({ items, className = "" }: ChecklistContentProp
   return (
     <ul className={`mt-6 space-y-3 text-lg font-bold ${className}`} style={{ color: "rgba(25,39,74,0.85)" }}>
       {items.map((item, index) => (
-        <li key={index} className="flex items-start gap-3">
+        <motion.li
+          key={index}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: index * 0.08 }}
+          className="flex items-start gap-3"
+        >
           <span className="mr-2 text-xl" style={{ color: "#c79d2a" }}>
             ✓
           </span>
           <span>{item.text}</span>
-        </li>
+        </motion.li>
       ))}
     </ul>
   )
@@ -61,7 +69,11 @@ interface NumberedStepsCardProps {
 
 export function NumberedStepsCard({ title, steps, className = "" }: NumberedStepsCardProps) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
       className={`mt-6 rounded-2xl p-8 border-r-4 ${className}`}
       style={{
         background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, #fafafa 100%)",
@@ -74,15 +86,22 @@ export function NumberedStepsCard({ title, steps, className = "" }: NumberedStep
       </h3>
       <ul className="space-y-3 text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
         {steps.map((step, index) => (
-          <li key={index} className="flex items-start">
+          <motion.li
+            key={index}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.08 }}
+            className="flex items-start"
+          >
             <span className="ml-2 font-bold" style={{ color: "#c79d2a" }}>
               {index + 1}.
             </span>
             <span>{step.text}</span>
-          </li>
+          </motion.li>
         ))}
       </ul>
-    </div>
+    </motion.div>
   )
 }
 
@@ -106,8 +125,12 @@ export function FeatureGrid({ features, columns = 2, className = "" }: FeatureGr
   return (
     <div className={`mt-8 grid gap-6 ${gridClass} ${className}`}>
       {features.map((feature, index) => (
-        <div
+        <motion.div
           key={index}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: index * 0.1 }}
           className="rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl group"
           style={{
             background: "rgba(255,255,255,0.95)",
@@ -121,7 +144,7 @@ export function FeatureGrid({ features, columns = 2, className = "" }: FeatureGr
           <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
             {feature.description}
           </p>
-        </div>
+        </motion.div>
       ))}
     </div>
   )
@@ -180,8 +203,12 @@ export function HighlightCards({ cards, className = "" }: HighlightCardsProps) {
         const styles = getVariantStyles(card.variant)
 
         return (
-          <div
+          <motion.div
             key={index}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.15 }}
             className="rounded-2xl p-8 border-r-4"
             style={{
               background: styles.background,
@@ -201,7 +228,7 @@ export function HighlightCards({ cards, className = "" }: HighlightCardsProps) {
             >
               {card.content}
             </p>
-          </div>
+          </motion.div>
         )
       })}
     </div>

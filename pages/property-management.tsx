@@ -8,6 +8,8 @@ import ServiceHero from "../components/common/service-hero"
 import ServiceSection from "../components/common/service-section"
 import StatsSection from "../components/common/stats-section"
 import CTASection from "../components/common/cta-section"
+import SEOHead from "@/components/seo/SEOHead"
+import { MultipleStructuredData } from "@/components/seo/StructuredData"
 import {
   ChecklistContent,
   NumberedStepsCard,
@@ -17,7 +19,46 @@ import {
 
 export default function PropertyManagementPage() {
   return (
-    <main dir="rtl" className="min-h-screen bg-white">
+    <>
+      <SEOHead
+        title="ניהול נכסים באילת | דירות להשכרה | קי האוס"
+        description="שירותי ניהול נכסים מקיפים באילת - ניהול שוכרים, תחזוקה שוטפת, דו״חות חודשיים ושקט נפשי מלא. תנו לנו לנהל את ההשקעה שלכם בראש שקט."
+        canonical="/property-management"
+        keywords={[
+          'ניהול נכסים אילת',
+          'דירות להשכרה אילת',
+          'השכרת דירה אילת',
+          'ניהול דירות אילת',
+          'תחזוקת נכסים',
+          'ניהול שוכרים',
+          'השקעה בנדל"ן אילת',
+          'דירות נופש אילת'
+        ]}
+      />
+
+      <MultipleStructuredData
+        schemas={[
+          {
+            type: 'BreadcrumbList',
+            data: {
+              items: [
+                { name: 'דף הבית', url: '/' },
+                { name: 'ניהול נכסים', url: '/property-management' }
+              ]
+            }
+          },
+          {
+            type: 'WebPage',
+            data: {
+              name: 'ניהול נכסים באילת - שירות מקיף ומקצועי',
+              url: '/property-management',
+              description: 'שירותי ניהול נכסים מלאים באילת - ניהול, תחזוקה ודיווח'
+            }
+          }
+        ]}
+      />
+
+      <main id="main-content" dir="rtl" className="min-h-screen bg-white">
 
       <ServiceHero
         title="השקעת בנדל״ן? עכשיו תן לנו לנהל את זה כמו שצריך"
@@ -101,5 +142,6 @@ export default function PropertyManagementPage() {
         buttonText="דבר איתנו עוד היום"
       />
     </main>
+    </>
   )
 }

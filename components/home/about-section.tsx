@@ -67,61 +67,118 @@ export default function AboutSection() {
           className="mb-32"
         >
           <LuxuryCard
-            className="overflow-hidden p-12 lg:p-16"
+            className="overflow-hidden p-4 sm:p-8 lg:p-12 xl:p-16"
             backgroundStyle={{
               background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, #fafafa 50%, rgba(199,157,42,0.03) 100%)"
             }}
             hoverable={false}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               {/* Content */}
-              <div className="space-y-10">
+              <div className="space-y-6 lg:space-y-10">
                 <div>
                   <h3 className="text-4xl lg:text-5xl font-serif font-bold leading-tight mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
                     קצת עלינו
                   </h3>
-                  <div className="flex items-center gap-6 mb-10">
+                  <div className="flex items-center gap-6 mb-6 lg:mb-10">
                     <div className="h-1.5 w-20 rounded-full" style={{ background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 100%)" }} />
                     <div className="h-px flex-1 opacity-20" style={{ backgroundColor: "rgba(25,39,74,0.97)" }} />
                   </div>
                 </div>
 
-                <div className="space-y-8">
-                  <p className="text-xl lg:text-2xl leading-relaxed font-semibold" style={{ color: "rgba(25,39,74,0.97)" }}>
+                {/* Image on mobile - appears after title */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7 }}
+                  className="relative group lg:hidden"
+                >
+                  <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+                    <div className="relative bg-white p-4 rounded-3xl">
+                      <img
+                        src="/images/rotem5.jpg"
+                        alt="רותם ושירז - צוות KeyHouse"
+                        className="w-full h-[280px] sm:h-[350px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
+                        style={{
+                          boxShadow: "0 25px 60px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.6)"
+                        }}
+                      />
+                      <div className="absolute inset-4 rounded-2xl bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    </div>
+                  </div>
+                </motion.div>
+
+                <div className="space-y-8 lg:space-y-8">
+                  <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.1 }}
+                    className="text-xl lg:text-2xl leading-loose lg:leading-relaxed font-semibold"
+                    style={{ color: "rgba(25,39,74,0.97)" }}
+                  >
                     סניף אילת הוקם בשנת 2013 במטרה לעזור ללקוחותינו למקסם את הרווח ולהגשים חלומות דרך עסקאות נדל&quot;ן.
-                  </p>
+                  </motion.p>
 
-                  <p className="text-xl lg:text-2xl leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
+                  <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.2 }}
+                    className="text-xl lg:text-2xl leading-loose lg:leading-relaxed"
+                    style={{ color: "rgba(25,39,74,0.85)" }}
+                  >
                     אנו מספקים תוצאות מוכחות ורווחיות תוך חדשנות ויצירתיות בלתי מתפשרת. אנו מתמחים במכירה, קניה, השכרה וניהול נכסים ומה שמייחד אותנו זאת הגישה האנושית, השקיפות והמחויבות המלאה להצלחה שלך!
-                  </p>
+                  </motion.p>
 
-                  <p className="text-lg lg:text-xl leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.3 }}
+                    className="text-lg lg:text-xl leading-loose lg:leading-relaxed"
+                    style={{ color: "rgba(25,39,74,0.8)" }}
+                  >
                     עם ניסיון של למעלה מעשור בשוק האילתי, אנחנו מכירים כל פינה בעיר ויודעים בדיוק איך למצוא את הנכס המושלם עבורך. הצוות המקצועי שלנו משלב ידע מעמיק בשוק המקומי עם גישה ושירות אישי ברמה הגבוהה ביותר.
-                  </p>
+                  </motion.p>
                 </div>
 
-                <QuoteCard align="center">
-                  &quot;שקיפות והקשבה לצרכים של הלקוח, הנסיון המתאים, ומקצועיות - אלו הדברים שהופכים אותנו לסוכנות שהלקוחות שלה חוזרים אליה&quot;
-                </QuoteCard>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.4 }}
+                >
+                  <QuoteCard align="center">
+                    &quot;שקיפות והקשבה לצרכים של הלקוח, הנסיון המתאים, ומקצועיות - אלו הדברים שהופכים אותנו לסוכנות שהלקוחות שלה חוזרים אליה&quot;
+                  </QuoteCard>
+                </motion.div>
 
-                <div className="flex flex-col sm:flex-row gap-5 pt-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.5 }}
+                  className="flex flex-col sm:flex-row gap-4 sm:gap-5 pt-6 items-center sm:items-start"
+                >
                   <LuxuryButton variant="secondary" href="/about" size="large">
                     המשך לקרוא עלינו
                   </LuxuryButton>
                   <LuxuryButton href="/contact" size="large">
                     דבר איתנו
                   </LuxuryButton>
-                </div>
+                </motion.div>
               </div>
 
-              {/* Image */}
-              <div className="relative group">
+              {/* Image on desktop - appears beside text */}
+              <div className="relative group hidden lg:block">
                 <div className="relative overflow-hidden rounded-3xl shadow-2xl">
                   <div className="relative bg-white p-6 rounded-3xl">
                     <img
                       src="/images/rotem5.jpg"
                       alt="רותם ושירז - צוות KeyHouse"
-                      className="w-full h-[600px] lg:h-[750px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
+                      className="w-full h-[750px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
                       style={{
                         boxShadow: "0 25px 60px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.6)"
                       }}
@@ -151,10 +208,10 @@ export default function AboutSection() {
           {values.map((value, idx) => (
             <motion.div
               key={idx}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
             >
               <LuxuryCard className="grid h-full">
                 {/* Icon container with enhanced styling */}

@@ -190,7 +190,7 @@ export default function VideosCarousel() {
                     }}
                   >
                     {/* Video container with luxury styling */}
-                    <div className="relative w-full aspect-[9/16] max-h-[350px] md:max-h-[500px] rounded-2xl overflow-hidden mb-5 group/video shadow-lg">
+                    <div className="relative w-full aspect-[9/16] max-h-[280px] sm:max-h-[350px] md:max-h-[500px] rounded-2xl overflow-hidden mb-5 group/video shadow-lg">
                       <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent z-10 pointer-events-none opacity-0 group-hover/video:opacity-100 transition-opacity duration-300" />
                       <iframe
                         src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0&modestbranding=1&autoplay=0&playsinline=1`}
@@ -289,7 +289,7 @@ export default function VideosCarousel() {
                   key={idx}
                   onClick={() => setCurrent(idx)}
                   className={`relative transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50 focus:ring-offset-2 rounded-full ${
-                    isActive ? "w-8 h-3" : "w-3 h-3"
+                    isActive ? "w-10 h-4 md:w-8 md:h-3" : "w-4 h-4 md:w-3 md:h-3"
                   }`}
                   aria-label={`עבור לוידאו ${idx + 1}`}
                 >

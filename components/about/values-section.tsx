@@ -83,7 +83,13 @@ export default function ValuesSection() {
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-20"
         >
           {values.map((value, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
               <LuxuryCard className="grid h-full">
                 {/* Icon container with enhanced styling */}
                 <div className="relative mb-8">
@@ -123,10 +129,10 @@ export default function ValuesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="mx-auto max-w-5xl"
+          className="mx-auto max-w-full md:max-w-4xl lg:max-w-5xl px-4"
         >
           <LuxuryCard
-            className="text-center p-12 md:p-16 overflow-hidden"
+            className="text-center p-6 md:p-12 lg:p-16 overflow-hidden"
             backgroundStyle={{
               background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, #fafafa 35%, #f8f9ff 65%, rgba(255,255,255,0.95) 100%)",
             }}

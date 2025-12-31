@@ -23,19 +23,37 @@ export default function AboutStory() {
             </QuoteCard>
           }
         >
-          <div className="relative">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative"
+          >
             <p className="font-medium text-xl">
               ילידת אילת, יועצת נדלן בכירה ומגשרת
             </p>
-          </div>
+          </motion.div>
 
-          <p className="leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="leading-relaxed"
+          >
             עם ניסיון ומוניטין עשיר, רותם ליוותה מאות עסקאות מוצלחות, וצברה ידע רב בשביל להפוך את העסקה שלך לקלה, פשוטה ומוצלחת יותר. לקוחותיה הרבים שחוזרים וממליצים, הם העדות הטובה ביותר להצלחתה.
-          </p>
+          </motion.p>
 
-          <p className="leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="leading-relaxed"
+          >
             רותם גילתה שהיא נהנית לא רק מהצד העסקי של הנדל"ן, אלא בעיקר מהקשר האנושי לעזור לאנשים בתהליכי קניה ומכירה, לפשט את התהליך ולראות את השמחה בעיניים כשהעסקה נסגרת.
-          </p>
+          </motion.p>
         </ProfileSection>
 
         {/* Shiraz Kahlon Section */}
@@ -51,13 +69,25 @@ export default function AboutStory() {
             </QuoteCard>
           }
         >
-          <p className="leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="leading-relaxed"
+          >
             מביאה איתה אנרגיה צעירה וחיובית עם רקע בשיווק ותקשורת, מצטיינת בקשר אישי עם לקוחות, בהקשבה לצרכים שלהם וביכולת להבין בדיוק מה חשוב להם.
-          </p>
+          </motion.p>
 
-          <p className="leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="leading-relaxed"
+          >
             שילוב של חריצות, סבלנות ואכפתיות אמיתית, שירז מלווה כל לקוח לאורך הדרך עם חיוך ויחס אישי. היא מתעדכנת ולומדת כל הזמן את שוק המקומי, מביאה פתרונות יצירתיים וחשיבה מחוץ לקופסה עם מקצועיות וסטנדרטים גבוהים של שירות כדי להתאים לכל אחד את העסקה המושלמת עבורו.
-          </p>
+          </motion.p>
         </ProfileSection>
 
         {/* Closing statement */}

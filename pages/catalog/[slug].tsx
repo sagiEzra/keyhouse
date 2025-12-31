@@ -222,7 +222,7 @@ export default function PropertyDetailPage() {
                         <video
                           src={currentMedia[currentImageIndex]?.url}
                           controls
-                          className="w-full h-[500px] object-cover rounded-2xl transition-all duration-500"
+                          className="w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover rounded-2xl transition-all duration-500"
                           style={{
                             boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)",
                           }}
@@ -231,7 +231,7 @@ export default function PropertyDetailPage() {
                         <img
                           src={currentMedia[currentImageIndex]?.url || "/images/image2.jpg"}
                           alt={property.title}
-                          className="w-full h-[500px] object-cover rounded-2xl transition-all duration-500"
+                          className="w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover rounded-2xl transition-all duration-500"
                           style={{
                             boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)",
                           }}
@@ -293,7 +293,7 @@ export default function PropertyDetailPage() {
 
                 {/* Thumbnail Gallery */}
                 {currentMedia.length > 1 && (
-                  <div className="grid grid-cols-4 gap-3">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                     {currentMedia.map((media, index) => (
                       <button
                         key={index}
@@ -318,23 +318,6 @@ export default function PropertyDetailPage() {
                       </button>
                     ))}
                   </div>
-                )}
-
-                {/* Map */}
-                {property.address && property.city && (
-                  <LuxuryCard className="p-0 overflow-hidden">
-                    <iframe
-                      title="מפה"
-                      src={`https://www.google.com/maps?q=${encodeURIComponent(property.address + ", " + property.city)}&output=embed`}
-                      width="100%"
-                      height="350"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      className="w-full h-[350px]"
-                    />
-                  </LuxuryCard>
                 )}
               </div>
             </motion.div>
@@ -533,8 +516,32 @@ export default function PropertyDetailPage() {
             </motion.div>
           </div>
 
+          {/* Map Section */}
+          {property.address && property.city && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-12"
+            >
+              <LuxuryCard className="p-0 overflow-hidden">
+                <iframe
+                  title="מפה"
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(property.address + ", " + property.city)}&output=embed`}
+                  width="100%"
+                  height="400"
+                  className="w-full h-[300px] md:h-[400px]"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </LuxuryCard>
+            </motion.div>
+          )}
+
           {/* Back Button & Share */}
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="mb-12">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.8 }} className="mt-12">
             <LuxuryCard className="p-6 flex justify-between items-center">
               <Link href="/catalog">
                 <button

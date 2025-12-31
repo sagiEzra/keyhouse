@@ -10,6 +10,7 @@ interface LuxuryBackgroundProps {
   backgroundImage?: string
   imageAlt?: string
   overlayOpacity?: number
+  id?: string
 }
 
 export default function LuxuryBackground({
@@ -19,7 +20,8 @@ export default function LuxuryBackground({
   style = {},
   backgroundImage,
   imageAlt = "",
-  overlayOpacity = 0.65
+  overlayOpacity = 0.65,
+  id
 }: LuxuryBackgroundProps) {
   const getBackgroundStyle = () => {
     switch (variant) {
@@ -41,6 +43,7 @@ export default function LuxuryBackground({
 
   return (
     <section
+      id={id}
       className={`relative overflow-hidden ${variant === "hero" ? "pt-24 md:pt-28 pb-12" : ""} ${className}`}
       style={{
         ...(!backgroundImage && getBackgroundStyle()),
@@ -53,7 +56,9 @@ export default function LuxuryBackground({
           <div className="absolute inset-0 z-0">
             <img
               src={backgroundImage}
-              alt={imageAlt}
+              alt=""
+              role="presentation"
+              aria-hidden="true"
               className="h-full w-full object-cover"
             />
             <div

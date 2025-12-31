@@ -540,7 +540,7 @@ export default function TestimonialsCarousel() {
                     }}
                     disabled={isTransitioning}
                     className={`relative transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-[#c79d2a]/50 focus:ring-offset-2 rounded-full ${
-                      isActive ? "w-8 h-3" : "w-3 h-3"
+                      isActive ? "w-10 h-4 md:w-8 md:h-3" : "w-4 h-4 md:w-3 md:h-3"
                     }`}
                     aria-label={`עבור לעדות ${index + 1}`}
                   >

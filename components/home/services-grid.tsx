@@ -43,25 +43,6 @@ export default function ServicesGrid() {
     },
   ]
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.18,
-      },
-    },
-  }
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  }
-
   return (
     <LuxuryBackground
       variant="light"
@@ -78,17 +59,14 @@ export default function ServicesGrid() {
         />
 
         {/* Services Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
-        >
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              variants={cardVariants as any}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, delay: index * 0.1 }}
               className="group relative"
               whileHover={{ y: -8 }}
             >
@@ -191,7 +169,7 @@ export default function ServicesGrid() {
               </Link>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom CTA */}
         <motion.div

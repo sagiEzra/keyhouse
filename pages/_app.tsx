@@ -34,6 +34,18 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <main lang="he" dir="rtl" className={rubik.variable}>
+        {/* Skip Navigation Link for Accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[9999] focus:rounded-2xl focus:px-6 focus:py-4 focus:text-lg focus:font-bold focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#c79d2a] focus:ring-offset-2"
+          style={{
+            background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 100%)",
+            color: "#ffffff"
+          }}
+        >
+          דלג לתוכן הראשי
+        </a>
+
         <div className="min-h-screen bg-white font-sans antialiased">
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
             <Header />

@@ -3,12 +3,13 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore"
 import { db } from "../lib/firebase"
 import { Property } from "../types/property"
 import { motion } from "framer-motion"
-import Head from "next/head"
 import Link from "next/link"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import LuxuryCard from "@/components/ui/luxury-card"
 import SectionHeader from "@/components/ui/section-header"
 import LuxuryButton from "@/components/ui/luxury-button"
+import SEOHead from "@/components/seo/SEOHead"
+import StructuredData, { MultipleStructuredData } from "@/components/seo/StructuredData"
 import {
   FaSearch,
   FaFilter,
@@ -158,9 +159,20 @@ export default function CatalogPage() {
   if (loading) {
     return (
       <>
-        <Head>
-          <title>קטלוג נכסים - Keyhouse</title>
-        </Head>
+        <SEOHead
+          title="דירות למכירה באילת | קטלוג נכסים מעודכן | קי האוס"
+          description="מחפשים דירה באילת? צפו בקטלוג הנכסים המלא שלנו - דירות למכירה, דירות להשכרה, פנטהאוזים, וילות ונכסים מסחריים. מעודכן יומית."
+          canonical="/catalog"
+          keywords={[
+            'דירות למכירה באילת',
+            'דירות להשכרה באילת',
+            'נכסים באילת',
+            'דירות יד 2 אילת',
+            'קטלוג נכסים אילת',
+            'נדל"ן למכירה אילת',
+            'דירות להשקעה באילת'
+          ]}
+        />
         <LuxuryBackground variant="hero" className="flex items-center justify-center py-20">
           <div className="flex flex-col items-center gap-4">
             <div
@@ -181,13 +193,44 @@ export default function CatalogPage() {
 
   return (
     <>
-      <Head>
-        <title>קטלוג נכסים - Keyhouse</title>
-        <meta
-          name="description"
-          content="גלה את הנכס המושלם עבורך - דירות למכירה ולהשכרה באילת. קטלוג נכסים מעודכן עם מגוון אפשרויות מגורים והשקעה."
-        />
-      </Head>
+      <SEOHead
+        title="דירות למכירה באילת | קטלוג נכסים מעודכן | קי האוס"
+        description="מחפשים דירה באילת? צפו בקטלוג הנכסים המלא שלנו - דירות למכירה, דירות להשכרה, פנטהאוזים, וילות ונכסים מסחריים. מעודכן יומית."
+        canonical="/catalog"
+        keywords={[
+          'דירות למכירה באילת',
+          'דירות להשכרה באילת',
+          'נכסים באילת',
+          'דירות יד 2 אילת',
+          'קטלוג נכסים אילת',
+          'נדל"ן למכירה אילת',
+          'דירות להשקעה באילת',
+          'פנטהאוזים באילת',
+          'וילות באילת'
+        ]}
+      />
+
+      <MultipleStructuredData
+        schemas={[
+          {
+            type: 'BreadcrumbList',
+            data: {
+              items: [
+                { name: 'דף הבית', url: '/' },
+                { name: 'קטלוג נכסים', url: '/catalog' }
+              ]
+            }
+          },
+          {
+            type: 'WebPage',
+            data: {
+              name: 'קטלוג נכסים - דירות למכירה ולהשכרה באילת',
+              url: '/catalog',
+              description: 'קטלוג מלא של דירות למכירה ולהשכרה באילת - נכסים מעודכנים יומית'
+            }
+          }
+        ]}
+      />
 
       {/* Hero Section */}
       <LuxuryBackground
@@ -532,7 +575,7 @@ export default function CatalogPage() {
                       <div className="relative h-64 overflow-hidden">
                         <img
                           src={property.mainImage || "/images/keyhouse.jpg"}
-                          alt={property.title}
+                          alt={`${property.title} - ${property.category === 'apartment' ? 'דירה' : property.category === 'house' ? 'בית' : property.category === 'penthouse' ? 'פנטהאוז' : 'נכס'} ${property.type === 'sale' ? 'למכירה' : 'להשכרה'} ב${property.city}`}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         {/* Gradient Overlay */}
@@ -704,7 +747,7 @@ export default function CatalogPage() {
                       <div className="relative h-64 overflow-hidden">
                         <img
                           src={property.mainImage || "/images/keyhouse.jpg"}
-                          alt={property.title}
+                          alt={`${property.title} - ${property.category === 'apartment' ? 'דירה' : property.category === 'house' ? 'בית' : property.category === 'penthouse' ? 'פנטהאוז' : 'נכס'} ${property.type === 'sale' ? 'למכירה' : 'להשכרה'} ב${property.city}`}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         {/* Gradient Overlay */}

@@ -76,6 +76,19 @@ export default function LuxuryButton({
 
   const variantStyles = getVariantStyles()
 
+  const getFocusRingColor = () => {
+    switch (variant) {
+      case "primary":
+        return "focus:ring-[#c79d2a]"
+      case "secondary":
+        return "focus:ring-[rgba(25,39,74,0.5)]"
+      case "admin":
+        return "focus:ring-[rgba(120,120,120,0.5)]"
+      default:
+        return "focus:ring-[#c79d2a]"
+    }
+  }
+
   const buttonElement = (
     <motion.div
       whileHover={{ scale: 1.05, y: -2 }}
@@ -96,7 +109,7 @@ export default function LuxuryButton({
         onClick={onClick}
         disabled={disabled}
         type={type}
-        className={`relative flex items-center gap-3 rounded-full font-serif font-semibold transition-all duration-500 overflow-hidden ${getSizeClasses()} ${className} ${
+        className={`relative flex items-center gap-3 rounded-full font-serif font-semibold transition-all duration-500 overflow-hidden focus:outline-none focus:ring-4 focus:ring-opacity-50 ${getFocusRingColor()} ${getSizeClasses()} ${className} ${
           disabled ? 'opacity-50 cursor-not-allowed' : ''
         }`}
         style={{
@@ -104,7 +117,8 @@ export default function LuxuryButton({
           boxShadow: variantStyles.boxShadow,
           border: variantStyles.border,
           color: variantStyles.color,
-          backdropFilter: "blur(20px)"
+          backdropFilter: "blur(20px)",
+          outlineColor: variant === "primary" ? "rgba(199,157,42,0.8)" : "rgba(25,39,74,0.8)"
         }}
         onMouseEnter={(e) => {
           if (disabled) return

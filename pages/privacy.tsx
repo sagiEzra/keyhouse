@@ -12,15 +12,15 @@ export default function PrivacyPage() {
         <title>מדיניות פרטיות | KeyHouse נדל״ן אילת</title>
         <meta
           name="description"
-          content="מדיניות פרטיות של קי-האוס אילת - מידע על איסוף, שימוש והגנה על המידע האישי שלך בהתאם לחוק הגנת הפרטיות."
+          content="מדיניות פרטיות של קי-האוס אילת - מידע מפורט על איסוף, שימוש והגנה על המידע האישי שלך בהתאם לתיקון 13 לחוק הגנת הפרטיות."
         />
       </Head>
 
-      <LuxuryBackground variant="light" className="py-32">
+      <LuxuryBackground variant="light" className="py-32" id="main-content">
         <div className="container mx-auto px-6 relative z-10 max-w-5xl">
           <SectionHeader
             title="מדיניות פרטיות"
-            subtitle="ברוכים הבאים לאתר קי-האוס אילת. מדיניות פרטיות זו מפרטת את סוגי המידע שאנו אוספים מהמשתמשים באתר, את אופן השימוש בו, ואת האופן שבו אנו מגינים על המידע האישי שלך, בהתאם לחוק הגנת הפרטיות התשמ״א-1981 ותקנותיו."
+            subtitle="ברוכים הבאים לאתר KeyHouse Eilat. מדיניות פרטיות זו מפרטת באופן מלא ושקוף את סוגי המידע שאנו אוספים, את אופן השימוש בו, ואת הזכויות העומדות לרשותך, בהתאם לחוק הגנת הפרטיות התשמ״א-1981, תיקון 13 (תשפ״ד-2024), ותקנות אבטחת מידע התשע״ז-2017."
             className="mb-12"
           />
 
@@ -33,7 +33,10 @@ export default function PrivacyPage() {
             className="mb-12 text-center"
           >
             <p className="text-base" style={{ color: "rgba(25,39,74,0.7)" }}>
-              תאריך עדכון אחרון: 9 בדצמבר 2025
+              תאריך עדכון אחרון: 1 בינואר 2026
+            </p>
+            <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.7)" }}>
+              (תואם לתיקון 13 לחוק הגנת הפרטיות, שנכנס לתוקף ב-14 באוגוסט 2025)
             </p>
           </motion.div>
 
@@ -46,149 +49,646 @@ export default function PrivacyPage() {
             <LuxuryCard className="p-8 lg:p-12">
               {/* Section 1 */}
               <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                1. איסוף וסוגי המידע
+                1. מי אנחנו ומידע כללי
               </h2>
-              <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
-                החברה אוספת מידע אישי בשתי דרכים עיקריות:
-              </p>
-
-              <div className="space-y-6 mb-12">
-                <div>
-                  <h3 className="font-bold text-xl mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
-                    א. מידע הנמסר על ידי המשתמשים (מידע אקטיבי)
-                  </h3>
-                  <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    מידע זה נמסר על ידך באופן יזום באמצעות טפסי יצירת קשר או טפסי הערכת שווי נכס:
-                  </p>
-                  <ul className="space-y-3 mr-6">
-                    <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      <span className="font-bold">פרטי זיהוי וקשר:</span> שם מלא, כתובת דוא"ל, מספר טלפון.
-                    </li>
-                    <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      <span className="font-bold">פרטי נכס:</span> פרטים אודות הנכס שבבעלותך (כגון מיקום, גודל, מאפיינים), הנמסרים לצורך הערכת שווי.
-                    </li>
-                    <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      <span className="font-bold">הסכמה לדיוור:</span> תיבת סימון המאשרת קבלת דיוור, עדכונים, ומסרים שיווקיים מהחברה.
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="font-bold text-xl mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
-                    ב. מידע הנאסף באופן אוטומטי (מידע פסיבי)
-                  </h3>
-                  <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    כלי האנליטיקה (כגון Google Analytics) ואחרים שאנו עשויים לשלב בעתיד אוספים מידע סטטיסטי ואנונימי, כולל:
-                  </p>
-                  <ul className="space-y-3 mr-6">
-                    <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      כתובת IP, סוג הדפדפן, מערכת הפעלה.
-                    </li>
-                    <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      זמן השהייה באתר, דפים בהם צפית, ודרכי הגישה לאתר.
-                    </li>
-                    <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      שימוש ב"עוגיות" (Cookies) – ראה סעיף 4.
-                    </li>
-                  </ul>
-                </div>
+              <div className="space-y-4 mb-12">
+                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  <span className="font-bold">שם העסק:</span> KeyHouse Eilat (קי-האוס אילת), סוכנות נדל״ן מורשית
+                </p>
+                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  <span className="font-bold">מיקום:</span> {businessStaticData.location}
+                </p>
+                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  <span className="font-bold">דוא״ל:</span>{" "}
+                  <a
+                    href={businessStaticData.social.emailLink}
+                    className="transition-colors duration-300 hover:opacity-80"
+                    style={{ color: "#c79d2a" }}
+                  >
+                    {businessStaticData.social.email}
+                  </a>
+                </p>
+                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  <span className="font-bold">טלפון:</span>{" "}
+                  <a
+                    href={businessStaticData.rotemPhone.callLink}
+                    className="transition-colors duration-300 hover:opacity-80"
+                    style={{ color: "#c79d2a" }}
+                  >
+                    {businessStaticData.rotemPhone.numberToDisplay}
+                  </a>
+                </p>
+                <p className="text-lg leading-relaxed mt-6" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  אנו מחויבים להגן על פרטיותך ועל המידע האישי שלך. מדיניות זו תסביר לך בפירוט אילו נתונים אנו אוספים, כיצד אנו משתמשים בהם, עם מי אנו משתפים אותם, ומהן הזכויות העומדות לרשותך.
+                </p>
               </div>
 
               {/* Section 2 */}
               <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  2. מטרות איסוף המידע
+                  2. איזה מידע אנחנו אוספים?
                 </h2>
-                <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  השימוש במידע שנאסף נועד למטרות הבאות:
-                </p>
-                <div className="space-y-4">
-                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    <span className="font-bold">מתן שירות:</span> ליצירת קשר עמך, מתן הערכת שווי הנכס שביקשת, וטיפול בפניותיך.
-                  </p>
-                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    <span className="font-bold">דיוור שיווקי:</span> שליחת ניוזלטר, עדכונים, הצעות שירותים ומידע על נכסים רלוונטיים (רק בכפוף להסכמתך המפורשת).
-                  </p>
-                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    <span className="font-bold">תפעול ושיפור האתר:</span> ניתוח הרגלי הגלישה והתנועה באתר כדי לשפר את חווית המשתמש והשירותים המוצעים.
-                  </p>
-                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    <span className="font-bold">עמידה בחוק:</span> ציות לדרישות משפטיות ורגולטוריות.
-                  </p>
+
+                <div className="space-y-8">
+                  {/* 2.1 */}
+                  <div>
+                    <h3 className="font-bold text-xl mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      2.1 מידע שאתה מוסר לנו באופן ישיר (מידע אקטיבי)
+                    </h3>
+                    <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      כאשר אתה משתמש בטפסי יצירת קשר, טפסי הערכת שווי נכס, או פונה אלינו דרך WhatsApp, אנו אוספים:
+                    </p>
+                    <ul className="space-y-3 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">פרטי זיהוי וקשר:</span> שם מלא, כתובת דוא״ל, מספר טלפון נייד
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">תוכן הפנייה:</span> הנושא שבגללו פנית, שאלות, בקשות למידע על נכסים
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">פרטי נכס:</span> במקרה של בקשת הערכת שווי - מיקום הנכס, גודל, מאפיינים, מצב הנכס
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">העדפות דיוור:</span> הסכמתך לקבלת ניוזלטר, עדכונים שיווקיים, ומידע על נכסים חדשים
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* 2.2 */}
+                  <div>
+                    <h3 className="font-bold text-xl mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      2.2 מידע שנאסף באופן אוטומטי (מידע פסיבי)
+                    </h3>
+                    <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      כאשר אתה גולש באתר, אנו עשויים לאסוף באופן אוטומטי מידע טכני וסטטיסטי:
+                    </p>
+                    <ul className="space-y-3 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">נתוני גלישה:</span> כתובת IP, סוג דפדפן, מערכת הפעלה, רזולוציית מסך
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">התנהגות באתר:</span> דפים שצפית בהם, משך הזמן בכל דף, לחיצות, גלילה
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">מקור הגעה:</span> מאיפה הגעת לאתר (חיפוש Google, רשתות חברתיות, כניסה ישירה)
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">מיקום גיאוגרפי כללי:</span> עיר ומדינה (לא מיקום מדויק) על בסיס כתובת IP
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* 2.3 */}
+                  <div>
+                    <h3 className="font-bold text-xl mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      2.3 Cookies (עוגיות) וטכנולוגיות מעקב
+                    </h3>
+                    <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      האתר משתמש בקבצי Cookies - קבצי טקסט קטנים המאוחסנים במכשירך:
+                    </p>
+                    <ul className="space-y-3 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">Cookies הכרחיים:</span> נדרשים לתפקוד תקין של האתר (זיכרון העדפות שפה, אבטחה)
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">Cookies אנליטיים:</span> עוזרים לנו להבין כיצד מבקרים משתמשים באתר (Google Analytics, Firebase)
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">Cookies שיווקיים:</span> משמשים למעקב אחר ביקורים באתר לצורכי פרסום ממוקד (במידה וקיימים)
+                      </li>
+                    </ul>
+                    <p className="text-lg leading-relaxed mt-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      באפשרותך לנהל את העדפות ה-Cookies שלך באמצעות באנר הקוקיז המופיע בכניסה לאתר, או דרך הגדרות הדפדפן שלך.
+                    </p>
+                  </div>
                 </div>
               </div>
 
               {/* Section 3 */}
               <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  3. העברת מידע לצדדים שלישיים
+                  3. למה אנחנו משתמשים במידע שלך?
                 </h2>
                 <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  החברה אינה מוכרת או משכירה מידע אישי. אנו עשויים להעביר מידע לצדדים שלישיים רק בנסיבות הבאות:
+                  המידע שאנו אוספים משמש אותנו למטרות הבאות בלבד:
                 </p>
-                <ul className="space-y-3 mr-6">
-                  <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    לספקי שירותים חיצוניים (כגון שירותי אירוח, שירותי דיוור, ספקי אנליטיקה) הנדרשים לצורך תפעול האתר והעסק.
-                  </li>
-                  <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    אם נדרש על פי חוק, צו בית משפט או רשות מוסמכת.
-                  </li>
-                  <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    במקרה של מיזוג, רכישה או שינוי מבני בחברה.
-                  </li>
-                </ul>
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      3.1 מתן שירות ותקשורת
+                    </h3>
+                    <ul className="space-y-2 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        מענה לפניות ושאלות שנשלחו דרך טפסי יצירת קשר או WhatsApp
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        אספקת הערכות שווי נכס ומידע מקצועי על נדל״ן
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        תיאום פגישות וסיורי נכסים
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        עדכונים על מצב עסקאות קיימות
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      3.2 דיוור שיווקי ופרסום (בכפוף להסכמתך המפורשת בלבד)
+                    </h3>
+                    <ul className="space-y-2 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        שליחת ניוזלטר חודשי עם עדכוני שוק הנדל״ן באילת
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        הצעות על נכסים חדשים המתאימים להעדפות שציינת
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        מידע על מבצעים, אירועים, וסמינרים בנושא נדל״ן
+                      </li>
+                    </ul>
+                    <p className="text-lg leading-relaxed mt-3 font-bold" style={{ color: "#c79d2a" }}>
+                      חשוב: לא נשלח לך דיוור שיווקי אלא אם סימנת במפורש את תיבת ההסכמה לכך. תוכל לבטל את הסכמתך בכל עת.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      3.3 שיפור האתר וניתוח סטטיסטי
+                    </h3>
+                    <ul className="space-y-2 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        ניתוח דפוסי גלישה כדי לשפר את חווית המשתמש
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        זיהוי בעיות טכניות ותקלות באתר
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        הבנת אילו תכנים ונכסים מעניינים את המבקרים
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      3.4 עמידה בדרישות חוק ומניעת הונאות
+                    </h3>
+                    <ul className="space-y-2 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        ציות לחוקי הגנת הפרטיות, חוקי איסור הלבנת הון, ודיני נדל״ן
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        מניעת שימוש לרעה באתר, ספאם, והונאות
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        אבטחת מידע והגנה על זכויות משתמשים
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               {/* Section 4 */}
               <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  4. עוגיות (Cookies)
+                  4. עם מי אנחנו משתפים את המידע שלך?
                 </h2>
-                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  האתר משתמש בקבצי "עוגיות" (Cookies) כדי להבטיח את תפקודו התקין ולצורך איסוף נתונים סטטיסטיים (כמפורט בסעיף 1.ב). אם אינך מעוניין בקבצי קוקיז, באפשרותך לשנות את הגדרות הדפדפן שלך או לסרב לקבלתם באמצעות באנר הקוקיז המופיע בכניסה לאתר.
+                <p className="text-lg leading-relaxed mb-6 font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  אנו לא מוכרים או משכירים מידע אישי לצדדים שלישיים. נקודה.
                 </p>
+                <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  עם זאת, אנו עשויים לשתף מידע במקרים המפורטים להלן:
+                </p>
+
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      4.1 ספקי שירותים חיצוניים (Data Processors)
+                    </h3>
+                    <p className="text-lg leading-relaxed mb-3" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      אנו משתמשים בספקי שירות חיצוניים שמסייעים לנו בתפעול האתר והעסק:
+                    </p>
+                    <ul className="space-y-3 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">Google Firebase ו-Google Analytics:</span> לאחסון נתוני נכסים וניתוח תנועה באתר. Google מחויבת לתקני GDPR ולחוק הגנת הפרטיות הישראלי.
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">שירותי אירוח (Hosting):</span> שרתי האתר ממוקמים אצל ספקי אירוח המקיימים תקני אבטחת מידע.
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">מערכות דיוור:</span> במידה ונרשמת לניוזלטר, פרטיך יאוחסנו במערכת ניהול דיוור מאובטחת.
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        <span className="font-bold">WhatsApp (Meta):</span> כאשר יוצרים קשר דרך WhatsApp, השיחה כפופה למדיניות הפרטיות של Meta/WhatsApp.
+                      </li>
+                    </ul>
+                    <p className="text-lg leading-relaxed mt-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      כל הספקים הללו פועלים על פי הוראותינו בלבד ומחויבים לשמור על סודיות המידע.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      4.2 דרישות חוק
+                    </h3>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      אנו עשויים לחשוף מידע אישי אם נדרש על פי חוק, צו שיפוטי, דרישה של רשות מוסמכת (משטרה, רשות מיסים), או לצורך הגנה על זכויותינו המשפטיות.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      4.3 מיזוג או רכישה עסקית
+                    </h3>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      במקרה של מיזוג, רכישה, או מכירת נכסי החברה, מידע אישי עשוי להיות מועבר לגוף הרוכש, בכפוף לאותן התחייבויות פרטיות.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      4.4 העברת מידע מחוץ לישראל
+                    </h3>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      חלק מהשירותים (Google Firebase, Google Analytics) מאוחסנים בשרתים מחוץ לישראל. החברות הללו מחויבות לתקנות GDPR האירופיות ולהחלטת ה-EU Adequacy לישראל, המבטיחות רמת הגנה גבוהה.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Section 5 */}
               <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  5. זכויות המשתמש
+                  5. כמה זמן אנחנו שומרים את המידע שלך?
                 </h2>
                 <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  בהתאם לחוק, עומדות לך הזכויות הבאות:
+                  אנו שומרים את המידע האישי שלך רק כל עוד יש לכך מטרה לגיטימית:
                 </p>
                 <div className="space-y-4">
-                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    <span className="font-bold">זכות עיון:</span> לבקש לעיין במידע האישי שנשמר עליך.
+                  <div className="p-6 rounded-2xl" style={{ backgroundColor: "rgba(199,157,42,0.05)" }}>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      <span className="font-bold">פניות יצירת קשר:</span> עד 3 שנים מתאריך הפנייה האחרונה (או עד שתבקש למחוק)
+                    </p>
+                  </div>
+                  <div className="p-6 rounded-2xl" style={{ backgroundColor: "rgba(199,157,42,0.05)" }}>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      <span className="font-bold">מנויי ניוזלטר:</span> עד שתבטל את המנוי או תבקש מחיקה
+                    </p>
+                  </div>
+                  <div className="p-6 rounded-2xl" style={{ backgroundColor: "rgba(199,157,42,0.05)" }}>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      <span className="font-bold">לקוחות שביצעו עסקאות:</span> 7 שנים (בהתאם לחובות משפטיות לשמירת תיעוד)
+                    </p>
+                  </div>
+                  <div className="p-6 rounded-2xl" style={{ backgroundColor: "rgba(199,157,42,0.05)" }}>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      <span className="font-bold">נתונים סטטיסטיים (Google Analytics):</span> 26 חודשים (הגדרת ברירת מחדל)
+                    </p>
+                  </div>
+                </div>
+                <p className="text-lg leading-relaxed mt-6" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  לאחר תקופות אלו, המידע נמחק או הופך לאנונימי באופן שאינו מאפשר זיהוי אישי.
+                </p>
+              </div>
+
+              {/* Section 6 */}
+              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  6. אבטחת המידע - איך אנחנו מגינים עליך?
+                </h2>
+                <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  אנו נוקטים באמצעי אבטחה טכניים וארגוניים מתקדמים כדי להגן על המידע שלך:
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full flex-shrink-0"
+                         style={{ background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.05) 100%)" }}>
+                      <span className="text-2xl">🔒</span>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+                        הצפנת SSL/TLS
+                      </h3>
+                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        כל התקשורת עם האתר מוצפנת באמצעות פרוטוקול HTTPS
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full flex-shrink-0"
+                         style={{ background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.05) 100%)" }}>
+                      <span className="text-2xl">🛡️</span>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+                        שרתים מאובטחים
+                      </h3>
+                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        נתונים מאוחסנים בשרתים מאובטחים עם גישה מוגבלת ומבוקרת
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full flex-shrink-0"
+                         style={{ background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.05) 100%)" }}>
+                      <span className="text-2xl">👥</span>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+                        הגבלת גישה פנימית
+                      </h3>
+                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        רק עובדים מורשים שזקוקים למידע למטרות עבודתם יכולים לגשת אליו
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full flex-shrink-0"
+                         style={{ background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.05) 100%)" }}>
+                      <span className="text-2xl">🔄</span>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
+                        גיבויים ועדכונים
+                      </h3>
+                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        גיבויים שוטפים של המידע ועדכונים קבועים של מערכות האבטחה
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-lg leading-relaxed mt-6" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  למרות מאמצינו, אף שיטת העברה או אחסון אינה בטוחה ב-100%. במקרה של חשד להפרת אבטחה, נודיע לך בהתאם לדרישות החוק.
+                </p>
+              </div>
+
+              {/* Section 7 - User Rights */}
+              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  7. הזכויות שלך - מה אתה יכול לעשות עם המידע שלך?
+                </h2>
+                <p className="text-lg leading-relaxed mb-8" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  בהתאם לתיקון 13 לחוק הגנת הפרטיות, עומדות לך הזכויות הבאות:
+                </p>
+
+                <div className="space-y-6">
+                  {/* 7.1 */}
+                  <div className="p-6 rounded-2xl border-r-4"
+                       style={{
+                         backgroundColor: "rgba(199,157,42,0.03)",
+                         borderColor: "#c79d2a"
+                       }}>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      7.1 זכות עיון (Right to Access)
+                    </h3>
+                    <p className="text-lg leading-relaxed mb-3" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      יש לך זכות לדעת אילו נתונים אישיים שלך מוחזקים אצלנו. תוכל לבקש:
+                    </p>
+                    <ul className="space-y-2 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        ✓ עותק של כל המידע האישי שלך שמאוחסן במערכות שלנו
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        ✓ מידע על מטרת האיסוף והשימוש במידע
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        ✓ פרטים על צדדים שלישיים שקיבלו את המידע שלך
+                      </li>
+                    </ul>
+                    <p className="text-lg leading-relaxed mt-3 font-bold" style={{ color: "#c79d2a" }}>
+                      זמן מענה: עד 30 יום מקבלת הבקשה (ניתן להאריך ב-30 יום נוספים במקרים מורכבים)
+                    </p>
+                  </div>
+
+                  {/* 7.2 */}
+                  <div className="p-6 rounded-2xl border-r-4"
+                       style={{
+                         backgroundColor: "rgba(199,157,42,0.03)",
+                         borderColor: "#c79d2a"
+                       }}>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      7.2 זכות תיקון (Right to Rectification)
+                    </h3>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      אם גילית שמידע שלך אינו נכון, מיושן, או חסר - תוכל לבקש לתקן אותו. נתקן את המידע ונעדכן את כל הגורמים שקיבלו את המידע הלא נכון.
+                    </p>
+                  </div>
+
+                  {/* 7.3 */}
+                  <div className="p-6 rounded-2xl border-r-4"
+                       style={{
+                         backgroundColor: "rgba(199,157,42,0.03)",
+                         borderColor: "#c79d2a"
+                       }}>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      7.3 זכות מחיקה - "הזכות להישכח" (Right to Erasure)
+                    </h3>
+                    <p className="text-lg leading-relaxed mb-3" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      תוכל לבקש למחוק את כל המידע האישי שלך במקרים הבאים:
+                    </p>
+                    <ul className="space-y-2 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        • המידע אינו נחוץ עוד למטרה שלשמה נאסף
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        • משכת את הסכמתך לעיבוד המידע
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        • המידע נאסף או עובד בניגוד לחוק
+                      </li>
+                    </ul>
+                    <p className="text-lg leading-relaxed mt-3" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      <span className="font-bold">חריגים:</span> במקרים שבהם אנו מחויבים על פי חוק לשמור מידע (למשל, רישומי עסקאות למשך 7 שנים), לא נוכל למחוק אותו.
+                    </p>
+                  </div>
+
+                  {/* 7.4 */}
+                  <div className="p-6 rounded-2xl border-r-4"
+                       style={{
+                         backgroundColor: "rgba(199,157,42,0.03)",
+                         borderColor: "#c79d2a"
+                       }}>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      7.4 זכות להסרה מרשימת דיוור (Right to Object to Marketing)
+                    </h3>
+                    <p className="text-lg leading-relaxed mb-3" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      בכל עת תוכל להפסיק לקבל דיוור שיווקי:
+                    </p>
+                    <ul className="space-y-2 mr-6">
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        📧 לחיצה על קישור "הסר מרשימת התפוצה" בתחתית כל מייל
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        ✉️ שליחת מייל ל-{businessStaticData.social.email}
+                      </li>
+                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                        📞 שיחה ל-{businessStaticData.rotemPhone.numberToDisplay}
+                      </li>
+                    </ul>
+                    <p className="text-lg leading-relaxed mt-3 font-bold" style={{ color: "#c79d2a" }}>
+                      ההסרה תבוצע תוך 3 ימי עסקים
+                    </p>
+                  </div>
+
+                  {/* 7.5 */}
+                  <div className="p-6 rounded-2xl border-r-4"
+                       style={{
+                         backgroundColor: "rgba(199,157,42,0.03)",
+                         borderColor: "#c79d2a"
+                       }}>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      7.5 זכות להתנגד לעיבוד (Right to Object)
+                    </h3>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      תוכל להתנגד לעיבוד מידע במקרים מסוימים, למשל אם אתה סבור שהעיבוד פוגע בפרטיותך או אינו חוקי.
+                    </p>
+                  </div>
+
+                  {/* 7.6 */}
+                  <div className="p-6 rounded-2xl border-r-4"
+                       style={{
+                         backgroundColor: "rgba(199,157,42,0.03)",
+                         borderColor: "#c79d2a"
+                       }}>
+                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      7.6 זכות לפיצוי ללא הוכחת נזק
+                    </h3>
+                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                      בהתאם לתיקון 13, אם הופרה זכותך לעיון, תיקון או מחיקה, תוכל לתבוע פיצוי של עד 10,000 ₪ ללא צורך להוכיח נזק בפועל.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-8 p-6 rounded-2xl"
+                     style={{
+                       background: "linear-gradient(135deg, rgba(25,39,74,0.05) 0%, rgba(199,157,42,0.03) 100%)"
+                     }}>
+                  <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                    איך מממשים את הזכויות?
+                  </h3>
+                  <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                    כדי לממש את זכויותיך, פנה אלינו בכתב באחת מהדרכים הבאות:
                   </p>
-                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    <span className="font-bold">זכות תיקון ומחיקה:</span> לבקש לתקן מידע שאינו נכון, או לבקש למחוק מידע אישי (בכפוף לכל דין).
-                  </p>
-                  <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                    <span className="font-bold">הסרה מרשימת הדיוור:</span> בכל עת תוכל להסיר את עצמך מרשימת הדיוור באמצעות קישור "הסר" המופיע בתחתית כל דיוור שיווקי, או על ידי פנייה ישירה אלינו.
+                  <div className="space-y-2">
+                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
+                      📧 דוא״ל:{" "}
+                      <a href={businessStaticData.social.emailLink} className="font-bold transition-colors duration-300 hover:opacity-80" style={{ color: "#c79d2a" }}>
+                        {businessStaticData.social.email}
+                      </a>
+                    </p>
+                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
+                      📞 טלפון:{" "}
+                      <a href={businessStaticData.rotemPhone.callLink} className="font-bold transition-colors duration-300 hover:opacity-80" style={{ color: "#c79d2a" }}>
+                        {businessStaticData.rotemPhone.numberToDisplay}
+                      </a>
+                    </p>
+                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
+                      📍 כתובת: {businessStaticData.location}
+                    </p>
+                  </div>
+                  <p className="text-lg leading-relaxed mt-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                    נדרש לצרף אסמכתא לזיהוי (עותק ת.ז.) כדי לוודא שאתה אכן בעל המידע.
                   </p>
                 </div>
               </div>
 
-              {/* Section 6 - Contact */}
+              {/* Section 8 */}
+              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  8. קטינים (מתחת לגיל 18)
+                </h2>
+                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  האתר מיועד למבוגרים בלבד. איננו אוספים במכוון מידע אישי מקטינים מתחת לגיל 18. אם הגעת למסקנה שאספנו מידע על קטין, אנא{" "}
+                  <a href={businessStaticData.social.emailLink} className="font-bold transition-colors duration-300 hover:opacity-80" style={{ color: "#c79d2a" }}>
+                    צור איתנו קשר
+                  </a>
+                  {" "}ונמחק אותו באופן מיידי.
+                </p>
+              </div>
+
+              {/* Section 9 */}
+              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  9. קישורים לאתרים חיצוניים
+                </h2>
+                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  האתר עשוי להכיל קישורים לאתרים חיצוניים (למשל, רשתות חברתיות, אתרי נדל״ן ממשלתיים). איננו אחראים על מדיניות הפרטיות של אתרים אלו ומומלץ לקרוא את התנאים שלהם בנפרד.
+                </p>
+              </div>
+
+              {/* Section 10 */}
+              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  10. שינויים במדיניות הפרטיות
+                </h2>
+                <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  אנו שומרים לעצמנו את הזכות לעדכן מדיניות זו מעת לעת, בהתאם לשינויים בחוק או בשירותים שלנו.
+                </p>
+                <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  <span className="font-bold">שינויים מהותיים:</span> במקרה של שינוי מהותי שמשפיע על זכויותיך, נודיע לך בדוא״ל (אם רשום אצלנו) או באמצעות הודעה בולטת באתר.
+                </p>
+                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  <span className="font-bold">תאריך עדכון אחרון:</span> תמיד תוכל לראות בראש המדיניות מתי עודכנה לאחרונה.
+                </p>
+              </div>
+
+              {/* Section 11 */}
+              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  11. תלונות והרשות להגנת הפרטיות
+                </h2>
+                <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
+                  אנו משתדלים לטפל בכל פניה ותלונה באופן מקצועי ומהיר. אם אינך מרוצה מהטיפול שלנו בנושאי פרטיות, יש לך זכות להגיש תלונה אל:
+                </p>
+                <div className="p-6 rounded-2xl"
+                     style={{
+                       background: "linear-gradient(135deg, rgba(25,39,74,0.03) 0%, rgba(199,157,42,0.02) 100%)"
+                     }}>
+                  <h3 className="font-bold text-xl mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                    הרשות להגנת הפרטיות
+                  </h3>
+                  <div className="space-y-2">
+                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
+                      📧 דוא״ל: <span className="font-bold">privacy@justice.gov.il</span>
+                    </p>
+                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
+                      📞 טלפון: <span className="font-bold">02-6466346</span>
+                    </p>
+                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
+                      🌐 אתר: <a href="https://www.gov.il/he/departments/the_privacy_protection_authority" target="_blank" rel="noopener noreferrer" className="font-bold transition-colors duration-300 hover:opacity-80" style={{ color: "#c79d2a" }}>
+                        www.gov.il
+                      </a>
+                    </p>
+                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
+                      📍 כתובת: רחוב צלאח א-דין 2, ירושלים
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Section */}
               <div className="border-t pt-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <div className="p-8 rounded-2xl"
                      style={{
                        background: "linear-gradient(135deg, rgba(199,157,42,0.08) 0%, rgba(255,255,255,0.95) 50%, rgba(199,157,42,0.05) 100%)"
                      }}>
                   <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                    6. יצירת קשר בנושאי פרטיות
+                    יצירת קשר בנושאי פרטיות
                   </h2>
                   <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.85)" }}>
-                    לכל שאלה, בקשה לעיון, תיקון או מחיקה של מידע אישי, אנא פנה אלינו:
+                    לכל שאלה, בקשה לעיון, תיקון, מחיקה, או כל נושא אחר הקשור לפרטיות ולמידע האישי שלך - אנא צור איתנו קשר:
                   </p>
 
-                  <div className="space-y-3">
+                  <div className="space-y-4 mb-6">
                     <p className="text-lg font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>
-                      קי-האוס אילת (Key-House Eilat)
+                      KeyHouse Eilat (קי-האוס אילת)
                     </p>
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
-                      <span className="font-bold">דוא"ל:</span>{" "}
+                      <span className="font-bold">דוא״ל:</span>{" "}
                       <a
                         href={businessStaticData.social.emailLink}
                         className="transition-colors duration-300 hover:opacity-80"
@@ -200,18 +700,21 @@ export default function PrivacyPage() {
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
                       <span className="font-bold">טלפון:</span>{" "}
                       <a
-                        href={`tel:+${businessStaticData.rotemPhone.israelNumber}`}
+                        href={businessStaticData.rotemPhone.callLink}
                         className="transition-colors duration-300 hover:opacity-80"
                         style={{ color: "#c79d2a" }}
                       >
                         {businessStaticData.rotemPhone.numberToDisplay}
                       </a>
                     </p>
+                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
+                      <span className="font-bold">כתובת:</span> {businessStaticData.location}
+                    </p>
                   </div>
 
                   <div className="mt-8 pt-6 border-t" style={{ borderColor: "rgba(25,39,74,0.15)" }}>
                     <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
-                      אנו מחויבים להגן על פרטיותך ולשמור על המידע שלך בצורה מאובטחת. לכל שאלה נוספת,{" "}
+                      אנו מחויבים להגן על פרטיותך ולכבד את זכויותיך. נענה לפנייתך תוך 30 יום מקבלתה. לכל שאלה נוספת,{" "}
                       <a
                         href="/contact"
                         className="font-bold transition-colors duration-300 hover:opacity-80"

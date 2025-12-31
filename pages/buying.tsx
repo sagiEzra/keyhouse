@@ -8,12 +8,53 @@ import {
   FeatureGrid,
   HighlightCards
 } from "../components/common/service-section-children"
+import SEOHead from "@/components/seo/SEOHead"
+import { MultipleStructuredData } from "@/components/seo/StructuredData"
 
 import { FaShieldAlt as ShieldCheck, FaSearch as Search, FaClock as Clock, FaAward as Award } from "react-icons/fa"
 
 export default function BuyingPage() {
   return (
-    <main dir="rtl" className="min-h-screen bg-white">
+    <>
+      <SEOHead
+        title="קניית דירה באילת | ליווי מקצועי מהחיפוש ועד העסקה | קי האוס"
+        description="רוצים לקנות דירה באילת? נלווה אתכם בכל השלבים - מהחיפוש, דרך המשא ומתן, ועד חתימת החוזה. שירות מקצועי ואישי, ניתוח צרכים מעמיק ומקסימום דאגה לאינטרסים שלכם."
+        canonical="/buying"
+        keywords={[
+          'קניית דירה באילת',
+          'רכישת דירה באילת',
+          'ליווי רכישת דירה',
+          'קניית נכס באילת',
+          'דירות להשקעה אילת',
+          'רכישת נדל"ן אילת',
+          'יעוץ קניית דירה',
+          'משכנתא אילת'
+        ]}
+      />
+
+      <MultipleStructuredData
+        schemas={[
+          {
+            type: 'BreadcrumbList',
+            data: {
+              items: [
+                { name: 'דף הבית', url: '/' },
+                { name: 'קניית דירה', url: '/buying' }
+              ]
+            }
+          },
+          {
+            type: 'WebPage',
+            data: {
+              name: 'קניית דירה באילת - ליווי מקצועי מלא',
+              url: '/buying',
+              description: 'שירותי ליווי מקצועי לקניית דירה באילת - מהחיפוש ועד העסקה'
+            }
+          }
+        ]}
+      />
+
+      <main id="main-content" dir="rtl" className="min-h-screen bg-white">
 
       <ServiceHero
         title="הדרך הבטוחה והחכמה - לקנות נכס"
@@ -128,5 +169,6 @@ export default function BuyingPage() {
         buttonText="דבר איתנו"
       />
     </main>
+    </>
   )
 }

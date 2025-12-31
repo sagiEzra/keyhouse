@@ -17,6 +17,8 @@ const navLinks = [
 export default function Footer() {
   return (
     <footer
+      role="contentinfo"
+      aria-label="מידע תחתון ופרטי קשר"
       dir="rtl"
       className="relative z-10 mt-0 overflow-hidden"
       style={{
@@ -43,7 +45,7 @@ export default function Footer() {
       </div>
 
       <div className="container mx-auto px-6 py-16 relative z-10">
-        <div className="grid gap-20 md:grid-cols-3 lg:grid-cols-4 items-start">
+        <div className="grid gap-12 md:gap-16 lg:gap-20 md:grid-cols-2 lg:grid-cols-4 items-start">
           
           {/* Brand Section */}
           <motion.div 
@@ -57,7 +59,7 @@ export default function Footer() {
             <div className="relative mb-6">
               <img
                 src="/images/logoNoBg.png"
-                alt="KeyHouse"
+                alt="KeyHouse - לוגו סוכנות נדל״ן אילת"
                 className="w-80 object-cover rounded-2xl transition-all duration-300 hover:shadow-lg"
                 style={{
                   boxShadow: "0 15px 30px rgba(25,39,74,0.15), 0 6px 15px rgba(25,39,74,0.08)",
@@ -123,12 +125,12 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="md:block hidden group"
+            className="group"
           >
             <h3 className="font-serif text-xl font-bold mb-6 relative"
                 style={{ 
@@ -307,7 +309,7 @@ export default function Footer() {
                          }} />
                     
                     <a
-                      href="https://facebook.com/keyhouse"
+                      href={businessStaticData.social.facebook}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative block rounded-full p-4 transition-all duration-500"
@@ -348,7 +350,7 @@ export default function Footer() {
                          }} />
                     
                     <a
-                      href="https://instagram.com/keyhouse"
+                      href={businessStaticData.social.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative block rounded-full p-4 transition-all duration-500"

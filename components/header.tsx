@@ -70,6 +70,8 @@ export default function Header() {
 
   return (
     <header
+      role="banner"
+      aria-label="ניווט ראשי"
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-700 ${isScrolled
           ? "py-3 backdrop-blur-xl border-b"
           : "py-5 backdrop-blur-md"
@@ -105,7 +107,7 @@ export default function Header() {
                  } : {}}>
               <img
                 src="/images/keyLogo.png"
-                alt="KeyHouse Logo"
+                alt="KeyHouse - סוכנות הנדל״ן המובילה באילת"
                 className={`transition-all duration-500 drop-shadow-lg group-hover:drop-shadow-xl ${isScrolled ? "h-12" : "h-14"}`}
                 style={{
                   filter: isScrolled 
@@ -118,7 +120,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav role="navigation" aria-label="תפריט ניווט עיקרי" className="hidden items-center gap-10 md:flex">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href} className="group relative">
               <motion.div
@@ -335,7 +337,7 @@ export default function Header() {
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
               className="absolute left-0 right-0 top-0 min-h-screen overflow-hidden"
               style={{
                 background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,249,255,0.95) 50%, rgba(255,255,255,0.98) 100%)",
@@ -355,13 +357,13 @@ export default function Header() {
               </div>
 
               <div className="container mx-auto px-6 pt-28 relative z-10">
-                <nav className="flex flex-col gap-2">
+                <nav role="navigation" aria-label="תפריט ניווט מובייל" className="flex flex-col gap-2">
                   {navLinks.map((link, index) => (
                     <motion.div
                       key={link.name}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
                       className="group"
                     >
                       <Link

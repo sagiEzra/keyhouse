@@ -13,7 +13,7 @@ export default function AboutHero() {
       overlayOpacity={0.65}
     >
 
-      <div className="container relative z-10 mx-auto px-6 py-20 text-center">
+      <div className="container relative z-10 mx-auto px-6 py-12 md:py-16 lg:py-20 text-center">
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
