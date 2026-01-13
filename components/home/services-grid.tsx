@@ -46,7 +46,7 @@ export default function ServicesGrid() {
   return (
     <LuxuryBackground
       variant="light"
-      // id="services-grid"
+      id="services-grid"
       className="py-32"
     >
 

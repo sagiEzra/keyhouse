@@ -8,7 +8,7 @@ import QuoteCard from "@/components/ui/quote-card"
 import SEOHead from "@/components/seo/SEOHead"
 import { MultipleStructuredData } from "@/components/seo/StructuredData"
 import { FaCheckCircle, FaChartLine, FaHandshake, FaClipboardList, FaArrowDown } from "react-icons/fa"
-import { subscribeToRavMesser } from "@/lib/ravMesser"
+import { sendLeadToWebhook } from "@/lib/webhook"
 
 export default function PropertyValuation() {
   const [formData, setFormData] = useState({
@@ -68,16 +68,32 @@ export default function PropertyValuation() {
     }
 
     try {
-      // Subscribe to Rav Messer newsletter
-      const result = await subscribeToRavMesser({
+      // Send lead to webhook with all property data
+      const result = await sendLeadToWebhook({
+        type: 'property-valuation',
         email: formData.email,
         firstName: formData.firstName,
         lastName: formData.lastName,
         phone: formData.phone,
+        leadPosition: "מוכר", // Property valuation is always for sellers
+        address: formData.address,
+        floor: formData.floor,
+        rooms: formData.rooms,
+        balcony: formData.balcony ? '✅' : '❌',
+        yard: formData.yard ? '✅' : '❌',
+        accessibility: formData.accessibility ? '✅' : '❌',
+        renovated: formData.renovated ? '✅' : '❌',
+        storage: formData.storage ? '✅' : '❌',
+        airConditioning: formData.airConditioning ? '✅' : '❌',
+        safeRoom: formData.safeRoom ? '✅' : '❌',
+        elevator: formData.elevator ? '✅' : '❌',
+        parking: formData.parking ? '✅' : '❌',
+        furnished: formData.furnished ? '✅' : '❌',
+        additionalDetails: formData.additionalDetails,
       })
 
       if (!result.success) {
-        throw new Error("Failed to subscribe to newsletter")
+        throw new Error("Failed to submit property valuation")
       }
 
       console.log("Form submitted:", formData)
@@ -191,7 +207,7 @@ export default function PropertyValuation() {
           >
             קבל הערכת שווי שוק ללא עלות וללא התחייבות
             <br />
-            מבוססת על ניתוח מעמיק של השוק המקומי
+            מבוססת על ניתוח מעמיק של השוק המקומי (לא שמאות)
           </motion.p>
 
           <motion.div
@@ -270,6 +286,19 @@ export default function PropertyValuation() {
               </motion.div>
             ))}
           </div>
+
+          {/* Disclaimer */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-8 text-center"
+          >
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(25,39,74,0.6)" }}>
+              * ההערכה מתבססת על ניתוח שוק השוואתי של מתווכת מוסמכת בעלת רישיון מטעם משרד המשפטים ואינה מתיימרת להיות הערכת שמאות מקצועית
+            </p>
+          </motion.div>
         </div>
       </LuxuryBackground>
 

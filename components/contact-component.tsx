@@ -15,7 +15,7 @@ import { businessStaticData } from "../config"
 import LuxuryButton from "@/components/ui/luxury-button"
 import SectionHeader from "@/components/ui/section-header"
 import LuxuryCard from "@/components/ui/luxury-card"
-import { subscribeToRavMesser } from "@/lib/ravMesser"
+import { sendLeadToWebhook } from "@/lib/webhook"
 
 export default function ContactComponent() {
   const [formData, setFormData] = useState({
@@ -24,6 +24,7 @@ export default function ContactComponent() {
     phone: "",
     email: "",
     message: "",
+    leadPosition: "", // "מוכר" | "קונה" | "שכירות" | ""
     newsletter: false,
   })
 
@@ -31,7 +32,7 @@ export default function ContactComponent() {
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState("")
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
 
     if (type === "checkbox") {
@@ -62,16 +63,19 @@ export default function ContactComponent() {
     }
 
     try {
-      // Subscribe to Rav Messer newsletter
-      const result = await subscribeToRavMesser({
+      // Send lead to webhook with message
+      const result = await sendLeadToWebhook({
+        type: 'contact',
         email: formData.email,
         firstName: formData.firstName,
         lastName: formData.lastName,
         phone: formData.phone,
+        leadPosition: formData.leadPosition || "לא ידוע", // Default to "לא ידוע" if not selected
+        message: formData.message ?? "אין",
       })
 
       if (!result.success) {
-        throw new Error("Failed to subscribe to newsletter")
+        throw new Error("Failed to send contact form")
       }
 
       setSubmitSuccess(true)
@@ -83,6 +87,7 @@ export default function ContactComponent() {
         phone: "",
         email: "",
         message: "",
+        leadPosition: "",
         newsletter: false,
       })
     } catch (error) {
@@ -245,6 +250,29 @@ export default function ContactComponent() {
                         {" "}<span style={{ color: "#c79d2a" }}>*</span>
                       </label>
                     </div>
+                  </div>
+                  <div>
+                    <label htmlFor="leadPosition" className="block text-lg font-semibold mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                      אני מעוניין/ת ב:
+                    </label>
+                    <select
+                      id="leadPosition"
+                      name="leadPosition"
+                      value={formData.leadPosition}
+                      onChange={handleInputChange}
+                      className="w-full rounded-2xl border px-6 py-4 text-lg transition-all duration-300 focus:outline-none focus:ring-2 text-right appearance-none cursor-pointer"
+                      style={{
+                        borderColor: "rgba(25,39,74,0.15)",
+                        backgroundColor: "rgba(255,255,255,0.95)",
+                        color: formData.leadPosition ? "rgba(25,39,74,0.97)" : "rgba(25,39,74,0.5)",
+                        boxShadow: "0 8px 20px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+                      }}
+                    >
+                      <option value="" disabled>בחר אפשרות</option>
+                      <option value="מוכר">מכירת נכס</option>
+                      <option value="קונה">קניית נכס</option>
+                      <option value="שכירות">שכירות נכס</option>
+                    </select>
                   </div>
                   <div>
                     <label htmlFor="message" className="block text-lg font-semibold mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>

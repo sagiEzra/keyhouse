@@ -101,7 +101,8 @@ export default function AboutSection() {
                         alt="רותם ושירז - צוות KeyHouse"
                         className="w-full h-[280px] sm:h-[350px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
                         style={{
-                          boxShadow: "0 25px 60px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.6)"
+                          boxShadow: "0 25px 60px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.6)",
+                          objectPosition: "top"
                         }}
                       />
                       <div className="absolute inset-4 rounded-2xl bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -180,7 +181,8 @@ export default function AboutSection() {
                       alt="רותם ושירז - צוות KeyHouse"
                       className="w-full h-[750px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
                       style={{
-                        boxShadow: "0 25px 60px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.6)"
+                        boxShadow: "0 25px 60px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.6)",
+                        objectPosition: "top"
                       }}
                     />
                     <div className="absolute inset-6 rounded-2xl bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

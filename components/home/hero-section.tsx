@@ -15,55 +15,92 @@ declare global {
 export default function HeroSection() {
   const playerRef = useRef<any>(null)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
 
   useEffect(() => {
     // Set loaded to true immediately so content shows
     setIsLoaded(true)
 
     const initializePlayer = () => {
-      // Wait for iframe to be in DOM
-      const iframe = document.getElementById('youtube-player')
-      if (!iframe || playerRef.current) return
+      // Check if player container exists
+      const playerContainer = document.getElementById('youtube-player')
+      if (!playerContainer || playerRef.current) return
 
-      playerRef.current = new window.YT.Player('youtube-player', {
-        events: {
-          onReady: (event: any) => {
-            event.target.mute()
-            event.target.playVideo()
+      try {
+        playerRef.current = new window.YT.Player('youtube-player', {
+          videoId: 'TzMDVInxbRw',
+          playerVars: {
+            autoplay: 1,
+            mute: 1,
+            start: 33,
+            controls: 0,
+            showinfo: 0,
+            rel: 0,
+            modestbranding: 1,
+            playsinline: 1,
+            enablejsapi: 1,
+            loop: 0,
+            disablekb: 1,
+            fs: 0,
+            iv_load_policy: 3
           },
-          onStateChange: (event: any) => {
-            // When video ends (state 0), seek to second 33 and play again
-            if (event.data === window.YT.PlayerState.ENDED) {
+          events: {
+            onReady: (event: any) => {
+              console.log('YouTube player ready')
+              event.target.mute()
               event.target.seekTo(33, true)
               event.target.playVideo()
+            },
+            onStateChange: (event: any) => {
+              // State: -1 (unstarted), 0 (ended), 1 (playing), 2 (paused), 3 (buffering), 5 (cued)
+              console.log('Player state:', event.data)
+
+              if (event.data === window.YT.PlayerState.PLAYING) {
+                // Video is actually playing - hide overlay
+                setIsVideoPlaying(true)
+              } else if (event.data === window.YT.PlayerState.ENDED) {
+                // When video ends, loop back to second 33
+                event.target.seekTo(33, true)
+                event.target.playVideo()
+              }
             }
           }
-        }
-      })
+        })
+      } catch (error) {
+        console.error('Error initializing YouTube player:', error)
+      }
     }
 
     // Check if YouTube API is already loaded
     if (window.YT && window.YT.Player) {
-      initializePlayer()
+      // Add small delay to ensure DOM is ready
+      setTimeout(initializePlayer, 100)
     } else {
       // Check if script is already being loaded
       const existingScript = document.querySelector('script[src="https://www.youtube.com/iframe_api"]')
 
       if (!existingScript) {
-        // Load YouTube IFrame API
+        // Load YouTube IFrame API with async
         const tag = document.createElement('script')
         tag.src = 'https://www.youtube.com/iframe_api'
+        tag.async = true
         const firstScriptTag = document.getElementsByTagName('script')[0]
         firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag)
       }
 
       // Initialize player when API is ready
-      window.onYouTubeIframeAPIReady = initializePlayer
+      window.onYouTubeIframeAPIReady = () => {
+        setTimeout(initializePlayer, 100)
+      }
     }
 
     return () => {
-      if (playerRef.current) {
-        playerRef.current.destroy()
+      if (playerRef.current && typeof playerRef.current.destroy === 'function') {
+        try {
+          playerRef.current.destroy()
+        } catch (error) {
+          console.error('Error destroying player:', error)
+        }
         playerRef.current = null
       }
     }
@@ -78,17 +115,38 @@ export default function HeroSection() {
     >
       {/* Video Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* YouTube Player Container - API will create iframe here */}
         <div className="absolute inset-0 w-full h-full">
-          <iframe
+          <div
             id="youtube-player"
             className="absolute top-0 left-0 w-[177.77vh] h-[100vh] md:w-[100vw] md:h-[56.25vw] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2"
-            src="https://www.youtube.com/embed/TzMDVInxbRw?enablejsapi=1&autoplay=1&mute=1&start=33&controls=0&showinfo=0&rel=0&modestbranding=1"
-            title="KeyHouse Hero Video"
-            frameBorder="0"
-            allow="autoplay; fullscreen"
-            allowFullScreen
-          ></iframe>
+          ></div>
         </div>
+
+        {/* Loading Overlay - shown until video is actually playing */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 pointer-events-none ${
+            isVideoPlaying ? 'opacity-0' : 'opacity-100'
+          }`}
+          style={{
+            background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
+          }}
+        >
+          {/* Optional: Add a subtle loading indicator */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative">
+              {/* Pulsing glow effect */}
+              <div
+                className="absolute -inset-8 rounded-full opacity-40 blur-3xl animate-pulse"
+                style={{
+                  background: "radial-gradient(circle, rgba(199,157,42,0.3) 0%, transparent 70%)"
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Video overlay gradient */}
         <div
           className="absolute inset-0"
           style={{

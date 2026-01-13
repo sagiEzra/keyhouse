@@ -62,7 +62,8 @@ export default function ProfileSection({
             alt={imageAlt}
             className="w-full h-[350px] sm:h-[450px] lg:h-[700px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
             style={{
-              boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
+              boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)",
+              objectPosition: "top"
             }}
           />
 

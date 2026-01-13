@@ -179,6 +179,22 @@ export default function TestimonialsCarousel() {
     setIsTransitioning(false)
   }
 
+  // Enhanced touch handling (like videos-carousel)
+  const touchStartX = useRef<number | null>(null)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current !== null) {
+      const dx = e.changedTouches[0].clientX - touchStartX.current
+      if (Math.abs(dx) > 50) {
+        if (dx > 0) prevSlide()
+        else nextSlide()
+      }
+    }
+    touchStartX.current = null
+  }
+
   // Get visible testimonials for current slide
   const getVisibleTestimonials = () => {
     const visibleTestimonials = []
@@ -203,6 +219,8 @@ export default function TestimonialsCarousel() {
           className="relative mx-auto max-w-7xl"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           tabIndex={0}
           role="region"
           aria-label="מחזור עדויות לקוחות"

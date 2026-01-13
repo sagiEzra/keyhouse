@@ -132,7 +132,7 @@ export default function BuyingPage() {
         title="למה איתנו זה אחרת"
         description="ב-KeyHouse אנחנו לא עוד משרד תיווך - אנחנו שותפים אמיתיים בדרך שלך לרכישת הנכס המושלם עבורך. הניסיון, הקשרים והמוניטין שלנו, יחד עם הגישה האישית והמחויבות ללקוח, הופכים אותנו לבחירה המושלמת עבורך."
         icon={<Award className="h-8 w-8" />}
-        image="/images/why-us.jpg"
+        image="/images/rotemShiraz.png"
         imageAlt="למה לבחור ב-KeyHouse"
         reverse={true}
       >
