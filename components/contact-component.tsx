@@ -71,7 +71,7 @@ export default function ContactComponent() {
         lastName: formData.lastName,
         phone: formData.phone,
         leadPosition: formData.leadPosition || "לא ידוע", // Default to "לא ידוע" if not selected
-        message: formData.message ?? "אין",
+        message: formData.message || "אין",
       })
 
       if (!result.success) {

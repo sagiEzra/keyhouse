@@ -4,6 +4,37 @@
 
 const MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/6ahjg1f3u7iul6ka1v62yimqocjb6fym";
 
+/**
+ * Normalizes Israeli phone numbers to start with 05
+ * Examples:
+ * - 534244... -> 0534244...
+ * - 0534244... -> 0534244... (unchanged)
+ * - 9725342444... -> 05342444...
+ * - +9725342444... -> 05342444...
+ */
+function normalizePhoneNumber(phone: string): string {
+  // Remove all non-digit characters except leading +
+  let cleaned = phone.replace(/[^\d+]/g, '');
+
+  // Remove leading + if present
+  if (cleaned.startsWith('+')) {
+    cleaned = cleaned.substring(1);
+  }
+
+  // Handle international format (972...)
+  if (cleaned.startsWith('972')) {
+    // Remove country code and add 0 prefix
+    cleaned = '0' + cleaned.substring(3);
+  }
+  // Handle local format without leading 0 (5...)
+  else if (!cleaned.startsWith('0')) {
+    cleaned = '0' + cleaned;
+  }
+  // Already has 0 prefix (05...) - no change needed
+
+  return cleaned;
+}
+
 // Base user info (required for all webhook calls)
 export interface UserInfo {
   email: string;
@@ -51,12 +82,18 @@ export async function sendLeadToWebhook(
   data: WebhookData
 ): Promise<{ success: boolean; message: string }> {
   try {
+    // Normalize phone number before sending
+    const normalizedData = {
+      ...data,
+      phone: normalizePhoneNumber(data.phone)
+    };
+
     const response = await fetch(MAKE_WEBHOOK_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(normalizedData),
     });
 
     if (!response.ok) {

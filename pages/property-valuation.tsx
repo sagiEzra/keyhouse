@@ -89,7 +89,7 @@ export default function PropertyValuation() {
         elevator: formData.elevator ? '✅' : '❌',
         parking: formData.parking ? '✅' : '❌',
         furnished: formData.furnished ? '✅' : '❌',
-        additionalDetails: formData.additionalDetails,
+        additionalDetails: formData.additionalDetails || "אין",
       })
 
       if (!result.success) {
