@@ -49,7 +49,7 @@ export default function HomePage() {
         <AboutSection />
         <ServicesGrid />
         <StatsSection
-            title="למה לתת לנו לעזור לכם?"
+            title="למה לתת לנו לעזור לך?"
             description="הנתונים מדברים בעד עצמם - אנחנו מביאים תוצאות"
             stats={[
               { value: 13, label: "שנות ניסיון בשוק האילתי", type: '+' },

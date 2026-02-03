@@ -12,7 +12,7 @@ export default function ServicesGrid() {
     {
       title: "מוכרים",
       subtitle: "מוכרים נכון מרוויחים יותר",
-      description: "שיווק מקצועי שמביא תוצאות ומקסם את הרווח שלכם",
+      description: "שיווק מקצועי שמביא תוצאות וממקסם את הרווח שלך",
       image: "/images/homeServices/selling.png",
       href: "/selling",
       icon: <FaBullseye className="h-8 w-8 text-[#f1c23b] drop-shadow-lg" />,
@@ -20,7 +20,7 @@ export default function ServicesGrid() {
     {
       title: "קונים",
       subtitle: "מוצאים את הבית המושלם",
-      description: "ליווי מקצועי ואישי למציאת הנכס שחלמתם עליו - למגורים או השקעה חכמה",
+      description: "ליווי מקצועי ואישי למציאת הנכס המדוייק בשבילך - למגורים או השקעה חכמה",
       image: "/images/homeServices/buying3.jpg",
       href: "/buying",
       icon: <FaSearch className="h-8 w-8 text-[#f1c23b] drop-shadow-lg" />,

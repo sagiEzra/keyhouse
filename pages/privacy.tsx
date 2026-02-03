@@ -46,7 +46,7 @@ export default function PrivacyPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <LuxuryCard className="p-8 lg:p-12">
+            <LuxuryCard hoverable={false} className="p-8 lg:p-12">
               {/* Section 1 */}
               <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
                 1. מי אנחנו ומידע כללי
@@ -320,42 +320,7 @@ export default function PrivacyPage() {
               {/* Section 5 */}
               <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  5. כמה זמן אנחנו שומרים את המידע שלך?
-                </h2>
-                <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  אנו שומרים את המידע האישי שלך רק כל עוד יש לכך מטרה לגיטימית:
-                </p>
-                <div className="space-y-4">
-                  <div className="p-6 rounded-2xl" style={{ backgroundColor: "rgba(199,157,42,0.05)" }}>
-                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      <span className="font-bold">פניות יצירת קשר:</span> עד 3 שנים מתאריך הפנייה האחרונה (או עד שתבקש למחוק)
-                    </p>
-                  </div>
-                  <div className="p-6 rounded-2xl" style={{ backgroundColor: "rgba(199,157,42,0.05)" }}>
-                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      <span className="font-bold">מנויי ניוזלטר:</span> עד שתבטל את המנוי או תבקש מחיקה
-                    </p>
-                  </div>
-                  <div className="p-6 rounded-2xl" style={{ backgroundColor: "rgba(199,157,42,0.05)" }}>
-                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      <span className="font-bold">לקוחות שביצעו עסקאות:</span> 7 שנים (בהתאם לחובות משפטיות לשמירת תיעוד)
-                    </p>
-                  </div>
-                  <div className="p-6 rounded-2xl" style={{ backgroundColor: "rgba(199,157,42,0.05)" }}>
-                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      <span className="font-bold">נתונים סטטיסטיים (Google Analytics):</span> 26 חודשים (הגדרת ברירת מחדל)
-                    </p>
-                  </div>
-                </div>
-                <p className="text-lg leading-relaxed mt-6" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  לאחר תקופות אלו, המידע נמחק או הופך לאנונימי באופן שאינו מאפשר זיהוי אישי.
-                </p>
-              </div>
-
-              {/* Section 6 */}
-              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
-                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  6. אבטחת המידע - איך אנחנו מגינים עליך?
+                  5. אבטחת המידע - איך אנחנו מגינים עליך?
                 </h2>
                 <p className="text-lg leading-relaxed mb-6" style={{ color: "rgba(25,39,74,0.8)" }}>
                   אנו נוקטים באמצעי אבטחה טכניים וארגוניים מתקדמים כדי להגן על המידע שלך:
@@ -426,94 +391,25 @@ export default function PrivacyPage() {
                 </p>
               </div>
 
-              {/* Section 7 - User Rights */}
+              {/* Section 6 - User Rights */}
               <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  7. הזכויות שלך - מה אתה יכול לעשות עם המידע שלך?
+                  6. הזכויות שלך
                 </h2>
                 <p className="text-lg leading-relaxed mb-8" style={{ color: "rgba(25,39,74,0.8)" }}>
                   בהתאם לתיקון 13 לחוק הגנת הפרטיות, עומדות לך הזכויות הבאות:
                 </p>
 
                 <div className="space-y-6">
-                  {/* 7.1 */}
-                  <div className="p-6 rounded-2xl border-r-4"
-                       style={{
-                         backgroundColor: "rgba(199,157,42,0.03)",
-                         borderColor: "#c79d2a"
-                       }}>
-                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
-                      7.1 זכות עיון (Right to Access)
-                    </h3>
-                    <p className="text-lg leading-relaxed mb-3" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      יש לך זכות לדעת אילו נתונים אישיים שלך מוחזקים אצלנו. תוכל לבקש:
-                    </p>
-                    <ul className="space-y-2 mr-6">
-                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                        ✓ עותק של כל המידע האישי שלך שמאוחסן במערכות שלנו
-                      </li>
-                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                        ✓ מידע על מטרת האיסוף והשימוש במידע
-                      </li>
-                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                        ✓ פרטים על צדדים שלישיים שקיבלו את המידע שלך
-                      </li>
-                    </ul>
-                    <p className="text-lg leading-relaxed mt-3 font-bold" style={{ color: "#c79d2a" }}>
-                      זמן מענה: עד 30 יום מקבלת הבקשה (ניתן להאריך ב-30 יום נוספים במקרים מורכבים)
-                    </p>
-                  </div>
 
-                  {/* 7.2 */}
+                  {/* 6.1 */}
                   <div className="p-6 rounded-2xl border-r-4"
                        style={{
                          backgroundColor: "rgba(199,157,42,0.03)",
                          borderColor: "#c79d2a"
                        }}>
                     <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
-                      7.2 זכות תיקון (Right to Rectification)
-                    </h3>
-                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      אם גילית שמידע שלך אינו נכון, מיושן, או חסר - תוכל לבקש לתקן אותו. נתקן את המידע ונעדכן את כל הגורמים שקיבלו את המידע הלא נכון.
-                    </p>
-                  </div>
-
-                  {/* 7.3 */}
-                  <div className="p-6 rounded-2xl border-r-4"
-                       style={{
-                         backgroundColor: "rgba(199,157,42,0.03)",
-                         borderColor: "#c79d2a"
-                       }}>
-                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
-                      7.3 זכות מחיקה - "הזכות להישכח" (Right to Erasure)
-                    </h3>
-                    <p className="text-lg leading-relaxed mb-3" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      תוכל לבקש למחוק את כל המידע האישי שלך במקרים הבאים:
-                    </p>
-                    <ul className="space-y-2 mr-6">
-                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                        • המידע אינו נחוץ עוד למטרה שלשמה נאסף
-                      </li>
-                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                        • משכת את הסכמתך לעיבוד המידע
-                      </li>
-                      <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                        • המידע נאסף או עובד בניגוד לחוק
-                      </li>
-                    </ul>
-                    <p className="text-lg leading-relaxed mt-3" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      <span className="font-bold">חריגים:</span> במקרים שבהם אנו מחויבים על פי חוק לשמור מידע (למשל, רישומי עסקאות למשך 7 שנים), לא נוכל למחוק אותו.
-                    </p>
-                  </div>
-
-                  {/* 7.4 */}
-                  <div className="p-6 rounded-2xl border-r-4"
-                       style={{
-                         backgroundColor: "rgba(199,157,42,0.03)",
-                         borderColor: "#c79d2a"
-                       }}>
-                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
-                      7.4 זכות להסרה מרשימת דיוור (Right to Object to Marketing)
+                      6.1 זכות להסרה מרשימת דיוור (Right to Object to Marketing)
                     </h3>
                     <p className="text-lg leading-relaxed mb-3" style={{ color: "rgba(25,39,74,0.8)" }}>
                       בכל עת תוכל להפסיק לקבל דיוור שיווקי:
@@ -530,37 +426,24 @@ export default function PrivacyPage() {
                       </li>
                     </ul>
                     <p className="text-lg leading-relaxed mt-3 font-bold" style={{ color: "#c79d2a" }}>
-                      ההסרה תבוצע תוך 3 ימי עסקים
+                      ההסרה תבוצע תוך זמן סביר
                     </p>
                   </div>
 
-                  {/* 7.5 */}
+                  {/* 6.2 */}
                   <div className="p-6 rounded-2xl border-r-4"
                        style={{
                          backgroundColor: "rgba(199,157,42,0.03)",
                          borderColor: "#c79d2a"
                        }}>
                     <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
-                      7.5 זכות להתנגד לעיבוד (Right to Object)
+                      6.2 זכות להתנגד לעיבוד (Right to Object)
                     </h3>
                     <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      תוכל להתנגד לעיבוד מידע במקרים מסוימים, למשל אם אתה סבור שהעיבוד פוגע בפרטיותך או אינו חוקי.
+                      תוכל להתנגד לעיבוד מידע במקרים מסוימים, למשל אם העיבוד פוגע בפרטיותך או אינו חוקי.
                     </p>
                   </div>
 
-                  {/* 7.6 */}
-                  <div className="p-6 rounded-2xl border-r-4"
-                       style={{
-                         backgroundColor: "rgba(199,157,42,0.03)",
-                         borderColor: "#c79d2a"
-                       }}>
-                    <h3 className="font-bold text-xl mb-3" style={{ color: "rgba(25,39,74,0.97)" }}>
-                      7.6 זכות לפיצוי ללא הוכחת נזק
-                    </h3>
-                    <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                      בהתאם לתיקון 13, אם הופרה זכותך לעיון, תיקון או מחיקה, תוכל לתבוע פיצוי של עד 10,000 ₪ ללא צורך להוכיח נזק בפועל.
-                    </p>
-                  </div>
                 </div>
 
                 <div className="mt-8 p-6 rounded-2xl"
@@ -596,78 +479,27 @@ export default function PrivacyPage() {
                 </div>
               </div>
 
-              {/* Section 8 */}
+              {/* Section 7 */}
               <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  8. קטינים (מתחת לגיל 18)
-                </h2>
-                <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  האתר מיועד למבוגרים בלבד. איננו אוספים במכוון מידע אישי מקטינים מתחת לגיל 18. אם הגעת למסקנה שאספנו מידע על קטין, אנא{" "}
-                  <a href={businessStaticData.social.emailLink} className="font-bold transition-colors duration-300 hover:opacity-80" style={{ color: "#c79d2a" }}>
-                    צור איתנו קשר
-                  </a>
-                  {" "}ונמחק אותו באופן מיידי.
-                </p>
-              </div>
-
-              {/* Section 9 */}
-              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
-                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  9. קישורים לאתרים חיצוניים
+                  7. קישורים לאתרים חיצוניים
                 </h2>
                 <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
                   האתר עשוי להכיל קישורים לאתרים חיצוניים (למשל, רשתות חברתיות, אתרי נדל״ן ממשלתיים). איננו אחראים על מדיניות הפרטיות של אתרים אלו ומומלץ לקרוא את התנאים שלהם בנפרד.
                 </p>
               </div>
 
-              {/* Section 10 */}
+              {/* Section 8 */}
               <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
                 <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  10. שינויים במדיניות הפרטיות
+                  8. שינויים במדיניות הפרטיות
                 </h2>
                 <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
                   אנו שומרים לעצמנו את הזכות לעדכן מדיניות זו מעת לעת, בהתאם לשינויים בחוק או בשירותים שלנו.
                 </p>
-                <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  <span className="font-bold">שינויים מהותיים:</span> במקרה של שינוי מהותי שמשפיע על זכויותיך, נודיע לך בדוא״ל (אם רשום אצלנו) או באמצעות הודעה בולטת באתר.
-                </p>
                 <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
                   <span className="font-bold">תאריך עדכון אחרון:</span> תמיד תוכל לראות בראש המדיניות מתי עודכנה לאחרונה.
                 </p>
-              </div>
-
-              {/* Section 11 */}
-              <div className="border-t pt-12 mb-12" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
-                <h2 className="text-3xl font-serif font-bold mb-6" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  11. תלונות והרשות להגנת הפרטיות
-                </h2>
-                <p className="text-lg leading-relaxed mb-4" style={{ color: "rgba(25,39,74,0.8)" }}>
-                  אנו משתדלים לטפל בכל פניה ותלונה באופן מקצועי ומהיר. אם אינך מרוצה מהטיפול שלנו בנושאי פרטיות, יש לך זכות להגיש תלונה אל:
-                </p>
-                <div className="p-6 rounded-2xl"
-                     style={{
-                       background: "linear-gradient(135deg, rgba(25,39,74,0.03) 0%, rgba(199,157,42,0.02) 100%)"
-                     }}>
-                  <h3 className="font-bold text-xl mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
-                    הרשות להגנת הפרטיות
-                  </h3>
-                  <div className="space-y-2">
-                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
-                      📧 דוא״ל: <span className="font-bold">privacy@justice.gov.il</span>
-                    </p>
-                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
-                      📞 טלפון: <span className="font-bold">02-6466346</span>
-                    </p>
-                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
-                      🌐 אתר: <a href="https://www.gov.il/he/departments/the_privacy_protection_authority" target="_blank" rel="noopener noreferrer" className="font-bold transition-colors duration-300 hover:opacity-80" style={{ color: "#c79d2a" }}>
-                        www.gov.il
-                      </a>
-                    </p>
-                    <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
-                      📍 כתובת: רחוב צלאח א-דין 2, ירושלים
-                    </p>
-                  </div>
-                </div>
               </div>
 
               {/* Contact Section */}
@@ -714,7 +546,7 @@ export default function PrivacyPage() {
 
                   <div className="mt-8 pt-6 border-t" style={{ borderColor: "rgba(25,39,74,0.15)" }}>
                     <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.85)" }}>
-                      אנו מחויבים להגן על פרטיותך ולכבד את זכויותיך. נענה לפנייתך תוך 30 יום מקבלתה. לכל שאלה נוספת,{" "}
+                      אנו מחויבים להגן על פרטיותך ולכבד את זכויותיך. לכל שאלה נוספת,{" "}
                       <a
                         href="/contact"
                         className="font-bold transition-colors duration-300 hover:opacity-80"

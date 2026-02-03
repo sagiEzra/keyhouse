@@ -66,6 +66,20 @@
   [dir="rtl"] {
     text-align: right;
   }
+
+  /* Modern text-wrap for improved readability and typography */
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: balance;
+  }
+
+  /* Optimal line length for readability */
+  p, li, blockquote {
+    max-width: 90vw;
+  }
 }
 
 /* Custom animations */

@@ -193,12 +193,12 @@ export default function HeroSection() {
             ברוכים הבאים
           </span>
           <span
-            className="block bg-gradient-to-l from-white via-gray-0 to-white bg-clip-text text-transparent"
+            className="block"
             style={{
-              textShadow: "0 4px 20px rgba(0,0,0,0.4)"
+              textShadow: "0 4px 20px rgba(0,0,0,0.5)",
             }}
           >
-            סוכנות נדל&quot;ן - קי האוס אילת
+            סוכנות הנדל&quot;ן קי האוס אילת
           </span>
         </motion.h1>
 

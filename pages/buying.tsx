@@ -57,7 +57,7 @@ export default function BuyingPage() {
       <main id="main-content" dir="rtl" className="min-h-screen bg-white">
 
       <ServiceHero
-        title="הדרך הבטוחה והחכמה - לקנות נכס"
+        title="הדרך הבטוחה והחכמה לקנות נכס"
         subtitle="מתחילה מכאן - משלב החלום ועד המפתח"
         image="/images/buyingPage/hero.jpg"
         imageAlt="קניית נכס עם KeyHouse"
@@ -156,10 +156,10 @@ export default function BuyingPage() {
         title="למה לקנות איתנו?"
         description="הנתונים מדברים בעד עצמם - אנחנו מביאים תוצאות"
         stats={[
-          { value: 93, label: "מהלקוחות שלנו מוצאים את הנכס המדוייק להם תוך 75 יום", type: 'precentage' },
-          { value: 100, label: "הפנו חברים ומשפחה לקנות איתנו בעקבות חוויה נהדרת", type: '+' },
-          { value: 64, label: "קנו איתנו יותר מפעם אחת", type: 'precentage' },
-          { value: 15, label: "חיסכון ממוצע במחיר הרכישה הודות למשא ומתן שלנו", type: 'precentage' },
+          { value: 93, label: "מהלקוחות שלנו מוצאים את הנכס המדוייק להם תוך פחות מ-30 יום", type: 'precentage' },
+          { value: 92, label: "מדווחים שחסכנו להם המון זמן, כסף ולחץ", type: 'precentage' },
+          { value: 96, label: "מדווחים שהיו בוחרים לקנות איתנו שוב", type: 'precentage' },
+          { value: 5, label: "חיסכון ממוצע במחיר הרכישה הודות למשא ומתן שלנו", type: 'precentage' },
         ]}
       />
 

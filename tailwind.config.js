@@ -57,6 +57,21 @@ const config = {
         "brand-blue": "hsl(var(--brand-blue))",
         "brand-gold": "hsl(var(--brand-gold))",
       },
+      maxWidth: {
+        // Character-based widths for optimal readability
+        'readable-mobile': '90vw',
+        'readable-tablet': '75ch',
+        'readable': '66ch',
+        'readable-narrow': '50ch',
+
+        // Percentage-based widths for stepped text layouts
+        'stepped-full': '100%',
+        'stepped-90': '90%',
+        'stepped-80': '80%',
+        'stepped-70': '70%',
+        'stepped-60': '60%',
+        'stepped-50': '50%',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -87,7 +102,20 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    // Custom utilities for modern text-wrap
+    function({ addUtilities }) {
+      addUtilities({
+        '.text-wrap-balance': {
+          'text-wrap': 'balance',
+        },
+        '.text-wrap-pretty': {
+          'text-wrap': 'pretty',
+        },
+      })
+    }
+  ],
 } 
 
 export default config

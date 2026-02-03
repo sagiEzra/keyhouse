@@ -56,7 +56,7 @@ export default function SectionHeader({
       className={`${getAlignmentClasses()} ${className}`}
     >
       <h2
-        className={getTitleClasses()}
+        className={`${getTitleClasses()}`}
         style={{ color: "rgba(25,39,74,0.97)" }}
       >
         {title}
@@ -64,7 +64,7 @@ export default function SectionHeader({
 
       {subtitle && (
         <p
-          className={`${alignment === 'center' ? 'mx-auto' : alignment === 'right' ? 'mr-0 ml-auto' : 'ml-0'} max-w-4xl text-xl leading-relaxed font-light`}
+          className={`${alignment === 'center' ? 'mx-auto' : alignment === 'right' ? 'mr-0 ml-auto' : 'ml-0'} max-w-readable-mobile md:max-w-readable-tablet lg:max-w-readable text-xl leading-relaxed font-light text-wrap-pretty`}
           style={{ color: "rgba(25,39,74,0.97)" }}
         >
           {subtitle}

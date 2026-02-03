@@ -20,18 +20,20 @@ export default function AboutHero() {
           transition={{ duration: 0.8 }}
           className="mb-8 font-serif text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl"
         >
-          <span className="block mb-4" style={{
-            textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)"
+          {/* <span className="block mb-4" style={{
+            textShadow: "0 4px 20px rgba(0,0,0,0.2)"
           }}>
             הכירו את
-          </span>
+          </span> */}
           <span
-            className="block bg-gradient-to-l from-white via-gray-0 to-white bg-clip-text text-transparent"
+            className="block"
             style={{
-              textShadow: "0 4px 20px rgba(0,0,0,0.4)"
+              textShadow: "0 4px 20px rgba(0,0,0,0.5)",
             }}
           >
-            סוכנות נדל"ן - קי האוס
+            סוכנות הנדל"ן
+            <br />
+            קי - האוס אילת
           </span>
         </motion.h1>
 

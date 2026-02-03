@@ -98,7 +98,7 @@ export default function ServiceSection({
                     <img
                       src={image || "/placeholder.svg"}
                       alt={imageAlt || title}
-                      className="w-full h-[400px] object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
+                      className="w-full h-full object-cover md:object-cover rounded-2xl transition-all duration-500 group-hover:scale-[1.02]"
                       style={{
                         boxShadow: "0 20px 50px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.6)"
                       }}

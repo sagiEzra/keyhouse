@@ -315,9 +315,11 @@ export default function ContactComponent() {
                     </div>
                   )}
 
-                  <LuxuryButton type="submit" disabled={isSubmitting} className="w-full">
-                    {isSubmitting ? "שולח..." : "שלח הודעה"}
-                  </LuxuryButton>
+                  <div className="flex justify-center">
+                    <LuxuryButton type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? "שולח..." : "שלח הודעה"}
+                    </LuxuryButton>
+                  </div>
                 </form>
               )}
             </div>

@@ -5,6 +5,7 @@ import LuxuryCard from "@/components/ui/luxury-card"
 import SectionHeader from "@/components/ui/section-header"
 import LuxuryButton from "@/components/ui/luxury-button"
 import QuoteCard from "@/components/ui/quote-card"
+import ValuationDisclaimer from "@/components/ui/valuation-disclaimer"
 import SEOHead from "@/components/seo/SEOHead"
 import { MultipleStructuredData } from "@/components/seo/StructuredData"
 import { FaCheckCircle, FaChartLine, FaHandshake, FaClipboardList, FaArrowDown } from "react-icons/fa"
@@ -288,17 +289,7 @@ export default function PropertyValuation() {
           </div>
 
           {/* Disclaimer */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-8 text-center"
-          >
-            <p className="text-sm leading-relaxed" style={{ color: "rgba(25,39,74,0.6)" }}>
-              * ההערכה מתבססת על ניתוח שוק השוואתי של מתווכת מוסמכת בעלת רישיון מטעם משרד המשפטים ואינה מתיימרת להיות הערכת שמאות מקצועית
-            </p>
-          </motion.div>
+          <ValuationDisclaimer />
         </div>
       </LuxuryBackground>
 
@@ -800,12 +791,10 @@ export default function PropertyValuation() {
                     )}
 
                     {/* Submit Button */}
-                    <div className="pt-4">
+                    <div className="pt-4 flex justify-center">
                       <LuxuryButton
                         type="submit"
-                        size="large"
                         disabled={isSubmitting}
-                        className="w-full"
                       >
                         {isSubmitting ? "שולח..." : "שלח בקשה"}
                       </LuxuryButton>

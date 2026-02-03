@@ -4,6 +4,7 @@ import ServiceSection from "../components/common/service-section"
 import StatsSection from "../components/common/stats-section"
 import CTASection from "../components/common/cta-section"
 import { PropertyValuationPopup } from "../components/common/PropertyValuationPopup"
+import ValuationDisclaimer from "@/components/ui/valuation-disclaimer"
 import {
   ChecklistContent,
   NumberedStepsCard,
@@ -57,7 +58,7 @@ export default function SellingPage() {
       <PropertyValuationPopup />
 
       <ServiceHero
-        title="למכור את הנכס שלך, בלי דאגות"
+        title="למכור את הנכס שלך בלי דאגות"
         subtitle="עם ליווי אישי, אסטרטגיית שיווק חכמה - ותוצאות שמדברות בעד עצמן"
         image="/images/homeServices/selling.png"
         imageAlt="מכירת נכס עם KeyHouse"
@@ -81,7 +82,7 @@ export default function SellingPage() {
       </ServiceSection>
 
       <ServiceSection
-        title="תמחור שממקסם רווח"
+        title="תמחור שממקסם רווחים"
         description="התמחור הנכון הוא אחד הגורמים המשמעותיים ביותר בהצלחת מכירת נכס. עם ניסיון של מעל לעשור בשוק הנדל״ן באילת, אנחנו יודעים בדיוק איך לתמחר את הנכס שלך כדי למקסם את הרווח שלך ולמכור במהירות האופטימלית."
         icon={<TrendingUp className="h-8 w-8" />}
         image="/images/sellingPage/2.jpg"
@@ -97,6 +98,7 @@ export default function SellingPage() {
             { text: "התחשבות במגמות השוק ובתחזיות עתידיות" }
           ]}
         />
+        <ValuationDisclaimer />
       </ServiceSection>
 
       <ServiceSection
@@ -114,7 +116,7 @@ export default function SellingPage() {
             },
             {
               title: "טיפול בבירוקרטיה",
-              description: "אנחנו מטפלים בכל הניירת והבירוקרטיה כדי לחסוך לך זמן וכאבי ראש."
+              description: "אנחנו עוזרים לך לטפל בכל הניירת, הבירוקרטיה והמיסוי, כדי לחסוך לך זמן וכאבי ראש."
             },
             {
               title: "הגנה משפטית",

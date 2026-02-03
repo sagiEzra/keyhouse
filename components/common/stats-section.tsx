@@ -64,6 +64,25 @@ export default function StatsSection({ title, description, stats }: StatsSection
     },
   }
 
+  // Determine grid layout based on number of stats
+  const getGridClasses = () => {
+    const count = stats.length
+    // Mobile always 1 column, tablet 2 columns
+    let classes = "grid gap-8 md:grid-cols-2"
+
+    // Desktop: adapt based on count
+    if (count === 2) {
+      classes += " lg:grid-cols-2 lg:max-w-3xl lg:mx-auto"
+    } else if (count === 3) {
+      classes += " lg:grid-cols-3 lg:max-w-5xl lg:mx-auto"
+    } else {
+      // 4 or more: full width with 4 columns (default behavior)
+      classes += " lg:grid-cols-4"
+    }
+
+    return classes
+  }
+
   return (
     <LuxuryBackground
       variant="light"
@@ -82,7 +101,7 @@ export default function StatsSection({ title, description, stats }: StatsSection
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          className={getGridClasses()}
         >
           {stats.map((stat, index) => {
             const ref = useRef<HTMLDivElement>(null)
