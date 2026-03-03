@@ -5,6 +5,7 @@ import HeroSection from "../components/home/hero-section";
 import ServicesGrid from "../components/home/services-grid";
 import TestimonialsCarousel from "../components/home/testimonials-carousel";
 import VideosCarousel from "../components/home/videos-carousel";
+import WhatsAppTestimonials from "../components/home/WhatsAppTestimonials";
 import SEOHead from "@/components/seo/SEOHead";
 import StructuredData, { MultipleStructuredData } from "@/components/seo/StructuredData";
 
@@ -46,6 +47,7 @@ export default function HomePage() {
 
       <main id="main-content" dir="rtl" className="min-h-screen bg-white">
         <HeroSection />
+        <WhatsAppTestimonials />
         <AboutSection />
         <ServicesGrid />
         <StatsSection
