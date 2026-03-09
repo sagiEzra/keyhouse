@@ -12,6 +12,13 @@ const MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/6ahjg1f3u7iul6ka1v62yimqocjb
  * - 9725342444... -> 05342444...
  * - +9725342444... -> 05342444...
  */
+function toIsraeliInternational(phone: string): string {
+  // Start from the normalized local format (05x...)
+  const local = normalizePhoneNumber(phone);
+  // Replace leading 0 with +972
+  return '+972' + local.substring(1);
+}
+
 function normalizePhoneNumber(phone: string): string {
   // Remove all non-digit characters except leading +
   let cleaned = phone.replace(/[^\d+]/g, '');
@@ -85,7 +92,8 @@ export async function sendLeadToWebhook(
     // Normalize phone number before sending
     const normalizedData = {
       ...data,
-      phone: normalizePhoneNumber(data.phone)
+      phone: normalizePhoneNumber(data.phone),
+      israeliNumber: toIsraeliInternational(data.phone)
     };
 
     const response = await fetch(MAKE_WEBHOOK_URL, {
