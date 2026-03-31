@@ -14,11 +14,17 @@ export const businessStaticData = {
         callLink: 'tel:+972533354218'
     },
     location: 'אנפה 1 | מרכז מור | אילת',
-    social: {
+    rotemSocial: {
         email: 'rk@keyhouse.co.il',
         emailLink: 'mailto:rk@keyhouse.co.il',
         facebook: "https://www.facebook.com/Keyhouseeilat",
         instagram: "https://www.instagram.com/rotemkahloun_realestate",
+    },
+    shirazSocial: {
+        email: 'shirazkahloun@gmail.com',
+        emailLink: 'mailto:shirazkahloun@gmail.com',
+        facebook: "https://www.facebook.com/shiraz.kahloun",
+        instagram: "https://www.instagram.com/shiraz.k_",
     }
 }
 

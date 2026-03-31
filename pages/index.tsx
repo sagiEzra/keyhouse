@@ -47,7 +47,6 @@ export default function HomePage() {
 
       <main id="main-content" dir="rtl" className="min-h-screen bg-white">
         <HeroSection />
-        <WhatsAppTestimonials />
         <AboutSection />
         <ServicesGrid />
         <StatsSection
@@ -61,6 +60,7 @@ export default function HomePage() {
             ]}
           />
         <TestimonialsCarousel />
+        <WhatsAppTestimonials />
         <CTASection
           title="רוצה להתייעץ איתנו?"
           description="צור קשר עוד היום ונשמח לעזור לך למצוא את הנכס המושלם או למכור את הנכס שלך במחיר הטוב ביותר."

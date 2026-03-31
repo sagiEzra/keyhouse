@@ -36,17 +36,11 @@ export default function WhatsAppTestimonials() {
           transition={{ duration: 0.8 }}
         >
           <h2
-            className="text-4xl lg:text-5xl font-serif font-bold mb-4"
+            className="text-4xl lg:text-5xl font-serif font-bold"
             style={{ color: "rgba(25,39,74,0.97)" }}
           >
-            זה הכול בשירות
+            כמה הודעות מרגשות שתפסו אותנו
           </h2>
-          <p
-            className="text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto"
-            style={{ color: "rgba(25,39,74,0.6)" }}
-          >
-            הודעות מרגשות שתפסו אותנו
-          </p>
         </motion.div>
       </div>
 
@@ -141,7 +135,7 @@ function ScreenshotCard({ src }: { src: string }) {
         alt="ביקורת לקוח מוואטסאפ"
         width={320}
         height={600}
-        className="block h-[240px] sm:h-[320px] lg:h-[400px] w-auto object-contain"
+        className="block h-[180px] sm:h-[220px] lg:h-[280px] w-auto object-contain"
         draggable={false}
         priority={false}
       />

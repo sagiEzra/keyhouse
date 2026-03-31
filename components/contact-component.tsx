@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import {
   FaPhone as Phone,
   FaFacebook as Facebook,
@@ -115,7 +116,7 @@ export default function ContactComponent() {
         <LuxuryCard className="mx-auto max-w-5xl p-6 md:p-10 lg:p-14" hoverable={false}>
           <div className="grid gap-10 lg:grid-cols-2">
             {/* Contact Form */}
-            <div className="order-1">
+            <div className="order-2 lg:order-1">
               <h3 className="mb-8 text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>
                 שלח לנו הודעה
               </h3>
@@ -325,7 +326,7 @@ export default function ContactComponent() {
             </div>
 
             {/* Contact Info & Map */}
-            <div className="order-2 flex flex-col justify-between">
+            <div className="order-1 lg:order-2 flex flex-col justify-between">
               <div>
                 <h3 className="mb-8 text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>
                   משרדי KeyHouse
@@ -362,55 +363,116 @@ export default function ContactComponent() {
                       <h4 className="font-bold text-xl mb-2" style={{ color: "rgba(25,39,74,0.97)" }}>
                         דוא״ל
                       </h4>
-                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>{businessStaticData.social.email}</p>
+                      <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>{businessStaticData.rotemSocial.email}</p>
                     </div>
                   </motion.div>
                 </div>
 
-                <div className="mb-4 flex justify-center">
-                  <LuxuryButton
-                    href={businessStaticData.rotemPhone.callLink}
-                    className="w-full justify-center"
-                  >
-                    <Phone className="h-5 w-5" />
-                    <span>{businessStaticData.rotemPhone.numberToDisplay}</span>
-                  </LuxuryButton>
-                </div>
+                {/* Team Contact Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                  {[
+                    {
+                      name: "רותם קהלון",
+                      title: "בעלת המשרד",
+                      image: "/images/rotem5.jpg",
+                      phone: businessStaticData.rotemPhone,
+                      social: businessStaticData.rotemSocial,
+                    },
+                    {
+                      name: "שירז קהלון",
+                      title: "יועצת נדלן",
+                      image: "/images/image33.png",
+                      phone: businessStaticData.shirazPhone,
+                      social: businessStaticData.shirazSocial,
+                    },
+                  ].map((person) => (
+                    <motion.div
+                      key={person.name}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6 }}
+                      className="flex flex-col items-center gap-3 rounded-2xl p-4"
+                      style={{
+                        background: "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,249,255,0.8) 100%)",
+                        border: "1px solid rgba(199,157,42,0.15)",
+                        boxShadow: "0 8px 25px rgba(25,39,74,0.07), inset 0 1px 0 rgba(255,255,255,0.8)",
+                      }}
+                    >
+                      {/* Photo */}
+                      <div className="relative overflow-hidden rounded-full"
+                           style={{ boxShadow: "0 4px 15px rgba(25,39,74,0.15), 0 0 0 3px rgba(199,157,42,0.25)" }}>
+                        <Image
+                          src={person.image}
+                          alt={person.name}
+                          width={72}
+                          height={72}
+                          className="h-16 w-16 object-cover object-top"
+                        />
+                      </div>
 
-                <div className="flex gap-4 justify-center">
-                  <motion.a
-                    href={businessStaticData.social.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="rounded-2xl bg-[#1877F2] p-3 text-white shadow-lg transition-all duration-300 hover:bg-[#0e6edf]"
-                    aria-label="Facebook"
-                  >
-                    <Facebook className="h-6 w-6" />
-                  </motion.a>
-                  <motion.a
-                    href={businessStaticData.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="rounded-2xl bg-gradient-to-r from-[#E4405F] to-[#C13584] p-3 text-white shadow-lg transition-all duration-300"
-                    aria-label="Instagram"
-                  >
-                    <Instagram className="h-6 w-6" />
-                  </motion.a>
-                  <motion.a
-                    href={businessStaticData.rotemPhone.whatsappLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="rounded-2xl bg-[#25D366] p-3 text-white shadow-lg transition-all duration-300 hover:bg-[#20b358]"
-                    aria-label="WhatsApp"
-                  >
-                    <WhatsApp className="h-6 w-6" />
-                  </motion.a>
+                      {/* Name & Title */}
+                      <div className="text-center">
+                        <p className="font-bold text-base font-serif" style={{ color: "rgba(25,39,74,0.97)" }}>
+                          {person.name}
+                        </p>
+                        <p className="text-xs mt-0.5" style={{ color: "rgba(25,39,74,0.55)" }}>
+                          {person.title}
+                        </p>
+                      </div>
+
+                      {/* Social Icons */}
+                      <div className="flex gap-2">
+                        <motion.a
+                          href={person.phone.callLink}
+                          whileHover={{ scale: 1.12 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md transition-all duration-300"
+                          style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 100%)" }}
+                          aria-label={`התקשר ל${person.name}`}
+                        >
+                          <Phone className="h-4 w-4" />
+                        </motion.a>
+                        <motion.a
+                          href={person.phone.whatsappLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.12 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#25D366] text-white shadow-md transition-all duration-300 hover:bg-[#20b358]"
+                          aria-label={`וואטסאפ ${person.name}`}
+                        >
+                          <WhatsApp className="h-4 w-4" />
+                        </motion.a>
+                        {person.social.instagram && (
+                          <motion.a
+                            href={person.social.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.12 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#E4405F] to-[#C13584] text-white shadow-md transition-all duration-300"
+                            aria-label={`אינסטגרם ${person.name}`}
+                          >
+                            <Instagram className="h-4 w-4" />
+                          </motion.a>
+                        )}
+                        {person.social.facebook && (
+                          <motion.a
+                            href={person.social.facebook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.12 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1877F2] text-white shadow-md transition-all duration-300 hover:bg-[#0e6edf]"
+                            aria-label={`פייסבוק ${person.name}`}
+                          >
+                            <Facebook className="h-4 w-4" />
+                          </motion.a>
+                        )}
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
 

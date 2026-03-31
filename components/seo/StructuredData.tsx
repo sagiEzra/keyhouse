@@ -40,7 +40,7 @@ export default function StructuredData({ type, data = {} }: BaseStructuredDataPr
         logo: `${siteUrl}/logo.png`,
         image: `${siteUrl}/images/og-default.jpg`,
         telephone: businessStaticData.rotemPhone.callLink,
-        email: businessStaticData.social.email,
+        email: businessStaticData.rotemSocial.email,
         address: {
           '@type': 'PostalAddress',
           streetAddress: 'אנפה 1, מרכז מור',
@@ -69,14 +69,14 @@ export default function StructuredData({ type, data = {} }: BaseStructuredDataPr
           }
         ],
         sameAs: [
-          businessStaticData.social.facebook,
-          businessStaticData.social.instagram
+          businessStaticData.rotemSocial.facebook,
+          businessStaticData.rotemSocial.instagram
         ],
         founder: {
           '@type': 'Person',
           name: 'רותם קהלון',
           jobTitle: 'בעלת משרד תיווך נדל"ן',
-          email: businessStaticData.social.email,
+          email: businessStaticData.rotemSocial.email,
           telephone: businessStaticData.rotemPhone.callLink
         },
         ...data
@@ -204,7 +204,7 @@ export default function StructuredData({ type, data = {} }: BaseStructuredDataPr
           '@type': 'RealEstateAgent',
           name: 'Keyhouse Eilat - קי האוס אילת'
         },
-        email: data.email || businessStaticData.social.email,
+        email: data.email || businessStaticData.rotemSocial.email,
         telephone: data.telephone || businessStaticData.rotemPhone.callLink,
         image: data.image || '',
         ...data

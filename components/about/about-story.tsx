@@ -1,10 +1,17 @@
 "use client"
 
 import { motion } from "framer-motion"
+import {
+  FaPhone as Phone,
+  FaWhatsapp as WhatsApp,
+  FaInstagram as Instagram,
+  FaFacebook as Facebook,
+} from "react-icons/fa"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import ProfileSection from "@/components/ui/profile-section"
 import QuoteCard from "@/components/ui/quote-card"
 import LuxuryCard from "@/components/ui/luxury-card"
+import { businessStaticData } from "@/config"
 
 export default function AboutStory() {
   return (
@@ -21,6 +28,58 @@ export default function AboutStory() {
             <QuoteCard>
               "אני מאמינה שעסקת נדלן היא אחת ההחלטות הכלכליות והחשובות בחיים. המשימה שלי היא להפוך את התהליך לפשוט, נעים ומוצלח עבור כל לקוח"
             </QuoteCard>
+          }
+          actions={
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base font-semibold mb-3" style={{ color: "#c79d2a" }}>כאן בשבילכם</p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={businessStaticData.rotemPhone.callLink}
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 100%)" }}
+                  aria-label="התקשרי לרותם"
+                >
+                  <Phone className="h-4 w-4" />
+                  <span>{businessStaticData.rotemPhone.numberToDisplay}</span>
+                </a>
+                <a
+                  href={businessStaticData.rotemPhone.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#20b358] hover:shadow-lg"
+                  aria-label="וואטסאפ רותם"
+                >
+                  <WhatsApp className="h-4 w-4" />
+                  <span>וואטסאפ</span>
+                </a>
+                <a
+                  href={businessStaticData.rotemSocial.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  style={{ background: "linear-gradient(135deg, #E4405F 0%, #C13584 100%)" }}
+                  aria-label="אינסטגרם רותם"
+                >
+                  <Instagram className="h-4 w-4" />
+                  <span>אינסטגרם</span>
+                </a>
+                <a
+                  href={businessStaticData.rotemSocial.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#1877F2] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#0e6edf] hover:shadow-lg"
+                  aria-label="פייסבוק רותם"
+                >
+                  <Facebook className="h-4 w-4" />
+                  <span>פייסבוק</span>
+                </a>
+              </div>
+            </motion.div>
           }
         >
           <motion.div
@@ -54,6 +113,7 @@ export default function AboutStory() {
           >
             רותם גילתה שהיא נהנית לא רק מהצד העסקי של הנדל"ן, אלא בעיקר מהקשר האנושי לעזור לאנשים בתהליכי קניה ומכירה, לפשט את התהליך ולראות את השמחה בעיניים כשהעסקה נסגרת.
           </motion.p>
+
         </ProfileSection>
 
         {/* Shiraz Kahlon Section */}
@@ -67,6 +127,62 @@ export default function AboutStory() {
             <QuoteCard align="left">
               "בשבילי כל עסקה היא לא רק מכירה – אלא הזדמנות להגשים חלום עבור הלקוח"
             </QuoteCard>
+          }
+          actions={
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base font-semibold mb-3" style={{ color: "#c79d2a" }}>כאן בשבילכם</p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={businessStaticData.shirazPhone.callLink}
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 100%)" }}
+                  aria-label="התקשרי לשירז"
+                >
+                  <Phone className="h-4 w-4" />
+                  <span>{businessStaticData.shirazPhone.numberToDisplay}</span>
+                </a>
+                <a
+                  href={businessStaticData.shirazPhone.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#20b358] hover:shadow-lg"
+                  aria-label="וואטסאפ שירז"
+                >
+                  <WhatsApp className="h-4 w-4" />
+                  <span>וואטסאפ</span>
+                </a>
+                {businessStaticData.shirazSocial.instagram && (
+                  <a
+                    href={businessStaticData.shirazSocial.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                    style={{ background: "linear-gradient(135deg, #E4405F 0%, #C13584 100%)" }}
+                    aria-label="אינסטגרם שירז"
+                  >
+                    <Instagram className="h-4 w-4" />
+                    <span>אינסטגרם</span>
+                  </a>
+                )}
+                {businessStaticData.shirazSocial.facebook && (
+                  <a
+                    href={businessStaticData.shirazSocial.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#1877F2] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#0e6edf] hover:shadow-lg"
+                    aria-label="פייסבוק שירז"
+                  >
+                    <Facebook className="h-4 w-4" />
+                    <span>פייסבוק</span>
+                  </a>
+                )}
+              </div>
+            </motion.div>
           }
         >
           <motion.p
@@ -88,6 +204,7 @@ export default function AboutStory() {
           >
             שילוב של חריצות, סבלנות ואכפתיות אמיתית, שירז מלווה כל לקוח לאורך הדרך עם חיוך ויחס אישי. היא מתעדכנת ולומדת כל הזמן את שוק המקומי, מביאה פתרונות יצירתיים וחשיבה מחוץ לקופסה עם מקצועיות וסטנדרטים גבוהים של שירות כדי להתאים לכל אחד את העסקה המושלמת עבורו.
           </motion.p>
+
         </ProfileSection>
 
         {/* Closing statement */}

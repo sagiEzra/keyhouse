@@ -798,11 +798,11 @@ export default function TermsPage() {
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
                       <span className="font-bold">דוא״ל:</span>{" "}
                       <a
-                        href={businessStaticData.social.emailLink}
+                        href={businessStaticData.rotemSocial.emailLink}
                         className="transition-colors duration-300 hover:opacity-80"
                         style={{ color: "#c79d2a" }}
                       >
-                        {businessStaticData.social.email}
+                        {businessStaticData.rotemSocial.email}
                       </a>
                     </p>
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>

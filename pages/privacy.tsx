@@ -61,11 +61,11 @@ export default function PrivacyPage() {
                 <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
                   <span className="font-bold">דוא״ל:</span>{" "}
                   <a
-                    href={businessStaticData.social.emailLink}
+                    href={businessStaticData.rotemSocial.emailLink}
                     className="transition-colors duration-300 hover:opacity-80"
                     style={{ color: "#c79d2a" }}
                   >
-                    {businessStaticData.social.email}
+                    {businessStaticData.rotemSocial.email}
                   </a>
                 </p>
                 <p className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
@@ -419,7 +419,7 @@ export default function PrivacyPage() {
                         📧 לחיצה על קישור "הסר מרשימת התפוצה" בתחתית כל מייל
                       </li>
                       <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
-                        ✉️ שליחת מייל ל-{businessStaticData.social.email}
+                        ✉️ שליחת מייל ל-{businessStaticData.rotemSocial.email}
                       </li>
                       <li className="text-lg leading-relaxed" style={{ color: "rgba(25,39,74,0.8)" }}>
                         📞 שיחה ל-{businessStaticData.rotemPhone.numberToDisplay}
@@ -459,8 +459,8 @@ export default function PrivacyPage() {
                   <div className="space-y-2">
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
                       📧 דוא״ל:{" "}
-                      <a href={businessStaticData.social.emailLink} className="font-bold transition-colors duration-300 hover:opacity-80" style={{ color: "#c79d2a" }}>
-                        {businessStaticData.social.email}
+                      <a href={businessStaticData.rotemSocial.emailLink} className="font-bold transition-colors duration-300 hover:opacity-80" style={{ color: "#c79d2a" }}>
+                        {businessStaticData.rotemSocial.email}
                       </a>
                     </p>
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
@@ -522,11 +522,11 @@ export default function PrivacyPage() {
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>
                       <span className="font-bold">דוא״ל:</span>{" "}
                       <a
-                        href={businessStaticData.social.emailLink}
+                        href={businessStaticData.rotemSocial.emailLink}
                         className="transition-colors duration-300 hover:opacity-80"
                         style={{ color: "#c79d2a" }}
                       >
-                        {businessStaticData.social.email}
+                        {businessStaticData.rotemSocial.email}
                       </a>
                     </p>
                     <p className="text-lg" style={{ color: "rgba(25,39,74,0.85)" }}>

@@ -258,11 +258,11 @@ export default function Footer() {
                 
                 <div>
                   <a
-                    href={businessStaticData.social.emailLink}
+                    href={businessStaticData.rotemSocial.emailLink}
                     className="block font-serif text-lg font-medium transition-all duration-300 hover:drop-shadow-lg"
                     style={{ color: "rgba(25,39,74,0.97)" }}
                   >
-                    {businessStaticData.social.email}
+                    {businessStaticData.rotemSocial.email}
                   </a>
                   <p className="text-sm opacity-60" style={{ color: "rgba(25,39,74,0.7)" }}>שלחו הודעה</p>
                 </div>
@@ -309,7 +309,7 @@ export default function Footer() {
                          }} />
                     
                     <a
-                      href={businessStaticData.social.facebook}
+                      href={businessStaticData.rotemSocial.facebook}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative block rounded-full p-4 transition-all duration-500"
@@ -350,7 +350,7 @@ export default function Footer() {
                          }} />
                     
                     <a
-                      href={businessStaticData.social.instagram}
+                      href={businessStaticData.rotemSocial.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative block rounded-full p-4 transition-all duration-500"

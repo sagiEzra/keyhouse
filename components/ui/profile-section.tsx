@@ -10,6 +10,7 @@ interface ProfileSectionProps {
   imageAlt: string
   children: ReactNode
   quote?: ReactNode
+  actions?: ReactNode
   reverse?: boolean
   className?: string
 }
@@ -21,6 +22,7 @@ export default function ProfileSection({
   imageAlt,
   children,
   quote,
+  actions,
   reverse = false,
   className = ""
 }: ProfileSectionProps) {
@@ -106,6 +108,9 @@ export default function ProfileSection({
 
         {/* Quote section */}
         {quote && quote}
+
+        {/* Actions (rendered after quote) */}
+        {actions && actions}
       </div>
     </div>
   )
