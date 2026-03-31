@@ -66,6 +66,20 @@
   [dir="rtl"] {
     text-align: right;
   }
+
+  /* Modern text-wrap for improved readability and typography */
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: balance;
+  }
+
+  /* Optimal line length for readability */
+  p, li, blockquote {
+    max-width: 90vw;
+  }
 }
 
 /* Custom animations */
@@ -93,4 +107,28 @@ body {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Screen Reader Only - Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }

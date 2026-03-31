@@ -3,6 +3,9 @@
 import { motion } from "framer-motion"
 import { useRef, useEffect, useState } from "react"
 import { useInView } from "framer-motion"
+import LuxuryBackground from "@/components/ui/luxury-background"
+import LuxuryCard from "@/components/ui/luxury-card"
+import SectionHeader from "@/components/ui/section-header"
 
 interface Stat {
   value: number
@@ -61,90 +64,71 @@ export default function StatsSection({ title, description, stats }: StatsSection
     },
   }
 
-  return (
-    <section
-      className="py-20 relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #f1c23b0d 100%)",
-      }}
-    >
-      {/* Decorative gradients */}
-      <div
-        className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-[40vw] rounded-full blur-3xl opacity-60"
-        style={{
-          background: "linear-gradient(135deg, #23214a4d 0%, #23214a1a 100%)",
-        }}
-      />
+  // Determine grid layout based on number of stats
+  const getGridClasses = () => {
+    const count = stats.length
+    // Mobile always 1 column, tablet 2 columns
+    let classes = "grid gap-8 md:grid-cols-2"
 
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
-        >
-          <h2
-            className="mb-4 font-serif text-3xl font-bold md:text-4xl tracking-tight drop-shadow-xl"
-            style={{ color: "#23214a" }}
-          >
-            {title}
-          </h2>
-          <p className="mx-auto max-w-3xl text-lg font-medium" style={{ color: "#23214a" }}>
-            {description}
-          </p>
-          <div
-            className="mx-auto mt-6 h-1 w-28 rounded-full"
-            style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
-              boxShadow: "0 2px 12px #f1c23b55",
-            }}
-          />
-        </motion.div>
+    // Desktop: adapt based on count
+    if (count === 2) {
+      classes += " lg:grid-cols-2 lg:max-w-3xl lg:mx-auto"
+    } else if (count === 3) {
+      classes += " lg:grid-cols-3 lg:max-w-5xl lg:mx-auto"
+    } else {
+      // 4 or more: full width with 4 columns (default behavior)
+      classes += " lg:grid-cols-4"
+    }
+
+    return classes
+  }
+
+  return (
+    <LuxuryBackground
+      variant="light"
+      className="py-24"
+    >
+
+      <div className="container mx-auto px-6 relative z-10">
+        <SectionHeader
+          title={title}
+          subtitle={description}
+          className="mb-20"
+        />
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          className={getGridClasses()}
         >
           {stats.map((stat, index) => {
             const ref = useRef<HTMLDivElement>(null)
             const inView = useInView(ref, { once: true })
             const animatedValue = useCountUp(stat.value, inView)
             return (
-              <motion.div
-                key={index}
-                ref={ref}
-                variants={itemVariants}
-                className="rounded-xl bg-white/90 p-8 text-center shadow-xl border backdrop-blur-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-                style={{
-                  borderColor: "#23214a33",
-                  boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-                }}
-                onMouseEnter={(e) => {
-                  ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px 0 #f1c23b80, 0 1.5px 8px 0 #f1c23b40"
-                }}
-                onMouseLeave={(e) => {
-                  ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08"
-                }}
-              >
-                <div className="mb-4 text-4xl font-bold" style={{ color: "#f1c23b" }}>
-                  {stat.type === 'precentage'
-                    ? `${animatedValue}%`
-                    : stat.type === '+'
-                    ? `+${animatedValue}`
-                    : animatedValue}
-                </div>
-                <div className="font-medium" style={{ color: "#23214a" }}>
-                  {stat.label}
-                </div>
+              <motion.div key={index} variants={itemVariants} ref={ref}>
+                <LuxuryCard className="grid text-center h-full">
+                  {/* Animated stat value */}
+                  <div className="mb-4 text-5xl md:text-4xl lg:text-5xl font-serif font-bold transition-colors duration-300" style={{ color: "#c79d2a" }}>
+                    {stat.type === 'precentage'
+                      ? `${animatedValue}%`
+                      : stat.type === '+'
+                      ? `+${animatedValue}`
+                      : animatedValue}
+                  </div>
+
+                  {/* Label */}
+                  <div className="text-lg font-medium leading-relaxed" style={{ color: "rgba(25,39,74,0.97)" }}>
+                    {stat.label}
+                  </div>
+                </LuxuryCard>
               </motion.div>
             )
           })}
         </motion.div>
       </div>
-    </section>
+    </LuxuryBackground>
   )
 }

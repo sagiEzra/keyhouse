@@ -1,160 +1,234 @@
 "use client"
 
 import { motion } from "framer-motion"
-
-const BlueGoldText = ({ children, className = "" }) => (
-  <span
-    className={`inline-block text-2xl font-extrabold tracking-wide relative ${className}`}
-    style={{
-      color: "#23214a",
-      letterSpacing: "0.08em",
-      fontFamily: "serif",
-    }}
-  >
-    <span
-      style={{
-        background: "linear-gradient(90deg, #23214a 60%, #3a3e7c 100%)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-      }}
-    >
-      {children}
-    </span>
-  </span>
-)
+import {
+  FaPhone as Phone,
+  FaWhatsapp as WhatsApp,
+  FaInstagram as Instagram,
+  FaFacebook as Facebook,
+} from "react-icons/fa"
+import LuxuryBackground from "@/components/ui/luxury-background"
+import ProfileSection from "@/components/ui/profile-section"
+import QuoteCard from "@/components/ui/quote-card"
+import LuxuryCard from "@/components/ui/luxury-card"
+import { businessStaticData } from "@/config"
 
 export default function AboutStory() {
   return (
-    <section
-      className="relative py-28 overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #f1c23b0d 100%)",
-      }}
-    >
-      {/* Background Blobs */}
-      <div
-        className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-[40vw] rounded-full blur-3xl opacity-60"
-        style={{ background: "linear-gradient(135deg, #23214a4d 0%, #23214a1a 100%)" }}
-      />
-      <div
-        className="pointer-events-none absolute bottom-0 right-0 w-1/3 h-1/3 blur-2xl opacity-40"
-        style={{ background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)" }}
-      />
+    <LuxuryBackground variant="light" className="py-24">
 
-      <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-5xl">
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Rotem Kahlon Section */}
+        <ProfileSection
+          name="רותם קהלון"
+          title="בעלת המשרד"
+          imageSrc="/images/rotem5.jpg"
+          imageAlt="רותם קהלון - בעלת המשרד"
+          quote={
+            <QuoteCard>
+              "אני מאמינה שעסקת נדלן היא אחת ההחלטות הכלכליות והחשובות בחיים. המשימה שלי היא להפוך את התהליך לפשוט, נעים ומוצלח עבור כל לקוח"
+            </QuoteCard>
+          }
+          actions={
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base font-semibold mb-3" style={{ color: "#c79d2a" }}>כאן בשבילכם</p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={businessStaticData.rotemPhone.callLink}
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 100%)" }}
+                  aria-label="התקשרי לרותם"
+                >
+                  <Phone className="h-4 w-4" />
+                  <span>{businessStaticData.rotemPhone.numberToDisplay}</span>
+                </a>
+                <a
+                  href={businessStaticData.rotemPhone.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#20b358] hover:shadow-lg"
+                  aria-label="וואטסאפ רותם"
+                >
+                  <WhatsApp className="h-4 w-4" />
+                  <span>וואטסאפ</span>
+                </a>
+                <a
+                  href={businessStaticData.rotemSocial.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  style={{ background: "linear-gradient(135deg, #E4405F 0%, #C13584 100%)" }}
+                  aria-label="אינסטגרם רותם"
+                >
+                  <Instagram className="h-4 w-4" />
+                  <span>אינסטגרם</span>
+                </a>
+                <a
+                  href={businessStaticData.rotemSocial.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#1877F2] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#0e6edf] hover:shadow-lg"
+                  aria-label="פייסבוק רותם"
+                >
+                  <Facebook className="h-4 w-4" />
+                  <span>פייסבוק</span>
+                </a>
+              </div>
+            </motion.div>
+          }
+        >
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
+            className="relative"
           >
-            <h2
-              className="mb-16 text-center font-serif text-4xl md:text-5xl font-extrabold tracking-tight drop-shadow-xl"
-              style={{ color: "#23214a" }}
-            >
-              קי האוס - הסיפור שלנו
-            </h2>
-
-            <div className="space-y-16">
-              {/* Founder section */}
-              <div
-                className="flex flex-col items-center gap-12 md:flex-row md:items-start bg-white/90 rounded-3xl shadow-2xl p-10 backdrop-blur-xl border transition-all duration-300 group"
-                style={{
-                  // borderColor: "#23214a",a
-                  boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.boxShadow = "0 8px 64px 0 #f1c23b55")
-                }
-                onMouseLeave={(e) =>
-                (e.currentTarget.style.boxShadow =
-                  "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08")
-                }
-              >
-                <div
-                  className="w-full max-w-sm flex-shrink-0 overflow-hidden rounded-2xl shadow-xl md:w-1/4 transition-transform duration-500 group-hover:scale-105"
-                >
-                  <img
-                    src="/images/rotem5.jpg"
-                    alt="רותם קהלון - מייסדת KeyHouse"
-                    className="h-auto w-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex-1 text-xl md:text-xl leading-relaxed font-normal space-y-10 text-[#23214a]">
-                  <p className="text-2xl font-semibold leading-snug mt-2">
-                    הסיפור של <BlueGoldText>KeyHouse</BlueGoldText> מתחיל לפני יותר מעשור, כאשר רותם קהלון, המייסדת שלנו, חיפשה דירה להשקעה באילת. מה שהתחיל כחיפוש אישי, הפך במהרה לתשוקה אמיתית לעולם הנדל"ן ולאפשרויות הרבות שהוא מציע.
-                  </p>
-                  <div className="w-full flex justify-start mr-8">
-                      <div className="h-[4.5px] w-16 rounded-full bg-gradient-to-r from-[#f1c23b] via-[#e0e0e0] to-[#f1c23b] opacity-60" />
-                    </div>
-                  <p className="text-xl">
-                    רותם גילתה שהיא נהנית לא רק מהצד העסקי של הנדל"ן, אלא בעיקר מהקשר האנושי – לעזור לאנשים למצוא את הבית המושלם, ללוות אותם בתהליך המורכב, ולראות את השמחה בעיניהם כשהם מקבלים את המפתחות לנכס החדש שלהם.
-                  </p>
-                </div>
-              </div>
-
-              {/* Mission & Quote section */}
-              <div
-                className="relative mx-auto max-w-3xl bg-white/90 shadow-xl rounded-3xl p-10 md:p-14 border backdrop-blur-xl transition-all duration-300"
-                style={{
-                  borderColor: "#23214a33",
-                  boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.boxShadow = "0 8px 64px 0 #23214a18")
-                }
-                onMouseLeave={(e) =>
-                (e.currentTarget.style.boxShadow =
-                  "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08")
-                }
-              >
-                <div className="space-y-12 text-[#23214a] text-xl leading-relaxed font-normal">
-                  <p>
-                    עם ניסיון של למעלה מעשור כיועצת נדל"ן, רותם ליוותה עשרות רבות של עסקאות מוצלחות, וצברה מוניטין של מקצועיות, אמינות ויושרה. לקוחותיה הרבים, שהפכו ברובם ללקוחות חוזרים וממליצים נלהבים, הם העדות הטובה ביותר להצלחתה.
-                  </p>
-
-                  <div className="flex items-start gap-4">
-                    <div
-                      className="w-1 h-12 rounded-full"
-                      style={{ background: "linear-gradient(to bottom, #f1c23b 0%, #f1c23b80 100%)" }}
-                    />
-                    <p>
-                      ב-2015, רותם החליטה להקים את <BlueGoldText className="font-bold">KeyHouse</BlueGoldText>, סוכנות נדל"ן שתשקף את הערכים והחזון שלה: שירות אישי ברמה הגבוהה ביותר, שקיפות מלאה, והתאמה מדויקת בין הלקוח לנכס המושלם עבורו.
-                    </p>
-                  </div>
-
-                  <blockquote
-                    className="relative border-r-4 bg-white/80 font-medium italic p-8 rounded-2xl shadow-lg text-xl"
-                    style={{ borderColor: "#f1c23b", color: "#23214a" }}
-                  >
-                    <span
-                      className="text-4xl absolute -top-6 right-8 select-none"
-                      style={{ color: "#f1c23b" }}
-                    >
-                      "
-                    </span>
-                    אני מאמינה שמציאת בית היא אחת ההחלטות החשובות בחיים. המשימה שלי היא להפוך את התהליך לפשוט, נעים ומוצלח עבור כל לקוח.
-                    <footer className="mt-4 text-lg font-normal text-left">
-                      <BlueGoldText>- רותם קהלון, מייסדת KeyHouse</BlueGoldText>
-                    </footer>
-                  </blockquote>
-
-                  <div className="flex items-start gap-4">
-                    <div
-                      className="w-1 h-12 rounded-full"
-                      style={{ background: "linear-gradient(to bottom, #f1c23b 0%, #f1c23b80 100%)" }}
-                    />
-                    <p>
-                      כיום, <BlueGoldText className="font-bold">KeyHouse</BlueGoldText> היא אחת מסוכנויות הנדל"ן המובילות באילת, עם צוות מקצועי ומסור שחולק את אותה תשוקה ומחויבות לשירות מעולה. אנו גאים להיות חלק מהרגעים המשמעותיים בחיי לקוחותינו, ולהפוך את חלום הבית המושלם למציאות.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p className="font-medium text-xl">
+              ילידת אילת, יועצת נדלן בכירה ומגשרת
+            </p>
           </motion.div>
-        </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="leading-relaxed"
+          >
+            עם ניסיון ומוניטין עשיר, רותם ליוותה מאות עסקאות מוצלחות, וצברה ידע רב בשביל להפוך את העסקה שלך לקלה, פשוטה ומוצלחת יותר. לקוחותיה הרבים שחוזרים וממליצים, הם העדות הטובה ביותר להצלחתה.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="leading-relaxed"
+          >
+            רותם גילתה שהיא נהנית לא רק מהצד העסקי של הנדל"ן, אלא בעיקר מהקשר האנושי לעזור לאנשים בתהליכי קניה ומכירה, לפשט את התהליך ולראות את השמחה בעיניים כשהעסקה נסגרת.
+          </motion.p>
+
+        </ProfileSection>
+
+        {/* Shiraz Kahlon Section */}
+        <ProfileSection
+          name="שירז קהלון"
+          title="יועצת נדלן"
+          imageSrc="/images/image33.png"
+          imageAlt="שירז קהלון - יועצת נדלן"
+          reverse={true}
+          quote={
+            <QuoteCard align="left">
+              "בשבילי כל עסקה היא לא רק מכירה – אלא הזדמנות להגשים חלום עבור הלקוח"
+            </QuoteCard>
+          }
+          actions={
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base font-semibold mb-3" style={{ color: "#c79d2a" }}>כאן בשבילכם</p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={businessStaticData.shirazPhone.callLink}
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  style={{ background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 100%)" }}
+                  aria-label="התקשרי לשירז"
+                >
+                  <Phone className="h-4 w-4" />
+                  <span>{businessStaticData.shirazPhone.numberToDisplay}</span>
+                </a>
+                <a
+                  href={businessStaticData.shirazPhone.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#20b358] hover:shadow-lg"
+                  aria-label="וואטסאפ שירז"
+                >
+                  <WhatsApp className="h-4 w-4" />
+                  <span>וואטסאפ</span>
+                </a>
+                {businessStaticData.shirazSocial.instagram && (
+                  <a
+                    href={businessStaticData.shirazSocial.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                    style={{ background: "linear-gradient(135deg, #E4405F 0%, #C13584 100%)" }}
+                    aria-label="אינסטגרם שירז"
+                  >
+                    <Instagram className="h-4 w-4" />
+                    <span>אינסטגרם</span>
+                  </a>
+                )}
+                {businessStaticData.shirazSocial.facebook && (
+                  <a
+                    href={businessStaticData.shirazSocial.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#1877F2] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#0e6edf] hover:shadow-lg"
+                    aria-label="פייסבוק שירז"
+                  >
+                    <Facebook className="h-4 w-4" />
+                    <span>פייסבוק</span>
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          }
+        >
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="leading-relaxed"
+          >
+            מביאה איתה אנרגיה צעירה וחיובית עם רקע בשיווק ותקשורת, מצטיינת בקשר אישי עם לקוחות, בהקשבה לצרכים שלהם וביכולת להבין בדיוק מה חשוב להם.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="leading-relaxed"
+          >
+            שילוב של חריצות, סבלנות ואכפתיות אמיתית, שירז מלווה כל לקוח לאורך הדרך עם חיוך ויחס אישי. היא מתעדכנת ולומדת כל הזמן את שוק המקומי, מביאה פתרונות יצירתיים וחשיבה מחוץ לקופסה עם מקצועיות וסטנדרטים גבוהים של שירות כדי להתאים לכל אחד את העסקה המושלמת עבורו.
+          </motion.p>
+
+        </ProfileSection>
+
+        {/* Closing statement */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-4xl mx-auto"
+        >
+          <LuxuryCard >
+            <p className="text-xl leading-relaxed mb-8" style={{ color: "rgba(25,39,74,0.97)" }}>
+              כיום קי האוס היא אחת מסוכנויות הנדל"ן המובילות באילת, עם צוות מקצועי ומסור שחולק את אותה תשוקה ומחויבות לשירות מעולה. אנו גאים להיות חלק מהרגעים המשמעותיים בחיי לקוחותינו, ולהפוך את החלום למציאות.
+            </p>
+
+            {/* Decorative divider */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="h-px w-20 opacity-30" style={{ backgroundColor: "rgba(25,39,74,0.97)" }} />
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#c79d2a" }} />
+              <div className="h-px w-20 opacity-30" style={{ backgroundColor: "rgba(25,39,74,0.97)" }} />
+            </div>
+          </LuxuryCard>
+        </motion.div>
       </div>
-    </section>
+    </LuxuryBackground>
   )
 }

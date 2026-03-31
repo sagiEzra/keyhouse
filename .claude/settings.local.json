@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout /t 3)",
+      "Bash(nul)",
+      "Bash(timeout:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm install:*)",
+      "Bash(claude mcp list:*)",
+      "Bash(cat:*)",
+      "Bash(node:*)",
+      "Bash(identify:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

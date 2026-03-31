@@ -63,174 +63,429 @@ export default function Header() {
     { name: "מוכרים", href: "/selling" },
     { name: "קונים", href: "/buying" },
     { name: "ניהול נכסים", href: "/property-management" },
+    { name: "הערכת שווי", href: "/property-valuation" },
     { name: "קטלוג הנכסים", href: "/catalog" },
     { name: "צור קשר", href: "/contact" },
   ]
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${isScrolled
-          ? "bg-white/95 py-3 backdrop-blur-xl border-b"
-          : "bg-gradient-to-b from-black/50 to-transparent py-5 backdrop-blur-sm"
+      role="banner"
+      aria-label="ניווט ראשי"
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-700 ${isScrolled
+          ? "py-3 backdrop-blur-xl border-b"
+          : "py-5 backdrop-blur-md"
         }`}
       style={{
-        boxShadow: isScrolled ? "0 4px 32px 0 #23214a14" : "none",
-        borderColor: isScrolled ? "#23214a22" : "transparent",
+        background: isScrolled 
+          ? "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,249,255,0.95) 50%, rgba(255,255,255,0.98) 100%)"
+          : "linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%)",
+        boxShadow: isScrolled 
+          ? "0 25px 50px rgba(25,39,74,0.12), 0 10px 25px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)"
+          : "0 8px 32px rgba(0,0,0,0.3)",
+        borderColor: isScrolled ? "rgba(25,39,74,0.08)" : "transparent",
       }}
     >
       <div className="container mx-auto flex items-center justify-between px-4">
-        <Link href="/" className="z-50 relative">
-          <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.3 }}>
-            <img
-              src="/images/keyLogo.png"
-              alt="KeyHouse Logo"
-              className={`transition-all duration-300 ${isScrolled ? "h-12" : "h-14"}`}
-            />
+        <Link href="/" className="z-50 relative group">
+          <motion.div 
+            whileHover={{ scale: 1.05 }} 
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="relative"
+          >
+            {/* Logo glow effect */}
+            <div className="absolute -inset-3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                 style={{
+                   background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(25,39,74,0.08) 100%)",
+                   filter: "blur(20px)"
+                 }} />
+            
+            {/* Logo container with luxury styling */}
+            <div className={`relative p-2 rounded-2xl transition-all duration-500 ${isScrolled ? 'bg-gradient-to-br from-white/60 to-white/40' : ''}`}
+                 style={isScrolled ? {
+                   boxShadow: "0 8px 25px rgba(25,39,74,0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                 } : {}}>
+              <img
+                src="/images/keyLogo.png"
+                alt="KeyHouse - סוכנות הנדל״ן המובילה באילת"
+                className={`transition-all duration-500 drop-shadow-lg group-hover:drop-shadow-xl ${isScrolled ? "h-12" : "h-14"}`}
+                style={{
+                  filter: isScrolled 
+                    ? "drop-shadow(0 4px 8px rgba(25,39,74,0.1))" 
+                    : "drop-shadow(0 4px 12px rgba(0,0,0,0.3))"
+                }}
+              />
+            </div>
           </motion.div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav role="navigation" aria-label="תפריט ניווט עיקרי" className="hidden items-center gap-10 md:flex">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href} className="group relative">
-              <motion.span
-                className={`relative text-lg font-semibold transition-colors duration-300 ${isScrolled ? (activeLink === link.href ? "#f1c23b" : "#23214a") : "text-white"
-                  } ${activeLink === link.href ? "" : "hover:opacity-80"}`}
-                style={{
-                  color: isScrolled ? (activeLink === link.href ? "#f1c23b" : "#23214a") : "#ffffff",
-                }}
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
+              <motion.div
+                className="relative px-3 py-2 rounded-xl transition-all duration-300"
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
-                {link.name}
-              </motion.span>
-              <span
-                className={`absolute -bottom-1 right-0 h-0.5 transition-all duration-300 ${activeLink === link.href ? "w-full" : "w-0 group-hover:w-full"
+                {/* Navigation item glow effect */}
+                <div className="absolute -inset-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                     style={{
+                       background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(25,39,74,0.05) 100%)",
+                       filter: "blur(15px)"
+                     }} />
+                
+                {/* Navigation item background */}
+                <div className={`absolute inset-0 rounded-xl transition-all duration-300 ${
+                  activeLink === link.href 
+                    ? 'opacity-100' 
+                    : 'opacity-0 group-hover:opacity-100'
+                }`}
+                style={{
+                  background: activeLink === link.href 
+                    ? "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(199,157,42,0.08) 100%)"
+                    : "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+                  boxShadow: activeLink === link.href 
+                    ? "0 4px 15px rgba(199,157,42,0.2)"
+                    : "0 2px 10px rgba(25,39,74,0.1)"
+                }} />
+
+                <span
+                  className={`relative font-serif text-lg font-semibold transition-all duration-300 ${
+                    activeLink === link.href 
+                      ? "drop-shadow-sm" 
+                      : "group-hover:drop-shadow-sm"
                   }`}
-                style={{ backgroundColor: "#f1c23b" }}
-              />
+                  style={{
+                    color: isScrolled 
+                      ? (activeLink === link.href ? "#c79d2a" : "rgba(25,39,74,0.97)") 
+                      : "#ffffff",
+                    textShadow: isScrolled 
+                      ? "0 2px 4px rgba(25,39,74,0.1)" 
+                      : "0 2px 8px rgba(0,0,0,0.3)"
+                  }}
+                >
+                  {link.name}
+                </span>
+
+                {/* Enhanced underline */}
+                <div
+                  className={`absolute -bottom-1 right-1/2 translate-x-1/2 h-1 rounded-full transition-all duration-500 ${
+                    activeLink === link.href ? "w-8 opacity-100" : "w-0 opacity-0 group-hover:w-6 group-hover:opacity-100"
+                  }`}
+                  style={{
+                    background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)",
+                    boxShadow: "0 2px 8px rgba(199,157,42,0.4)"
+                  }}
+                />
+              </motion.div>
             </Link>
           ))}
         </nav>
 
         <div className="hidden md:block">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <motion.div 
+            whileHover={{ scale: 1.08, y: -2 }} 
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="group relative"
+          >
+            {/* Button glow effect */}
+            <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                 style={{
+                   background: "linear-gradient(135deg, rgba(199,157,42,0.3) 0%, rgba(25,39,74,0.15) 100%)",
+                   filter: "blur(20px)"
+                 }} />
+
             <Link
-              href={businessStaticData.phone.callLink}
-              className={`flex items-center gap-2 rounded-full px-5 py-2.5 transition-all duration-300 shadow-lg hover:shadow-xl font-medium ${isScrolled ? "text-white" : "bg-white/20 text-white backdrop-blur-md"
-                }`}
+              href={businessStaticData.rotemPhone.callLink}
+              className="relative flex items-center gap-3 rounded-full px-6 py-3 font-serif font-semibold text-lg transition-all duration-500 overflow-hidden"
               style={{
                 background: isScrolled
-                  ? "linear-gradient(90deg, #23214a 0%, #23214a 100%)"
-                  : "rgba(255, 255, 255, 0.65)",
+                  ? "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)"
+                  : "linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%)",
+                boxShadow: isScrolled
+                  ? "0 15px 35px rgba(25,39,74,0.3), 0 5px 15px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)"
+                  : "0 15px 35px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3)",
+                border: isScrolled ? "1px solid rgba(199,157,42,0.3)" : "1px solid rgba(255,255,255,0.2)",
+                color: "#ffffff",
+                backdropFilter: "blur(20px)"
               }}
               onMouseEnter={(e) => {
-                ; (e.currentTarget as HTMLAnchorElement).style.background =
-                  "linear-gradient(90deg, #f1c23b 0%, #f1c23b 100%)"
-                  ; (e.currentTarget as HTMLAnchorElement).style.color = "#23214a"
+                const target = e.currentTarget as HTMLAnchorElement;
+                target.style.background = "linear-gradient(135deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)";
+                target.style.color = "rgba(25,39,74,0.97)";
+                target.style.transform = "translateY(-1px)";
+                target.style.boxShadow = "0 20px 40px rgba(199,157,42,0.4), 0 8px 20px rgba(199,157,42,0.3), inset 0 1px 0 rgba(255,255,255,0.4)";
               }}
               onMouseLeave={(e) => {
-                ; (e.currentTarget as HTMLAnchorElement).style.background = isScrolled
-                  ? "linear-gradient(90deg, #23214a 0%, #23214a 100%)"
-                  : "rgba(255, 255, 255, 0.2)"
-                  ; (e.currentTarget as HTMLAnchorElement).style.color = "#ffffff"
+                const target = e.currentTarget as HTMLAnchorElement;
+                target.style.background = isScrolled
+                  ? "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)"
+                  : "linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%)";
+                target.style.color = "#ffffff";
+                target.style.transform = "translateY(0px)";
+                target.style.boxShadow = isScrolled
+                  ? "0 15px 35px rgba(25,39,74,0.3), 0 5px 15px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)"
+                  : "0 15px 35px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3)";
               }}
             >
-              <Phone className="h-4 w-4" />
-              <span>{businessStaticData.phone.numberToDisplay}</span>
+              {/* Background shimmer effect */}
+              <div className="absolute inset-0 -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700 opacity-20"
+                   style={{
+                     background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)"
+                   }} />
+              
+              <Phone className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+              <span className="relative z-10">{businessStaticData.rotemPhone.numberToDisplay}</span>
             </Link>
           </motion.div>
 
-          {/* Fixed admin button on the left of the header */}
+          {/* Fixed luxury admin button */}
           {isAdmin && (
-            <div
-              className="fixed right-2 top-3 z-50"
-              style={{
-                // Adjust top/left as needed to align with your header
-              }}
-            >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <div className="fixed right-4 top-4 z-50">
+              <motion.div 
+                whileHover={{ scale: 1.08, y: -2 }} 
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="group relative"
+              >
+                {/* Admin button glow effect */}
+                <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                     style={{
+                       background: "linear-gradient(135deg, rgba(120,120,120,0.3) 0%, rgba(60,60,60,0.2) 100%)",
+                       filter: "blur(20px)"
+                     }} />
+
                 <Link
                   href="/catalog/manage"
-                  className={`flex items-center gap-2 rounded-full px-5 py-2 transition-all duration-300 shadow-lg hover:shadow-xl font-medium bg-[#23214a] text-white`}
+                  className="relative flex items-center gap-2 rounded-full px-5 py-2.5 font-serif font-medium text-white transition-all duration-500 overflow-hidden"
                   style={{
-                    background: "linear-gradient(90deg,rgb(126, 126, 126) 0%,rgb(82, 82, 82) 100%)",
-                    border: "2px solid rgb(56, 56, 56)"
+                    background: "linear-gradient(135deg, rgba(80,80,80,0.95) 0%, rgba(60,60,60,0.98) 100%)",
+                    boxShadow: "0 15px 35px rgba(60,60,60,0.4), 0 5px 15px rgba(60,60,60,0.3), inset 0 1px 0 rgba(255,255,255,0.1)",
+                    border: "1px solid rgba(120,120,120,0.3)",
+                    backdropFilter: "blur(20px)"
+                  }}
+                  onMouseEnter={(e) => {
+                    const target = e.currentTarget as HTMLAnchorElement;
+                    target.style.background = "linear-gradient(135deg, rgba(100,100,100,0.98) 0%, rgba(80,80,80,1) 100%)";
+                    target.style.transform = "translateY(-1px)";
+                    target.style.boxShadow = "0 20px 40px rgba(80,80,80,0.5), 0 8px 20px rgba(80,80,80,0.4), inset 0 1px 0 rgba(255,255,255,0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    const target = e.currentTarget as HTMLAnchorElement;
+                    target.style.background = "linear-gradient(135deg, rgba(80,80,80,0.95) 0%, rgba(60,60,60,0.98) 100%)";
+                    target.style.transform = "translateY(0px)";
+                    target.style.boxShadow = "0 15px 35px rgba(60,60,60,0.4), 0 5px 15px rgba(60,60,60,0.3), inset 0 1px 0 rgba(255,255,255,0.1)";
                   }}
                 >
-                  <FaHome className="h-4 w-4" />
-                  <span>ניהול נכסים</span>
+                  {/* Background shimmer effect */}
+                  <div className="absolute inset-0 -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700 opacity-20"
+                       style={{
+                         background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)"
+                       }} />
+                  
+                  <FaHome className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                  <span className="relative z-10">ניהול נכסים</span>
                 </Link>
               </motion.div>
             </div>
           )}
         </div>
 
-        {/* Mobile Menu Button */}
-        <motion.button
-          className="z-50 md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? "סגור תפריט" : "פתח תפריט"}
-          whileTap={{ scale: 0.9 }}
+        {/* Luxury Mobile Menu Button */}
+        <motion.div
+          className="z-50 md:hidden group relative"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.3 }}
         >
-          {isOpen ? (
-            <X className="h-6 w-6" style={{ color: "#23214a" }} />
-          ) : (
-            <Menu className="h-6 w-6" style={{ color: isScrolled ? "#23214a" : "#ffffff" }} />
-          )}
-        </motion.button>
+          {/* Menu button glow effect */}
+          <div className="absolute -inset-3 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+               style={{
+                 background: "linear-gradient(135deg, rgba(199,157,42,0.15) 0%, rgba(25,39,74,0.08) 100%)",
+                 filter: "blur(15px)"
+               }} />
+          
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "סגור תפריט" : "פתח תפריט"}
+            className="relative p-3 rounded-2xl transition-all duration-300"
+            style={{
+              background: isScrolled 
+                ? "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,249,255,0.8) 100%)"
+                : "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)",
+              boxShadow: isScrolled
+                ? "0 10px 25px rgba(25,39,74,0.1), inset 0 1px 0 rgba(255,255,255,0.6)"
+                : "0 8px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3)",
+              border: isScrolled ? "1px solid rgba(25,39,74,0.1)" : "1px solid rgba(255,255,255,0.2)",
+              backdropFilter: "blur(20px)"
+            }}
+          >
+            {isOpen ? (
+              <X className="h-6 w-6 transition-all duration-300" style={{ color: "rgba(25,39,74,0.97)" }} />
+            ) : (
+              <Menu className="h-6 w-6 transition-all duration-300" style={{ color: isScrolled ? "rgba(25,39,74,0.97)" : "#ffffff" }} />
+            )}
+          </button>
+        </motion.div>
 
-        {/* Mobile Menu */}
+        {/* Luxury Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="absolute left-0 right-0 top-0 min-h-screen bg-white"
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="absolute left-0 right-0 top-0 min-h-screen overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,249,255,0.95) 50%, rgba(255,255,255,0.98) 100%)",
+                backdropFilter: "blur(30px)"
+              }}
             >
-              <div className="container mx-auto px-4 pt-24">
-                <nav className="flex flex-col gap-4">
-                  {navLinks.map((link) => (
-                    <Link
+              {/* Decorative background elements */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div
+                  className="absolute top-32 right-10 w-64 h-64 rounded-full blur-3xl opacity-5"
+                  style={{ background: "radial-gradient(circle, #c79d2a 0%, transparent 70%)" }}
+                />
+                <div
+                  className="absolute bottom-32 left-10 w-48 h-48 rounded-full blur-3xl opacity-4"
+                  style={{ background: "radial-gradient(circle, rgba(25,39,74,0.97) 0%, transparent 70%)" }}
+                />
+              </div>
+
+              <div className="container mx-auto px-6 pt-28 relative z-10">
+                <nav role="navigation" aria-label="תפריט ניווט מובייל" className="flex flex-col gap-2">
+                  {navLinks.map((link, index) => (
+                    <motion.div
                       key={link.name}
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`border-b py-4 text-lg font-medium transition-colors duration-300 ${activeLink === link.href ? "" : ""
-                        }`}
-                      style={{
-                        borderColor: "#23214a22",
-                        color: activeLink === link.href ? "#f1c23b" : "#23214a",
-                      }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      className="group"
                     >
-                      <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
-                        {link.name}
-                      </motion.div>
-                    </Link>
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className="relative block p-4 rounded-2xl transition-all duration-300 overflow-hidden"
+                        style={{
+                          background: activeLink === link.href 
+                            ? "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(199,157,42,0.05) 100%)"
+                            : "transparent",
+                          borderBottom: "1px solid rgba(25,39,74,0.08)"
+                        }}
+                      >
+                        {/* Link glow effect */}
+                        <div className="absolute -inset-2 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                             style={{
+                               background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(25,39,74,0.05) 100%)",
+                               filter: "blur(15px)"
+                             }} />
+
+                        <motion.div 
+                          whileHover={{ x: 8 }} 
+                          transition={{ duration: 0.3 }}
+                          className="relative z-10"
+                        >
+                          <span 
+                            className="font-serif text-xl font-semibold transition-all duration-300"
+                            style={{
+                              color: activeLink === link.href ? "#c79d2a" : "rgba(25,39,74,0.97)",
+                              textShadow: activeLink === link.href ? "0 2px 8px rgba(199,157,42,0.3)" : "none"
+                            }}
+                          >
+                            {link.name}
+                          </span>
+                        </motion.div>
+
+                        {/* Active indicator */}
+                        {activeLink === link.href && (
+                          <div
+                            className="absolute right-4 top-1/2 -translate-y-1/2 w-1 h-8 rounded-full"
+                            style={{
+                              background: "linear-gradient(180deg, #c79d2a 0%, rgba(199,157,42,0.8) 100%)",
+                              boxShadow: "0 2px 8px rgba(199,157,42,0.4)"
+                            }}
+                          />
+                        )}
+                      </Link>
+                    </motion.div>
                   ))}
-                  <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-6">
+
+                  {/* Phone Button */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: navLinks.length * 0.1 + 0.2 }}
+                    whileHover={{ scale: 1.03 }} 
+                    whileTap={{ scale: 0.97 }} 
+                    className="mt-8 group relative"
+                  >
+                    {/* Button glow effect */}
+                    <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                         style={{
+                           background: "linear-gradient(135deg, rgba(199,157,42,0.3) 0%, rgba(25,39,74,0.15) 100%)",
+                           filter: "blur(20px)"
+                         }} />
+
                     <Link
-                      href={businessStaticData.phone.callLink}
+                      href={businessStaticData.rotemPhone.callLink}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-medium text-white shadow-xl"
+                      className="relative flex items-center justify-center gap-3 rounded-full px-8 py-4 font-serif font-semibold text-lg text-white shadow-xl transition-all duration-500 overflow-hidden"
                       style={{
-                        background: "linear-gradient(90deg, #23214a 0%, #23214a 100%)",
+                        background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(29,42,86,0.95) 100%)",
+                        boxShadow: "0 15px 35px rgba(25,39,74,0.3), 0 5px 15px rgba(25,39,74,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
+                        border: "1px solid rgba(199,157,42,0.3)"
                       }}
                     >
-                      <Phone className="h-5 w-5" />
-                      <span>{businessStaticData.phone.numberToDisplay}</span>
+                      {/* Background shimmer effect */}
+                      <div className="absolute inset-0 -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700 opacity-20"
+                           style={{
+                             background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)"
+                           }} />
+                      
+                      <Phone className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                      <span className="relative z-10">{businessStaticData.rotemPhone.numberToDisplay}</span>
                     </Link>
                   </motion.div>
+
+                  {/* Admin Button */}
                   {isAdmin && (
-                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-6">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: navLinks.length * 0.1 + 0.4 }}
+                      whileHover={{ scale: 1.03 }} 
+                      whileTap={{ scale: 0.97 }} 
+                      className="mt-4 group relative"
+                    >
+                      {/* Button glow effect */}
+                      <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                           style={{
+                             background: "linear-gradient(135deg, rgba(120,120,120,0.3) 0%, rgba(60,60,60,0.2) 100%)",
+                             filter: "blur(20px)"
+                           }} />
+
                       <Link
                         href="/catalog/manage"
-                        className="flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-medium text-white shadow-xl"
+                        onClick={() => setIsOpen(false)}
+                        className="relative flex items-center justify-center gap-3 rounded-full px-8 py-4 font-serif font-semibold text-white shadow-xl transition-all duration-500 overflow-hidden"
                         style={{
-                          background: "linear-gradient(90deg, #23214a 0%, #23214a 100%)",
-                        }}>
-                        ניהול נכסים
+                          background: "linear-gradient(135deg, rgba(80,80,80,0.95) 0%, rgba(60,60,60,0.98) 100%)",
+                          boxShadow: "0 15px 35px rgba(60,60,60,0.4), 0 5px 15px rgba(60,60,60,0.3), inset 0 1px 0 rgba(255,255,255,0.1)",
+                          border: "1px solid rgba(120,120,120,0.3)"
+                        }}
+                      >
+                        {/* Background shimmer effect */}
+                        <div className="absolute inset-0 -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700 opacity-20"
+                             style={{
+                               background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)"
+                             }} />
+                        
+                        <FaHome className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                        <span className="relative z-10">ניהול נכסים</span>
                       </Link>
                     </motion.div>
                   )}

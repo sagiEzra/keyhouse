@@ -1,0 +1,38 @@
+# robots.txt for Keyhouse Eilat Real Estate
+
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow admin/management pages
+Disallow: /catalog/manage/
+Disallow: /api/
+
+# Disallow private/internal files
+Disallow: /*.json$
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://keyhouseeilat.co.il/api/sitemap.xml
+
+# Crawl delay (optional - helps prevent server overload)
+# Crawl-delay: 1
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Disallow: /catalog/manage/
+Disallow: /api/
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /catalog/manage/
+Disallow: /api/
+
+# Block bad bots (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

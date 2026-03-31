@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { FaPhone as Phone } from "react-icons/fa"
+import LuxuryButton from "@/components/ui/luxury-button"
 import { businessStaticData } from "../../config"
 
 interface CTASectionProps {
@@ -12,49 +12,53 @@ interface CTASectionProps {
 
 export default function CTASection({ title, description, buttonText }: CTASectionProps) {
   return (
-    <section className="bg-white py-20">
-      <div className="container mx-auto px-4">
+    <section className="relative py-32 overflow-hidden"
+             style={{
+               background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, #fafafa 50%, rgba(199,157,42,0.03) 100%)"
+             }}>
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="overflow-hidden rounded-3xl p-8 shadow-2xl md:p-12 border backdrop-blur-xl"
+          className="relative overflow-hidden rounded-3xl p-10 md:p-16"
           style={{
-            background: "linear-gradient(90deg, #23214ad9 0%, #23214aeb 100%)",
-            borderColor: "#23214a33",
+            background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, rgba(26,39,86,0.95) 35%, rgba(45,74,142,0.93) 65%, rgba(25,39,74,0.97) 100%)",
+            boxShadow: "0 25px 60px rgba(25,39,74,0.25), inset 0 1px 0 rgba(255,255,255,0.1)",
+            border: "1px solid rgba(199,157,42,0.2)"
           }}
         >
-          <div className="flex flex-col items-center justify-between gap-8 text-center md:flex-row md:text-right">
+          {/* Inner decorative glow */}
+          <div className="absolute inset-0 pointer-events-none opacity-30">
+            <div className="absolute top-1/2 left-1/2 w-[600px] h-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+                 style={{ background: "radial-gradient(circle, rgba(199,157,42,0.15) 0%, transparent 70%)" }} />
+          </div>
+
+          <div className="relative z-10 flex flex-col items-center justify-between gap-10 text-center md:flex-row md:text-right">
             <div className="md:max-w-2xl">
-              <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl drop-shadow-lg">{title}</h2>
-              <p className="text-lg text-blue-100 font-medium">{description}</p>
+              <h2 className="mb-6 text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight"
+                  style={{ textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)" }}>
+                {title}
+              </h2>
+              <p className="text-xl md:text-2xl leading-relaxed"
+                 style={{
+                   color: "rgba(255,255,255,0.95)",
+                   textShadow: "0 2px 10px rgba(0,0,0,0.2)"
+                 }}>
+                {description}
+              </p>
             </div>
-            
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <a
-                href={businessStaticData.phone.callLink}
-                className="flex items-center gap-2 rounded-full bg-white px-8 py-4 font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
-                style={{
-                  color: "#23214a",
-                  background: "'white'",
-                }}
-                onMouseEnter={(e) => {
-                  ;(e.currentTarget as HTMLAnchorElement).style.background =
-                    "linear-gradient(90deg, #f1c23b 0%, #f1c23b 100%)"
-                  ;(e.currentTarget as HTMLAnchorElement).style.color = "#23214a"
-                }}
-                onMouseLeave={(e) => {
-                  ;(e.currentTarget as HTMLAnchorElement).style.background =
-                    "white"
-                  ;(e.currentTarget as HTMLAnchorElement).style.color = "#23214a"
-                }}
+
+            <div className="flex-shrink-0">
+              <LuxuryButton
+                href={businessStaticData.rotemPhone.callLink}
+                size="large"
               >
-                <Phone className="h-5 w-5" />
-                <span>{buttonText}</span>
-              </a>
-              
-            </motion.div>
+                {buttonText}
+              </LuxuryButton>
+            </div>
           </div>
         </motion.div>
       </div>

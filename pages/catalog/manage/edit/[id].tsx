@@ -4,15 +4,18 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { collection, doc, getDoc, updateDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../../../lib/firebase';
 import { Property, PropertyFormData } from '../../../../types/property';
-import { Card, CardContent, CardHeader, CardTitle } from '../../../../components/ui/card';
-import { Button } from '../../../../components/ui/button';
 import { Input } from '../../../../components/ui/input';
 import { Label } from '../../../../components/ui/label';
 import { Textarea } from '../../../../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../../components/ui/select';
 import { Checkbox } from '../../../../components/ui/checkbox';
-import { FaArrowRight, FaPlus, FaTimes, FaSave, FaHome, FaImage, FaEdit } from 'react-icons/fa';
-import Link from 'next/link';
+import { FaArrowRight, FaSave, FaHome, FaImage } from 'react-icons/fa';
+import LuxuryButton from '../../../../components/ui/luxury-button';
+import LuxuryCard from '../../../../components/ui/luxury-card';
+import LuxuryBackground from '../../../../components/ui/luxury-background';
+import EditMediaUploader from '../../../../components/cloudinary/EditMediaUploader';
+import { UploadedMedia, deleteFromCloudinary, uploadToCloudinary } from '../../../../lib/cloudinary';
+import { LocalMediaFile } from '../../../../components/cloudinary/LocalMediaUploader';
 
 export default function EditPropertyPage() {
   const router = useRouter();
@@ -20,6 +23,18 @@ export default function EditPropertyPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [property, setProperty] = useState<Property | null>(null);
+
+  // Existing media from Cloudinary
+  const [existingMainMedia, setExistingMainMedia] = useState<UploadedMedia | null>(null);
+  const [existingAdditionalMedia, setExistingAdditionalMedia] = useState<UploadedMedia[]>([]);
+
+  // New files selected by user (not yet uploaded)
+  const [newMainMediaFile, setNewMainMediaFile] = useState<LocalMediaFile[]>([]);
+  const [newAdditionalMediaFiles, setNewAdditionalMediaFiles] = useState<LocalMediaFile[]>([]);
+
+  // Track what was removed (for deletion on submit)
+  const [removedMainPublicId, setRemovedMainPublicId] = useState<string | null>(null);
+  const [removedAdditionalPublicIds, setRemovedAdditionalPublicIds] = useState<string[]>([]);
   const [formData, setFormData] = useState<PropertyFormData>({
     title: '',
     type: 'sale',
@@ -88,11 +103,33 @@ export default function EditPropertyPage() {
   const fetchProperty = async () => {
     try {
       if (typeof id !== 'string') return;
-      
+
       const propertyDoc = await getDoc(doc(db, 'properties', id));
       if (propertyDoc.exists()) {
         const propertyData = { id: propertyDoc.id, ...propertyDoc.data() } as Property;
         setProperty(propertyData);
+
+        // Load existing main media
+        if (propertyData.mainImage) {
+          setExistingMainMedia({
+            url: propertyData.mainImage,
+            publicId: propertyData.mainImagePublicId || '',
+            type: propertyData.mainImageType || 'image',
+            isTemporary: false
+          });
+        }
+
+        // Load existing additional media
+        if (propertyData.images && propertyData.images.length > 0) {
+          const loadedMedia: UploadedMedia[] = propertyData.images.map((url, index) => ({
+            url,
+            publicId: propertyData.imagePublicIds?.[index] || '',
+            type: url.includes('/video/') ? 'video' : 'image',
+            isTemporary: false
+          }));
+          setExistingAdditionalMedia(loadedMedia);
+        }
+
         setFormData({
           title: propertyData.title,
           type: propertyData.type,
@@ -124,9 +161,7 @@ export default function EditPropertyPage() {
           nofLayam: propertyData.nofLayam || false,
           masterRoom: propertyData.masterRoom || false,
           closetRoom: propertyData.closetRoom || false,
-          balconySize: propertyData.balconySize || 0,
-          contactPhone: propertyData.contactPhone || '',
-          contactEmail: propertyData.contactEmail || ''
+          balconySize: propertyData.balconySize || 0
         });
       } else {
         router.push('/catalog/manage');
@@ -144,21 +179,26 @@ export default function EditPropertyPage() {
     }));
   };
 
-  const handleImageAdd = () => {
-    const imageUrl = prompt('הכנס כתובת URL של התמונה:');
-    if (imageUrl && imageUrl.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        images: [...prev.images, imageUrl.trim()]
-      }));
+  // Handler for removing existing main media
+  const handleRemoveExistingMainMedia = () => {
+    if (existingMainMedia) {
+      setRemovedMainPublicId(existingMainMedia.publicId);
+      setExistingMainMedia(null);
     }
   };
 
-  const handleImageRemove = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      images: prev.images.filter((_, i) => i !== index)
-    }));
+  // Handler for removing existing additional media
+  const handleRemoveExistingAdditionalMedia = (index: number) => {
+    const mediaToRemove = existingAdditionalMedia[index];
+    if (mediaToRemove && mediaToRemove.publicId) {
+      setRemovedAdditionalPublicIds(prev => [...prev, mediaToRemove.publicId]);
+    }
+    setExistingAdditionalMedia(prev => prev.filter((_, idx) => idx !== index));
+  };
+
+  // Handler for reordering existing additional media
+  const handleReorderExistingAdditionalMedia = (reorderedMedia: UploadedMedia[]) => {
+    setExistingAdditionalMedia(reorderedMedia);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -168,12 +208,64 @@ export default function EditPropertyPage() {
     try {
       if (typeof id !== 'string') return;
 
+      // Step 1: Delete removed media from Cloudinary
+      const publicIdsToDelete: string[] = [];
+
+      if (removedMainPublicId) {
+        publicIdsToDelete.push(removedMainPublicId);
+      }
+
+      if (removedAdditionalPublicIds.length > 0) {
+        publicIdsToDelete.push(...removedAdditionalPublicIds);
+      }
+
+      if (publicIdsToDelete.length > 0) {
+        try {
+          await deleteFromCloudinary(publicIdsToDelete);
+        } catch (deleteError) {
+          console.error('Error deleting old media:', deleteError);
+          // Continue with update even if deletion fails
+        }
+      }
+
+      // Step 2: Upload new main media if exists
+      let finalMainImageUrl: string | undefined = existingMainMedia?.url;
+      let finalMainImageType: 'image' | 'video' | undefined = existingMainMedia?.type;
+      let finalMainImagePublicId: string | undefined = existingMainMedia?.publicId;
+
+      if (newMainMediaFile.length > 0) {
+        const uploadedMain = await uploadToCloudinary(newMainMediaFile[0].file);
+        finalMainImageUrl = uploadedMain.url;
+        finalMainImageType = uploadedMain.type;
+        finalMainImagePublicId = uploadedMain.publicId;
+      }
+
+      // Step 3: Upload new additional media
+      const uploadedNewAdditional = [];
+      for (const mediaFile of newAdditionalMediaFiles) {
+        const uploaded = await uploadToCloudinary(mediaFile.file);
+        uploadedNewAdditional.push(uploaded);
+      }
+
+      // Step 4: Combine existing + newly uploaded additional media
+      const finalAdditionalMedia = [
+        ...existingAdditionalMedia,
+        ...uploadedNewAdditional
+      ];
+
+      // Step 5: Prepare property data with final media
       const propertyData = {
         ...formData,
+        mainImage: finalMainImageUrl,
+        mainImageType: finalMainImageType,
+        mainImagePublicId: finalMainImagePublicId,
+        images: finalAdditionalMedia.map(media => media.url),
+        imagePublicIds: finalAdditionalMedia.map(media => media.publicId),
         updatedAt: serverTimestamp()
       };
 
       await updateDoc(doc(db, 'properties', id), propertyData);
+      alert('הנכס עודכן בהצלחה!');
       router.push('/catalog/manage');
     } catch (error) {
       console.error('Error updating property:', error);
@@ -188,7 +280,7 @@ export default function EditPropertyPage() {
       <div dir="rtl" className="min-h-screen bg-white">
         <div className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20"
           style={{
-            background: "linear-gradient(135deg, #23214a 0%, #23214a 100%)",
+            background: "linear-gradient(135deg, rgba(25,39,74,0.97) 0%, #1a2756 35%, #2d4a8e 65%, rgba(35,52,94,0.95) 100%)",
           }}>
           <div className="animate-pulse">
             <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
@@ -205,108 +297,74 @@ export default function EditPropertyPage() {
 
   if (!property) {
     return (
-      <div dir="rtl" className="min-h-screen bg-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">הנכס לא נמצא</h1>
-          <Link href="/catalog/manage">
-            <Button>חזור לניהול</Button>
-          </Link>
+      <LuxuryBackground variant="light" className="flex min-h-screen items-center justify-center pt-20">
+        <div className="container mx-auto px-6 text-center">
+          <LuxuryCard className="py-20 px-8">
+            <FaHome className="mx-auto mb-6 h-24 w-24" style={{ color: "rgba(25,39,74,0.3)" }} />
+            <h1 className="text-3xl font-serif font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+              הנכס לא נמצא
+            </h1>
+            <p className="text-lg mb-8" style={{ color: "rgba(25,39,74,0.7)" }}>
+              הנכס שחיפשת אינו קיים או שהוסר מהמערכת
+            </p>
+            <LuxuryButton href="/catalog/manage">חזור לניהול</LuxuryButton>
+          </LuxuryCard>
         </div>
-      </div>
+      </LuxuryBackground>
     );
   }
 
   return (
     <div dir="rtl" className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section
-        className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20"
-        style={{
-          background: "linear-gradient(135deg, #23214a 0%, #23214a 100%)",
-        }}
-      >
-        {/* Decorative gradients */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div
-            className="absolute left-1/2 top-1/4 w-[70vw] h-[50vw] max-w-4xl -translate-x-1/2 rounded-full blur-3xl opacity-30"
-            style={{
-              background: "linear-gradient(135deg, #f1c23b40 0%, #f1c23b20 50%, transparent 100%)",
-            }}
-          />
-          <div
-            className="absolute right-0 bottom-0 w-1/3 h-1/3 blur-2xl opacity-20"
-            style={{
-              background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)",
-            }}
-          />
-        </div>
-
-        <div className="container relative z-10 mx-auto px-4 py-16 text-center">
-          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-2xl">
+      <LuxuryBackground variant="hero" className="flex min-h-[60vh] items-center justify-center pt-20">
+        <div className="container relative z-10 mx-auto px-6 py-16 text-center">
+          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-2xl"
+              style={{ textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)" }}>
             ערוך נכס
           </h1>
-          <p className="mx-auto mb-8 max-w-3xl text-xl text-blue-100 md:text-2xl font-medium drop-shadow-lg">
+          <p className="mx-auto mb-8 max-w-3xl text-xl text-white/90 md:text-2xl font-medium drop-shadow-lg">
             עדכן את פרטי הנכס: {property.title}
           </p>
           <div
             className="mx-auto h-2 w-24 rounded-full"
             style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
-              boxShadow: "0 2px 12px #f1c23b55",
+              background: "linear-gradient(90deg, #c79d2a 0%, #fff 100%)",
+              boxShadow: "0 2px 12px rgba(199,157,42,0.5)",
             }}
           />
         </div>
-
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
-      </section>
+      </LuxuryBackground>
 
       {/* Main Content */}
-      <section
-        className="relative py-16 overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, #23214a0d 0%, #fff 50%, #f1c23b0d 100%)",
-        }}
-      >
-        {/* Background Blobs */}
-        <div
-          className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-[40vw] rounded-full blur-3xl opacity-60"
-          style={{ background: "linear-gradient(135deg, #23214a4d 0%, #23214a1a 100%)" }}
-        />
-        <div
-          className="pointer-events-none absolute bottom-0 right-0 w-1/3 h-1/3 blur-2xl opacity-40"
-          style={{ background: "linear-gradient(45deg, #f1c23b60 0%, transparent 100%)" }}
-        />
+      <LuxuryBackground variant="light" className="py-24">
 
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6 relative z-10">
           {/* Back Button */}
           <div className="mb-8">
-            <div className="bg-white/90 rounded-3xl shadow-2xl p-6 backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <Link href="/catalog/manage">
-                <Button variant="ghost" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
-                  <FaArrowRight className="h-4 w-4" />
-                  חזור לניהול
-                </Button>
-              </Link>
-            </div>
+            <LuxuryButton variant="secondary" href="/catalog/manage">
+              <FaArrowRight className="h-4 w-4" />
+              חזור לניהול
+            </LuxuryButton>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                  <FaHome className="h-6 w-6 text-blue-600" />
+            <LuxuryCard hoverable={false}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <div className="p-2 rounded-full"
+                       style={{
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                         border: "2px solid rgba(199,157,42,0.3)",
+                       }}>
+                    <FaHome className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
+                  </div>
                   מידע בסיסי
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
+                </h3>
+              </div>
+              <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="title">כותרת הנכס *</Label>
@@ -422,18 +480,15 @@ export default function EditPropertyPage() {
                     />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </LuxuryCard>
 
             {/* Features */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">מאפיינים</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <LuxuryCard hoverable={false}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>מאפיינים</h3>
+              </div>
+              <div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <Checkbox
@@ -556,18 +611,15 @@ export default function EditPropertyPage() {
                     <Label htmlFor="closetRoom">חדר ארונות</Label>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </LuxuryCard>
 
             {/* Special Tags */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">תגיות מיוחדות</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <LuxuryCard hoverable={false}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>תגיות מיוחדות</h3>
+              </div>
+              <div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <Checkbox
@@ -604,125 +656,92 @@ export default function EditPropertyPage() {
                     />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </LuxuryCard>
 
-            {/* Contact Information */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">פרטי קשר</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <Label htmlFor="contactPhone">טלפון</Label>
-                    <Input
-                      id="contactPhone"
-                      value={formData.contactPhone}
-                      onChange={(e) => handleInputChange('contactPhone', e.target.value)}
-                      placeholder="מספר טלפון"
-                      className="mt-2"
-                    />
+            {/* Main Media */}
+            <LuxuryCard hoverable={false}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <div className="p-2 rounded-full"
+                       style={{
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                         border: "2px solid rgba(199,157,42,0.3)",
+                       }}>
+                    <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
                   </div>
-                  <div>
-                    <Label htmlFor="contactEmail">אימייל</Label>
-                    <Input
-                      id="contactEmail"
-                      type="email"
-                      value={formData.contactEmail}
-                      onChange={(e) => handleInputChange('contactEmail', e.target.value)}
-                      placeholder="כתובת אימייל"
-                      className="mt-2"
-                    />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                  תמונה/וידאו ראשיים
+                </h3>
+                <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
+                  תמונה או סרטון ראשי שיוצג בכרטיס הנכס ובראש עמוד הפרטים
+                </p>
+              </div>
+              <EditMediaUploader
+                mode="main"
+                maxFiles={1}
+                existingMedia={existingMainMedia ? [existingMainMedia] : []}
+                onExistingMediaRemove={handleRemoveExistingMainMedia}
+                newFiles={newMainMediaFile}
+                onNewFilesChange={setNewMainMediaFile}
+              />
+            </LuxuryCard>
 
-            {/* Images */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                  <FaImage className="h-6 w-6 text-blue-600" />
-                  תמונות
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleImageAdd}
-                    className="flex items-center gap-2"
-                  >
-                    <FaPlus className="h-4 w-4" />
-                    הוסף תמונה
-                  </Button>
-                  {formData.images.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {formData.images.map((image, index) => (
-                        <div key={index} className="relative group">
-                          <img
-                            src={image}
-                            alt={`תמונה ${index + 1}`}
-                            className="w-full h-32 object-cover rounded-lg"
-                          />
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleImageRemove(index)}
-                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <FaTimes className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            {/* Additional Media */}
+            <LuxuryCard hoverable={false}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  <div className="p-2 rounded-full"
+                       style={{
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                         border: "2px solid rgba(199,157,42,0.3)",
+                       }}>
+                    <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
+                  </div>
+                  תמונות/סרטונים נוספים
+                </h3>
+                <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
+                  תמונות וסרטונים נוספים שיוצגו בגלריית הנכס (עד 20 קבצים)
+                </p>
+              </div>
+              <EditMediaUploader
+                mode="additional"
+                maxFiles={20}
+                existingMedia={existingAdditionalMedia}
+                onExistingMediaRemove={handleRemoveExistingAdditionalMedia}
+                onExistingMediaReorder={handleReorderExistingAdditionalMedia}
+                newFiles={newAdditionalMediaFiles}
+                onNewFilesChange={setNewAdditionalMediaFiles}
+              />
+            </LuxuryCard>
 
             {/* Description */}
-            <Card className="bg-white/90 rounded-3xl shadow-2xl backdrop-blur-xl border"
-              style={{
-                boxShadow: "0 4px 24px 0 #23214a14, 0 1.5px 8px 0 #23214a08",
-              }}>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">תיאור הנכס</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Textarea
-                  value={formData.description}
-                  onChange={(e) => handleInputChange('description', e.target.value)}
-                  placeholder="תיאור מפורט של הנכס..."
-                  rows={6}
-                  required
-                />
-              </CardContent>
-            </Card>
+            <LuxuryCard hoverable={false}>
+              <div className="mb-6">
+                <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(25,39,74,0.97)" }}>תיאור הנכס</h3>
+              </div>
+              <Textarea
+                value={formData.description}
+                onChange={(e) => handleInputChange('description', e.target.value)}
+                placeholder="תיאור מפורט של הנכס..."
+                rows={6}
+                required
+              />
+            </LuxuryCard>
 
             {/* Submit Button */}
             <div className="flex justify-center">
-              <Button
+              <LuxuryButton
                 type="submit"
                 disabled={submitting}
-                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-12 py-4 text-lg"
+                size="large"
               >
                 <FaSave className="h-5 w-5" />
                 {submitting ? 'מעדכן נכס...' : 'עדכן נכס'}
-              </Button>
+              </LuxuryButton>
             </div>
           </form>
         </div>
-      </section>
+      </LuxuryBackground>
     </div>
   );
 } 

@@ -7,48 +7,64 @@ interface ServiceHeroProps {
   subtitle: string
   image: string
   imageAlt: string
+  overlayOpacity?: number
 }
 
-export default function ServiceHero({ title, subtitle, image, imageAlt }: ServiceHeroProps) {
+export default function ServiceHero({ title, subtitle, image, imageAlt, overlayOpacity = 0.6 }: ServiceHeroProps) {
   return (
-    <section className="relative min-h-[70vh] overflow-hidden pt-20">
+    <section className="relative overflow-hidden pt-24 md:pt-28 pb-12">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={image || "/placeholder.svg"} alt={imageAlt} className="h-full w-full object-cover" />
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(to bottom, #23214a80 0%, #23214a70 50%, #23214a80 100%)",
+            background: `linear-gradient(135deg, rgba(25,39,74,${overlayOpacity}) 0%, rgba(26,39,86,${overlayOpacity * 0.9}) 35%, rgba(45,74,142,${overlayOpacity * 0.85}) 65%, rgba(25,39,74,${overlayOpacity}) 100%)`,
           }}
         />
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto flex min-h-[70vh] flex-col items-center justify-center px-4 py-16 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+      <div className="container relative z-10 mx-auto flex flex-col items-center justify-center px-6 py-20 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl"
+          className="mb-6 font-serif text-5xl font-extrabold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl max-w-4xl"
+          style={{
+            textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(199,157,42,0.2)"
+          }}
         >
-          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-xl">
-            {title}
-          </h1>
-          <p className="mx-auto mb-10 max-w-3xl text-xl text-blue-100 md:text-2xl font-medium drop-shadow-lg">
-            {subtitle}
-          </p>
-          <div
-            className="mx-auto h-2 w-32 rounded-full"
-            style={{
-              background: "linear-gradient(90deg, #f1c23b 0%, #fff 100%)",
-              boxShadow: "0 2px 12px #f1c23b55",
-            }}
-          />
-        </motion.div>
+          {title}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mx-auto mb-10 max-w-3xl text-xl leading-relaxed md:text-2xl"
+          style={{
+            color: "rgba(255,255,255,0.95)",
+            textShadow: "0 2px 10px rgba(0,0,0,0.2)"
+          }}
+        >
+          {subtitle}
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mx-auto h-1.5 w-32 rounded-full"
+          style={{
+            background: "linear-gradient(90deg, #c79d2a 0%, rgba(199,157,42,0.3) 50%, #c79d2a 100%)",
+            boxShadow: "0 4px 20px rgba(199,157,42,0.4)",
+          }}
+        />
       </div>
 
       {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent pointer-events-none"></div>
     </section>
   )
 }
