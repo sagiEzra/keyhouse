@@ -190,20 +190,18 @@ export default function Footer() {
             </h3>
 
             <div className="space-y-4">
-              {/* Phone */}
-              <motion.div 
+              {/* Rotem Phone */}
+              <motion.div
                 whileHover={{ scale: 1.03, x: 4 }}
                 transition={{ duration: 0.3 }}
                 className="flex items-center gap-4 group/item"
               >
                 <div className="relative">
-                  {/* Icon glow effect */}
                   <div className="absolute -inset-2 rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-500 pointer-events-none"
                        style={{
                          background: "linear-gradient(135deg, rgba(199,157,42,0.3) 0%, rgba(199,157,42,0.15) 100%)",
                          filter: "blur(15px)"
                        }} />
-                  
                   <div
                     className="relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 group-hover/item:scale-110"
                     style={{
@@ -216,16 +214,51 @@ export default function Footer() {
                     <FaPhoneAlt className="h-5 w-5" />
                   </div>
                 </div>
-                
                 <div>
-                  <a 
-                    href={`tel:+${businessStaticData.rotemPhone.israelNumber}`} 
+                  <p className="text-xs font-semibold mb-0.5" style={{ color: "#c79d2a" }}>רותם</p>
+                  <a
+                    href={businessStaticData.rotemPhone.callLink}
                     className="block font-serif text-lg font-medium transition-all duration-300 hover:drop-shadow-lg"
                     style={{ color: "rgba(25,39,74,0.97)" }}
                   >
                     {businessStaticData.rotemPhone.numberToDisplay}
                   </a>
-                  <p className="text-sm opacity-60" style={{ color: "rgba(25,39,74,0.7)" }}>התקשרו עכשיו</p>
+                </div>
+              </motion.div>
+
+              {/* Shiraz Phone */}
+              <motion.div
+                whileHover={{ scale: 1.03, x: 4 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center gap-4 group/item"
+              >
+                <div className="relative">
+                  <div className="absolute -inset-2 rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-500 pointer-events-none"
+                       style={{
+                         background: "linear-gradient(135deg, rgba(199,157,42,0.3) 0%, rgba(199,157,42,0.15) 100%)",
+                         filter: "blur(15px)"
+                       }} />
+                  <div
+                    className="relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 group-hover/item:scale-110"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,255,0.98) 100%)",
+                      color: "rgba(25,39,74,0.97)",
+                      boxShadow: "0 8px 20px rgba(25,39,74,0.15), 0 4px 10px rgba(25,39,74,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+                      border: "1px solid rgba(25,39,74,0.1)"
+                    }}
+                  >
+                    <FaPhoneAlt className="h-5 w-5" />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold mb-0.5" style={{ color: "#c79d2a" }}>שירז</p>
+                  <a
+                    href={businessStaticData.shirazPhone.callLink}
+                    className="block font-serif text-lg font-medium transition-all duration-300 hover:drop-shadow-lg"
+                    style={{ color: "rgba(25,39,74,0.97)" }}
+                  >
+                    {businessStaticData.shirazPhone.numberToDisplay}
+                  </a>
                 </div>
               </motion.div>
 
@@ -291,132 +324,65 @@ export default function Footer() {
               </div>
 
               {/* Social Media */}
-              <div className="pt-4 border-t border-opacity-30" style={{ borderColor: "rgba(199,157,42,0.3)" }}>
-                <p className="text-center md:text-right font-serif mb-4 text-base" style={{ color: "rgba(25,39,74,0.97)" }}>עקבו אחרינו</p>
-                <div className="flex justify-center md:justify-start gap-4">
-                  {/* Facebook */}
-                  <motion.div 
-                    whileHover={{ scale: 1.15, y: -3 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
-                    className="group relative"
-                  >
-                    {/* Social icon glow effect */}
-                    <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                         style={{
-                           background: "linear-gradient(135deg, rgba(24,119,242,0.4) 0%, rgba(24,119,242,0.2) 100%)",
-                           filter: "blur(15px)"
-                         }} />
-                    
-                    <a
-                      href={businessStaticData.rotemSocial.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative block rounded-full p-4 transition-all duration-500"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)",
-                        boxShadow: "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)",
-                        backdropFilter: "blur(15px)",
-                        border: "1px solid rgba(25,39,74,0.1)"
-                      }}
-                      onMouseEnter={(e) => {
-                        const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, #1877F2 0%, #166fe5 100%)";
-                        target.style.boxShadow = "0 12px 30px rgba(24,119,242,0.4), inset 0 1px 0 rgba(255,255,255,0.2)";
-                      }}
-                      onMouseLeave={(e) => {
-                        const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)";
-                        target.style.boxShadow = "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)";
-                      }}
-                      aria-label="Facebook"
-                    >
-                      <FaFacebook className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" style={{ color: "rgba(25,39,74,0.97)" }} />
-                    </a>
-                  </motion.div>
+              <div className="pt-4 border-t border-opacity-30 space-y-3" style={{ borderColor: "rgba(199,157,42,0.3)" }}>
+                <p className="font-serif text-base" style={{ color: "rgba(25,39,74,0.97)" }}>עקבו אחרינו</p>
 
-                  {/* Instagram */}
-                  <motion.div 
-                    whileHover={{ scale: 1.15, y: -3 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
-                    className="group relative"
-                  >
-                    {/* Social icon glow effect */}
-                    <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                         style={{
-                           background: "linear-gradient(135deg, rgba(228,64,95,0.4) 0%, rgba(193,53,132,0.4) 100%)",
-                           filter: "blur(15px)"
-                         }} />
-                    
-                    <a
-                      href={businessStaticData.rotemSocial.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative block rounded-full p-4 transition-all duration-500"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)",
-                        boxShadow: "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)",
-                        backdropFilter: "blur(15px)",
-                        border: "1px solid rgba(25,39,74,0.1)"
-                      }}
-                      onMouseEnter={(e) => {
-                        const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, #E4405F 0%, #C13584 100%)";
-                        target.style.boxShadow = "0 12px 30px rgba(228,64,95,0.4), inset 0 1px 0 rgba(255,255,255,0.2)";
-                      }}
-                      onMouseLeave={(e) => {
-                        const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)";
-                        target.style.boxShadow = "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)";
-                      }}
-                      aria-label="Instagram"
-                    >
-                      <FaInstagram className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" style={{ color: "rgba(25,39,74,0.97)" }} />
-                    </a>
-                  </motion.div>
-
-                  {/* WhatsApp */}
-                  <motion.div 
-                    whileHover={{ scale: 1.15, y: -3 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
-                    className="group relative"
-                  >
-                    {/* Social icon glow effect */}
-                    <div className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                         style={{
-                           background: "linear-gradient(135deg, rgba(37,211,102,0.4) 0%, rgba(37,211,102,0.2) 100%)",
-                           filter: "blur(15px)"
-                         }} />
-                    
-                    <a
-                      href={businessStaticData.rotemPhone.whatsappLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative block rounded-full p-4 transition-all duration-500"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)",
-                        boxShadow: "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)",
-                        backdropFilter: "blur(15px)",
-                        border: "1px solid rgba(25,39,74,0.1)"
-                      }}
-                      onMouseEnter={(e) => {
-                        const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, #25D366 0%, #22c55e 100%)";
-                        target.style.boxShadow = "0 12px 30px rgba(37,211,102,0.4), inset 0 1px 0 rgba(255,255,255,0.2)";
-                      }}
-                      onMouseLeave={(e) => {
-                        const target = e.currentTarget as HTMLAnchorElement;
-                        target.style.background = "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)";
-                        target.style.boxShadow = "0 8px 20px rgba(25,39,74,0.15), inset 0 1px 0 rgba(255,255,255,0.3)";
-                      }}
-                      aria-label="WhatsApp"
-                    >
-                      <FaWhatsapp className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" style={{ color: "rgba(25,39,74,0.97)" }} />
-                    </a>
-                  </motion.div>
-                </div>
+                {[
+                  {
+                    name: "רותם",
+                    icons: [
+                      { href: businessStaticData.rotemPhone.whatsappLink, label: "WhatsApp רותם", icon: <FaWhatsapp className="h-5 w-5" />, hoverBg: "linear-gradient(135deg, #25D366 0%, #22c55e 100%)", hoverShadow: "0 10px 25px rgba(37,211,102,0.4), inset 0 1px 0 rgba(255,255,255,0.2)", glowColor: "rgba(37,211,102,0.4)" },
+                      { href: businessStaticData.rotemSocial.instagram, label: "Instagram רותם", icon: <FaInstagram className="h-5 w-5" />, hoverBg: "linear-gradient(135deg, #E4405F 0%, #C13584 100%)", hoverShadow: "0 10px 25px rgba(228,64,95,0.4), inset 0 1px 0 rgba(255,255,255,0.2)", glowColor: "rgba(228,64,95,0.4)" },
+                      { href: businessStaticData.rotemSocial.facebook, label: "Facebook רותם", icon: <FaFacebook className="h-5 w-5" />, hoverBg: "linear-gradient(135deg, #1877F2 0%, #166fe5 100%)", hoverShadow: "0 10px 25px rgba(24,119,242,0.4), inset 0 1px 0 rgba(255,255,255,0.2)", glowColor: "rgba(24,119,242,0.4)" },
+                    ]
+                  },
+                  {
+                    name: "שירז",
+                    icons: [
+                      { href: businessStaticData.shirazPhone.whatsappLink, label: "WhatsApp שירז", icon: <FaWhatsapp className="h-5 w-5" />, hoverBg: "linear-gradient(135deg, #25D366 0%, #22c55e 100%)", hoverShadow: "0 10px 25px rgba(37,211,102,0.4), inset 0 1px 0 rgba(255,255,255,0.2)", glowColor: "rgba(37,211,102,0.4)" },
+                      { href: businessStaticData.shirazSocial.instagram, label: "Instagram שירז", icon: <FaInstagram className="h-5 w-5" />, hoverBg: "linear-gradient(135deg, #E4405F 0%, #C13584 100%)", hoverShadow: "0 10px 25px rgba(228,64,95,0.4), inset 0 1px 0 rgba(255,255,255,0.2)", glowColor: "rgba(228,64,95,0.4)" },
+                      { href: businessStaticData.shirazSocial.facebook, label: "Facebook שירז", icon: <FaFacebook className="h-5 w-5" />, hoverBg: "linear-gradient(135deg, #1877F2 0%, #166fe5 100%)", hoverShadow: "0 10px 25px rgba(24,119,242,0.4), inset 0 1px 0 rgba(255,255,255,0.2)", glowColor: "rgba(24,119,242,0.4)" },
+                    ]
+                  }
+                ].map((person) => (
+                  <div key={person.name} className="flex items-center gap-3">
+                    <span className="text-xs font-semibold w-8 shrink-0" style={{ color: "#c79d2a" }}>{person.name}</span>
+                    <div className="flex gap-2">
+                      {person.icons.map((item) => (
+                        <motion.a
+                          key={item.label}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.15, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="group relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-400"
+                          style={{
+                            background: "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)",
+                            boxShadow: "0 6px 16px rgba(25,39,74,0.12), inset 0 1px 0 rgba(255,255,255,0.3)",
+                            border: "1px solid rgba(25,39,74,0.1)",
+                            color: "rgba(25,39,74,0.97)",
+                          }}
+                          onMouseEnter={(e) => {
+                            const t = e.currentTarget as HTMLAnchorElement;
+                            t.style.background = item.hoverBg;
+                            t.style.boxShadow = item.hoverShadow;
+                            t.style.color = "#fff";
+                          }}
+                          onMouseLeave={(e) => {
+                            const t = e.currentTarget as HTMLAnchorElement;
+                            t.style.background = "linear-gradient(135deg, rgba(25,39,74,0.08) 0%, rgba(25,39,74,0.04) 100%)";
+                            t.style.boxShadow = "0 6px 16px rgba(25,39,74,0.12), inset 0 1px 0 rgba(255,255,255,0.3)";
+                            t.style.color = "rgba(25,39,74,0.97)";
+                          }}
+                          aria-label={item.label}
+                        >
+                          {item.icon}
+                        </motion.a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>
