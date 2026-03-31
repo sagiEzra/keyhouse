@@ -39,7 +39,7 @@ export default function WhatsAppTestimonials() {
             className="text-4xl lg:text-5xl font-serif font-bold"
             style={{ color: "rgba(25,39,74,0.97)" }}
           >
-            כמה הודעות מרגשות שתפסו אותנו
+            ועוד כמה הודעות מרגשות שתפסו אותנו
           </h2>
         </motion.div>
       </div>
