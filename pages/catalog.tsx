@@ -71,6 +71,15 @@ export default function CatalogPage() {
         id: doc.id,
         ...doc.data(),
       })) as Property[]
+
+      // Sort by explicit order field if set, otherwise keep createdAt desc order
+      propertiesData.sort((a, b) => {
+        if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
+        if (a.order !== undefined) return -1;
+        if (b.order !== undefined) return 1;
+        return 0; // already sorted by createdAt desc from Firestore
+      });
+
       setProperties(propertiesData)
     } catch (error) {
       console.error("Error fetching properties:", error)
