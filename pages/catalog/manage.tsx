@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
-import { collection, getDocs, doc, deleteDoc, query, where, getDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc, query, where, getDoc, writeBatch } from 'firebase/firestore';
 import { auth, db, googleProvider } from '../../lib/firebase';
 import { Property, User } from '../../types/property';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
-import { FaPlus, FaEdit, FaTrash, FaSignOutAlt, FaHome, FaEye, FaGoogle, FaUser, FaChartLine } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaSignOutAlt, FaHome, FaEye, FaGoogle, FaUser, FaChartLine, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import Link from 'next/link';
 import LuxuryButton from '../../components/ui/luxury-button';
 import LuxuryCard from '../../components/ui/luxury-card';
@@ -59,9 +59,43 @@ export default function ManagePage() {
         id: doc.id,
         ...doc.data()
       })) as Property[];
+
+      // Sort by order field, fallback to createdAt for unordered items
+      propertiesData.sort((a, b) => {
+        if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
+        if (a.order !== undefined) return -1;
+        if (b.order !== undefined) return 1;
+        return (a.createdAt?.seconds ?? 0) - (b.createdAt?.seconds ?? 0);
+      });
+
       setProperties(propertiesData);
     } catch (error) {
       console.error('Error fetching properties:', error);
+    }
+  };
+
+  const handleMove = async (index: number, direction: 'up' | 'down') => {
+    const swapIndex = direction === 'up' ? index - 1 : index + 1;
+    if (swapIndex < 0 || swapIndex >= properties.length) return;
+
+    const updated = [...properties];
+    const orderA = updated[index].order ?? index;
+    const orderB = updated[swapIndex].order ?? swapIndex;
+
+    updated[index] = { ...updated[index], order: orderB };
+    updated[swapIndex] = { ...updated[swapIndex], order: orderA };
+    // Swap positions in array
+    [updated[index], updated[swapIndex]] = [updated[swapIndex], updated[index]];
+
+    setProperties(updated);
+
+    try {
+      const batch = writeBatch(db);
+      batch.update(doc(db, 'properties', updated[index].id), { order: updated[index].order });
+      batch.update(doc(db, 'properties', updated[swapIndex].id), { order: updated[swapIndex].order });
+      await batch.commit();
+    } catch (error) {
+      console.error('Error saving order:', error);
     }
   };
 
@@ -384,25 +418,51 @@ export default function ManagePage() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-wrap items-center gap-3 mt-2 sm:mt-0">
-                        <Link href={`/catalog/${property.id}`}>
-                          <Button variant="outline" size="sm" className="bg-white/80 hover:bg-white">
-                            <FaEye className="h-4 w-4" />
+                      <div className="flex flex-col items-center gap-2 mt-2 sm:mt-0">
+                        {/* Order arrows */}
+                        <div className="flex flex-col gap-1">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleMove(properties.indexOf(property), 'up')}
+                            disabled={properties.indexOf(property) === 0}
+                            className="bg-white/80 hover:bg-white disabled:opacity-30"
+                            title="הזז למעלה"
+                          >
+                            <FaArrowUp className="h-3 w-3" />
                           </Button>
-                        </Link>
-                        <Link href={`/catalog/manage/edit/${property.id}`}>
-                          <Button variant="outline" size="sm" className="bg-white/80 hover:bg-white">
-                            <FaEdit className="h-4 w-4" />
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleMove(properties.indexOf(property), 'down')}
+                            disabled={properties.indexOf(property) === properties.length - 1}
+                            className="bg-white/80 hover:bg-white disabled:opacity-30"
+                            title="הזז למטה"
+                          >
+                            <FaArrowDown className="h-3 w-3" />
                           </Button>
-                        </Link>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleDeleteProperty(property.id)}
-                          className="text-red-600 hover:text-red-700 bg-white/80 hover:bg-white"
-                        >
-                          <FaTrash className="h-4 w-4" />
-                        </Button>
+                        </div>
+                        {/* Action buttons */}
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Link href={`/catalog/${property.id}`}>
+                            <Button variant="outline" size="sm" className="bg-white/80 hover:bg-white">
+                              <FaEye className="h-4 w-4" />
+                            </Button>
+                          </Link>
+                          <Link href={`/catalog/manage/edit/${property.id}`}>
+                            <Button variant="outline" size="sm" className="bg-white/80 hover:bg-white">
+                              <FaEdit className="h-4 w-4" />
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleDeleteProperty(property.id)}
+                            className="text-red-600 hover:text-red-700 bg-white/80 hover:bg-white"
+                          >
+                            <FaTrash className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </LuxuryCard>

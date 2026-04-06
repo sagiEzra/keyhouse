@@ -27,6 +27,7 @@ export interface Property {
   mainImagePublicId?: string;
   images: string[];
   imagePublicIds?: string[];
+  order?: number;
   createdAt: Timestamp;
   updatedAt: Timestamp;
   
