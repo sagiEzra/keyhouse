@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { onAuthStateChanged } from 'firebase/auth';
-import { collection, doc, getDoc, updateDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, updateDoc, serverTimestamp, getDocs, writeBatch } from 'firebase/firestore';
 import { auth, db } from '../../../../lib/firebase';
 import { Property, PropertyFormData } from '../../../../types/property';
 import { Input } from '../../../../components/ui/input';
@@ -9,7 +9,7 @@ import { Label } from '../../../../components/ui/label';
 import { Textarea } from '../../../../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../../components/ui/select';
 import { Checkbox } from '../../../../components/ui/checkbox';
-import { FaArrowRight, FaSave, FaHome, FaImage } from 'react-icons/fa';
+import { FaArrowRight, FaSave, FaHome, FaImage, FaSort } from 'react-icons/fa';
 import LuxuryButton from '../../../../components/ui/luxury-button';
 import LuxuryCard from '../../../../components/ui/luxury-card';
 import LuxuryBackground from '../../../../components/ui/luxury-background';
@@ -31,6 +31,9 @@ export default function EditPropertyPage() {
   // New files selected by user (not yet uploaded)
   const [newMainMediaFile, setNewMainMediaFile] = useState<LocalMediaFile[]>([]);
   const [newAdditionalMediaFiles, setNewAdditionalMediaFiles] = useState<LocalMediaFile[]>([]);
+
+  const [catalogProperties, setCatalogProperties] = useState<Array<{ id: string; order?: number }>>([]);
+  const [selectedPosition, setSelectedPosition] = useState(1);
 
   // Track what was removed (for deletion on submit)
   const [removedMainPublicId, setRemovedMainPublicId] = useState<string | null>(null);
@@ -103,6 +106,19 @@ export default function EditPropertyPage() {
   const fetchProperty = async () => {
     try {
       if (typeof id !== 'string') return;
+
+      // Fetch all catalog properties for ordering
+      const allSnap = await getDocs(collection(db, 'properties'));
+      const allProps = allSnap.docs.map(d => ({ id: d.id, order: d.data().order as number | undefined }));
+      allProps.sort((a, b) => {
+        if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
+        if (a.order !== undefined) return -1;
+        if (b.order !== undefined) return 1;
+        return 0;
+      });
+      setCatalogProperties(allProps);
+      const currentIndex = allProps.findIndex(p => p.id === id);
+      setSelectedPosition(currentIndex >= 0 ? currentIndex + 1 : allProps.length);
 
       const propertyDoc = await getDoc(doc(db, 'properties', id));
       if (propertyDoc.exists()) {
@@ -253,9 +269,29 @@ export default function EditPropertyPage() {
         ...uploadedNewAdditional
       ];
 
-      // Step 5: Prepare property data with final media
+      // Step 5: Normalize all catalog orders and move this property to selectedPosition.
+      // Always normalize (not just when position changes) so that any properties
+      // lacking an order field get sequential integers matching their display position.
+      const currentIndex = catalogProperties.findIndex(p => p.id === id);
+      const insertIndex = selectedPosition - 1;
+
+      const reordered = [...catalogProperties];
+      if (currentIndex >= 0) reordered.splice(currentIndex, 1);
+      reordered.splice(insertIndex, 0, { id: id as string, order: insertIndex });
+
+      const batch = writeBatch(db);
+      reordered.forEach((p, idx) => {
+        if (p.id !== id && p.order !== idx) {
+          batch.update(doc(db, 'properties', p.id), { order: idx });
+        }
+      });
+      await batch.commit();
+      const newOrder = insertIndex;
+
+      // Step 6: Prepare property data with final media
       const propertyData = {
         ...formData,
+        order: newOrder,
         mainImage: finalMainImageUrl,
         mainImageType: finalMainImageType,
         mainImagePublicId: finalMainImagePublicId,
@@ -479,6 +515,48 @@ export default function EditPropertyPage() {
                       className="mt-2"
                     />
                   </div>
+                </div>
+
+                {/* Position in catalog */}
+                <div className="pt-2 border-t" style={{ borderColor: "rgba(25,39,74,0.08)" }}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 rounded-full"
+                         style={{
+                           background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
+                           border: "2px solid rgba(199,157,42,0.3)",
+                         }}>
+                      <FaSort className="h-4 w-4" style={{ color: "rgba(25,39,74,0.97)" }} />
+                    </div>
+                    <div>
+                      <Label className="text-base font-semibold" style={{ color: "rgba(25,39,74,0.97)" }}>
+                        מיקום בקטלוג
+                      </Label>
+                      <p className="text-sm mt-0.5" style={{ color: "rgba(25,39,74,0.5)" }}>
+                        קבע היכן הנכס יופיע בין {catalogProperties.length} הנכסים בקטלוג
+                      </p>
+                    </div>
+                  </div>
+                  <Select
+                    value={String(selectedPosition)}
+                    onValueChange={(v) => setSelectedPosition(Number(v))}
+                  >
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="בחר מיקום" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Array.from({ length: catalogProperties.length }, (_, i) => i + 1).map((pos) => {
+                        const ordinals = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שביעי', 'שמיני', 'תשיעי', 'עשירי'];
+                        const label = ordinals[pos - 1] ?? `${pos}`;
+                        const total = catalogProperties.length;
+                        const suffix = pos === 1 ? ' — יוצג ראשון' : pos === total ? ' — יוצג אחרון' : '';
+                        return (
+                          <SelectItem key={pos} value={String(pos)}>
+                            מיקום {pos} ({label}){suffix}
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             </LuxuryCard>

@@ -86,6 +86,7 @@ export interface PropertyFormData {
   balconySize?: number;
   contactPhone?: string;
   contactEmail?: string;
+  order?: number;
 }
 
 export interface User {
