@@ -24,20 +24,15 @@ export default function EditPropertyPage() {
   const [submitting, setSubmitting] = useState(false);
   const [property, setProperty] = useState<Property | null>(null);
 
-  // Existing media from Cloudinary
-  const [existingMainMedia, setExistingMainMedia] = useState<UploadedMedia | null>(null);
-  const [existingAdditionalMedia, setExistingAdditionalMedia] = useState<UploadedMedia[]>([]);
-
-  // New files selected by user (not yet uploaded)
-  const [newMainMediaFile, setNewMainMediaFile] = useState<LocalMediaFile[]>([]);
-  const [newAdditionalMediaFiles, setNewAdditionalMediaFiles] = useState<LocalMediaFile[]>([]);
+  // All existing media combined: main first, then additional
+  const [combinedExistingMedia, setCombinedExistingMedia] = useState<UploadedMedia[]>([]);
+  const [newFiles, setNewFiles] = useState<LocalMediaFile[]>([]);
+  const [mainMediaIndex, setMainMediaIndex] = useState<number>(0);
 
   const [catalogProperties, setCatalogProperties] = useState<Array<{ id: string; order?: number }>>([]);
   const [selectedPosition, setSelectedPosition] = useState(1);
 
-  // Track what was removed (for deletion on submit)
-  const [removedMainPublicId, setRemovedMainPublicId] = useState<string | null>(null);
-  const [removedAdditionalPublicIds, setRemovedAdditionalPublicIds] = useState<string[]>([]);
+  const [removedPublicIds, setRemovedPublicIds] = useState<string[]>([]);
   const [formData, setFormData] = useState<PropertyFormData>({
     title: '',
     type: 'sale',
@@ -69,9 +64,11 @@ export default function EditPropertyPage() {
     nofLayam: false,
     masterRoom: false,
     closetRoom: false,
+    yard: false,
     balconySize: 0,
     contactPhone: '',
-    contactEmail: ''
+    contactEmail: '',
+    isSold: false
   });
 
   useEffect(() => {
@@ -125,26 +122,28 @@ export default function EditPropertyPage() {
         const propertyData = { id: propertyDoc.id, ...propertyDoc.data() } as Property;
         setProperty(propertyData);
 
-        // Load existing main media
+        // Load all media combined: main first, then additional
+        const combined: UploadedMedia[] = [];
         if (propertyData.mainImage) {
-          setExistingMainMedia({
+          combined.push({
             url: propertyData.mainImage,
             publicId: propertyData.mainImagePublicId || '',
             type: propertyData.mainImageType || 'image',
             isTemporary: false
           });
         }
-
-        // Load existing additional media
         if (propertyData.images && propertyData.images.length > 0) {
-          const loadedMedia: UploadedMedia[] = propertyData.images.map((url, index) => ({
-            url,
-            publicId: propertyData.imagePublicIds?.[index] || '',
-            type: url.includes('/video/') ? 'video' : 'image',
-            isTemporary: false
-          }));
-          setExistingAdditionalMedia(loadedMedia);
+          propertyData.images.forEach((url, index) => {
+            combined.push({
+              url,
+              publicId: propertyData.imagePublicIds?.[index] || '',
+              type: url.includes('/video/') ? 'video' : 'image',
+              isTemporary: false
+            });
+          });
         }
+        setCombinedExistingMedia(combined);
+        setMainMediaIndex(0);
 
         setFormData({
           title: propertyData.title,
@@ -177,7 +176,9 @@ export default function EditPropertyPage() {
           nofLayam: propertyData.nofLayam || false,
           masterRoom: propertyData.masterRoom || false,
           closetRoom: propertyData.closetRoom || false,
-          balconySize: propertyData.balconySize || 0
+          yard: propertyData.yard || false,
+          balconySize: propertyData.balconySize || 0,
+          isSold: propertyData.isSold || false
         });
       } else {
         router.push('/catalog/manage');
@@ -195,26 +196,28 @@ export default function EditPropertyPage() {
     }));
   };
 
-  // Handler for removing existing main media
-  const handleRemoveExistingMainMedia = () => {
-    if (existingMainMedia) {
-      setRemovedMainPublicId(existingMainMedia.publicId);
-      setExistingMainMedia(null);
+  // Handler for removing existing media
+  const handleRemoveExistingMedia = (index: number) => {
+    const media = combinedExistingMedia[index];
+    if (media && media.publicId) {
+      setRemovedPublicIds(prev => [...prev, media.publicId]);
+    }
+    setCombinedExistingMedia(prev => prev.filter((_, idx) => idx !== index));
+    if (index === mainMediaIndex) {
+      setMainMediaIndex(0);
+    } else if (index < mainMediaIndex) {
+      setMainMediaIndex(mainMediaIndex - 1);
     }
   };
 
-  // Handler for removing existing additional media
-  const handleRemoveExistingAdditionalMedia = (index: number) => {
-    const mediaToRemove = existingAdditionalMedia[index];
-    if (mediaToRemove && mediaToRemove.publicId) {
-      setRemovedAdditionalPublicIds(prev => [...prev, mediaToRemove.publicId]);
+  // Handler for reordering existing media
+  const handleReorderExistingMedia = (reorderedMedia: UploadedMedia[]) => {
+    if (mainMediaIndex < combinedExistingMedia.length) {
+      const prevMainPublicId = combinedExistingMedia[mainMediaIndex].publicId;
+      const newMainIndex = reorderedMedia.findIndex(m => m.publicId === prevMainPublicId);
+      if (newMainIndex !== -1) setMainMediaIndex(newMainIndex);
     }
-    setExistingAdditionalMedia(prev => prev.filter((_, idx) => idx !== index));
-  };
-
-  // Handler for reordering existing additional media
-  const handleReorderExistingAdditionalMedia = (reorderedMedia: UploadedMedia[]) => {
-    setExistingAdditionalMedia(reorderedMedia);
+    setCombinedExistingMedia(reorderedMedia);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -225,49 +228,43 @@ export default function EditPropertyPage() {
       if (typeof id !== 'string') return;
 
       // Step 1: Delete removed media from Cloudinary
-      const publicIdsToDelete: string[] = [];
-
-      if (removedMainPublicId) {
-        publicIdsToDelete.push(removedMainPublicId);
-      }
-
-      if (removedAdditionalPublicIds.length > 0) {
-        publicIdsToDelete.push(...removedAdditionalPublicIds);
-      }
-
-      if (publicIdsToDelete.length > 0) {
+      if (removedPublicIds.length > 0) {
         try {
-          await deleteFromCloudinary(publicIdsToDelete);
+          await deleteFromCloudinary(removedPublicIds);
         } catch (deleteError) {
           console.error('Error deleting old media:', deleteError);
-          // Continue with update even if deletion fails
         }
       }
 
-      // Step 2: Upload new main media if exists
-      let finalMainImageUrl: string | undefined = existingMainMedia?.url;
-      let finalMainImageType: 'image' | 'video' | undefined = existingMainMedia?.type;
-      let finalMainImagePublicId: string | undefined = existingMainMedia?.publicId;
-
-      if (newMainMediaFile.length > 0) {
-        const uploadedMain = await uploadToCloudinary(newMainMediaFile[0].file);
-        finalMainImageUrl = uploadedMain.url;
-        finalMainImageType = uploadedMain.type;
-        finalMainImagePublicId = uploadedMain.publicId;
-      }
-
-      // Step 3: Upload new additional media
-      const uploadedNewAdditional = [];
-      for (const mediaFile of newAdditionalMediaFiles) {
+      // Step 2: Upload all new files
+      const uploadedNewFiles: { url: string; publicId: string; type: 'image' | 'video' }[] = [];
+      for (const mediaFile of newFiles) {
         const uploaded = await uploadToCloudinary(mediaFile.file);
-        uploadedNewAdditional.push(uploaded);
+        uploadedNewFiles.push(uploaded);
       }
 
-      // Step 4: Combine existing + newly uploaded additional media
-      const finalAdditionalMedia = [
-        ...existingAdditionalMedia,
-        ...uploadedNewAdditional
+      // Step 3: Determine main and additional from the combined array
+      const allMedia = [
+        ...combinedExistingMedia.map(m => ({ url: m.url, publicId: m.publicId, type: m.type as 'image' | 'video' })),
+        ...uploadedNewFiles
       ];
+      let finalMainImageUrl: string | undefined;
+      let finalMainImageType: 'image' | 'video' | undefined;
+      let finalMainImagePublicId: string | undefined;
+      const finalAdditionalMedia: { url: string; publicId: string }[] = [];
+
+      if (allMedia.length > 0) {
+        const safeMainIndex = Math.max(0, Math.min(mainMediaIndex, allMedia.length - 1));
+        allMedia.forEach((m, idx) => {
+          if (idx === safeMainIndex) {
+            finalMainImageUrl = m.url;
+            finalMainImageType = m.type;
+            finalMainImagePublicId = m.publicId;
+          } else {
+            finalAdditionalMedia.push({ url: m.url, publicId: m.publicId });
+          }
+        });
+      }
 
       // Step 5: Normalize all catalog orders and move this property to selectedPosition.
       // Always normalize (not just when position changes) so that any properties
@@ -688,6 +685,14 @@ export default function EditPropertyPage() {
                     />
                     <Label htmlFor="closetRoom">חדר ארונות</Label>
                   </div>
+                  <div className="flex items-center space-x-2 space-x-reverse">
+                    <Checkbox
+                      id="yard"
+                      checked={formData.yard}
+                      onCheckedChange={(checked) => handleInputChange('yard', checked)}
+                    />
+                    <Label htmlFor="yard">חצר</Label>
+                  </div>
                 </div>
               </div>
             </LuxuryCard>
@@ -733,11 +738,23 @@ export default function EditPropertyPage() {
                       className="mt-2"
                     />
                   </div>
+                  <div>
+                    <Label htmlFor="isSold">האם נמכר</Label>
+                    <Select value={formData.isSold ? 'yes' : 'no'} onValueChange={(value) => handleInputChange('isSold', value === 'yes')}>
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="האם נמכר?" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="no">לא</SelectItem>
+                        <SelectItem value="yes">כן</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
             </LuxuryCard>
 
-            {/* Main Media */}
+            {/* Media */}
             <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
@@ -748,47 +765,21 @@ export default function EditPropertyPage() {
                        }}>
                     <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
                   </div>
-                  תמונה/וידאו ראשיים
+                  תמונות/סרטונים
                 </h3>
                 <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
-                  תמונה או סרטון ראשי שיוצג בכרטיס הנכס ובראש עמוד הפרטים
+                  העלה את כל התמונות והסרטונים. לחץ על תמונה כדי להגדירה כראשית.
                 </p>
               </div>
               <EditMediaUploader
-                mode="main"
-                maxFiles={1}
-                existingMedia={existingMainMedia ? [existingMainMedia] : []}
-                onExistingMediaRemove={handleRemoveExistingMainMedia}
-                newFiles={newMainMediaFile}
-                onNewFilesChange={setNewMainMediaFile}
-              />
-            </LuxuryCard>
-
-            {/* Additional Media */}
-            <LuxuryCard hoverable={false}>
-              <div className="mb-6">
-                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  <div className="p-2 rounded-full"
-                       style={{
-                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
-                         border: "2px solid rgba(199,157,42,0.3)",
-                       }}>
-                    <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
-                  </div>
-                  תמונות/סרטונים נוספים
-                </h3>
-                <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
-                  תמונות וסרטונים נוספים שיוצגו בגלריית הנכס (עד 20 קבצים)
-                </p>
-              </div>
-              <EditMediaUploader
-                mode="additional"
-                maxFiles={20}
-                existingMedia={existingAdditionalMedia}
-                onExistingMediaRemove={handleRemoveExistingAdditionalMedia}
-                onExistingMediaReorder={handleReorderExistingAdditionalMedia}
-                newFiles={newAdditionalMediaFiles}
-                onNewFilesChange={setNewAdditionalMediaFiles}
+                maxFiles={21}
+                existingMedia={combinedExistingMedia}
+                onExistingMediaRemove={handleRemoveExistingMedia}
+                onExistingMediaReorder={handleReorderExistingMedia}
+                newFiles={newFiles}
+                onNewFilesChange={setNewFiles}
+                mainIndex={mainMediaIndex}
+                onSetMainIndex={setMainMediaIndex}
               />
             </LuxuryCard>
 

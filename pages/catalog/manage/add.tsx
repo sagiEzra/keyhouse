@@ -21,8 +21,8 @@ export default function AddPropertyPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [mainMediaFiles, setMainMediaFiles] = useState<LocalMediaFile[]>([]);
-  const [additionalMediaFiles, setAdditionalMediaFiles] = useState<LocalMediaFile[]>([]);
+  const [allMediaFiles, setAllMediaFiles] = useState<LocalMediaFile[]>([]);
+  const [mainMediaIndex, setMainMediaIndex] = useState<number>(0);
   const [catalogProperties, setCatalogProperties] = useState<Array<{ id: string; order?: number }>>([]);
   const [selectedPosition, setSelectedPosition] = useState(1);
   const [formData, setFormData] = useState<PropertyFormData>({
@@ -56,7 +56,9 @@ export default function AddPropertyPage() {
     nofLayam: false,
     masterRoom: false,
     closetRoom: false,
-    balconySize: 0
+    yard: false,
+    balconySize: 0,
+    isSold: false
   });
 
   const fetchCatalogProperties = async () => {
@@ -115,23 +117,21 @@ export default function AddPropertyPage() {
     setSubmitting(true);
 
     try {
-      // Upload main media to Cloudinary if exists
+      // Upload all media to Cloudinary
       let mainImageUrl: string | undefined;
       let mainImageType: 'image' | 'video' | undefined;
       let mainImagePublicId: string | undefined;
-
-      if (mainMediaFiles.length > 0) {
-        const mainMedia = await uploadToCloudinary(mainMediaFiles[0].file);
-        mainImageUrl = mainMedia.url;
-        mainImageType = mainMedia.type;
-        mainImagePublicId = mainMedia.publicId;
-      }
-
-      // Upload additional media to Cloudinary
       const uploadedAdditionalMedia = [];
-      for (const mediaFile of additionalMediaFiles) {
-        const uploadedMedia = await uploadToCloudinary(mediaFile.file);
-        uploadedAdditionalMedia.push(uploadedMedia);
+
+      for (let i = 0; i < allMediaFiles.length; i++) {
+        const uploaded = await uploadToCloudinary(allMediaFiles[i].file);
+        if (i === mainMediaIndex) {
+          mainImageUrl = uploaded.url;
+          mainImageType = uploaded.type;
+          mainImagePublicId = uploaded.publicId;
+        } else {
+          uploadedAdditionalMedia.push(uploaded);
+        }
       }
 
       // Normalize all existing properties to sequential ints and make room for the new one.
@@ -533,6 +533,14 @@ export default function AddPropertyPage() {
                     />
                     <Label htmlFor="closetRoom">חדר ארונות</Label>
                   </div>
+                  <div className="flex items-center space-x-2 space-x-reverse">
+                    <Checkbox
+                      id="yard"
+                      checked={formData.yard}
+                      onCheckedChange={(checked) => handleInputChange('yard', checked)}
+                    />
+                    <Label htmlFor="yard">חצר</Label>
+                  </div>
                 </div>
               </div>
             </LuxuryCard>
@@ -578,11 +586,23 @@ export default function AddPropertyPage() {
                       className="mt-2"
                     />
                   </div>
+                  <div>
+                    <Label htmlFor="isSold">האם נמכר</Label>
+                    <Select value={formData.isSold ? 'yes' : 'no'} onValueChange={(value) => handleInputChange('isSold', value === 'yes')}>
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="האם נמכר?" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="no">לא</SelectItem>
+                        <SelectItem value="yes">כן</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
             </LuxuryCard>
 
-            {/* Main Media */}
+            {/* Media */}
             <LuxuryCard hoverable={false}>
               <div className="mb-6">
                 <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
@@ -593,42 +613,18 @@ export default function AddPropertyPage() {
                        }}>
                     <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
                   </div>
-                  תמונה/וידאו ראשיים
+                  תמונות/סרטונים
                 </h3>
                 <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
-                  תמונה או סרטון ראשי שיוצג בכרטיס הנכס ובראש עמוד הפרטים
+                  העלה את כל התמונות והסרטונים. הראשון שתעלה יוגדר כראשי — ניתן לשנות בלחיצה על תמונה.
                 </p>
               </div>
               <LocalMediaUploader
-                mode="main"
-                maxFiles={1}
-                currentFiles={mainMediaFiles}
-                onFilesChange={setMainMediaFiles}
-              />
-            </LuxuryCard>
-
-            {/* Additional Media */}
-            <LuxuryCard hoverable={false}>
-              <div className="mb-6">
-                <h3 className="text-2xl font-serif font-bold flex items-center gap-3" style={{ color: "rgba(25,39,74,0.97)" }}>
-                  <div className="p-2 rounded-full"
-                       style={{
-                         background: "linear-gradient(135deg, rgba(199,157,42,0.1) 0%, rgba(255,255,255,0.9) 100%)",
-                         border: "2px solid rgba(199,157,42,0.3)",
-                       }}>
-                    <FaImage className="h-5 w-5" style={{ color: "rgba(25,39,74,0.97)" }} />
-                  </div>
-                  תמונות/סרטונים נוספים
-                </h3>
-                <p className="text-base mt-2" style={{ color: "rgba(25,39,74,0.6)" }}>
-                  תמונות וסרטונים נוספים שיוצגו בגלריית הנכס (עד 20 קבצים)
-                </p>
-              </div>
-              <LocalMediaUploader
-                mode="additional"
-                maxFiles={20}
-                currentFiles={additionalMediaFiles}
-                onFilesChange={setAdditionalMediaFiles}
+                maxFiles={21}
+                currentFiles={allMediaFiles}
+                onFilesChange={setAllMediaFiles}
+                mainIndex={mainMediaIndex}
+                onSetMainIndex={setMainMediaIndex}
               />
             </LuxuryCard>
 

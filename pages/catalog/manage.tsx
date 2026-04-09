@@ -375,11 +375,31 @@ export default function ManagePage() {
                   <LuxuryCard key={property.id} hoverable={true} className="p-6 sm:p-8">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
                       <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-                        <img
-                          src={property.mainImage || '/images/keyhouse.jpg'}
-                          alt={property.title}
-                          className="w-full h-48 sm:w-40 sm:h-40 object-cover rounded-2xl shadow-lg"
-                        />
+                        <div className="relative w-full sm:w-40 flex-shrink-0">
+                          <img
+                            src={property.mainImage || '/images/keyhouse.jpg'}
+                            alt={property.title}
+                            className="w-full h-48 sm:h-40 object-cover rounded-2xl shadow-lg"
+                          />
+                          {property.isSold && (
+                            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none rounded-2xl">
+                              <div
+                                className="absolute font-bold text-xs tracking-widest text-white text-center"
+                                style={{
+                                  background: "rgba(185, 28, 28, 0.92)",
+                                  width: "150px",
+                                  top: "22px",
+                                  right: "-38px",
+                                  transform: "rotate(45deg)",
+                                  boxShadow: "0 2px 8px rgba(185,28,28,0.5)",
+                                  padding: "5px 0",
+                                }}
+                              >
+                                נמכר!
+                              </div>
+                            </div>
+                          )}
+                        </div>
                         <div className="flex-1">
                           <h3 className="text-2xl font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
                             {property.title}

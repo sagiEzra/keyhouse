@@ -45,6 +45,7 @@ const propertyFeatures = {
   furnished: "מרוהטת",
   airConditioned: "מיזוג",
   immediate: "כניסה מיידית",
+  yard: "חצר",
 } as const
 
 export default function CatalogPage() {
@@ -156,8 +157,10 @@ export default function CatalogPage() {
     setSelectedFeatures([])
   }
 
-  const saleProperties = filterProperties(properties.filter(p => p.type === "sale"))
-  const rentProperties = filterProperties(properties.filter(p => p.type === "rent"))
+  const activeProperties = properties.filter(p => !p.isSold)
+  const saleProperties = filterProperties(activeProperties.filter(p => p.type === "sale"))
+  const rentProperties = filterProperties(activeProperties.filter(p => p.type === "rent"))
+  const soldProperties = properties.filter(p => p.isSold)
 
   const activeFiltersCount =
     (selectedCategory !== "all" ? 1 : 0) +
@@ -543,7 +546,7 @@ export default function CatalogPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <LuxuryCard className="text-center py-20">
+              <LuxuryCard className="text-center py-20" hoverable={false}>
                 <FaHome
                   className="mx-auto mb-6 h-20 w-20"
                   style={{ color: "rgba(25,39,74,0.3)" }}
@@ -552,12 +555,13 @@ export default function CatalogPage() {
                   לא נמצאו נכסים למכירה
                 </h3>
                 <p className="text-lg mb-8" style={{ color: "rgba(25,39,74,0.7)" }}>
-                  דבר איתנו להזדמנויות שטרם מופיעות כאן
+                  דברו איתנו להזדמנויות שטרם מופיעות כאן
                 </p>
                 {/* <LuxuryButton onClick={clearFilters}>נקה את כל הסינון</LuxuryButton> */}
               </LuxuryCard>
             </motion.div>
           ) : (
+            <>
             <motion.div
               initial="hidden"
               animate="visible"
@@ -602,17 +606,6 @@ export default function CatalogPage() {
                           >
                             {property.type === "sale" ? "למכירה" : "להשכרה"}
                           </span>
-                          {property.immediate && (
-                            <span
-                              className="px-4 py-2 rounded-full text-sm font-bold"
-                              style={{
-                                backgroundColor: "#f97316",
-                                color: "#ffffff",
-                              }}
-                            >
-                              כניסה מיידית
-                            </span>
-                          )}
                         </div>
                       </div>
 
@@ -697,6 +690,26 @@ export default function CatalogPage() {
                 </motion.div>
               ))}
             </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="mt-8"
+            >
+              <LuxuryCard className="text-center py-20" hoverable={false}>
+                <FaHome
+                  className="mx-auto mb-6 h-20 w-20"
+                  style={{ color: "rgba(25,39,74,0.3)" }}
+                />
+                <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  עדיין לא מצאתם משהו שמתאים לכם?
+                </h3>
+                <p className="text-lg" style={{ color: "rgba(25,39,74,0.7)" }}>
+                  דברו איתנו להזדמנויות שטרם מופיעות כאן
+                </p>
+              </LuxuryCard>
+            </motion.div>
+            </>
           )}
           </div>
 
@@ -715,7 +728,7 @@ export default function CatalogPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <LuxuryCard className="text-center py-20">
+              <LuxuryCard className="text-center py-20" hoverable={false}>
                 <FaHome
                   className="mx-auto mb-6 h-20 w-20"
                   style={{ color: "rgba(25,39,74,0.3)" }}
@@ -724,12 +737,13 @@ export default function CatalogPage() {
                   לא נמצאו נכסים להשכרה
                 </h3>
                 <p className="text-lg mb-8" style={{ color: "rgba(25,39,74,0.7)" }}>
-                  דבר איתנו להזדמנויות שטרם מופיעות כאן
+                  דברו איתנו להזדמנויות שטרם מופיעות כאן
                 </p>
                 {/* <LuxuryButton onClick={clearFilters}>נקה את כל הסינון</LuxuryButton> */}
               </LuxuryCard>
             </motion.div>
           ) : (
+            <>
             <motion.div
               initial="hidden"
               animate="visible"
@@ -774,17 +788,6 @@ export default function CatalogPage() {
                           >
                             להשכרה
                           </span>
-                          {property.immediate && (
-                            <span
-                              className="px-4 py-2 rounded-full text-sm font-bold"
-                              style={{
-                                backgroundColor: "#f97316",
-                                color: "#ffffff",
-                              }}
-                            >
-                              כניסה מיידית
-                            </span>
-                          )}
                         </div>
                       </div>
 
@@ -867,8 +870,136 @@ export default function CatalogPage() {
                 </motion.div>
               ))}
             </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="mt-8"
+            >
+              <LuxuryCard className="text-center py-20" hoverable={false}>
+                <FaHome
+                  className="mx-auto mb-6 h-20 w-20"
+                  style={{ color: "rgba(25,39,74,0.3)" }}
+                />
+                <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
+                  עדיין לא מצאתם משהו שמתאים לכם?
+                </h3>
+                <p className="text-lg" style={{ color: "rgba(25,39,74,0.7)" }}>
+                  דברו איתנו להזדמנויות שטרם מופיעות כאן
+                </p>
+              </LuxuryCard>
+            </motion.div>
+            </>
           )}
           </div>
+
+          {/* Sold Properties Section */}
+          {soldProperties.length > 0 && (
+            <div className="mt-20">
+              <SectionHeader
+                title="נכסים שנמכרו"
+                subtitle="נכסים שנמכרו בהצלחה על ידי קי האוס"
+                alignment="right"
+                className="mb-12"
+              />
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+                }}
+                className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+              >
+                {soldProperties.map((property) => (
+                  <motion.div
+                    key={property.id}
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+                    }}
+                  >
+                    <Link href={`/catalog/${property.id}`}>
+                      <LuxuryCard hoverable={true} className="group cursor-pointer overflow-hidden p-0 h-full flex flex-col">
+                        {/* Image */}
+                        <div className="relative h-64 overflow-hidden">
+                          <img
+                            src={property.mainImage || "/images/keyhouse.jpg"}
+                            alt={property.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            style={{ filter: "saturate(0.6)" }}
+                          />
+                          {/* Dark overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                          {/* Diagonal "נמכר!" ribbon */}
+                          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                            <div
+                              className="absolute font-bold text-sm tracking-widest text-white text-center"
+                              style={{
+                                background: "rgba(185, 28, 28, 0.92)",
+                                width: "170px",
+                                top: "26px",
+                                right: "-42px",
+                                transform: "rotate(45deg)",
+                                boxShadow: "0 2px 10px rgba(185,28,28,0.5)",
+                                padding: "6px 0",
+                              }}
+                            >
+                              נמכר!
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6 flex-1 flex flex-col" style={{ opacity: 0.8 }}>
+                          <h3
+                            className="text-2xl font-serif font-bold mb-2 line-clamp-1"
+                            style={{ color: "rgba(25,39,74,0.97)" }}
+                          >
+                            {property.title}
+                          </h3>
+                          <div className="flex items-center gap-2 mb-4 text-base" style={{ color: "rgba(25,39,74,0.7)" }}>
+                            <FaMapMarkerAlt className="h-4 w-4" style={{ color: "#c79d2a" }} />
+                            {property.address}, {property.city}
+                          </div>
+                          <div className="grid grid-cols-3 gap-4 mb-4 pb-4 border-b" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                            <div className="flex flex-col items-center">
+                              <FaBed className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                              <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                                {property.rooms} חדרים
+                              </span>
+                            </div>
+                            <div className="flex flex-col items-center">
+                              <FaRulerCombined className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                              <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                                {property.size} מ"ר
+                              </span>
+                            </div>
+                            <div className="flex flex-col items-center">
+                              <FaBuilding className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                              <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                                קומה {property.floor}
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            className="mt-auto py-2 px-4 rounded-xl text-center font-bold text-base"
+                            style={{
+                              background: "rgba(185,28,28,0.08)",
+                              border: "1px solid rgba(185,28,28,0.2)",
+                              color: "rgba(185,28,28,0.85)",
+                            }}
+                          >
+                            נמכר בהצלחה
+                          </div>
+                        </div>
+                      </LuxuryCard>
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          )}
         </div>
       </LuxuryBackground>
     </>

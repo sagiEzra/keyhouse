@@ -41,9 +41,11 @@ export interface Property {
   nofLayam?: boolean;
   masterRoom?: boolean;
   closetRoom?: boolean;
+  yard?: boolean;
   balconySize?: number;
   contactPhone?: string;
   contactEmail?: string;
+  isSold?: boolean;
 }
 
 export interface PropertyFormData {
@@ -83,10 +85,12 @@ export interface PropertyFormData {
   nofLayam?: boolean;
   masterRoom?: boolean;
   closetRoom?: boolean;
+  yard?: boolean;
   balconySize?: number;
   contactPhone?: string;
   contactEmail?: string;
   order?: number;
+  isSold?: boolean;
 }
 
 export interface User {

@@ -293,6 +293,26 @@ export default function Header() {
           )}
         </div>
 
+        {/* Mobile Admin Icon (icon-only, visible on mobile when admin) */}
+        {isAdmin && (
+          <Link
+            href="/catalog/manage"
+            className="z-50 md:hidden p-2.5 rounded-xl transition-all duration-300 flex items-center justify-center"
+            style={{
+              background: isScrolled
+                ? "linear-gradient(135deg, rgba(80,80,80,0.9) 0%, rgba(60,60,60,0.95) 100%)"
+                : "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%)",
+              boxShadow: isScrolled
+                ? "0 4px 12px rgba(60,60,60,0.35), inset 0 1px 0 rgba(255,255,255,0.1)"
+                : "0 4px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2)",
+              border: isScrolled ? "1px solid rgba(120,120,120,0.3)" : "1px solid rgba(255,255,255,0.15)",
+            }}
+            aria-label="ניהול נכסים"
+          >
+            <FaHome className="h-5 w-5" style={{ color: isScrolled ? "#ffffff" : "#ffffff" }} />
+          </Link>
+        )}
+
         {/* Luxury Mobile Menu Button */}
         <motion.div
           className="z-50 md:hidden group relative"

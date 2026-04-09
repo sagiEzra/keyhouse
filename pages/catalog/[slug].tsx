@@ -38,6 +38,7 @@ const propertyFeatures = {
   airConditioned: "מיזוג",
   mamad: 'ממ"ד',
   immediate: "כניסה מיידית",
+  yard: "חצר",
 } as const
 
 export default function PropertyDetailPage() {
@@ -266,6 +267,26 @@ export default function PropertyDetailPage() {
                     </>
                   )}
 
+                  {/* Sold ribbon */}
+                  {property.isSold && (
+                    <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-10">
+                      <div
+                        className="absolute font-bold text-sm tracking-widest text-white text-center"
+                        style={{
+                          background: "rgba(185, 28, 28, 0.92)",
+                          width: "200px",
+                          top: "36px",
+                          right: "-52px",
+                          transform: "rotate(45deg)",
+                          boxShadow: "0 2px 10px rgba(185,28,28,0.5)",
+                          padding: "8px 0",
+                        }}
+                      >
+                        נמכר!
+                      </div>
+                    </div>
+                  )}
+
                   {/* Badges */}
                   <div className="absolute top-8 right-8 flex gap-2">
                     <span
@@ -277,17 +298,6 @@ export default function PropertyDetailPage() {
                     >
                       {property.type === "sale" ? "למכירה" : "להשכרה"}
                     </span>
-                    {property.immediate && (
-                      <span
-                        className="px-4 py-2 rounded-full text-sm font-bold"
-                        style={{
-                          backgroundColor: "#f97316",
-                          color: "#ffffff",
-                        }}
-                      >
-                        כניסה מיידית
-                      </span>
-                    )}
                   </div>
                 </div>
 
