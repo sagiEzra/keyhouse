@@ -1,4 +1,4 @@
-import Head from "next/head"
+import SEOHead from "@/components/seo/SEOHead"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import SectionHeader from "@/components/ui/section-header"
 import LuxuryCard from "@/components/ui/luxury-card"
@@ -8,13 +8,12 @@ import { businessStaticData } from "@/config"
 export default function TermsPage() {
   return (
     <>
-      <Head>
-        <title>תקנון ותנאי שימוש | KeyHouse נדל״ן אילת</title>
-        <meta
-          name="description"
-          content="תקנון ותנאי שימוש באתר קי-האוס אילת - סוכנות נדל״ן באילת. קראו את התנאים המלאים לשימוש בשירותי האתר והגנה על זכויותיכם."
-        />
-      </Head>
+      <SEOHead
+        title="תקנון ותנאי שימוש | קי האוס נדל״ן אילת"
+        description="תקנון ותנאי שימוש באתר קי האוס אילת - סוכנות נדל״ן באילת. קראו את התנאים המלאים לשימוש בשירותי האתר."
+        canonical="/terms"
+        noindex={true}
+      />
 
       <LuxuryBackground variant="light" className="py-32" id="main-content">
         <div className="container mx-auto px-6 relative z-10 max-w-5xl">

@@ -17,9 +17,15 @@
 ### 3. **כל העמודים כבר מאופטמזים**
 - ✅ דף הבית
 - ✅ קטלוג נכסים
+- ✅ **עמוד נכס בודד** (`/catalog/[slug]`) — SSR מלא עם SEOHead דינמי, Product schema, og:image מהנכס עצמו
 - ✅ עמודי שירותים (קניה, מכירה, ניהול, הערכת שווי)
 - ✅ צור קשר
 - ✅ אודות
+- ✅ עמודים משפטיים (פרטיות, תקנון, נגישות) — noindex
+
+### 4. **תשתית נוספת**
+- ✅ `public/images/og-default.jpg` — תמונת ברירת מחדל לשיתוף ברשתות חברתיות
+- ✅ Favicon — מפנה ל-`/images/logoNoBg.png`
 
 ---
 
@@ -214,6 +220,65 @@
 
 ### בכל פעם שמוסיפים נכס חדש
 הכל אוטומטי! ה-Sitemap יתעדכן לבד.
+
+### בכל פעם שמוסיפים **עמוד חדש לאתר**
+ראה הסבר מלא בסעיף הבא ↓
+
+---
+
+## 🆕 הוספת עמוד חדש — צ'קליסט SEO
+
+בכל פעם שיוצרים עמוד חדש ב-`pages/`, יש לבצע את הצעדים הבאים:
+
+### 1. הוסף `<SEOHead>` בראש הקומפוננט
+```tsx
+import SEOHead from "@/components/seo/SEOHead"
+
+<SEOHead
+  title="כותרת העמוד | קי האוס אילת"        // 50-60 תווים, כולל מילת מפתח
+  description="תיאור העמוד..."               // 150-160 תווים, compelling
+  canonical="/your-page-slug"               // ה-path של העמוד
+  keywords={[
+    'מילת מפתח ראשית באילת',
+    'מילת מפתח משנית',
+    // ... 5-8 מילות מפתח בעברית
+  ]}
+/>
+```
+
+> **עמודים שלא צריכים אינדוקס** (כמו עמודי תוכן משפטי, admin, תודה): הוסף `noindex={true}`
+
+### 2. הוסף `<StructuredData>` מתאים
+```tsx
+import StructuredData, { MultipleStructuredData } from "@/components/seo/StructuredData"
+
+// לרוב עמודי התוכן — BreadcrumbList + WebPage:
+<MultipleStructuredData schemas={[
+  {
+    type: 'BreadcrumbList',
+    data: { items: [
+      { name: 'דף הבית', url: '/' },
+      { name: 'שם העמוד', url: '/your-page-slug' }
+    ]}
+  },
+  {
+    type: 'WebPage',
+    data: { name: 'שם העמוד', url: 'https://keyhouseeilat.co.il/your-page-slug', description: '...' }
+  }
+]} />
+```
+
+### 3. הוסף את העמוד ל-Sitemap
+פתח `pages/api/sitemap.xml.ts` והוסף את ה-URL לרשימת הדפים הסטטיים, עם priority ו-changefreq מתאימים:
+```typescript
+{ url: '/your-page-slug', changefreq: 'monthly', priority: 0.7 }
+```
+
+### 4. וודא H1 יחיד
+כל עמוד חייב לכלול בדיוק תג `<h1>` אחד עם מילת המפתח הראשית.
+
+### 5. עמודים דינמיים (SSR)
+עמודים שמביאים נתונים מ-Firebase (כמו `/catalog/[slug]`) **חייבים** להשתמש ב-`getServerSideProps` כדי שה-OG tags יופיעו בדפדפן ובשיתוף WhatsApp. ראה `/pages/catalog/[slug].tsx` כדוגמה.
 
 ---
 
