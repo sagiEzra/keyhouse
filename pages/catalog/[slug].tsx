@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react"
-import { useRouter } from "next/router"
+import { GetServerSideProps } from "next"
+import { useState } from "react"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "../../lib/firebase"
 import { Property } from "../../types/property"
 import { motion } from "framer-motion"
-import Head from "next/head"
 import Link from "next/link"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import LuxuryCard from "@/components/ui/luxury-card"
 import LuxuryButton from "@/components/ui/luxury-button"
+import SEOHead from "@/components/seo/SEOHead"
+import StructuredData from "@/components/seo/StructuredData"
 import { businessStaticData } from "@/config"
 import {
   FaArrowRight,
   FaMapMarkerAlt,
   FaBed,
   FaRulerCombined,
-  FaHome,
   FaCar,
   FaCheck,
   FaPhone,
@@ -41,20 +41,20 @@ const propertyFeatures = {
   yard: "חצר",
 } as const
 
-export default function PropertyDetailPage() {
-  const router = useRouter()
-  const { slug } = router.query
-  const [property, setProperty] = useState<Property | null>(null)
-  const [loading, setLoading] = useState(true)
+interface PropertyDetailPageProps {
+  initialProperty: Property
+  pageUrl: string
+}
+
+export default function PropertyDetailPage({ initialProperty, pageUrl }: PropertyDetailPageProps) {
+  const property = initialProperty
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  // Helper functions for media
   const isVideo = (url: string) => {
     return /\.(mp4|mov|avi|webm)$/i.test(url) || url.includes('/video/')
   }
 
   const getAllMedia = () => {
-    if (!property) return []
     const media = []
     if (property.mainImage) {
       media.push({ url: property.mainImage, type: property.mainImageType || 'image' })
@@ -68,35 +68,6 @@ export default function PropertyDetailPage() {
   }
 
   const currentMedia = getAllMedia()
-  const totalMedia = currentMedia.length
-
-  useEffect(() => {
-    if (slug) {
-      fetchProperty()
-    }
-    // eslint-disable-next-line
-  }, [slug])
-
-  const fetchProperty = async () => {
-    try {
-      if (typeof slug !== "string") return
-      const propertyDoc = await getDoc(doc(db, "properties", slug))
-      if (propertyDoc.exists()) {
-        setProperty({ id: propertyDoc.id, ...propertyDoc.data() } as Property)
-      } else {
-        router.push("/catalog")
-      }
-    } catch (error) {
-      console.error("Error fetching property:", error)
-      router.push("/catalog")
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("he-IL").format(price)
-  }
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev === currentMedia.length - 1 ? 0 : prev + 1))
@@ -107,66 +78,67 @@ export default function PropertyDetailPage() {
   }
 
   const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(pageUrl)
     alert("הקישור הועתק ללוח!")
   }
 
-  if (loading) {
-    return (
-      <>
-        <Head>
-          <title>טוען נכס... - Keyhouse</title>
-        </Head>
-        <LuxuryBackground variant="hero" className="flex min-h-screen items-center justify-center pt-20">
-          <div className="flex flex-col items-center gap-4">
-            <div
-              className="h-16 w-16 animate-spin rounded-full border-4 border-transparent"
-              style={{
-                borderTopColor: "#c79d2a",
-                borderRightColor: "rgba(199,157,42,0.3)",
-              }}
-            />
-            <p className="text-xl font-medium" style={{ color: "#ffffff" }}>
-              טוען פרטי נכס...
-            </p>
-          </div>
-        </LuxuryBackground>
-      </>
-    )
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("he-IL").format(price)
   }
 
-  if (!property) {
-    return (
-      <>
-        <Head>
-          <title>נכס לא נמצא - Keyhouse</title>
-        </Head>
-        <LuxuryBackground variant="light" className="flex min-h-screen items-center justify-center pt-20">
-          <div className="container mx-auto px-6 text-center">
-            <LuxuryCard className="py-20 px-8">
-              <FaHome className="mx-auto mb-6 h-24 w-24" style={{ color: "rgba(25,39,74,0.3)" }} />
-              <h1 className="text-3xl font-serif font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>
-                הנכס לא נמצא
-              </h1>
-              <p className="text-lg mb-8" style={{ color: "rgba(25,39,74,0.7)" }}>
-                הנכס שחיפשת אינו קיים או שהוסר מהמערכת
-              </p>
-              <Link href="/catalog">
-                <LuxuryButton>חזור לקטלוג</LuxuryButton>
-              </Link>
-            </LuxuryCard>
-          </div>
-        </LuxuryBackground>
-      </>
-    )
-  }
+  // Build SEO data
+  const isForSale = property.type === "sale"
+  const seoTitle = isForSale
+    ? `${property.title} | דירה למכירה באילת | קי האוס`
+    : `${property.title} | דירה להשכרה באילת | קי האוס`
+
+  const seoDescription = [
+    `${property.title} - ${property.address}, ${property.city}.`,
+    `${property.rooms} חדרים, ${property.size} מ"ר.`,
+    `מחיר: ₪${formatPrice(property.price)}${isForSale ? "" : " לחודש"}.`,
+    property.description ? property.description.substring(0, 100) : "",
+    "קי האוס - סוכנות הנדל\"ן המובילה באילת.",
+  ].filter(Boolean).join(" ")
+
+  const ogImage =
+    property.mainImage && property.mainImageType !== "video"
+      ? property.mainImage
+      : "/images/og-default.jpg"
+
+  const seoKeywords = [
+    isForSale ? "דירה למכירה באילת" : "דירה להשכרה באילת",
+    `${property.rooms} חדרים באילת`,
+    isForSale ? "נכס למכירה אילת" : "נכס להשכרה אילת",
+    "נדל\"ן אילת",
+    "קי האוס אילת",
+    property.city,
+    property.address,
+  ].filter(Boolean)
 
   return (
     <>
-      <Head>
-        <title>{property.title} - Keyhouse</title>
-        <meta name="description" content={`${property.title} - ${property.address}, ${property.city}. ${property.description?.substring(0, 150)}...`} />
-      </Head>
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        canonical={`/catalog/${property.id}`}
+        keywords={seoKeywords}
+        ogImage={ogImage}
+        ogType="website"
+      />
+      <StructuredData
+        type="Product"
+        data={{
+          name: property.title,
+          description: property.description || seoDescription,
+          image: [
+            ...(property.mainImage && property.mainImageType !== "video" ? [property.mainImage] : []),
+            ...(property.images || []).filter((url) => !isVideo(url)),
+          ],
+          price: property.price,
+          address: `${property.address}, ${property.city}`,
+          availability: property.isSold ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+        }}
+      />
 
       {/* Hero Section */}
       <LuxuryBackground variant="hero" className="flex min-h-[50vh] items-center justify-center pt-20">
@@ -577,7 +549,7 @@ export default function PropertyDetailPage() {
                   <FaLink className="h-5 w-5" style={{ color: "rgba(25,39,74,0.7)" }} />
                 </button>
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(window.location.href)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(pageUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 hover:scale-110"
@@ -596,4 +568,35 @@ export default function PropertyDetailPage() {
       </LuxuryBackground>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { slug } = context.params as { slug: string }
+
+  try {
+    const propertyDoc = await getDoc(doc(db, "properties", slug))
+
+    if (!propertyDoc.exists()) {
+      return { redirect: { destination: "/catalog", permanent: false } }
+    }
+
+    const data = propertyDoc.data()
+    // Serialize Firestore Timestamps to ISO strings so Next.js can pass them as props
+    const property = {
+      id: propertyDoc.id,
+      ...data,
+      createdAt: data.createdAt?.toDate?.()?.toISOString() ?? null,
+      updatedAt: data.updatedAt?.toDate?.()?.toISOString() ?? null,
+    }
+
+    return {
+      props: {
+        initialProperty: property,
+        pageUrl: `https://keyhouseeilat.co.il/catalog/${slug}`,
+      },
+    }
+  } catch (error) {
+    console.error("Error fetching property in getServerSideProps:", error)
+    return { redirect: { destination: "/catalog", permanent: false } }
+  }
 }

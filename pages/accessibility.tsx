@@ -1,4 +1,4 @@
-import Head from "next/head"
+import SEOHead from "@/components/seo/SEOHead"
 import { motion } from "framer-motion"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import SectionHeader from "@/components/ui/section-header"
@@ -7,10 +7,12 @@ import LuxuryCard from "@/components/ui/luxury-card"
 export default function AccessibilityPage() {
   return (
     <>
-      <Head>
-        <title>הצהרת נגישות | KeyHouse נדל״ן</title>
-        <meta name="description" content="הצהרת נגישות של KeyHouse - אנו מחויבים להנגשת האתר לכלל הגולשים" />
-      </Head>
+      <SEOHead
+        title="הצהרת נגישות | קי האוס נדל״ן אילת"
+        description="הצהרת נגישות של קי האוס אילת - אנו מחויבים להנגשת האתר לכלל הגולשים ולשיפורו התמידי."
+        canonical="/accessibility"
+        noindex={true}
+      />
 
       <LuxuryBackground variant="light" className="py-32" id="main-content">
         <div className="container mx-auto px-6 relative z-10 max-w-5xl">

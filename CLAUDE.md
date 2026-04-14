@@ -74,6 +74,45 @@ export default function MyPage() {
 }
 ```
 
+### **IMPORTANT: SEO Pattern for New Pages**
+**NEVER use plain `<Head>` for new pages.** Always use `<SEOHead>` + `<StructuredData>`.
+
+```tsx
+// ✅ CORRECT — every new public page
+import SEOHead from "@/components/seo/SEOHead"
+import { MultipleStructuredData } from "@/components/seo/StructuredData"
+
+export default function MyPage() {
+  return (
+    <>
+      <SEOHead
+        title="כותרת | קי האוס אילת"       // 50-60 chars, Hebrew keyword first
+        description="תיאור קצר ומושך..."   // 150-160 chars
+        canonical="/my-page"
+        keywords={['מילת מפתח אילת', '...']}
+      />
+      <MultipleStructuredData schemas={[
+        { type: 'BreadcrumbList', data: { items: [{ name: 'דף הבית', url: '/' }, { name: 'שם', url: '/my-page' }] } },
+        { type: 'WebPage', data: { name: 'שם', url: 'https://keyhouseeilat.co.il/my-page', description: '...' } }
+      ]} />
+      {/* page content */}
+    </>
+  )
+}
+
+// ✅ For legal/utility pages that should NOT appear in Google:
+<SEOHead title="..." description="..." canonical="/my-page" noindex={true} />
+
+// ✅ For dynamic pages that load data from Firebase (e.g. /catalog/[slug]):
+//    MUST use getServerSideProps so OG tags are rendered server-side
+//    (required for WhatsApp/social sharing to show correct image & title)
+//    See pages/catalog/[slug].tsx as the reference implementation.
+```
+
+**After creating a new page, also:**
+- Add it to `pages/api/sitemap.xml.ts` (static pages array)
+- Ensure exactly one `<h1>` tag exists with the primary Hebrew keyword
+
 ## 🎨 **LUXURY DESIGN SYSTEM & UI/UX GUIDELINES**
 
 ### **Brand Colors (Critical - Use Exactly)**

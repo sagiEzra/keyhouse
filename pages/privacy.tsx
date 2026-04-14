@@ -1,4 +1,4 @@
-import Head from "next/head"
+import SEOHead from "@/components/seo/SEOHead"
 import LuxuryBackground from "@/components/ui/luxury-background"
 import SectionHeader from "@/components/ui/section-header"
 import LuxuryCard from "@/components/ui/luxury-card"
@@ -8,13 +8,12 @@ import { businessStaticData } from "@/config"
 export default function PrivacyPage() {
   return (
     <>
-      <Head>
-        <title>מדיניות פרטיות | KeyHouse נדל״ן אילת</title>
-        <meta
-          name="description"
-          content="מדיניות פרטיות של קי-האוס אילת - מידע מפורט על איסוף, שימוש והגנה על המידע האישי שלך בהתאם לתיקון 13 לחוק הגנת הפרטיות."
-        />
-      </Head>
+      <SEOHead
+        title="מדיניות פרטיות | קי האוס נדל״ן אילת"
+        description="מדיניות פרטיות של קי האוס אילת - מידע מפורט על איסוף, שימוש והגנה על המידע האישי שלך בהתאם לתיקון 13 לחוק הגנת הפרטיות."
+        canonical="/privacy"
+        noindex={true}
+      />
 
       <LuxuryBackground variant="light" className="py-32" id="main-content">
         <div className="container mx-auto px-6 relative z-10 max-w-5xl">
