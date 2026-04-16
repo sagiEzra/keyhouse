@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import React, { useState, useEffect } from 'react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { Rubik } from "next/font/google"
@@ -33,6 +34,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        <meta name="google-site-verification" content="nDMg1OxQhveDk6ETSqmEg3Q7g-3SqxuJiYjvsBqWWoo" />
+      </Head>
       <main lang="he" dir="rtl" className={rubik.variable}>
         {/* Skip Navigation Link for Accessibility */}
         <a
