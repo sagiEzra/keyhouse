@@ -102,8 +102,8 @@ export default function SEOHead({
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 
       {/* Favicon & App Icons */}
-      <link rel="icon" type="image/png" href="/images/logoNoBg.png" />
-      <link rel="apple-touch-icon" href="/images/logoNoBg.png" />
+      <link rel="icon" type="image/png" href="/images/faviconKeyHouse.png" />
+      <link rel="apple-touch-icon" href="/images/faviconKeyHouse.png" />
 
       {/* Theme Color (for mobile browsers) */}
       <meta name="theme-color" content="#192746" />

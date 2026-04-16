@@ -25,7 +25,7 @@
 
 ### 4. **תשתית נוספת**
 - ✅ `public/images/og-default.jpg` — תמונת ברירת מחדל לשיתוף ברשתות חברתיות
-- ✅ Favicon — מפנה ל-`/images/logoNoBg.png`
+- ✅ Favicon — מפנה ל-`/images/faviconKeyHouse.png`
 
 ---
 
