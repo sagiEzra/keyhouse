@@ -364,17 +364,6 @@ export default function Header() {
                 backdropFilter: "blur(30px)"
               }}
             >
-              {/* Decorative background elements */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div
-                  className="absolute top-32 right-10 w-64 h-64 rounded-full blur-3xl opacity-5"
-                  style={{ background: "radial-gradient(circle, #c79d2a 0%, transparent 70%)" }}
-                />
-                <div
-                  className="absolute bottom-32 left-10 w-48 h-48 rounded-full blur-3xl opacity-4"
-                  style={{ background: "radial-gradient(circle, rgba(25,39,74,0.97) 0%, transparent 70%)" }}
-                />
-              </div>
 
               <div className="container mx-auto px-6 pt-28 relative z-10">
                 <nav role="navigation" aria-label="תפריט ניווט מובייל" className="flex flex-col gap-2">
