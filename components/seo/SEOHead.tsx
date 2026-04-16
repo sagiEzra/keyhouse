@@ -49,7 +49,9 @@ export default function SEOHead({
     'Keyhouse Eilat',
     'נדל"ן אילת',
     'משרד תיווך אילת',
-    'רותם קהלון'
+    'סוכנות נדל"ן אילת',
+    'רותם קהלון',
+    'שירז קהלון'
   ]
 
   const allKeywords = [...defaultKeywords, ...keywords].join(', ')
