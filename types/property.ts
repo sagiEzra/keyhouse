@@ -46,6 +46,7 @@ export interface Property {
   contactPhone?: string;
   contactEmail?: string;
   isSold?: boolean;
+  isRented?: boolean;
 }
 
 export interface PropertyFormData {
@@ -91,6 +92,7 @@ export interface PropertyFormData {
   contactEmail?: string;
   order?: number;
   isSold?: boolean;
+  isRented?: boolean;
 }
 
 export interface User {

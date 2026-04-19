@@ -399,6 +399,24 @@ export default function ManagePage() {
                               </div>
                             </div>
                           )}
+                          {property.isRented && (
+                            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none rounded-2xl">
+                              <div
+                                className="absolute font-bold text-xs tracking-widest text-white text-center"
+                                style={{
+                                  background: "rgba(30, 64, 175, 0.92)",
+                                  width: "150px",
+                                  top: "22px",
+                                  right: "-38px",
+                                  transform: "rotate(45deg)",
+                                  boxShadow: "0 2px 8px rgba(30,64,175,0.5)",
+                                  padding: "5px 0",
+                                }}
+                              >
+                                הושכר!
+                              </div>
+                            </div>
+                          )}
                         </div>
                         <div className="flex-1">
                           <h3 className="text-2xl font-bold mb-4" style={{ color: "rgba(25,39,74,0.97)" }}>

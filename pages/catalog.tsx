@@ -157,10 +157,11 @@ export default function CatalogPage() {
     setSelectedFeatures([])
   }
 
-  const activeProperties = properties.filter(p => !p.isSold)
+  const activeProperties = properties.filter(p => !p.isSold && !p.isRented)
   const saleProperties = filterProperties(activeProperties.filter(p => p.type === "sale"))
   const rentProperties = filterProperties(activeProperties.filter(p => p.type === "rent"))
   const soldProperties = properties.filter(p => p.isSold)
+  const rentedProperties = properties.filter(p => p.isRented)
 
   const activeFiltersCount =
     (selectedCategory !== "all" ? 1 : 0) +
@@ -991,6 +992,114 @@ export default function CatalogPage() {
                             }}
                           >
                             נמכר בהצלחה
+                          </div>
+                        </div>
+                      </LuxuryCard>
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          )}
+
+          {/* Rented Properties Section */}
+          {rentedProperties.length > 0 && (
+            <div className="mt-20">
+              <SectionHeader
+                title="נכסים שהושכרו"
+                subtitle="נכסים שהושכרו בהצלחה על ידי קי האוס"
+                alignment="right"
+                className="mb-12"
+              />
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+                }}
+                className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+              >
+                {rentedProperties.map((property) => (
+                  <motion.div
+                    key={property.id}
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+                    }}
+                  >
+                    <Link href={`/catalog/${property.id}`}>
+                      <LuxuryCard hoverable={true} className="group cursor-pointer overflow-hidden p-0 h-full flex flex-col">
+                        {/* Image */}
+                        <div className="relative h-64 overflow-hidden">
+                          <img
+                            src={property.mainImage || "/images/keyhouse.jpg"}
+                            alt={property.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            style={{ filter: "saturate(0.6)" }}
+                          />
+                          {/* Dark overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                          {/* Diagonal "הושכר!" ribbon */}
+                          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                            <div
+                              className="absolute font-bold text-sm tracking-widest text-white text-center"
+                              style={{
+                                background: "rgba(30, 64, 175, 0.92)",
+                                width: "170px",
+                                top: "26px",
+                                right: "-42px",
+                                transform: "rotate(45deg)",
+                                boxShadow: "0 2px 10px rgba(30,64,175,0.5)",
+                                padding: "6px 0",
+                              }}
+                            >
+                              הושכר!
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6 flex-1 flex flex-col" style={{ opacity: 0.8 }}>
+                          <h3
+                            className="text-2xl font-serif font-bold mb-2 line-clamp-1"
+                            style={{ color: "rgba(25,39,74,0.97)" }}
+                          >
+                            {property.title}
+                          </h3>
+                          <div className="flex items-center gap-2 mb-4 text-base" style={{ color: "rgba(25,39,74,0.7)" }}>
+                            <FaMapMarkerAlt className="h-4 w-4" style={{ color: "#c79d2a" }} />
+                            {property.address}, {property.city}
+                          </div>
+                          <div className="grid grid-cols-3 gap-4 mb-4 pb-4 border-b" style={{ borderColor: "rgba(25,39,74,0.1)" }}>
+                            <div className="flex flex-col items-center">
+                              <FaBed className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                              <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                                {property.rooms} חדרים
+                              </span>
+                            </div>
+                            <div className="flex flex-col items-center">
+                              <FaRulerCombined className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                              <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                                {property.size} מ"ר
+                              </span>
+                            </div>
+                            <div className="flex flex-col items-center">
+                              <FaBuilding className="h-5 w-5 mb-1" style={{ color: "rgba(25,39,74,0.5)" }} />
+                              <span className="text-sm font-medium" style={{ color: "rgba(25,39,74,0.9)" }}>
+                                קומה {property.floor}
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            className="mt-auto py-2 px-4 rounded-xl text-center font-bold text-base"
+                            style={{
+                              background: "rgba(30,64,175,0.08)",
+                              border: "1px solid rgba(30,64,175,0.2)",
+                              color: "rgba(30,64,175,0.85)",
+                            }}
+                          >
+                            הושכר בהצלחה
                           </div>
                         </div>
                       </LuxuryCard>

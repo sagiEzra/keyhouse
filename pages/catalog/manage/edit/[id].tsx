@@ -68,7 +68,8 @@ export default function EditPropertyPage() {
     balconySize: 0,
     contactPhone: '',
     contactEmail: '',
-    isSold: false
+    isSold: false,
+    isRented: false
   });
 
   useEffect(() => {
@@ -178,7 +179,8 @@ export default function EditPropertyPage() {
           closetRoom: propertyData.closetRoom || false,
           yard: propertyData.yard || false,
           balconySize: propertyData.balconySize || 0,
-          isSold: propertyData.isSold || false
+          isSold: propertyData.isSold || false,
+          isRented: propertyData.isRented || false
         });
       } else {
         router.push('/catalog/manage');
@@ -738,18 +740,33 @@ export default function EditPropertyPage() {
                       className="mt-2"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="isSold">האם נמכר</Label>
-                    <Select value={formData.isSold ? 'yes' : 'no'} onValueChange={(value) => handleInputChange('isSold', value === 'yes')}>
-                      <SelectTrigger className="mt-2">
-                        <SelectValue placeholder="האם נמכר?" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="no">לא</SelectItem>
-                        <SelectItem value="yes">כן</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                  {formData.type === 'sale' ? (
+                    <div>
+                      <Label htmlFor="isSold">האם נמכר</Label>
+                      <Select value={formData.isSold ? 'yes' : 'no'} onValueChange={(value) => handleInputChange('isSold', value === 'yes')}>
+                        <SelectTrigger className="mt-2">
+                          <SelectValue placeholder="האם נמכר?" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="no">לא</SelectItem>
+                          <SelectItem value="yes">כן</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  ) : (
+                    <div>
+                      <Label htmlFor="isRented">האם הושכר</Label>
+                      <Select value={formData.isRented ? 'yes' : 'no'} onValueChange={(value) => handleInputChange('isRented', value === 'yes')}>
+                        <SelectTrigger className="mt-2">
+                          <SelectValue placeholder="האם הושכר?" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="no">לא</SelectItem>
+                          <SelectItem value="yes">כן</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
                 </div>
               </div>
             </LuxuryCard>

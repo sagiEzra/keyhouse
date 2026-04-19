@@ -259,6 +259,26 @@ export default function PropertyDetailPage({ initialProperty, pageUrl }: Propert
                     </div>
                   )}
 
+                  {/* Rented ribbon */}
+                  {property.isRented && (
+                    <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-10">
+                      <div
+                        className="absolute font-bold text-sm tracking-widest text-white text-center"
+                        style={{
+                          background: "rgba(30, 64, 175, 0.92)",
+                          width: "200px",
+                          top: "36px",
+                          right: "-52px",
+                          transform: "rotate(45deg)",
+                          boxShadow: "0 2px 10px rgba(30,64,175,0.5)",
+                          padding: "8px 0",
+                        }}
+                      >
+                        הושכר!
+                      </div>
+                    </div>
+                  )}
+
                   {/* Badges */}
                   <div className="absolute top-8 right-8 flex gap-2">
                     <span
