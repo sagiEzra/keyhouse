@@ -535,7 +535,7 @@ export default function CatalogPage() {
           <div className="mb-20">
             <SectionHeader
               title="נכסים למכירה"
-              subtitle={`${saleProperties.length} נכסים זמינים למכירה`}
+              subtitle={`${saleProperties.length} נכסים המומלצים למכירה`}
               alignment="right"
               className="mb-12"
             />
@@ -717,7 +717,7 @@ export default function CatalogPage() {
           <div>
             <SectionHeader
               title="נכסים להשכרה"
-              subtitle={`${rentProperties.length} נכסים זמינים להשכרה`}
+              subtitle={`${rentProperties.length} נכסים המומלצים להשכרה`}
               alignment="right"
               className="mb-12"
             />
