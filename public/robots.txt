@@ -7,6 +7,7 @@ Allow: /
 # Disallow admin/management pages
 Disallow: /catalog/manage/
 Disallow: /api/
+Allow: /api/sitemap.xml
 
 # Disallow private/internal files
 Disallow: /*.json$
@@ -21,6 +22,7 @@ Sitemap: https://keyhouseeilat.co.il/api/sitemap.xml
 # Specific rules for Google
 User-agent: Googlebot
 Allow: /
+Allow: /api/sitemap.xml
 Disallow: /catalog/manage/
 Disallow: /api/
 
