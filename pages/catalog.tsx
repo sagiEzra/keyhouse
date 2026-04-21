@@ -11,30 +11,13 @@ import LuxuryButton from "@/components/ui/luxury-button"
 import SEOHead from "@/components/seo/SEOHead"
 import StructuredData, { MultipleStructuredData } from "@/components/seo/StructuredData"
 import {
-  FaSearch,
-  FaFilter,
   FaMapMarkerAlt,
   FaBed,
   FaRulerCombined,
   FaBuilding,
   FaHome,
   FaEye,
-  FaTimes,
-  FaCheckCircle,
 } from "react-icons/fa"
-
-// Property categories with Hebrew labels
-const propertyCategories = {
-  all: "הכל",
-  apartment: "דירות",
-  house: "בתים",
-  penthouse: "פנטהאוזים",
-  garden: "דירות גן",
-  commercial: "מסחרי",
-  land: "מגרשים",
-} as const
-
-type PropertyCategory = keyof typeof propertyCategories
 
 // Property features with Hebrew labels
 const propertyFeatures = {
@@ -53,13 +36,6 @@ const propertyFeatures = {
 export default function CatalogPage() {
   const [properties, setProperties] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState<PropertyCategory>("all")
-  const [selectedCity, setSelectedCity] = useState<string>("all")
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000000])
-  const [roomsRange, setRoomsRange] = useState<[number, number]>([1, 10])
-  const [showFilters, setShowFilters] = useState(false)
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
 
   useEffect(() => {
     fetchProperties()
@@ -83,72 +59,8 @@ export default function CatalogPage() {
     }
   }
 
-  const filterProperties = (propertyList: Property[]) => {
-    let filtered = [...propertyList]
-
-    // Search filter
-    if (searchTerm) {
-      const searchTermLower = searchTerm.toLowerCase()
-      filtered = filtered.filter(
-        (property) =>
-          property.title.toLowerCase().includes(searchTermLower) ||
-          property.address.toLowerCase().includes(searchTermLower) ||
-          property.city.toLowerCase().includes(searchTermLower)
-      )
-    }
-
-    // Category filter
-    if (selectedCategory !== "all") {
-      filtered = filtered.filter((property) => property.category === selectedCategory)
-    }
-
-    // City filter
-    if (selectedCity !== "all") {
-      filtered = filtered.filter((property) => property.city === selectedCity)
-    }
-
-    // Price range filter
-    filtered = filtered.filter((property) => property.price >= priceRange[0] && property.price <= priceRange[1])
-
-    // Rooms range filter
-    filtered = filtered.filter((property) => property.rooms >= roomsRange[0] && property.rooms <= roomsRange[1])
-
-    // Features filter
-    if (selectedFeatures.length > 0) {
-      filtered = filtered.filter((property) =>
-        selectedFeatures.every((feature) => property[feature as keyof Property])
-      )
-    }
-
-    return filtered
-  }
-
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("he-IL").format(price)
-  }
-
-  const getCities = () => {
-    const cityArr = properties.map((p) => p.city)
-    const uniqueCities: string[] = []
-    for (let i = 0; i < cityArr.length; i++) {
-      if (!uniqueCities.includes(cityArr[i])) {
-        uniqueCities.push(cityArr[i])
-      }
-    }
-    return uniqueCities.sort()
-  }
-
-  const toggleFeature = (feature: string) => {
-    setSelectedFeatures((prev) => (prev.includes(feature) ? prev.filter((f) => f !== feature) : [...prev, feature]))
-  }
-
-  const clearFilters = () => {
-    setSearchTerm("")
-    setSelectedCategory("all")
-    setSelectedCity("all")
-    setPriceRange([0, 10000000])
-    setRoomsRange([1, 10])
-    setSelectedFeatures([])
   }
 
   const sortByOrder = (arr: Property[]) => [...arr].sort((a, b) => {
@@ -159,16 +71,10 @@ export default function CatalogPage() {
   });
 
   const activeProperties = properties.filter(p => !p.isSold && !p.isRented)
-  const saleProperties = filterProperties(sortByOrder(activeProperties.filter(p => p.type === "sale")))
-  const rentProperties = filterProperties(sortByOrder(activeProperties.filter(p => p.type === "rent")))
+  const saleProperties = sortByOrder(activeProperties.filter(p => p.type === "sale"))
+  const rentProperties = sortByOrder(activeProperties.filter(p => p.type === "rent"))
   const soldProperties = sortByOrder(properties.filter(p => p.isSold))
   const rentedProperties = sortByOrder(properties.filter(p => p.isRented))
-
-  const activeFiltersCount =
-    (selectedCategory !== "all" ? 1 : 0) +
-    (selectedCity !== "all" ? 1 : 0) +
-    selectedFeatures.length +
-    (searchTerm ? 1 : 0)
 
   if (loading) {
     return (
