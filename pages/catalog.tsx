@@ -30,6 +30,8 @@ const propertyCategories = {
   house: "בתים",
   penthouse: "פנטהאוזים",
   garden: "דירות גן",
+  commercial: "מסחרי",
+  land: "מגרשים",
 } as const
 
 type PropertyCategory = keyof typeof propertyCategories
@@ -72,14 +74,6 @@ export default function CatalogPage() {
         id: doc.id,
         ...doc.data(),
       })) as Property[]
-
-      // Sort by explicit order field if set, otherwise keep createdAt desc order
-      propertiesData.sort((a, b) => {
-        if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
-        if (a.order !== undefined) return -1;
-        if (b.order !== undefined) return 1;
-        return 0; // already sorted by createdAt desc from Firestore
-      });
 
       setProperties(propertiesData)
     } catch (error) {
@@ -157,11 +151,18 @@ export default function CatalogPage() {
     setSelectedFeatures([])
   }
 
+  const sortByOrder = (arr: Property[]) => [...arr].sort((a, b) => {
+    if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
+    if (a.order !== undefined) return -1;
+    if (b.order !== undefined) return 1;
+    return 0;
+  });
+
   const activeProperties = properties.filter(p => !p.isSold && !p.isRented)
-  const saleProperties = filterProperties(activeProperties.filter(p => p.type === "sale"))
-  const rentProperties = filterProperties(activeProperties.filter(p => p.type === "rent"))
-  const soldProperties = properties.filter(p => p.isSold)
-  const rentedProperties = properties.filter(p => p.isRented)
+  const saleProperties = filterProperties(sortByOrder(activeProperties.filter(p => p.type === "sale")))
+  const rentProperties = filterProperties(sortByOrder(activeProperties.filter(p => p.type === "rent")))
+  const soldProperties = sortByOrder(properties.filter(p => p.isSold))
+  const rentedProperties = sortByOrder(properties.filter(p => p.isRented))
 
   const activeFiltersCount =
     (selectedCategory !== "all" ? 1 : 0) +

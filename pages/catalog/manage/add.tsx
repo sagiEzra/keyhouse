@@ -23,7 +23,7 @@ export default function AddPropertyPage() {
   const [submitting, setSubmitting] = useState(false);
   const [allMediaFiles, setAllMediaFiles] = useState<LocalMediaFile[]>([]);
   const [mainMediaIndex, setMainMediaIndex] = useState<number>(0);
-  const [catalogProperties, setCatalogProperties] = useState<Array<{ id: string; order?: number }>>([]);
+  const [catalogProperties, setCatalogProperties] = useState<Array<{ id: string; order?: number; type: string }>>([]);
   const [selectedPosition, setSelectedPosition] = useState(1);
   const [formData, setFormData] = useState<PropertyFormData>({
     title: '',
@@ -65,7 +65,7 @@ export default function AddPropertyPage() {
   const fetchCatalogProperties = async () => {
     try {
       const snap = await getDocs(collection(db, 'properties'));
-      const props = snap.docs.map(d => ({ id: d.id, order: d.data().order as number | undefined }));
+      const props = snap.docs.map(d => ({ id: d.id, order: d.data().order as number | undefined, type: d.data().type as string }));
       props.sort((a, b) => {
         if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
         if (a.order !== undefined) return -1;
@@ -111,6 +111,9 @@ export default function AddPropertyPage() {
       ...prev,
       [field]: value
     }));
+    if (field === 'type') {
+      setSelectedPosition(1);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -135,14 +138,13 @@ export default function AddPropertyPage() {
         }
       }
 
-      // Normalize all existing properties to sequential ints and make room for the new one.
-      // Using idx (sorted display position) as the authoritative order, not p.order,
-      // because some properties may lack an order field and would otherwise sort
-      // after all ordered items even if intended to appear last.
+      // Only normalize and reorder properties of the same type.
+      // Sale and rent properties each maintain their own independent order sequence.
+      const sameTypeProperties = catalogProperties.filter(p => p.type === formData.type);
       const insertIndex = selectedPosition - 1;
-      if (catalogProperties.length > 0) {
+      if (sameTypeProperties.length > 0) {
         const batch = writeBatch(db);
-        catalogProperties.forEach((p, idx) => {
+        sameTypeProperties.forEach((p, idx) => {
           const normalizedOrder = idx >= insertIndex ? idx + 1 : idx;
           if (p.order !== normalizedOrder) {
             batch.update(doc(db, 'properties', p.id), { order: normalizedOrder });
@@ -282,6 +284,8 @@ export default function AddPropertyPage() {
                         <SelectItem value="house">בתים</SelectItem>
                         <SelectItem value="penthouse">פנטהאוזים</SelectItem>
                         <SelectItem value="garden">דירות גן</SelectItem>
+                        <SelectItem value="commercial">מסחרי</SelectItem>
+                        <SelectItem value="land">מגרשים</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -378,7 +382,7 @@ export default function AddPropertyPage() {
                         מיקום בקטלוג
                       </Label>
                       <p className="text-sm mt-0.5" style={{ color: "rgba(25,39,74,0.5)" }}>
-                        קבע היכן הנכס יופיע בין {catalogProperties.length + 1} הנכסים בקטלוג
+                        קבע היכן הנכס יופיע בין {catalogProperties.filter(p => p.type === formData.type).length + 1} הנכסים {formData.type === 'sale' ? 'למכירה' : 'להשכרה'} בקטלוג
                       </p>
                     </div>
                   </div>
@@ -390,10 +394,11 @@ export default function AddPropertyPage() {
                       <SelectValue placeholder="בחר מיקום" />
                     </SelectTrigger>
                     <SelectContent>
-                      {Array.from({ length: catalogProperties.length + 1 }, (_, i) => i + 1).map((pos) => {
+                      {Array.from({ length: catalogProperties.filter(p => p.type === formData.type).length + 1 }, (_, i) => i + 1).map((pos) => {
+                        const sameTypeCount = catalogProperties.filter(p => p.type === formData.type).length;
                         const ordinals = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שביעי', 'שמיני', 'תשיעי', 'עשירי'];
                         const label = ordinals[pos - 1] ?? `${pos}`;
-                        const total = catalogProperties.length + 1;
+                        const total = sameTypeCount + 1;
                         const suffix = pos === 1 ? ' — יוצג ראשון' : pos === total ? ' — יוצג אחרון' : '';
                         return (
                           <SelectItem key={pos} value={String(pos)}>

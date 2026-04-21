@@ -4,7 +4,7 @@ export interface Property {
   id: string;
   title: string;
   type: 'sale' | 'rent';
-  category: 'all' | 'apartment' | 'house' | 'penthouse' | 'garden';
+  category: 'all' | 'apartment' | 'house' | 'penthouse' | 'garden' | 'commercial' | 'land';
   price: number;
   address: string;
   city: string;
@@ -52,7 +52,7 @@ export interface Property {
 export interface PropertyFormData {
   title: string;
   type: 'sale' | 'rent';
-  category: 'apartment' | 'house' | 'penthouse' | 'garden';
+  category: 'apartment' | 'house' | 'penthouse' | 'garden' | 'commercial' | 'land';
   price: number;
   address: string;
   city: string;

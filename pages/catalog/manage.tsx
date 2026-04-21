@@ -60,8 +60,9 @@ export default function ManagePage() {
         ...doc.data()
       })) as Property[];
 
-      // Sort by order field, fallback to createdAt for unordered items
+      // Group by type (sale first, then rent), and sort by order within each type
       propertiesData.sort((a, b) => {
+        if (a.type !== b.type) return a.type === 'sale' ? -1 : 1;
         if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
         if (a.order !== undefined) return -1;
         if (b.order !== undefined) return 1;
@@ -77,6 +78,8 @@ export default function ManagePage() {
   const handleMove = async (index: number, direction: 'up' | 'down') => {
     const swapIndex = direction === 'up' ? index - 1 : index + 1;
     if (swapIndex < 0 || swapIndex >= properties.length) return;
+    // Don't swap across type boundaries — sale and rent have independent order sequences
+    if (properties[index].type !== properties[swapIndex].type) return;
 
     const updated = [...properties];
     const orderA = updated[index].order ?? index;
@@ -370,8 +373,29 @@ export default function ManagePage() {
                 </LuxuryButton>
               </LuxuryCard>
             ) : (
-              <div className="grid gap-8">
-                {properties.map((property) => (
+              <div className="space-y-12">
+                {(['sale', 'rent'] as const).map((type) => {
+                  const group = properties.filter(p => p.type === type);
+                  if (group.length === 0) return null;
+                  return (
+                    <div key={type}>
+                      {/* Section divider */}
+                      <div className="flex items-center gap-4 mb-6">
+                        <span
+                          className="px-5 py-2 rounded-full text-base font-bold"
+                          style={{
+                            backgroundColor: type === 'sale' ? "rgba(34,197,94,0.12)" : "rgba(59,130,246,0.12)",
+                            color: type === 'sale' ? "#16a34a" : "#2563eb",
+                            border: `1.5px solid ${type === 'sale' ? "rgba(34,197,94,0.35)" : "rgba(59,130,246,0.35)"}`,
+                          }}
+                        >
+                          {type === 'sale' ? 'למכירה' : 'להשכרה'}
+                        </span>
+                        <div className="flex-1 h-px" style={{ backgroundColor: "rgba(25,39,74,0.08)" }} />
+                        <span className="text-base" style={{ color: "rgba(25,39,74,0.45)" }}>{group.length} נכסים</span>
+                      </div>
+                      <div className="grid gap-8">
+                        {group.map((property) => (
                   <LuxuryCard key={property.id} hoverable={true} className="p-6 sm:p-8">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
                       <div className="flex flex-col sm:flex-row sm:items-start gap-6">
@@ -463,7 +487,10 @@ export default function ManagePage() {
                             variant="outline"
                             size="sm"
                             onClick={() => handleMove(properties.indexOf(property), 'up')}
-                            disabled={properties.indexOf(property) === 0}
+                            disabled={
+                              properties.indexOf(property) === 0 ||
+                              properties[properties.indexOf(property) - 1]?.type !== property.type
+                            }
                             className="bg-white/80 hover:bg-white disabled:opacity-30"
                             title="הזז למעלה"
                           >
@@ -473,7 +500,10 @@ export default function ManagePage() {
                             variant="outline"
                             size="sm"
                             onClick={() => handleMove(properties.indexOf(property), 'down')}
-                            disabled={properties.indexOf(property) === properties.length - 1}
+                            disabled={
+                              properties.indexOf(property) === properties.length - 1 ||
+                              properties[properties.indexOf(property) + 1]?.type !== property.type
+                            }
                             className="bg-white/80 hover:bg-white disabled:opacity-30"
                             title="הזז למטה"
                           >
@@ -504,7 +534,11 @@ export default function ManagePage() {
                       </div>
                     </div>
                   </LuxuryCard>
-                ))}
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

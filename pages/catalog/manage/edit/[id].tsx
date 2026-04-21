@@ -29,7 +29,7 @@ export default function EditPropertyPage() {
   const [newFiles, setNewFiles] = useState<LocalMediaFile[]>([]);
   const [mainMediaIndex, setMainMediaIndex] = useState<number>(0);
 
-  const [catalogProperties, setCatalogProperties] = useState<Array<{ id: string; order?: number }>>([]);
+  const [catalogProperties, setCatalogProperties] = useState<Array<{ id: string; order?: number; type: string }>>([]);
   const [selectedPosition, setSelectedPosition] = useState(1);
 
   const [removedPublicIds, setRemovedPublicIds] = useState<string[]>([]);
@@ -107,7 +107,7 @@ export default function EditPropertyPage() {
 
       // Fetch all catalog properties for ordering
       const allSnap = await getDocs(collection(db, 'properties'));
-      const allProps = allSnap.docs.map(d => ({ id: d.id, order: d.data().order as number | undefined }));
+      const allProps = allSnap.docs.map(d => ({ id: d.id, order: d.data().order as number | undefined, type: d.data().type as string }));
       allProps.sort((a, b) => {
         if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
         if (a.order !== undefined) return -1;
@@ -115,12 +115,13 @@ export default function EditPropertyPage() {
         return 0;
       });
       setCatalogProperties(allProps);
-      const currentIndex = allProps.findIndex(p => p.id === id);
-      setSelectedPosition(currentIndex >= 0 ? currentIndex + 1 : allProps.length);
 
       const propertyDoc = await getDoc(doc(db, 'properties', id));
       if (propertyDoc.exists()) {
         const propertyData = { id: propertyDoc.id, ...propertyDoc.data() } as Property;
+        const sameTypeProps = allProps.filter(p => p.type === propertyData.type);
+        const currentSameTypeIndex = sameTypeProps.findIndex(p => p.id === id);
+        setSelectedPosition(currentSameTypeIndex >= 0 ? currentSameTypeIndex + 1 : sameTypeProps.length);
         setProperty(propertyData);
 
         // Load all media combined: main first, then additional
@@ -196,6 +197,9 @@ export default function EditPropertyPage() {
       ...prev,
       [field]: value
     }));
+    if (field === 'type') {
+      setSelectedPosition(1);
+    }
   };
 
   // Handler for removing existing media
@@ -268,15 +272,15 @@ export default function EditPropertyPage() {
         });
       }
 
-      // Step 5: Normalize all catalog orders and move this property to selectedPosition.
-      // Always normalize (not just when position changes) so that any properties
-      // lacking an order field get sequential integers matching their display position.
-      const currentIndex = catalogProperties.findIndex(p => p.id === id);
+      // Step 5: Normalize orders for same-type properties only and move this property
+      // to selectedPosition. Sale and rent properties maintain independent order sequences.
+      const sameTypeProperties = catalogProperties.filter(p => p.type === formData.type);
+      const currentIndex = sameTypeProperties.findIndex(p => p.id === id);
       const insertIndex = selectedPosition - 1;
 
-      const reordered = [...catalogProperties];
+      const reordered = [...sameTypeProperties];
       if (currentIndex >= 0) reordered.splice(currentIndex, 1);
-      reordered.splice(insertIndex, 0, { id: id as string, order: insertIndex });
+      reordered.splice(insertIndex, 0, { id: id as string, order: insertIndex, type: formData.type });
 
       const batch = writeBatch(db);
       reordered.forEach((p, idx) => {
@@ -435,6 +439,8 @@ export default function EditPropertyPage() {
                         <SelectItem value="house">בתים</SelectItem>
                         <SelectItem value="penthouse">פנטהאוזים</SelectItem>
                         <SelectItem value="garden">דירות גן</SelectItem>
+                        <SelectItem value="commercial">מסחרי</SelectItem>
+                        <SelectItem value="land">מגרשים</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -531,7 +537,7 @@ export default function EditPropertyPage() {
                         מיקום בקטלוג
                       </Label>
                       <p className="text-sm mt-0.5" style={{ color: "rgba(25,39,74,0.5)" }}>
-                        קבע היכן הנכס יופיע בין {catalogProperties.length} הנכסים בקטלוג
+                        קבע היכן הנכס יופיע בין {catalogProperties.filter(p => p.type === formData.type).length} הנכסים {formData.type === 'sale' ? 'למכירה' : 'להשכרה'} בקטלוג
                       </p>
                     </div>
                   </div>
@@ -543,10 +549,11 @@ export default function EditPropertyPage() {
                       <SelectValue placeholder="בחר מיקום" />
                     </SelectTrigger>
                     <SelectContent>
-                      {Array.from({ length: catalogProperties.length }, (_, i) => i + 1).map((pos) => {
+                      {Array.from({ length: catalogProperties.filter(p => p.type === formData.type).length }, (_, i) => i + 1).map((pos) => {
+                        const sameTypeCount = catalogProperties.filter(p => p.type === formData.type).length;
                         const ordinals = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שביעי', 'שמיני', 'תשיעי', 'עשירי'];
                         const label = ordinals[pos - 1] ?? `${pos}`;
-                        const total = catalogProperties.length;
+                        const total = sameTypeCount;
                         const suffix = pos === 1 ? ' — יוצג ראשון' : pos === total ? ' — יוצג אחרון' : '';
                         return (
                           <SelectItem key={pos} value={String(pos)}>
